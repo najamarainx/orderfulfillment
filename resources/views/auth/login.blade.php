@@ -28,7 +28,7 @@
         <div class="form-group">
             <div class="d-flex justify-content-between mt-n5">
                 <label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
-                <a href="custom/pages/login/login-4/forgot.html" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">Forgot Password ?</a>
+                {{-- <a href="custom/pages/login/login-4/forgot.html" class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">Forgot Password ?</a> --}}
             </div>
             <input id="password" type="password" class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0 @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
             @error('password')
