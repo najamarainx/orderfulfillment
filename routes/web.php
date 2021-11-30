@@ -25,7 +25,7 @@ Route::prefix('role')->group(function () {
     Route::post('/list', [Controllers\RoleController::class, 'getList'])->name('getRoleList');
     Route::post('/submit', [Controllers\RoleController::class, 'store'])->name('roleSubmit');
     Route::post('/edit', [Controllers\RoleController::class, 'getRoleById'])->name('getRoleById');
-    // Route::post('/delete', [Controllers\RoleController::class, 'destroy'])->name('roleDelete')->middleware('haspermission:deleteRole');
+    Route::post('/delete', [Controllers\RoleController::class, 'destroy'])->name('roleDelete');
     // Route::post('/permission', [Controllers\RoleController::class, 'rolePermissions'])->name('rolePermissions')->middleware('haspermission:assignPermissionRole');
     // Route::post('/assign/permission', [Controllers\RoleController::class, 'assignPermissions'])->name('assignPermissions')->middleware('haspermission:assignPermissionRole');
 });

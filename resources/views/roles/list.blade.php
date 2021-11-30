@@ -358,5 +358,43 @@
                     }
                 });
             });
+
+            $(document).on('click','.delete',function() {
+                var id = $(this).data('id');
+                var form_data = new FormData();
+                form_data.append('id', id);
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You wont be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, delete it!"
+                }).then(function(result) {
+                    if (result.value) {
+                        $.ajax({
+                            type: "POST",
+                            url: "{{route('roleDelete')}}", // your php file name
+                            data: form_data,
+                            dataType: "json",
+                            processData: false,
+                            contentType: false,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function (data){
+                                if(data.status == 'success') {
+                                    Swal.fire("Success!", data.message, "success");
+                                    table.ajax.reload();
+                                } else {
+                                    Swal.fire("Sorry!", data.message, "error");
+                                }
+                            },
+                            error: function (errorString){
+                                Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                            }
+                        });
+                    }
+                });
+            });
     </script>
 @endsection

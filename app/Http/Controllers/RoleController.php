@@ -85,7 +85,7 @@ class RoleController extends Controller
             //         </a>';
             // }
             // if (hasPermission('deleteRole') && $roleObj->name!='Super Admin') {
-            $action .= '<ahref="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm" data-id="' . $roleObj->id . '" title="Delete">
+            $action .= '<ahref="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm delete" data-id="' . $roleObj->id . '" title="Delete">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -145,4 +145,11 @@ class RoleController extends Controller
         }
         return response()->json($return);
     }
+
+    public function destroy(Request $request) {
+        $id = $request->id;
+        OrderFulfillmentRole::where('id', $id)->delete();
+        return response()->json(['status' => 'success','message' => 'Role is deleted successfully']);
+    }
+
 }
