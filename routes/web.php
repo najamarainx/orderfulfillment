@@ -35,6 +35,7 @@ Route::prefix('users')->group(function () {
     });
 Route::prefix('zip')->group(function () {
     Route::get('/', [Controllers\ZipController::class, 'index'])->name('zipList');
+    Route::post('/list', [Controllers\ZipController::class, 'getList'])->name('getZipList');
 
     });
 
