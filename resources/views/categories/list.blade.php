@@ -11,91 +11,89 @@
       }
   </style>
 @endsection
+
 @section('content')
-    <div class="d-flex flex-column-fluid">
-        <!--begin::Container-->
-        <div class="container">
-            <div class="card card-custom gutter-b">
-                <div class="card-header flex-wrap py-3">
-                    <div class="card-title">
-                        <h3 class="card-label">Roles List
+<div class="d-flex flex-column-fluid">
+    <!--begin::Container-->
+    <div class="container">
+        <div class="card card-custom gutter-b">
+            <div class="card-header flex-wrap py-3">
+                <div class="card-title">
+                    <h3 class="card-label">Category List
 
-                        </h3>
-                    </div>
-                    <div class="card-toolbar">
-                        <!--begin::Dropdown-->
-
-                        <!--end::Dropdown-->
-                        <!--begin::Button-->
-                        <a data-target="#addRoleModal" data-toggle="modal" class="btn btn-primary font-weight-bolder" id='btn_add_new'>
-                            <span class="svg-icon svg-icon-md">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <rect x="0" y="0" width="24" height="24" />
-                                        <circle fill="#000000" cx="9" cy="15" r="6" />
-                                        <path
-                                            d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z"
-                                            fill="#000000" opacity="0.3" />
-                                    </g>
-                                </svg>
-                                <!--end::Svg Icon-->
-                            </span>Add Role</a>
-                        <!--end::Button-->
-                    </div>
+                    </h3>
                 </div>
-                <div class="card-body">
-                    <form class="kt-form kt-form--fit">
-                        <div class="row mb-6">
-                            <div class="col-lg-3 mb-lg-2 mb-2">
-                                <label>Role:</label>
-                                <input type="text" class="form-control datatable-input" placeholder="E.g: test"
-                                    data-col-index="1" />
-                            </div>
-                            <div class="col-lg-9 mb-lg-2 mb-2">
-                                <label>&nbsp;</label><br />
-                                <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
-                                    <span>
-                                        <i class="la la-close"></i>
-                                        <span>Reset</span>
-                                    </span>
-                                </button>
-                                <button class="btn btn-primary btn-primary--icon" id="kt_search">
-                                    <span>
-                                        <i class="la la-search"></i>
-                                        <span>Search</span>
-                                    </span>
-                                </button>&#160;&#160;
+                <div class="card-toolbar">
+                    <!--begin::Dropdown-->
 
-                            </div>
+                    <!--end::Dropdown-->
+                    <!--begin::Button-->
+                    <a data-target="#addCategoryModal" data-toggle="modal" class="btn btn-primary font-weight-bolder" id='btn_add_new'>
+                        <span class="svg-icon svg-icon-md">
+                            <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <circle fill="#000000" cx="9" cy="15" r="6" />
+                                    <path
+                                        d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z"
+                                        fill="#000000" opacity="0.3" />
+                                </g>
+                            </svg>
+                            <!--end::Svg Icon-->
+                        </span>Add Category</a>
+                    <!--end::Button-->
+                </div>
+            </div>
+            <div class="card-body">
+                <form class="kt-form kt-form--fit">
+                    <div class="row mb-6">
+                        <div class="col-lg-3 mb-lg-2 mb-2">
+                            <label>Category:</label>
+                            <input type="text" class="form-control datatable-input" placeholder="E.g: test"
+                                data-col-index="1" />
                         </div>
-                    </form>
-                    <!--begin: Datatable-->
-                    <table class="table table-bordered table-checkable" id="roleTableList">
-                        <thead>
-                            <tr>
-                                <th>Record ID</th>
-                                <th>Role</th>
-                                <th>Created</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                    </table>
-                    <!--end: Datatable-->
-                </div>
+                        <div class="col-lg-9 mb-lg-2 mb-2">
+                            <label>&nbsp;</label><br />
+                            <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
+                                <span>
+                                    <i class="la la-close"></i>
+                                    <span>Reset</span>
+                                </span>
+                            </button>
+                            <button class="btn btn-primary btn-primary--icon" id="kt_search">
+                                <span>
+                                    <i class="la la-search"></i>
+                                    <span>Search</span>
+                                </span>
+                            </button>&#160;&#160;
+
+                        </div>
+                    </div>
+                </form>
+                <!--begin: Datatable-->
+                <table class="table table-bordered table-checkable" id="categoryDatatableList">
+                    <thead>
+                        <tr>
+                            <th>Sr</th>
+                            <th>Category</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                </table>
+                <!--end: Datatable-->
             </div>
         </div>
     </div>
-
-
-
-    <div class="modal fade show" id="addRoleModal" data-backdrop="static" tabindex="-1" role="dialog"
+</div>
+<div class="modal fade show" id="addCategoryModal" data-backdrop="static" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-modal="true" >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Role</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
@@ -106,7 +104,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <input type="hidden" name="id" id="id">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Role Name">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Category Name">
                                 </div>
                             </div>
                         </div>
@@ -118,15 +116,13 @@
         </div>
     </div>
 @endsection
-
 @section('page_level_js_plugin')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/jqvalidation/jquery.validate.min.js?v=7.0.4') }}"></script>
 @endsection
-
 @section('page_level_js')
-    <script>
-        $(document).ajaxStart(function() {
+<script>
+     $(document).ajaxStart(function() {
             KTApp.blockPage({
                 overlayColor: 'red',
                 opacity: 0.1,
@@ -139,7 +135,7 @@
         var datatable = function() {
             var initTable = function() {
                 // begin first table
-                table = $('#roleTableList').DataTable({
+                table = $('#categoryDatatableList').DataTable({
                     responsive: true,
                     // Pagination settings
                     dom: `<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
@@ -157,32 +153,24 @@
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "{{ route('getRoleList') }}",
+                        url: "{{ route('getCategoryList') }}",
                         type: 'POST',
                         data: {
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id', 'name', 'created_at'
+                                'id', 'parent_category_id', 'name', 'type', 'created_at'
                             ],
+                            "category_type" : "{{ Request::segment(2) }}",
                         },
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                     },
-                    columns: [{
-                            data: 'id'
-                        },
-                        {
-                            data: 'name'
-                        },
-                        {
-                            data: 'created_at'
-                        },
-                        {
-                            data: 'action',
-                            responsivePriority: -1,
-                            bSortable: false
-                        },
+                    columns: [
+                        {data: 'sr'},
+                        {data: 'name'},
+                        {data: 'created_at'},
+                        {data: 'action', responsivePriority: -1, bSortable: false},
                     ],
                     order: [
                         [0, "desc"]
@@ -264,7 +252,7 @@
         })
 
         $(document).on('click', '#btn_add_new', function(){
-                $('#addRoleModal').modal({
+                $('#addCategoryModal').modal({
                     backdrop: 'static',
                     keyboard: false
                 }).on('hide.bs.modal', function(){
@@ -274,14 +262,13 @@
                 form[0].reset();
             });
 
-
             $(document).on('click', '#btn_save', function(){
                 var validate = $("#addForm").valid();
                 if(validate) {
                     var form_data = $("#addForm").serializeArray();
                     $.ajax({
                         type: "POST",
-                        url: "{{route('roleSubmit')}}", // your php file name
+                        url: "{{route('categorySubmit')}}", // your php file name
                         data: form_data,
                         dataType: "json",
                         headers: {
@@ -309,7 +296,7 @@
                                 toastr.success(data.message);
                                 var form = $("#addForm");
                                 form[0].reset();
-                                $('#addRoleModal').modal('hide');
+                                $('#addCategoryModal').modal('hide');
                                 table.ajax.reload();
                             } else {
                                 Swal.fire("Sorry!", data.message, "error");
@@ -328,7 +315,7 @@
                 form_data.append('id', id);
                 $.ajax({
                     type: "POST",
-                    url: "{{route('getRoleById')}}", // your php file name
+                    url: "{{route('getCategoryById')}}", // your php file name
                     data: form_data,
                     dataType: "json",
                     processData: false,
@@ -338,7 +325,7 @@
                     },
                     success: function (data){
                         if(data.status == 'success') {
-                            $('#addRoleModal').modal({
+                            $('#addCategoryModal').modal({
                                 backdrop: 'static',
                                 keyboard: false
                             }).on('hide.bs.modal', function(){
@@ -349,7 +336,6 @@
                             var name = rec.name;
                             $('#id').val(id);
                             $('#name').val(name);
-                           window.scrollTo({top: 0, behavior: 'smooth'});
                         } else {
                             Swal.fire("Sorry!", data.message, "error");
                         }
@@ -374,7 +360,7 @@
                     if (result.value) {
                         $.ajax({
                             type: "POST",
-                            url: "{{route('roleDelete')}}", // your php file name
+                            url: "{{route('categoryDelete')}}", // your php file name
                             data: form_data,
                             dataType: "json",
                             processData: false,
@@ -397,5 +383,5 @@
                     }
                 });
             });
-    </script>
+</script>
 @endsection
