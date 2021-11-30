@@ -21,7 +21,11 @@ Route::get('/login', function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('role')->group(function () {
-    Route::get('/', [Controllers\RoleController::class, 'index'])->name('roleList')->middleware('haspermission:viewRole');
+
+    Route::get('/', [Controllers\RoleController::class, 'index'])->name('roleList');
+    Route::post('/list', [Controllers\RoleController::class, 'getList'])->name('getRoleList');
+    Route::post('/submit', [Controllers\RoleController::class, 'store'])->name('roleSubmit');
+    Route::post('/edit', [Controllers\RoleController::class, 'getRoleById'])->name('getRoleById');
 
 });
 
@@ -33,6 +37,7 @@ Route::prefix('zip')->group(function () {
     Route::get('/', [Controllers\ZipController::class, 'index'])->name('zipList');
 
     });
+
 
 });
 

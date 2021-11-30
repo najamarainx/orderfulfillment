@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class OrderFulfillmentRole extends Model
 {
     use HasFactory;
-    protected $tableName = 'orderfulfillment_roles';
+    protected $table = 'orderfulfillment_roles';
 }

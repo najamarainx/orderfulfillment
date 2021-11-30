@@ -29,7 +29,7 @@
     <link href="{{ asset('assets/css/themes/layout/aside/dark.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Layout Themes-->
     <link rel="shortcut icon" href="{{asset('assets/media/favicon/favicon.ico')}}" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @yield('page_level_css')
     @yield('page_level_css_plugin')
@@ -180,7 +180,7 @@
 <script src="{{ asset('assets/js/pages/widgets.js') }}"></script>
 <!--end::Page Scripts-->
 
-@yield('page_level_js_plugins')
+@yield('page_level_js_plugin')
 <!--end::Page Vendors-->
 <!--begin::Page Scripts(used by this page)-->
 @yield('page_level_js')
