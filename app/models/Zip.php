@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Zip extends Model
 {
     use HasFactory;
+    protected $table = "orderfulfillment_zip_codes";
 }

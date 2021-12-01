@@ -33,6 +33,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('zip')->group(function () {
         Route::get('/', [Controllers\ZipController::class, 'index'])->name('zipList');
         Route::post('/list', [Controllers\ZipController::class, 'getList'])->name('getZipList');
+        Route::post('/submit', [Controllers\ZipController::class, 'store'])->name('zipSubmit');
+        Route::post('/edit', [Controllers\ZipController::class, 'getZipById'])->name('getZipById');
+        Route::post('/delete', [Controllers\ZipController::class, 'destroy'])->name('zipDelete');
 
 
         Route::prefix('role')->group(function () {

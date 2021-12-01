@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\OrderFulfillmentCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Zip;
 use Carbon\Carbon;
 use Auth;
+use Illuminate\Support\Facades\Validator;
+
 class ZipController extends Controller
 {
     public function index()
@@ -42,7 +45,13 @@ class ZipController extends Controller
             }
         }
         if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
-            $charges->orderBy($sortColumnName, $sortColumnSortOrder);
+            if($sortColumnName=='Sr'){
+                $charges->orderBy("id", "desc");
+            }
+            if($sortColumnName=='created_at'){
+                $charges->orderBy("created_at", "desc");
+            }
+
         } else {
             $charges->orderBy("name", "desc");
         }
@@ -101,6 +110,84 @@ class ZipController extends Controller
 
     }
 
+    public function store(Request $request)
+    {
 
+        $id = $request->id;
+        $validate = true;
+        $validateInput = $request->all();
+        $rules = [
+            'name' => 'required|max:150',
+
+        ];
+
+        $validator = Validator::make($validateInput, $rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            $allMsg = [];
+            foreach ($errors->all() as $message) {
+                $allMsg[] = $message;
+            }
+            $return['status'] = 'error';
+            $return['message'] = collect($allMsg)->implode('<br />');
+            $validate = false;
+            return response()->json($return);
+        }
+        if ($validate) {
+
+            $zip = new Zip();
+            if ($id > 0) {
+                $zip = Zip::findOrFail($id);
+            }
+
+            $zip->name = $request->name;
+            $zip->created_by= Auth::user()->id;
+            $query = $zip->save();
+            $return = [
+                'status' => 'error',
+                'message' => 'Zip is not save successfully',
+            ];
+            if ($query) {
+                $return = [
+                    'status' => 'success',
+                    'message' => 'Zip is save successfully',
+                    'zipId' => $zip->id,
+                ];
+            }
+        }
+
+        return response()->json($return);
+    }
+
+    public function getZipById(Request $request)
+    {
+        $id = $request->id;
+        $zip = Zip::where('id', $id)->first();
+        $return = [
+            'status' => 'success',
+            'data' => $zip,
+
+        ];
+        if (empty($zip)) {
+            $return = [
+                'status' => 'error',
+                'message' => 'Data not found for edit',
+
+            ];
+        }
+        return response()->json($return);
+    }
+
+    public function destroy(Request $request)
+    {
+        $id = $request->id;
+        $res = Zip::find($id);
+        if ($res) {
+            $res->delete();
+            return response()->json(['status' => 'success', 'message' => 'Zip is deleted successfully']);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Zip not deleted ']);
+        }
+    }
 
 }

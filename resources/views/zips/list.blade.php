@@ -1,8 +1,15 @@
 @extends('layouts.app')
 @section('title', 'Zip')
-@section('page_level_css_plugins')
-    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css?v=7.0.4') }}" rel="stylesheet"
+@section('page_level_css_plugin')
+    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
           type="text/css" />
+@endsection
+@section('page_level_css')
+    <style>
+        .error{
+            color: red!important;
+        }
+    </style>
 @endsection
 @section('content')
     <!--begin::Content-->
@@ -39,12 +46,22 @@
                             <span class="card-label font-weight-bolder text-dark">Zip List</span>
                         </h3>
                         <div class="card-toolbar">
-                            <ul class="nav nav-pills nav-pills-sm nav-dark-75">
-                                <li class="nav-item">
-                                    <a class="nav-link py-2 px-4 active" data-toggle="modal" data-target="#staticBackdrop">Add Zip</a>
-                                </li>
 
-                            </ul>
+                            <a data-target="#staticBackdrop" data-toggle="modal" class="btn btn-primary font-weight-bolder" id='btn_add_new'>
+                        <span class="svg-icon svg-icon-md">
+                            <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                 width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <circle fill="#000000" cx="9" cy="15" r="6" />
+                                    <path
+                                        d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z"
+                                        fill="#000000" opacity="0.3" />
+                                </g>
+                            </svg>
+                            <!--end::Svg Icon-->
+                        </span>Add Zip</a>
                         </div>
                     </div>
                     <!--end::Header-->
@@ -52,42 +69,44 @@
                     <div class="card-body pt-2 pb-0 mt-n3">
 
                         <!--begin::Tap pane-->
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <input type="number" class="form-control" placeholder="Name">
+                        <form class="kt-form kt-form--fit">
+                            <div class="row mb-6">
+                                <div class="col-lg-3 mb-lg-2 mb-2">
+                                    <label>Zip Code:</label>
+                                    <input type="text" class="form-control datatable-input" placeholder="E.g: Code"
+                                           data-col-index="1" />
+                                </div>
+                                <div class="col-lg-9 mb-lg-2 mb-2">
+                                    <label>&nbsp;</label><br />
+                                    <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
+                                <span>
+                                    <i class="la la-close"></i>
+                                    <span>Reset</span>
+                                </span>
+                                    </button>
+                                    <button class="btn btn-primary btn-primary--icon" id="kt_search">
+                                <span>
+                                    <i class="la la-search"></i>
+                                    <span>Search</span>
+                                </span>
+                                    </button>&#160;&#160;
+
                                 </div>
                             </div>
-
-
-                            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                                <div class="d-flex justify-content-between align-content-between">
-                                    <button type="button" class="btn btn-outline-primary w-100 mr-2">Reset</button>
-                                    <button type="button" class="btn btn-primary w-100 ml-2">Search</button>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                         <!--begin::Table-->
-                        <div class="table-responsive">
+
                             <table class="table table-bordered table-checkable" id="datatableList">
                                 <thead>
-                                <tr class="text-left text-uppercase">
-                                    <th class="px-0">Sr</th>
+                                <tr>
+                                    <th>Sr</th>
                                     <th>Code</th>
                                     <th>Created At</th>
-                                    <th class="pr-0 ">action</th>
+                                    <th>action</th>
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr class="text-left text-uppercase">
-                                    <th class="px-0">Sr</th>
-                                    <th>Code</th>
-                                    <th>Created At</th>
-                                    <th class="pr-0 ">action</th>
-                                </tr>
-                                </tfoot>
                             </table>
-                        </div>
+
                         <!--end::Table-->
 
 
@@ -127,7 +146,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <input type="name" id="name" class="form-control" placeholder="Zip Code">
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Zip Code">
                             </div>
                         </div>
                      </div>
@@ -150,6 +169,16 @@
 @endsection
 @section('page_level_js')
 <script type="text/javascript">
+    $(document).ajaxStart(function() {
+        KTApp.blockPage({
+            overlayColor: 'red',
+            opacity: 0.1,
+            state: 'primary' // a bootstrap color
+        });
+    }).ajaxStop(function() {
+        KTApp.unblockPage();
+    });
+    var table = "";
     var datatable = function() {
         var initTable = function() {
             // begin first table
@@ -284,19 +313,138 @@
             $(this).next('label.file_label').html(fileName);
         });
 
-        $(document).on('click', '#btn_add_new', function() {
-            $('#add_edit_modal').modal({
+        $(document).on('click', '#btn_add_new', function(){
+            $('#staticBackdrop').modal({
                 backdrop: 'static',
                 keyboard: false
-            }).on('hide.bs.modal', function() {
-                validator.resetForm();
+            }).on('hide.bs.modal', function(){
+                $("#addForm").validate().resetForm();
             });
-            resetForm();
+            var form = $("#addForm");
+            form[0].reset();
         });
 
 
+        $(document).on('click', '#btn_save', function(){
+            var validate = $("#addForm").valid();
+            if(validate) {
+                var form_data = $("#addForm").serializeArray();
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('zipSubmit')}}", // your php file name
+                    data: form_data,
+                    dataType: "json",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (data) {
+                        if (data.status == 'success') {
+                            toastr.options = {
+                                "closeButton": true,
+                                "debug": false,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-top-right",
+                                "preventDuplicates": true,
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "5000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            };
+                            toastr.success(data.message);
+                            var form = $("#addForm");
+                            form[0].reset();
+                            $('#staticBackdrop').modal('hide');
+                            table.ajax.reload();
+                        } else {
+                            Swal.fire("Sorry!", data.message, "error");
+                        }
+                    },
+                    error: function (errorString) {
+                        Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                    }
+                });
+            }
+        });
+        $(document).on('click','.edit',function() {
+            var id = $(this).data('id');
+            var form_data = new FormData();
+            form_data.append('id', id);
+            $.ajax({
+                type: "POST",
+                url: "{{route('getZipById')}}", // your php file name
+                data: form_data,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data){
+                    if(data.status == 'success') {
+                        $('#staticBackdrop').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        }).on('hide.bs.modal', function(){
+                            $("#addForm").validate().resetForm();
 
-
+                        });
+                        var rec = data.data;
+                        var id = rec.id;
+                        var name = rec.name;
+                        $('#id').val(id);
+                        $('#name').val(name);
+                    } else {
+                        Swal.fire("Sorry!", data.message, "error");
+                    }
+                },
+                error: function (errorString){
+                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                }
+            });
+        });
+        $(document).on('click','.delete',function() {
+            var id = $(this).data('id');
+            var form_data = new FormData();
+            form_data.append('id', id);
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You wont be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!"
+            }).then(function(result) {
+                if (result.value) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{route('zipDelete')}}", // your php file name
+                        data: form_data,
+                        dataType: "json",
+                        processData: false,
+                        contentType: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function (data){
+                            if(data.status == 'success') {
+                                Swal.fire("Success!", data.message, "success");
+                                table.ajax.reload();
+                            } else {
+                                Swal.fire("Sorry!", data.message, "error");
+                            }
+                        },
+                        error: function (errorString){
+                            Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                        }
+                    });
+                }
+            });
+        });
 
 
         var input = document.getElementById("addForm");
