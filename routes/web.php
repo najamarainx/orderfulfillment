@@ -38,10 +38,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/edit', [Controllers\ZipController::class, 'getZipById'])->name('getZipById');
         Route::post('/delete', [Controllers\ZipController::class, 'destroy'])->name('zipDelete');
 
+
     });
 
     Route::prefix('users')->group(function () {
             Route::get('/', [Controllers\UserController::class, 'index'])->name('userList');
+            Route::post('/list', [Controllers\UserController::class, 'getList'])->name('getUserList');
+            Route::post('/edit', [Controllers\UserController::class, 'getUserById'])->name('getUserById');
+            Route::post('/submit', [Controllers\UserController::class, 'store'])->name('userSubmit');
+            Route::post('/delete', [Controllers\UserController::class, 'destroy'])->name('userDelete');
         });
 
     Route::prefix('permission')->group(function () {

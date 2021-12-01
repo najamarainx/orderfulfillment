@@ -8,8 +8,14 @@
         .error{
             color: red!important;
         }
+        span.select2.select2-container.select2-container--default {
+            width:100% !important;
+        }
     </style>
 @endsection
+@php
+    $userTypes=array('measurement','installation','customer_support','accountant','production_manager');
+@endphp
 @section('content')
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -45,12 +51,22 @@
                             <span class="card-label font-weight-bolder text-dark">User List</span>
                         </h3>
                         <div class="card-toolbar">
-                            <ul class="nav nav-pills nav-pills-sm nav-dark-75">
-                                <li class="nav-item">
-                                    <a class="nav-link py-2 px-4 active" data-toggle="modal" data-target="#staticBackdrop">Add User</a>
-                                </li>
 
-                            </ul>
+                            <a data-target="#staticBackdrop" data-toggle="modal" class="btn btn-primary font-weight-bolder" id='btn_add_new'>
+                        <span class="svg-icon svg-icon-md">
+                            <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                 width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <circle fill="#000000" cx="9" cy="15" r="6" />
+                                    <path
+                                        d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z"
+                                        fill="#000000" opacity="0.3" />
+                                </g>
+                            </svg>
+                            <!--end::Svg Icon-->
+                        </span>Add User</a>
                         </div>
                     </div>
                     <!--end::Header-->
@@ -62,12 +78,12 @@
                             <div class="row">
                                     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
-                                            <input type="number" class="form-control datatable-input" placeholder="Name" data-col-index="1">
+                                            <input type="text" class="form-control datatable-input" placeholder="Name" data-col-index="1">
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
-                                            <input type="text" class="form-control datatable-input" placeholder="Email" data-col-index="2">
+                                            <input type="email" class="form-control datatable-input" placeholder="Email" data-col-index="2">
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
@@ -77,32 +93,39 @@
                                     </div>
                                     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
-                                            <select class="form-control datatable-input" id="exampleSelect1" data-col-index="4">
-                                                <option default>Select Role</option>
-                                                <option>20%</option>
-                                                <option>40%</option>
-                                                <option>60%</option>
-                                                <option>Full Paid</option>
-                                                <option>Un Paid</option>
+                                            <select class="form-control kt_select2_1 datatable-input " id="role_search" data-col-index="4" >
+                                                <option value="">Select Role</option>
+                                                @foreach($roles as $role)
+                                                    <option value="{{$role->id}}">{{ucfirst($role->name)}}</option>
+                                                @endforeach
                                             </select>
+
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
-                                            <select class="form-control datatable-input" id="exampleSelect2" data-col-index="5">
-                                                <option default>Select User Type</option>
-                                                <option>Pending</option>
-                                                <option>In Progress</option>
-                                                <option>Approved</option>
-                                                <option>Reschedule</option>
+                                            <select class="form-control kt_select2_1 datatable-input "id="type_search" data-col-index="5">
+                                                <option value="">Select User Type</option>
+                                                @foreach($userTypes as $type)
+                                                    <option value="{{$type}}">{{ucfirst($type)}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                                        <div class="d-flex justify-content-between align-content-between">
-                                            <button type="button" class="btn btn-outline-primary w-100 mr-2">Reset</button>
-                                            <button type="button" class="btn btn-primary w-100 ml-2">Search</button>
-                                        </div>
+                                        <label>&nbsp;</label><br />
+                                        <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
+                                        <span>
+                                            <i class="la la-close"></i>
+                                            <span>Reset</span>
+                                        </span>
+                                                </button>
+                                                <button class="btn btn-primary btn-primary--icon" id="kt_search">
+                                        <span>
+                                            <i class="la la-search"></i>
+                                            <span>Search</span>
+                                        </span>
+                                                </button>&#160;&#160;
                                     </div>
                                 </div>
                         </form>
@@ -114,9 +137,10 @@
                                             <th>Sr</th>
                                            <th>Name</th>
                                             <th>Email</th>
-                                            <th>Phone. No</th>
+                                            <th>Phone No</th>
                                             <th>Role</th>
                                             <th>User Type</th>
+                                            <th>Created At</th>
                                            <th>Action</th>
                                         </tr>
                                         </thead>
@@ -149,6 +173,9 @@
     <!--------modal user---------------->
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
+
+            <form onsubmit="return false" id="addForm">
+                <input type="hidden" class="form-control" name="id" id="id" value="" />
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
@@ -159,9 +186,9 @@
                 <div class="modal-body">
 
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12">
                             <div class="form-group">
-                                <input type="name" id="name" class="form-control" placeholder="Name">
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Name"  data-col-index="1">
                             </div>
                         </div>
                         <div class="col-6">
@@ -176,15 +203,35 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <select class="form-control" id="exampleSelect2">
-                                    <option default>Select User Type</option>
-                                    <option>Pending</option>
-                                    <option>In Progress</option>
-                                    <option>Approved</option>
-                                    <option>Reschedule</option>
+                                <select class="form-control kt_select2_1 user_type" name="user_type" id="user_type" onchange="getUserType(this.value)" required >
+                                    <option value="">Select User Type</option>
+                                    @foreach($userTypes as $type)
+                                    <option value="{{$type}}">{{ucfirst($type)}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <select class="form-control kt_select2_1 user_role" id="user_role" name="user_role" required >
+                                    <option value="">Select Role</option>
+                                    @foreach($roles as $role)
+                                    <option value="{{$role->id}}">{{ucfirst($role->name)}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12" id="show_type" style="display:none;">
+                            <div class="form-group">
+                                <select class="form-control select2 kt_select2_3 " multiple="multiple" name="zip_id[]" id="zip_id">
+                                   @foreach($zipcodes as $zipcode)
+                                        <option value="{{$zipcode->id}}">{{ucfirst($zipcode->name)}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <span class="text-danger zip_error"></span>
+                        </div>
+
 
 
                     </div>
@@ -192,9 +239,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary font-weight-bold">Save</button>
+                    <button type="button" class="btn btn-primary font-weight-bold" id="btn_save">Save</button>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 <!-------end user modal-------------->
@@ -237,12 +285,12 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('getZipList') }}",
+                    url: "{{ route('getUserList') }}",
                     type: 'POST',
                     data: {
                         // parameters for custom backend script demo
                         columnsDef: [
-                            'Sr','Name','created_at'
+                            'Sr','name','email','phone_number','role','user_type','created_at'
                         ],
                     },
                     headers: {
@@ -254,7 +302,19 @@
                         data: 'Sr'
                     },
                     {
-                        data: 'Name'
+                        data: 'name'
+                    },
+                    {
+                        data: 'email'
+                    },
+                    {
+                        data: 'phone_number'
+                    },
+                    {
+                        data: 'role'
+                    },
+                    {
+                        data: 'user_type'
                     },
                     {
                         data: 'created_at'
@@ -297,6 +357,8 @@
                 e.preventDefault();
                 $('.datatable-input').each(function() {
                     $(this).val('');
+                    $('#type_search').val('').trigger('change')
+                    $('#role_search').val('').trigger('change')
                     table.column($(this).data('col-index')).search('', false, false);
                 });
                 table.table().draw();
@@ -332,14 +394,31 @@
             rules: {
                 name: {
                     required: true
-                }
+                },
+                email: {
+                    required: true
+                },
+                phone: {
+                    required: true
+                },
+                user_type: {
+                    required: true
+                },
+                user_role: {
+                    required: true
+                },
             },
             errorPlacement: function(error, element) {
                 var elem = $(element);
-                if (elem.hasClass("selectpicker")) {
-                    element = elem.parent();
-                    error.insertAfter(element);
-                } else {
+                if (elem.hasClass("user_type")) {
+
+                    error.appendTo(element.parent().after());
+                    //error.insertAfter(element);
+                }
+                else if(elem.hasClass("user_role")){
+                    error.appendTo(element.parent().after());
+                }
+                else {
                     error.insertAfter(element);
                 }
             }
@@ -365,10 +444,22 @@
         $(document).on('click', '#btn_save', function(){
             var validate = $("#addForm").valid();
             if(validate) {
+                var userType=$('#user_type').val();
+               if(userType=='measurement' || userType=='installation'){
+
+                    if($('#zip_id').val()==''){
+                        $('.zip_error').html('this field is required');
+                        return false;
+                    }
+
+                }else{
+                    $('.zip_error').html('');
+                }
+
                 var form_data = $("#addForm").serializeArray();
                 $.ajax({
                     type: "POST",
-                    url: "{{route('zipSubmit')}}", // your php file name
+                    url: "{{route('userSubmit')}}", // your php file name
                     data: form_data,
                     dataType: "json",
                     headers: {
@@ -414,7 +505,7 @@
             form_data.append('id', id);
             $.ajax({
                 type: "POST",
-                url: "{{route('getZipById')}}", // your php file name
+                url: "{{route('getUserById')}}", // your php file name
                 data: form_data,
                 dataType: "json",
                 processData: false,
@@ -432,10 +523,28 @@
 
                         });
                         var rec = data.data;
+                        console.log(rec);
                         var id = rec.id;
                         var name = rec.name;
                         $('#id').val(id);
                         $('#name').val(name);
+                        $('#phone').val(rec.phone_number);
+                        $('#email').val(rec.email);
+                        //$('#user_type').val(rec.type);
+                        $('#user_type').val(rec.type).trigger('change');
+                        $('#user_role').val(rec.role_id).trigger('change');
+                        if(rec.type=='installment' || rec.type=='measurement'){
+                            $('#show_type').show();
+                            var zips = data.zipIDs;
+                            var str_array = zips.split(',');
+                            $("#zip_id").val(str_array).trigger("change");
+                        }
+
+
+
+
+
+
                     } else {
                         Swal.fire("Sorry!", data.message, "error");
                     }
@@ -459,7 +568,7 @@
                 if (result.value) {
                     $.ajax({
                         type: "POST",
-                        url: "{{route('zipDelete')}}", // your php file name
+                        url: "{{route('userDelete')}}", // your php file name
                         data: form_data,
                         dataType: "json",
                         processData: false,
@@ -495,5 +604,16 @@
 
 
     });
+
+    function getUserType(userType){
+       if(userType=='installation' || userType=='measurement'){
+
+           $('#show_type').show();
+       }
+       else{
+           $('#show_type').hide();
+       }
+    }
+
 </script>
 @endsection
