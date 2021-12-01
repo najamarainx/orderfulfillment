@@ -80,7 +80,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/list', [Controllers\ItemController::class, 'getList'])->name('getItemList');
         Route::post('/submit', [Controllers\ItemController::class, 'store'])->name('itemSubmit');
         Route::post('/edit', [Controllers\ItemController::class, 'getItemById'])->name('getItemById');
-        // Route::post('/delete', [Controllers\RoleController::class, 'destroy'])->name('roleDelete')->middleware('haspermission:deleteRole');
+        Route::post('/delete', [Controllers\ItemController::class, 'destroy'])->name('itemDelete');
         // Route::post('/permission', [Controllers\RoleController::class, 'rolePermissions'])->name('rolePermissions')->middleware('haspermission:assignPermissionRole');
         // Route::post('/assign/permission', [Controllers\RoleController::class, 'assignPermissions'])->name('assignPermissions')->middleware('haspermission:assignPermissionRole');
     });

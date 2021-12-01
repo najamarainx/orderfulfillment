@@ -9,7 +9,9 @@
         .error {
             color: red !important;
         }
-
+        span.select2.select2-container.select2-container--default {
+            width:100% !important;
+        }
     </style>
 @endsection
 @section('content')
@@ -49,11 +51,22 @@
                 <form class="kt-form kt-form--fit">
                     <div class="row mb-6">
                         <div class="col-lg-3 mb-lg-2 mb-2">
+                            <label>Department: <span class="text-danger">*</span> </label>
+                            <select   class="form-control datatable-input kt_select2_1"  data-col-index="1">
+                                    @if(!empty($departments))
+                                    <option value="">Select</option>
+                                    @foreach ($departments as $departmentObj)
+                                      <option value="{{$departmentObj->id}}">{{$departmentObj->name}}</option>
+                                    @endforeach
+                                    @endif
+                            </select>
+                        </div>
+                        <div class="col-lg-3 mb-lg-2 mb-2">
                             <label>Name:</label>
                             <input type="text" class="form-control datatable-input" placeholder="E.g: test"
-                                data-col-index="1" />
+                                data-col-index="2" />
                         </div>
-                        <div class="col-lg-9 mb-lg-2 mb-2">
+                        <div class="col-lg-3 mb-lg-2 mb-2">
                             <label>&nbsp;</label><br />
                             <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
                                 <span>
@@ -110,13 +123,13 @@
                         <div class="form-group">
                             <input type="hidden" name="id" id="id">
                             <label>Title <span class="text-danger">*</span> </label>
-                            <input type="text" name="name" class="form-control" placeholder="Title">
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Title">
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-group">
                             <label>Department <span class="text-danger">*</span> </label>
-                            <select name="department_id" id="department_id" class="form-control selectpicker" data-live-search="true">
+                            <select name="department_id" id="department_id" class="form-control department_id kt_select2_1" >
                                     @if(!empty($departments))
                                     <option value="">Select</option>
                                     @foreach ($departments as $departmentObj)
@@ -223,6 +236,7 @@
                             responsivePriority: -1,
                             bSortable: false
                         },
+
                     ],
                     order: [
                         [0, "desc"]
@@ -302,14 +316,17 @@ jQuery(document).ready(function() {
 
                 },
                 errorPlacement: function(error, element) {
-                    var elem = $(element);
-                    if (elem.hasClass("selectpicker")) {
-                        element = elem.parent();
-                        error.insertAfter(element);
-                    } else {
-                        error.insertAfter(element);
-                    }
+                var elem = $(element);
+                if (elem.hasClass("department_id")) {
+
+                    error.appendTo(element.parent().after());
+                    //error.insertAfter(element);
                 }
+
+                else {
+                    error.insertAfter(element);
+                }
+            }
             });
 
             var input = document.getElementById("addForm");
@@ -411,7 +428,7 @@ $(document).on('click', '#btn_add_new', function() {
                         $('#name').val(name);
                         $('#min_qty').val(min_qty);
                         $('#unit').val(unit);
-                        $('#department_id').val(department_id).trigger('change');
+                        $('#department_id').val(department_id).trigger('change.select2');
                         window.scrollTo({
                             top: 0,
                             behavior: 'smooth'
@@ -422,6 +439,45 @@ $(document).on('click', '#btn_add_new', function() {
                 },
                 error: function(errorString) {
                     Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                }
+            });
+        });
+
+        $(document).on('click', '.delete', function() {
+            var id = $(this).data('id');
+            var form_data = new FormData();
+            form_data.append('id', id);
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You wont be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!"
+            }).then(function(result) {
+                if (result.value) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('itemDelete') }}", // your php file name
+                        data: form_data,
+                        dataType: "json",
+                        processData: false,
+                        contentType: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(data) {
+                            if (data.status == 'success') {
+                                Swal.fire("Success!", data.message, "success");
+                                table.ajax.reload();
+                            } else {
+                                Swal.fire("Sorry!", data.message, "error");
+                            }
+                        },
+                        error: function(errorString) {
+                            Swal.fire("Sorry!", "Something went wrong please contact to admin",
+                                "error");
+                        }
+                    });
                 }
             });
         });

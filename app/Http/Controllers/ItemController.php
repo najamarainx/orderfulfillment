@@ -28,7 +28,7 @@ class ItemController extends Controller
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
 
-        $item = DB::table('orderfulfillment_items');
+        $item = DB::table('orderfulfillment_items')->whereNull('deleted_at');
         foreach ($columns as $field) {
             $col = $field['data'];
             $search = $field['search']['value'];
@@ -36,7 +36,7 @@ class ItemController extends Controller
                 if ($col == 'id') {
                     $item->where($col, $search);
                 }
-                if ($col == 'category_id') {
+                if ($col == 'department)_id') {
                     $item->where($col, $search);
                 }
                 if ($col == 'name') {
@@ -168,7 +168,7 @@ class ItemController extends Controller
             'status' => 'success',
             'data' => $item
         ];
-        if (empty($role)) {
+        if (empty($item)) {
             $return = [
                 'status' => 'error',
                 'message' => 'Data not found for edit'
@@ -176,5 +176,17 @@ class ItemController extends Controller
         }
         return response()->json($return);
     }
+    public function destroy(Request $request)
+    {
+        $id = $request->id;
 
+        if ($id) {
+            DB::table('orderfulfillment_items')
+                ->where('id', $id)
+                ->update(['deleted_at' => Carbon::now()->format('Y-m-d H:i:s')]);
+            return response()->json(['status' => 'success', 'message' => 'Item is deleted successfully']);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Item not deleted beacuse it is assigned']);
+        }
+    }
 }
