@@ -174,14 +174,17 @@ class CategoryController extends Controller
 
     public function destroy(Request $request)
     {
+
         $id = $request->id;
-        $id = $request->id;
-        $res = OrderFulfillmentCategory::find($id);
+        $checkCategory = new OrderFulfillmentCategory();
+        $res = $checkCategory->checkCategoryAssign($id);
         if ($res) {
-            $res->delete();
+            DB::table('orderfulfillment_categories')
+            ->where('id', $id)
+            ->update(['deleted_at'=>Carbon::now()->format('Y-m-d H:i:s')]);
             return response()->json(['status' => 'success', 'message' => 'Category is deleted successfully']);
         } else {
-            return response()->json(['status' => 'error', 'message' => 'Category not deleted ']);
+            return response()->json(['status' => 'error', 'message' => 'Category not deleted because it is assigned to permission']);
         }
     }
 }

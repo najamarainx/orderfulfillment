@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,11 +22,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::prefix('categories')->group(function () {
-        Route::get('/', [Controllers\CategoryController::class, 'index'])->name('categoryList');
+        Route::get('/', [Controllers\CategoryController::class, 'index'])->name('categoryList')->middleware('haspermission:viewCategory');
         Route::post('/list', [Controllers\CategoryController::class, 'getList'])->name('getCategoryList');
-        Route::post('/submit', [Controllers\CategoryController::class, 'store'])->name('categorySubmit');
-        Route::post('/edit', [Controllers\CategoryController::class, 'getCategoryById'])->name('getCategoryById');
-        Route::post('/delete', [Controllers\CategoryController::class, 'destroy'])->name('categoryDelete');
+        Route::post('/submit', [Controllers\CategoryController::class, 'store'])->name('categorySubmit')->middleware('haspermission:addCategory');
+        Route::post('/edit', [Controllers\CategoryController::class, 'getCategoryById'])->name('getCategoryById')->middleware('haspermission:editCategory');
+        Route::post('/delete', [Controllers\CategoryController::class, 'destroy'])->name('categoryDelete')->middleware('haspermission:deleteCategory');
         // Route::post('get-category-products', [Controllers\CategoryController::class, 'getProductByCategory'])->name('getProductsByCategory');
 
     });
@@ -33,7 +34,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('zip')->group(function () {
         Route::get('/', [Controllers\ZipController::class, 'index'])->name('zipList');
         Route::post('/list', [Controllers\ZipController::class, 'getList'])->name('getZipList');
-
         Route::post('/submit', [Controllers\ZipController::class, 'store'])->name('zipSubmit');
         Route::post('/edit', [Controllers\ZipController::class, 'getZipById'])->name('getZipById');
         Route::post('/delete', [Controllers\ZipController::class, 'destroy'])->name('zipDelete');
@@ -45,21 +45,39 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
     Route::prefix('permission')->group(function () {
-        Route::get('/', [Controllers\PermissionController::class, 'index'])->name('permissionList');
+        Route::get('/', [Controllers\PermissionController::class, 'index'])->name('permissionList')->middleware('haspermission:viewPermission');
         Route::post('/list', [Controllers\PermissionController::class, 'getList'])->name('getPermissionList');
-        Route::post('/submit', [Controllers\PermissionController::class, 'store'])->name('permissionSubmit');
-        // Route::post('/edit', [Controllers\PermissionController::class, 'getPermissionById'])->name('getPermissionById')->middleware('haspermission:editPermission');
-        // Route::post('/delete', [Controllers\PermissionController::class, 'destroy'])->name('permissionDelete')->middleware('haspermission:deletePermission');
+        Route::post('/submit', [Controllers\PermissionController::class, 'store'])->name('permissionSubmit')->middleware('haspermission:addPermission');
+        Route::post('/edit', [Controllers\PermissionController::class, 'getPermissionById'])->name('getPermissionById')->middleware('haspermission:editPermission');
+        Route::post('/delete', [Controllers\PermissionController::class, 'destroy'])->name('permissionDelete')->middleware('haspermission:deletePermission');
         // Route::post('/get', [Controllers\PermissionController::class, 'getPermissionByRoleId'])->name('getPermissionByRoleId')->middleware('haspermission:viewPermission');
     });
 
 
     Route::prefix('role')->group(function () {
-        Route::get('/', [Controllers\RoleController::class, 'index'])->name('roleList');
-        Route::post('/list', [Controllers\RoleController::class, 'getList'])->name('getRoleList');
-        Route::post('/submit', [Controllers\RoleController::class, 'store'])->name('roleSubmit');
-        Route::post('/edit', [Controllers\RoleController::class, 'getRoleById'])->name('getRoleById');
-        Route::post('/delete', [Controllers\RoleController::class, 'destroy'])->name('roleDelete');
+        Route::get('/', [Controllers\RoleController::class, 'index'])->name('roleList')->middleware('haspermission:viewRole');
+        Route::post('/list', [Controllers\RoleController::class, 'getList'])->name('getRoleList')->middleware('haspermission:viewRole');
+        Route::post('/submit', [Controllers\RoleController::class, 'store'])->name('roleSubmit')->middleware('haspermission:addRole');
+        Route::post('/edit', [Controllers\RoleController::class, 'getRoleById'])->name('getRoleById')->middleware('haspermission:editRole');
+        Route::post('/delete', [Controllers\RoleController::class, 'destroy'])->name('roleDelete')->middleware('haspermission:deleteRole');
+        Route::post('/permission', [Controllers\RoleController::class, 'rolePermissions'])->name('rolePermissions')->middleware('haspermission:assignPermissionRole');
+        Route::post('/assign/permission', [Controllers\RoleController::class, 'assignPermissions'])->name('assignPermissions')->middleware('haspermission:assignPermissionRole');
+    });
+    Route::prefix('department')->group(function () {
+        Route::get('/', [Controllers\DepartmentController::class, 'index'])->name('departmentList');
+        Route::post('/list', [Controllers\DepartmentController::class, 'getList'])->name('getdepartmentList');
+        Route::post('/submit', [Controllers\DepartmentController::class, 'store'])->name('departmentSubmit');
+        Route::post('/edit', [Controllers\DepartmentController::class, 'getDepartmentById'])->name('getDepartmentById');
+        Route::post('/delete', [Controllers\DepartmentController::class, 'destroy'])->name('departmentDelete');
+    });
+    Route::prefix('item')->group(function () {
+        Route::get('/', [Controllers\ItemController::class, 'index'])->name('itemList');
+        Route::post('/list', [Controllers\ItemController::class, 'getList'])->name('getItemList');
+        Route::post('/submit', [Controllers\ItemController::class, 'store'])->name('itemSubmit');
+        Route::post('/edit', [Controllers\ItemController::class, 'getItemById'])->name('getItemById');
+        // Route::post('/delete', [Controllers\RoleController::class, 'destroy'])->name('roleDelete')->middleware('haspermission:deleteRole');
+        // Route::post('/permission', [Controllers\RoleController::class, 'rolePermissions'])->name('rolePermissions')->middleware('haspermission:assignPermissionRole');
+        // Route::post('/assign/permission', [Controllers\RoleController::class, 'assignPermissions'])->name('assignPermissions')->middleware('haspermission:assignPermissionRole');
     });
 });
 Auth::routes();

@@ -5,11 +5,12 @@
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('page_level_css')
-  <style>
-      .error{
-          color: red!important;
-      }
-  </style>
+    <style>
+        .error {
+            color: red !important;
+        }
+
+    </style>
 @endsection
 @section('content')
     <div class="d-flex flex-column-fluid">
@@ -22,12 +23,14 @@
 
                         </h3>
                     </div>
+                    @if(hasPermission('addRole'))
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
 
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a data-target="#addRoleModal" data-toggle="modal" class="btn btn-primary font-weight-bolder" id='btn_add_new'>
+                        <a data-target="#addRoleModal" data-toggle="modal" class="btn btn-primary font-weight-bolder"
+                            id='btn_add_new'>
                             <span class="svg-icon svg-icon-md">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -44,6 +47,7 @@
                             </span>Add Role</a>
                         <!--end::Button-->
                     </div>
+                    @endif
                 </div>
                 <div class="card-body">
                     <form class="kt-form kt-form--fit">
@@ -91,7 +95,7 @@
 
 
     <div class="modal fade show" id="addRoleModal" data-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-modal="true" >
+        aria-labelledby="exampleModalLabel" aria-modal="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -110,9 +114,37 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary font-weight-bold btn_save" id="btn_save" >Save</button>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-light-primary font-weight-bold"
+                                data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary font-weight-bold btn_save"
+                                id="btn_save">Save</button>
+                        </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="assign_permission_modal" tabindex="-1" role="dialog" aria-labelledby="addNew" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Assign Permission</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="assign_permission_form">
+                        <div class="row" id="assign_permission_html"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary font-weight-bold" id="assign_permission_to_role">Save</button>
                 </div>
             </div>
         </div>
@@ -261,74 +293,162 @@
                     }
                 }
             });
+
+            var input = document.getElementById("addForm");
+            input.addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    document.getElementById("btn_save").click();
+                }
+            });
         })
 
-        $(document).on('click', '#btn_add_new', function(){
-                $('#addRoleModal').modal({
-                    backdrop: 'static',
-                    keyboard: false
-                }).on('hide.bs.modal', function(){
-                    $("#addForm").validate().resetForm();
-                });
-                var form = $("#addForm");
-                form[0].reset();
+        $(document).on('click', '#btn_add_new', function() {
+            $('#addRoleModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            }).on('hide.bs.modal', function() {
+                $("#addForm").validate().resetForm();
             });
+            var form = $("#addForm");
+            form[0].reset();
+        });
 
 
-            $(document).on('click', '#btn_save', function(){
-                var validate = $("#addForm").valid();
-                if(validate) {
-                    var form_data = $("#addForm").serializeArray();
+        $(document).on('click', '#btn_save', function() {
+            var validate = $("#addForm").valid();
+            if (validate) {
+                var form_data = $("#addForm").serializeArray();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('roleSubmit') }}", // your php file name
+                    data: form_data,
+                    dataType: "json",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.status == 'success') {
+                            toastr.options = {
+                                "closeButton": true,
+                                "debug": false,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-top-right",
+                                "preventDuplicates": true,
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "5000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            };
+                            toastr.success(data.message);
+                            var form = $("#addForm");
+                            form[0].reset();
+                            $('#addRoleModal').modal('hide');
+                            table.ajax.reload();
+                        } else {
+                            Swal.fire("Sorry!", data.message, "error");
+                        }
+                    },
+                    error: function(errorString) {
+                        Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                    }
+                });
+            }
+        });
+
+        $(document).on('click', '.edit', function() {
+            var id = $(this).data('id');
+            var form_data = new FormData();
+            form_data.append('id', id);
+            $.ajax({
+                type: "POST",
+                url: "{{ route('getRoleById') }}", // your php file name
+                data: form_data,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    if (data.status == 'success') {
+                        $('#addRoleModal').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        }).on('hide.bs.modal', function() {
+                            $("#addForm").validate().resetForm();
+                        });
+                        var rec = data.data;
+                        var id = rec.id;
+                        var name = rec.name;
+                        $('#id').val(id);
+                        $('#name').val(name);
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        Swal.fire("Sorry!", data.message, "error");
+                    }
+                },
+                error: function(errorString) {
+                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                }
+            });
+        });
+
+        $(document).on('click', '.delete', function() {
+            var id = $(this).data('id');
+            var form_data = new FormData();
+            form_data.append('id', id);
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You wont be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!"
+            }).then(function(result) {
+                if (result.value) {
                     $.ajax({
                         type: "POST",
-                        url: "{{route('roleSubmit')}}", // your php file name
+                        url: "{{ route('roleDelete') }}", // your php file name
                         data: form_data,
                         dataType: "json",
+                        processData: false,
+                        contentType: false,
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        success: function (data) {
+                        success: function(data) {
                             if (data.status == 'success') {
-                                toastr.options = {
-                                    "closeButton": true,
-                                    "debug": false,
-                                    "newestOnTop": false,
-                                    "progressBar": false,
-                                    "positionClass": "toast-top-right",
-                                    "preventDuplicates": true,
-                                    "onclick": null,
-                                    "showDuration": "300",
-                                    "hideDuration": "1000",
-                                    "timeOut": "5000",
-                                    "extendedTimeOut": "1000",
-                                    "showEasing": "swing",
-                                    "hideEasing": "linear",
-                                    "showMethod": "fadeIn",
-                                    "hideMethod": "fadeOut"
-                                };
-                                toastr.success(data.message);
-                                var form = $("#addForm");
-                                form[0].reset();
-                                $('#addRoleModal').modal('hide');
+                                Swal.fire("Success!", data.message, "success");
                                 table.ajax.reload();
                             } else {
                                 Swal.fire("Sorry!", data.message, "error");
                             }
                         },
-                        error: function (errorString) {
-                            Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                        error: function(errorString) {
+                            Swal.fire("Sorry!", "Something went wrong please contact to admin",
+                                "error");
                         }
                     });
                 }
             });
+        });
 
-            $(document).on('click','.edit',function() {
+        $(document).on('click','.assign_permission',function() {
                 var id = $(this).data('id');
                 var form_data = new FormData();
-                form_data.append('id', id);
+                form_data.append('role_id', id);
                 $.ajax({
                     type: "POST",
-                    url: "{{route('getRoleById')}}", // your php file name
+                    url: "{{route('rolePermissions')}}", // your php file name
                     data: form_data,
                     dataType: "json",
                     processData: false,
@@ -338,18 +458,12 @@
                     },
                     success: function (data){
                         if(data.status == 'success') {
-                            $('#addRoleModal').modal({
+                            var rec = data.data;
+                            $('#assign_permission_html').html(rec);
+                            $('#assign_permission_modal').modal({
                                 backdrop: 'static',
                                 keyboard: false
-                            }).on('hide.bs.modal', function(){
-                                $("#addForm").validate().resetForm();
                             });
-                            var rec = data.data;
-                            var id = rec.id;
-                            var name = rec.name;
-                            $('#id').val(id);
-                            $('#name').val(name);
-                           window.scrollTo({top: 0, behavior: 'smooth'});
                         } else {
                             Swal.fire("Sorry!", data.message, "error");
                         }
@@ -360,40 +474,26 @@
                 });
             });
 
-            $(document).on('click','.delete',function() {
-                var id = $(this).data('id');
-                var form_data = new FormData();
-                form_data.append('id', id);
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You wont be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, delete it!"
-                }).then(function(result) {
-                    if (result.value) {
-                        $.ajax({
-                            type: "POST",
-                            url: "{{route('roleDelete')}}", // your php file name
-                            data: form_data,
-                            dataType: "json",
-                            processData: false,
-                            contentType: false,
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            success: function (data){
-                                if(data.status == 'success') {
-                                    Swal.fire("Success!", data.message, "success");
-                                    table.ajax.reload();
-                                } else {
-                                    Swal.fire("Sorry!", data.message, "error");
-                                }
-                            },
-                            error: function (errorString){
-                                Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
-                            }
-                        });
+            $(document).on('click','#assign_permission_to_role',function() {
+                var form_data = $("#assign_permission_form").serializeArray();
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('assignPermissions')}}", // your php file name
+                    data: form_data,
+                    dataType: "json",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (data){
+                        if(data.status == 'success') {
+                            $('#assign_permission_modal').modal('hide');
+                            Swal.fire("Success!", data.message, "success");
+                        } else {
+                            Swal.fire("Sorry!", data.message, "error");
+                        }
+                    },
+                    error: function (errorString){
+                        Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                     }
                 });
             });

@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrderFulfillmentCategory;
-use App\Models\OrderFulfillmentPermission;
+use App\Models\OrderFulfillmentDepartment;
 use Illuminate\Http\Request;
+use App\Models\OrderFulfillmentItem;
+use Illuminate\Support\Facades\Validator;
+use DB;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
-class PermissionController extends Controller
+class ItemController extends Controller
 {
     public function index()
     {
-        $categories = OrderFulfillmentCategory::whereNull('deleted_at')->get();
-        $dt = [
-            'categories' => $categories
-        ];
-        return view('permissions.list', $dt);
+        $departments = getDepartment(-1, true);
+        $dt = ['departments' => $departments];
+        return view('items.list', $dt);
     }
     public function getList(Request $request)
     {
@@ -29,46 +28,46 @@ class PermissionController extends Controller
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
 
-        $permission = DB::table('orderfulfillment_permissions');
+        $item = DB::table('orderfulfillment_items');
         foreach ($columns as $field) {
             $col = $field['data'];
             $search = $field['search']['value'];
             if ($search != "") {
                 if ($col == 'id') {
-                    $permission->where($col, $search);
+                    $item->where($col, $search);
                 }
                 if ($col == 'category_id') {
-                    $permission->where($col, $search);
+                    $item->where($col, $search);
                 }
                 if ($col == 'name') {
-                    $permission->where($col, 'like', '%' . $search . '%');
+                    $item->where($col, 'like', '%' . $search . '%');
                 }
                 if ($col == 'created_at') {
                     $dateArr = explode('|', $search);
                     $dateFrom = Carbon::create($dateArr[0] . " 00:00:00")->format('Y-m-d H:i:s');
                     $dateTo = Carbon::create($dateArr[1] . " 23:59:59")->format('Y-m-d H:i:s');
-                    $permission->whereBetween('created_at', [$dateFrom, $dateTo]);
+                    $item->whereBetween('created_at', [$dateFrom, $dateTo]);
                 }
             }
         }
         if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
-            $permission->orderBy($sortColumnName, $sortColumnSortOrder);
+            $item->orderBy($sortColumnName, $sortColumnSortOrder);
         } else {
-            $permission->orderBy("id", "desc");
+            $item->orderBy("id", "desc");
         }
-        $iTotalRecords = $permission->count();
-        $permission->skip($start);
-        $permission->take($length);
-        $permissionData = $permission->get();
+        $iTotalRecords = $item->count();
+        $item->skip($start);
+        $item->take($length);
+        $itemData = $item->get();
         $data = [];
-        foreach ($permissionData as $permissionObj) {
-            $categoryName = "";
-            if ($permissionObj->category_id != "") {
-                $category = OrderFulfillmentCategory::find($permissionObj->category_id);
-                $categoryName = $category->name;
+        foreach ($itemData as $itemObj) {
+            $departmentName = "";
+            if ($itemObj->department_id != "") {
+                $department = OrderFulfillmentDepartment::find($itemObj->department_id);
+                $departmentName = $department->name;
             }
             $action = "";
-            $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 edit" data-id="' . $permissionObj->id . '">
+            $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 edit" data-id="' . $itemObj->id . '">
             <span class="svg-icon svg-icon-md svg-icon-primary">
                 <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -81,7 +80,7 @@ class PermissionController extends Controller
                 <!--end::Svg Icon-->
             </span>
         </a>';
-            $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm delete" data-id="' . $permissionObj->id . '" title="Delete">
+            $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm delete" data-id="' . $itemObj->id . '" title="Delete">
         <span class="svg-icon svg-icon-md svg-icon-primary">
             <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -96,10 +95,12 @@ class PermissionController extends Controller
     </a>';
 
             $data[] = [
-                "id" => $permissionObj->id,
-                "category_id" => $categoryName,
-                "name" => $permissionObj->name,
-                "created_at" => Carbon::create($permissionObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
+                "id" => $itemObj->id,
+                "department_id" => $departmentName,
+                "name" => $itemObj->name,
+                "min_qty" => $itemObj->min_qty,
+                "unit" => $itemObj->unit,
+                "created_at" => Carbon::create($itemObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
                 "action" => $action
             ];
         }
@@ -109,39 +110,65 @@ class PermissionController extends Controller
         $records["recordsFiltered"] = $iTotalRecords;
         echo json_encode($records);
     }
-
     public function store(Request $request)
     {
-        $id = $request->id;
-        $permission = new OrderFulfillmentPermission();
-        if ($id > 0) {
-            $permission = OrderFulfillmentPermission::findOrFail($id);
-        }
-        $permission->category_id = $request->category_id;
-        $permission->name = $request->name;
-        $query = $permission->save();
-        $return = [
-            'status' => 'error',
-            'message' => 'Data is not save successfully',
-        ];
-        if ($query) {
-            $return = [
-                'status' => 'success',
-                'message' => 'Permission is save successfully',
-            ];
-        }
-        return response()->json($return);
-    }
 
-    public function getPermissionById(Request $request)
+        $id = $request->id;
+        $validate = true;
+        $validateInput = $request->all();
+        $rules = [
+            'name' => 'required|max:150',
+            'min_qty' => 'required',
+            'department_id' => 'required',
+            'unit' => 'required',
+
+        ];
+
+        $validator = Validator::make($validateInput, $rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            $allMsg = [];
+            foreach ($errors->all() as $message) {
+                $allMsg[] = $message;
+            }
+            $return['status'] = 'error';
+            $return['message'] = collect($allMsg)->implode('<br />');
+            $validate = false;
+            return response()->json($return);
+        }
+        if ($validate) {
+            $item = new OrderFulfillmentItem();
+            if ($id > 0) {
+                $item = OrderFulfillmentItem::findOrFail($id);
+            }
+            $item->name = $request->name;
+            $item->department_id = $request->department_id;
+            $item->min_qty = $request->min_qty;
+            $item->unit = $request->unit;
+            $itemData  = $item->save();
+            if (!empty($itemData)) {
+                $return = [
+                    'status' => 'success',
+                    'message' => 'Item saved successfully!',
+                ];
+            } else {
+                $return = [
+                    'status' => 'error',
+                    'message' => 'Item not saved',
+                ];
+            }
+            return response()->json($return);
+        }
+    }
+   public function getItemById(Request $request)
     {
         $id = $request->id;
-        $permission = OrderFulfillmentPermission::where('id', $id)->first();
+        $item = OrderFulfillmentItem::where('id', $id)->first();
         $return = [
             'status' => 'success',
-            'data' => $permission
+            'data' => $item
         ];
-        if (empty($permission)) {
+        if (empty($role)) {
             $return = [
                 'status' => 'error',
                 'message' => 'Data not found for edit'
@@ -150,18 +177,4 @@ class PermissionController extends Controller
         return response()->json($return);
     }
 
-    public function destroy(Request $request)
-    {
-        $id = $request->id;
-        $checkPermission = new OrderFulfillmentPermission();
-        $res = $checkPermission->checkPermissionAssigned($id);
-        if ($res) {
-            DB::table('orderfulfillment_permissions')
-                ->where('id', $id)
-                ->update(['deleted_at' => Carbon::now()->format('Y-m-d H:i:s')]);
-            return response()->json(['status' => 'success', 'message' => 'Permission is deleted successfully']);
-        } else {
-            return response()->json(['status' => 'error', 'message' => 'Permission not deleted beacuse it is assigned']);
-        }
-    }
 }

@@ -12,7 +12,6 @@
 
     </style>
 @endsection
-
 @section('content')
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
@@ -20,17 +19,15 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">Category List
-
+                        <h3 class="card-label">Department List
                         </h3>
                     </div>
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
-
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a data-target="#addCategoryModal" data-toggle="modal" class="btn btn-primary font-weight-bolder"
-                            id='btn_add_new'>
+                        <a class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#addDepartmentModal"
+                            id="btn_add_new">
                             <span class="svg-icon svg-icon-md">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -44,7 +41,7 @@
                                     </g>
                                 </svg>
                                 <!--end::Svg Icon-->
-                            </span>Add Category</a>
+                            </span>Add Deparmtment</a>
                         <!--end::Button-->
                     </div>
                 </div>
@@ -52,7 +49,7 @@
                     <form class="kt-form kt-form--fit">
                         <div class="row mb-6">
                             <div class="col-lg-3 mb-lg-2 mb-2">
-                                <label>Category:</label>
+                                <label>Department Name:</label>
                                 <input type="text" class="form-control datatable-input" placeholder="E.g: test"
                                     data-col-index="1" />
                             </div>
@@ -70,32 +67,35 @@
                                         <span>Search</span>
                                     </span>
                                 </button>&#160;&#160;
-
                             </div>
                         </div>
                     </form>
                     <!--begin: Datatable-->
-                    <table class="table table-bordered table-checkable" id="categoryDatatableList">
+                    <table class="table table-bordered table-checkable" id="departmentTableList">
                         <thead>
                             <tr>
                                 <th>Sr</th>
-                                <th>Category</th>
+                                <th>Name</th>
                                 <th>Created</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
+                        <tbody>
+                        </tbody>
                     </table>
                     <!--end: Datatable-->
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade show" id="addCategoryModal" data-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-modal="true">
+
+
+    <div class="modal fade" id="addDepartmentModal" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Department</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
@@ -106,15 +106,16 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <input type="hidden" name="id" id="id">
-                                    <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="Category Name">
+                                    <label>Department Name <span class="text-danger">*</span> </label>
+                                    <input type="text" name="name"  id="name" class="form-control" placeholder="Title">
                                 </div>
                             </div>
                         </div>
                         <div class="text-right">
                             <button type="button" class="btn btn-light-primary font-weight-bold"
                                 data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary font-weight-bold btn_save" id="btn_save">Save</button>
+                            <button type="button" class="btn btn-primary font-weight-bold btn_save"
+                                id="btn_save">Save</button>
                         </div>
                     </form>
                 </div>
@@ -126,9 +127,10 @@
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/jqvalidation/jquery.validate.min.js?v=7.0.4') }}"></script>
 @endsection
+
 @section('page_level_js')
     <script>
-        $(document).ajaxStart(function() {
+          $(document).ajaxStart(function() {
             KTApp.blockPage({
                 overlayColor: 'red',
                 opacity: 0.1,
@@ -141,7 +143,7 @@
         var datatable = function() {
             var initTable = function() {
                 // begin first table
-                table = $('#categoryDatatableList').DataTable({
+                table = $('#departmentTableList').DataTable({
                     responsive: true,
                     // Pagination settings
                     dom: `<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
@@ -159,21 +161,20 @@
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "{{ route('getCategoryList') }}",
+                        url: "{{ route('getdepartmentList') }}",
                         type: 'POST',
                         data: {
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id', 'parent_category_id', 'name', 'type', 'created_at'
+                                'id', 'name', 'created_at'
                             ],
-                            "category_type": "{{ Request::segment(2) }}",
                         },
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                     },
                     columns: [{
-                            data: 'sr'
+                            data: 'id'
                         },
                         {
                             data: 'name'
@@ -245,14 +246,14 @@
             };
 
         }();
-
         jQuery(document).ready(function() {
             datatable.init();
             var validator = $("#addForm").validate({
                 rules: {
                     name: {
                         required: true
-                    }
+                    },
+
                 },
                 errorPlacement: function(error, element) {
                     var elem = $(element);
@@ -273,9 +274,8 @@
                 }
             });
         })
-
         $(document).on('click', '#btn_add_new', function() {
-            $('#addCategoryModal').modal({
+            $('#addDepartmentModal').modal({
                 backdrop: 'static',
                 keyboard: false
             }).on('hide.bs.modal', function() {
@@ -285,13 +285,14 @@
             form[0].reset();
         });
 
+
         $(document).on('click', '#btn_save', function() {
             var validate = $("#addForm").valid();
             if (validate) {
                 var form_data = $("#addForm").serializeArray();
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('categorySubmit') }}", // your php file name
+                    url: "{{ route('departmentSubmit') }}", // your php file name
                     data: form_data,
                     dataType: "json",
                     headers: {
@@ -319,7 +320,7 @@
                             toastr.success(data.message);
                             var form = $("#addForm");
                             form[0].reset();
-                            $('#addCategoryModal').modal('hide');
+                            $('#addDepartmentModal').modal('hide');
                             table.ajax.reload();
                         } else {
                             Swal.fire("Sorry!", data.message, "error");
@@ -338,7 +339,7 @@
             form_data.append('id', id);
             $.ajax({
                 type: "POST",
-                url: "{{ route('getCategoryById') }}", // your php file name
+                url: "{{ route('getDepartmentById') }}", // your php file name
                 data: form_data,
                 dataType: "json",
                 processData: false,
@@ -348,7 +349,7 @@
                 },
                 success: function(data) {
                     if (data.status == 'success') {
-                        $('#addCategoryModal').modal({
+                        $('#addDepartmentModal').modal({
                             backdrop: 'static',
                             keyboard: false
                         }).on('hide.bs.modal', function() {
@@ -359,6 +360,10 @@
                         var name = rec.name;
                         $('#id').val(id);
                         $('#name').val(name);
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
                     } else {
                         Swal.fire("Sorry!", data.message, "error");
                     }
@@ -383,7 +388,7 @@
                 if (result.value) {
                     $.ajax({
                         type: "POST",
-                        url: "{{ route('categoryDelete') }}", // your php file name
+                        url: "{{ route('departmentDelete') }}", // your php file name
                         data: form_data,
                         dataType: "json",
                         processData: false,
