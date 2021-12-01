@@ -45,5 +45,14 @@ Route::group(['middleware' => 'auth'], function () {
     });
 });
 
+Route::prefix('permission')->group(function () {
+    Route::get('/', [Controllers\PermissionController::class, 'index'])->name('permissionList');
+    Route::post('/list', [Controllers\PermissionController::class, 'getList'])->name('getPermissionList');
+    Route::post('/submit', [Controllers\PermissionController::class, 'store'])->name('permissionSubmit');
+    // Route::post('/edit', [Controllers\PermissionController::class, 'getPermissionById'])->name('getPermissionById')->middleware('haspermission:editPermission');
+    // Route::post('/delete', [Controllers\PermissionController::class, 'destroy'])->name('permissionDelete')->middleware('haspermission:deletePermission');
+    // Route::post('/get', [Controllers\PermissionController::class, 'getPermissionByRoleId'])->name('getPermissionByRoleId')->middleware('haspermission:viewPermission');
+});
+
 
 Auth::routes();
