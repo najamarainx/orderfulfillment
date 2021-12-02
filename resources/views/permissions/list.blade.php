@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form id="addForm">
+                        <form  id="addForm">
                             <div class="row">
                                 <input type="hidden" class="form-control" name="id" id="id" value="">
                                 <div class="col-md-4">

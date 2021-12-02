@@ -97,6 +97,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/delete', [Controllers\VariantController::class, 'destroy'])->name('variantDelete');
 
     });
+
     Route::prefix('stockorder')->group(function () {
         Route::get('/', [Controllers\SupplierStockController::class, 'index'])->name('stockList');
         Route::post('/list', [Controllers\SupplierStockController::class, 'getList'])->name('getStockOrderList');
@@ -105,7 +106,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 
+    Route::prefix('inventory')->group(function () {
+        Route::get('/', [Controllers\InventoryItemController::class, 'index'])->name('inventoryList');
+        Route::post('/list', [Controllers\InventoryItemController::class, 'getList'])->name('getInventoryItemList');
+        // Route::post('/submit', [Controllers\VariantController::class, 'store'])->name('variantSubmit');
+        // Route::post('/edit', [Controllers\VariantController::class, 'getVariantById'])->name('getVariantById');
+        // Route::post('/delete', [Controllers\VariantController::class, 'destroy'])->name('variantDelete');
 
+    });
 
 });
 Auth::routes();

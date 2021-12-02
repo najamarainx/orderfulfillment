@@ -107,7 +107,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="addForm">
+                    <form onsubmit="return false" id="addForm">
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
