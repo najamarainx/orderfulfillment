@@ -23,7 +23,7 @@
 
                         </h3>
                     </div>
-                    @if(hasPermission('addRole'))
+
                     <div class="card-toolbar">
                         <!--begin::Dropdown-->
 
@@ -47,7 +47,7 @@
                             </span>Add Supplier</a>
                         <!--end::Button-->
                     </div>
-                    @endif
+
                 </div>
                 <div class="card-body">
                     <form class="kt-form kt-form--fit">
