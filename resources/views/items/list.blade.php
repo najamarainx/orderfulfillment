@@ -51,7 +51,7 @@
                 <form class="kt-form kt-form--fit">
                     <div class="row mb-6">
                         <div class="col-lg-3 mb-lg-2 mb-2">
-                            <label>Department: <span class="text-danger">*</span> </label>
+                            <label>Department:</label>
                             <select   class="form-control datatable-input kt_select2_1"  data-col-index="1">
                                     @if(!empty($departments))
                                     <option value="">Select</option>
@@ -117,7 +117,7 @@
                 </button>
             </div>
             <div class="modal-body">
-               <form id="addForm">
+               <form onsubmit="return false" id="addForm">
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group">
@@ -336,6 +336,7 @@ jQuery(document).ready(function() {
                     document.getElementById("btn_save").click();
                 }
             });
+
         })
 $(document).on('click', '#btn_add_new', function() {
             $('#addItemModal').modal({
