@@ -78,21 +78,25 @@
                             <div class="row">
                                     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
+                                            <label>Name:</label>
                                             <input type="text" class="form-control datatable-input" placeholder="Name" data-col-index="1">
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
+                                            <label>Email:</label>
                                             <input type="email" class="form-control datatable-input" placeholder="Email" data-col-index="2">
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
+                                            <label>Phone Number:</label>
                                             <input type="number" class="form-control datatable-input" placeholder="Phone.No" data-col-index="3">
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
+                                            <label>Role:</label>
                                             <select class="form-control kt_select2_1 datatable-input " id="role_search" data-col-index="4" >
                                                 <option value="">Select Role</option>
                                                 @foreach($roles as $role)
@@ -104,6 +108,7 @@
                                     </div>
                                     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
+                                            <label>User Type:</label>
                                             <select class="form-control kt_select2_1 datatable-input "id="type_search" data-col-index="5">
                                                 <option value="">Select User Type</option>
                                                 @foreach($userTypes as $type)

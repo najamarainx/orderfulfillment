@@ -97,5 +97,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/delete', [Controllers\VariantController::class, 'destroy'])->name('variantDelete');
 
     });
+    Route::prefix('stockorder')->group(function () {
+        Route::get('/', [Controllers\SupplierStockController::class, 'index'])->name('stockList');
+        Route::post('/list', [Controllers\SupplierStockController::class, 'getList'])->name('getStockOrderList');
+        Route::post('/delete', [Controllers\SupplierStockController::class, 'destroy'])->name('stockorderDelete');
+
+
+    });
+
+
+
 });
 Auth::routes();
