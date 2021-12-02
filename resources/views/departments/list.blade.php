@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Role')
+@section('title', 'Department')
 
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
