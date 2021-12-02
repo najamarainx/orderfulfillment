@@ -84,5 +84,13 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::post('/permission', [Controllers\RoleController::class, 'rolePermissions'])->name('rolePermissions')->middleware('haspermission:assignPermissionRole');
         // Route::post('/assign/permission', [Controllers\RoleController::class, 'assignPermissions'])->name('assignPermissions')->middleware('haspermission:assignPermissionRole');
     });
+    Route::prefix('variant')->group(function () {
+        Route::get('/', [Controllers\VariantController::class, 'index'])->name('variantList');
+        Route::post('/list', [Controllers\VariantController::class, 'getList'])->name('getVariantList');
+        Route::post('/submit', [Controllers\VariantController::class, 'store'])->name('variantSubmit');
+        Route::post('/edit', [Controllers\VariantController::class, 'getVariantById'])->name('getVariantById');
+        Route::post('/delete', [Controllers\VariantController::class, 'destroy'])->name('variantDelete');
+
+    });
 });
 Auth::routes();

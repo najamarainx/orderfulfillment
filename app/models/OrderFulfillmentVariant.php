@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class OrderFulfillmentUserZipCode extends Model
+class OrderFulfillmentVariant extends Model
 {
     use HasFactory;
-    use SoftDeletes;
-    protected $table = 'orderfulfillment_user_zip_codes_mappings';
+    protected $table = 'orderfulfillment_variants';
 }

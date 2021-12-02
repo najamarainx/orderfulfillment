@@ -529,7 +529,7 @@
                         $('#id').val(id);
                         $('#name').val(name);
                         $('#phone').val(rec.phone_number);
-                        $('#email').val(rec.email);
+                        $('#email').val(rec.email).prop("readonly", true);
                         //$('#user_type').val(rec.type);
                         $('#user_type').val(rec.type).trigger('change');
                         $('#user_role').val(rec.role_id).trigger('change');

@@ -253,6 +253,14 @@
                                     <span class="menu-text">Item List</span>
                                 </a>
                             </li>
+                            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                <a href="{{route('variantList')}}" class="menu-link menu-toggle">
+                                    <i class="menu-bullet menu-bullet-line">
+                                        <span></span>
+                                    </i>
+                                    <span class="menu-text">Variant List</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
