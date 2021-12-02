@@ -81,8 +81,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/submit', [Controllers\ItemController::class, 'store'])->name('itemSubmit');
         Route::post('/edit', [Controllers\ItemController::class, 'getItemById'])->name('getItemById');
         Route::post('/delete', [Controllers\ItemController::class, 'destroy'])->name('itemDelete');
-        // Route::post('/permission', [Controllers\RoleController::class, 'rolePermissions'])->name('rolePermissions')->middleware('haspermission:assignPermissionRole');
-        // Route::post('/assign/permission', [Controllers\RoleController::class, 'assignPermissions'])->name('assignPermissions')->middleware('haspermission:assignPermissionRole');
+    });
+    Route::prefix('Supplier')->group(function () {
+        Route::get('/', [Controllers\SupplierController::class, 'index'])->name('supplierList');
+        Route::post('/list', [Controllers\SupplierController::class, 'getList'])->name('getSupplierList');
+        Route::post('/submit', [Controllers\SupplierController::class, 'store'])->name('supplierSubmit');
+        Route::post('/edit', [Controllers\SupplierController::class, 'getSupplierById'])->name('getSupplierById');
+        Route::post('/delete', [Controllers\SupplierController::class, 'destroy'])->name('supplierDelete');
     });
 });
 Auth::routes();

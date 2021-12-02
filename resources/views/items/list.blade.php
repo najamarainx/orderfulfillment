@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Role')
+@section('title', 'Item')
 
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -21,7 +21,7 @@
         <div class="card card-custom gutter-b">
             <div class="card-header flex-wrap py-3">
                 <div class="card-title">
-                    <h3 class="card-label">Department List
+                    <h3 class="card-label">Item List
                     </h3>
                 </div>
                 <div class="card-toolbar">
