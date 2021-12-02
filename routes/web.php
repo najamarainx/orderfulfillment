@@ -89,5 +89,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/edit', [Controllers\SupplierController::class, 'getSupplierById'])->name('getSupplierById');
         Route::post('/delete', [Controllers\SupplierController::class, 'destroy'])->name('supplierDelete');
     });
+    Route::prefix('variant')->group(function () {
+        Route::get('/', [Controllers\VariantController::class, 'index'])->name('variantList');
+        Route::post('/list', [Controllers\VariantController::class, 'getList'])->name('getVariantList');
+        Route::post('/submit', [Controllers\VariantController::class, 'store'])->name('variantSubmit');
+        Route::post('/edit', [Controllers\VariantController::class, 'getVariantById'])->name('getVariantById');
+        Route::post('/delete', [Controllers\VariantController::class, 'destroy'])->name('variantDelete');
+
+    });
 });
 Auth::routes();
