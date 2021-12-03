@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\OrderFulfillmentSupplier;
 use App\Models\OrderFulfillmentSupplierStock;
+use App\Models\OrderFulfillmentStockOrder;
 use App\Models\OrderFulfillmentDepartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,8 +18,8 @@ class SupplierStockController extends Controller
 
     public function index()
     {
-        $departments=OrderFulfillmentDepartment::whereNULL('deleted_at')->get();
-        $suppliers=OrderFulfillmentSupplier::whereNULL('deleted_at')->get();
+        $departments = OrderFulfillmentDepartment::whereNULL('deleted_at')->get();
+        $suppliers = OrderFulfillmentSupplier::whereNULL('deleted_at')->get();
 
         $dt = [
 
@@ -26,10 +27,11 @@ class SupplierStockController extends Controller
             'suppliers' => $suppliers,
 
         ];
-        return view('stocks.list',$dt);
+        return view('stocks.list', $dt);
     }
 
-    public function getList(Request $request) {
+    public function getList(Request $request)
+    {
         $records = [];
         $draw = $request->draw;
         $start = $request->start;
@@ -39,43 +41,40 @@ class SupplierStockController extends Controller
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
 
-        $bills=OrderFulfillmentSupplierStock::select('orderfulfillment_stock_orders.*','orderfulfillment_suppliers.name as supplier_name','orderfulfillment_departments.name as dept_name','orderfulfillment_suppliers.company_name')->whereNULL('orderfulfillment_stock_orders.deleted_at');
-        $bills->join('orderfulfillment_suppliers','orderfulfillment_stock_orders.supplier_id','=','orderfulfillment_suppliers.id');
-        $bills->join('orderfulfillment_departments','orderfulfillment_stock_orders.department_id','=','orderfulfillment_departments.id');
-        foreach($columns as $field) {
+        $bills = OrderFulfillmentSupplierStock::select('orderfulfillment_stock_orders.*', 'orderfulfillment_suppliers.name as supplier_name', 'orderfulfillment_departments.name as dept_name', 'orderfulfillment_suppliers.company_name')->whereNULL('orderfulfillment_stock_orders.deleted_at');
+        $bills->join('orderfulfillment_suppliers', 'orderfulfillment_stock_orders.supplier_id', '=', 'orderfulfillment_suppliers.id');
+        $bills->join('orderfulfillment_departments', 'orderfulfillment_stock_orders.department_id', '=', 'orderfulfillment_departments.id');
+        foreach ($columns as $field) {
             $col = $field['data'];
             $search = $field['search']['value'];
-            if($search != "") {
+            if ($search != "") {
 
                 if ($col == 'id') {
-                    $bills->where('orderfulfillment_stock_orders.'.$col,$search);
+                    $bills->where('orderfulfillment_stock_orders.' . $col, $search);
                 }
                 if ($col == 'name') {
-                    $colpp='id';
-                    $bills->where('orderfulfillment_suppliers.'.$colpp,$search);
+                    $colpp = 'id';
+                    $bills->where('orderfulfillment_suppliers.' . $colpp, $search);
                 }
                 if ($col == 'dept') {
-                    $colp='department_id';
-                    $bills->where('orderfulfillment_stock_orders.'.$colp,$search);
+                    $colp = 'department_id';
+                    $bills->where('orderfulfillment_stock_orders.' . $colp, $search);
                 }
-
-
             }
         }
         if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
-            if($sortColumnName=='id'){
+            if ($sortColumnName == 'id') {
                 $bills->orderBy("orderfulfillment_stock_orders.id", "desc");
             }
-            if($sortColumnName=='dept'){
+            if ($sortColumnName == 'dept') {
                 $bills->orderBy("orderfulfillment_stock_orders.department_id", "desc");
             }
-            if($sortColumnName=='price'){
+            if ($sortColumnName == 'price') {
                 $bills->orderBy("orderfulfillment_stock_orders.total_price", "desc");
             }
-            if($sortColumnName=='qty'){
+            if ($sortColumnName == 'qty') {
                 $bills->orderBy("orderfulfillment_stock_orders.qty", "desc");
             }
-
         } else {
             $bills->orderBy("orderfulfillment_stock_orders.supplier_id", "desc");
         }
@@ -85,24 +84,27 @@ class SupplierStockController extends Controller
         $bills->take($length);
         $billData = $bills->get();
         $data = [];
-        $i =1;
+        $i = 1;
         foreach ($billData as $billObj) {
             $action = "";
-            $action .= '<a href="javascript:;" class="btn btn-sm btn-clean btn-icon edit" data-id="'.$billObj->id.'" title="Edit details">
+            $action .= '<a href="' . url('stockorder/detail') . '/' . $billObj->id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview" data-id="' . $billObj->id . '">
+            <i class="la la-eye"></i>
+        </a>';
+            $action .= '<a href="javascript:;" class="btn btn-sm btn-clean btn-icon edit" data-id="' . $billObj->id . '" title="Edit details">
                             <i class="la la-edit"></i>
                         </a>';
-            $action .= '<a href="javascript:;" class="btn btn-sm btn-clean btn-icon delete" data-id="'.$billObj->id.'" title="Delete">
+            $action .= '<a href="javascript:;" class="btn btn-sm btn-clean btn-icon delete" data-id="' . $billObj->id . '" title="Delete">
                             <i class="la la-trash"></i>
                         </a>';
             $data[] = [
                 "id" => $billObj->id,
-                "name" =>$billObj->supplier_name,
-                "company_name" =>$billObj->company_name,
-                "dept" =>$billObj->dept_name,
-                "price"=>$billObj->total_price,
-                "qty" =>$billObj->qty,
-                "created_at"=>Carbon::create($billObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
-                "action"=>$action
+                "name" => $billObj->supplier_name,
+                "company_name" => $billObj->company_name,
+                "dept" => $billObj->dept_name,
+                "price" => $billObj->total_price,
+                "qty" => $billObj->qty,
+                "created_at" => Carbon::create($billObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
+                "action" => $action
             ];
             $i++;
         }
@@ -111,7 +113,6 @@ class SupplierStockController extends Controller
         $records["recordsTotal"] = $iTotalRecords;
         $records["recordsFiltered"] = $iTotalRecords;
         echo json_encode($records);
-
     }
 
     public function destroy(Request $request)
@@ -126,5 +127,12 @@ class SupplierStockController extends Controller
         }
     }
 
-
+    public function detailProduct($id){
+        $orderItems= OrderFulfillmentStockOrder::with(['stockOrderDetail'=>function($query){
+            $query->with(['orderItem','orderVariant']);
+        },'supplierDetail'])->where('id',$id)->first();
+        // echo "<pre>"; print_r($orderItems);exit;
+        $dt = ['orderItems'=>$orderItems];
+        return view('stocks.preview',$dt);
+    }
 }

@@ -61,6 +61,7 @@ class SupplierController extends Controller
             $action = "";
 
 
+
             $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 edit" data-id="' . $supplierObj->id . '">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
@@ -95,7 +96,8 @@ class SupplierController extends Controller
                 "id" => $supplierObj->id,
                 "name" => $supplierObj->name,
                 "company_name" => $supplierObj->company_name,
-                "phone_no" => $supplierObj->phone,
+                "phone" => $supplierObj->phone,
+                "company_phone" => $supplierObj->company_phone,
                 "address" => $supplierObj->address,
                 "created_at" => Carbon::create($supplierObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
                 "action" => $action
@@ -117,6 +119,7 @@ class SupplierController extends Controller
             'name' => 'required|max:150',
             'company_name' => 'required',
             'phone_no' => 'required',
+            'company_phone_no' => 'required',
             'address' => 'required',
 
         ];
@@ -141,6 +144,7 @@ class SupplierController extends Controller
             $supplier->name = $request->name;
             $supplier->company_name = $request->company_name;
             $supplier->phone = $request->phone_no;
+            $supplier->company_phone = $request->company_phone_no;
             $supplier->address = $request->address;
             $supplierData  = $supplier->save();
             if (!empty($supplierData)) {

@@ -78,7 +78,7 @@ class RoleController extends Controller
             </span>
         </a>';
             }
-            if (hasPermission('editRole') && $roleObj->name!='Super Admin') {
+            if (hasPermission('editRole') && $roleObj->name!='Super Admin' && $roleObj->name!='Developer') {
             $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 edit" data-id="' . $roleObj->id . '">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
@@ -95,7 +95,7 @@ class RoleController extends Controller
 
             }
 
-            if (hasPermission('deleteRole') && $roleObj->name!='Super Admin') {
+            if (hasPermission('deleteRole') && $roleObj->name!='Super Admin' && $roleObj->name!='Developer') {
             $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm delete" data-id="' . $roleObj->id . '" title="Delete">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->

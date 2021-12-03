@@ -102,6 +102,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [Controllers\SupplierStockController::class, 'index'])->name('stockList');
         Route::post('/list', [Controllers\SupplierStockController::class, 'getList'])->name('getStockOrderList');
         Route::post('/delete', [Controllers\SupplierStockController::class, 'destroy'])->name('stockorderDelete');
+        Route::get('/detail/{id}', [Controllers\SupplierStockController::class, 'detailProduct']);
 
 
     });

@@ -83,7 +83,8 @@
                                 <th>Name</th>
                                 <th>Company Name</th>
                                 <th>Phone No</th>
-                                <th>Address</th>
+                                <th>Company Phone No</th>
+                                <th>Company Address</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -109,32 +110,39 @@
                 <div class="modal-body">
                     <form onsubmit="return false" id="addForm">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <input type="hidden" name="id" id="id">
                                     <label for="name">Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="name" name="name" placeholder="Name">
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label for="company_name">Company Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Company Name">
                                 </div>
                             </div>
-                            <div class="col-4">
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label for="phone_no">Phone No <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="phone_no" name="phone_no" placeholder="Phone No">
                                 </div>
                             </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="phone_no">Company Phone No <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" id="company_phone_no" name="company_phone_no" placeholder="Company Phone No">
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
-
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="address">Address <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="address" name="address" placeholder="Address" cols="30" rows="10"></textarea>
+                                    <textarea class="form-control" id="address" name="address" placeholder="Address" cols="30" rows="2"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -198,7 +206,7 @@
                         data: {
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id', 'name', 'company_name','phone_no','address'
+                                'id', 'name', 'company_name','phone','company_phone','address'
                             ],
                         },
                         headers: {
@@ -215,7 +223,10 @@
                             data: 'company_name'
                         },
                         {
-                            data: 'phone_no'
+                            data: 'phone'
+                        },
+                        {
+                            data: 'company_phone'
                         },
                         {
                             data: 'address'
@@ -296,6 +307,9 @@
                         required: true
                     },
                     phone_no: {
+                        required: true
+                    },
+                    company_phone_no: {
                         required: true
                     },
                     address: {
@@ -409,11 +423,13 @@
                         var company_name = rec.company_name;
                         var phone = rec.phone;
                         var address = rec.address;
+                        var company_phone = rec.company_phone;
                         $('#id').val(id);
                         $('#name').val(name);
                         $('#company_name').val(company_name);
                         $('#phone_no').val(phone);
                         $('#address').text(address);
+                        $('#company_phone_no').text(company_phone);
                         window.scrollTo({
                             top: 0,
                             behavior: 'smooth'
