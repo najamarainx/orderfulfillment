@@ -7,6 +7,7 @@ use App\Models\OrderFulfillmentSupplierStock;
 use App\Models\OrderFulfillmentStockOrder;
 use App\Models\OrderFulfillmentDepartment;
 use App\Models\OrderFulfillmentSupplierStockOrder;
+use App\Models\OrderFulfillmentInventoryItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -42,9 +43,8 @@ class SupplierStockController extends Controller
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
 
-        $bills = OrderFulfillmentSupplierStock::select('orderfulfillment_stock_orders.*', 'orderfulfillment_suppliers.name as supplier_name', 'orderfulfillment_departments.name as dept_name', 'orderfulfillment_suppliers.company_name')->whereNULL('orderfulfillment_stock_orders.deleted_at');
+        $bills = OrderFulfillmentSupplierStock::select('orderfulfillment_stock_orders.*', 'orderfulfillment_suppliers.name as supplier_name', 'orderfulfillment_suppliers.company_name')->whereNULL('orderfulfillment_stock_orders.deleted_at');
         $bills->join('orderfulfillment_suppliers', 'orderfulfillment_stock_orders.supplier_id', '=', 'orderfulfillment_suppliers.id');
-        $bills->join('orderfulfillment_departments', 'orderfulfillment_stock_orders.department_id', '=', 'orderfulfillment_departments.id');
         foreach ($columns as $field) {
             $col = $field['data'];
             $search = $field['search']['value'];
@@ -57,18 +57,12 @@ class SupplierStockController extends Controller
                     $colpp = 'id';
                     $bills->where('orderfulfillment_suppliers.' . $colpp, $search);
                 }
-                if ($col == 'dept') {
-                    $colp = 'department_id';
-                    $bills->where('orderfulfillment_stock_orders.' . $colp, $search);
-                }
+
             }
         }
         if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
             if ($sortColumnName == 'id') {
                 $bills->orderBy("orderfulfillment_stock_orders.id", "desc");
-            }
-            if ($sortColumnName == 'dept') {
-                $bills->orderBy("orderfulfillment_stock_orders.department_id", "desc");
             }
             if ($sortColumnName == 'price') {
                 $bills->orderBy("orderfulfillment_stock_orders.total_price", "desc");
@@ -101,7 +95,7 @@ class SupplierStockController extends Controller
                 "id" => $billObj->id,
                 "name" => $billObj->supplier_name,
                 "company_name" => $billObj->company_name,
-                "dept" => $billObj->dept_name,
+                //"dept" => $billObj->dept_name,
                 "price" => $billObj->total_price,
                 "qty" => $billObj->qty,
                 "created_at" => Carbon::create($billObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
@@ -157,7 +151,7 @@ class SupplierStockController extends Controller
             return response()->json($return);
         }
         if ($validate) {
-
+            DB::beginTransaction();
             $stockOrder=new  OrderFulfillmentSupplierStock();
             $id=$request->id;
             $supplier_id=$request->supplier_stock_id;
@@ -195,15 +189,15 @@ class SupplierStockController extends Controller
                 }
             }
             else{
+
                 $stock_order_items=array();
                 $stockOrder->supplier_id=$supplier_id;
                 $stockOrder->qty=$request->overall_total_qty;
                 $stockOrder->total_price=$request->overall_total_price;
+                $stockOrder->created_by=Auth::user()->id;
                 $stockOrder->created_at=Carbon::now()->format("Y-m-d H:i:s");
                 $qry=$stockOrder->save();
-                if($qry)
-                {
-                    $orderID=$stockOrder->id;
+                $orderID=$stockOrder->id;
                     foreach($dept_ids as $key=>$dept_id)
                     {
                        foreach($variant_stocks[$key] as $va=>$variantinfo)
@@ -224,24 +218,36 @@ class SupplierStockController extends Controller
                         }
 
                     }
+                if(!empty($stock_order_items)) {
+                    $query = OrderFulfillmentSupplierStockOrder::insert($stock_order_items);
 
+                   foreach ($stock_order_items as $key=>$stock_order_item) {
+                       $model = OrderFulfillmentInventoryItem::where('item_id', $stock_order_item['item_id'])->where('variant_id', $stock_order_item['variant_id'])->first();
+                        if (isset($model) && !empty($model)) {
+
+                            $model->qty += $stock_order_item['qty'];
+                        } else {
+
+                            $model = new OrderFulfillmentInventoryItem();
+                            $model->department_id = $stock_order_item['department_id'];
+                            $model->item_id = $stock_order_item['item_id'];
+                            $model->variant_id =$stock_order_item['variant_id'];
+                            $model->qty=$stock_order_item['qty'];
+                            $model->created_by=Auth::user()->id;
+                        }
+                        $model->save();
+
+                    }
                 }
 
-
-                $query=OrderFulfillmentSupplierStockOrder::insert($stock_order_items);
-
-                $return = [
-                    'status' => 'error',
-                    'message' => 'stock supplier  is not save successfully',
-                ];
-                if ($query) {
-                    $return = [
-                        'status' => 'success',
-                        'message' => 'stock supplier is save successfully',
-
-                    ];
-                }
             }
+
+            DB::commit();
+            $return = [
+                'status' => 'success',
+                'message' => 'stock supplier is save successfully',
+            ];
+
         }
 
         return response()->json($return);
