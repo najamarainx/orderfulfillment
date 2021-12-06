@@ -81,6 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/submit', [Controllers\ItemController::class, 'store'])->name('itemSubmit');
         Route::post('/edit', [Controllers\ItemController::class, 'getItemById'])->name('getItemById');
         Route::post('/delete', [Controllers\ItemController::class, 'destroy'])->name('itemDelete');
+
     });
     Route::prefix('Supplier')->group(function () {
         Route::get('/', [Controllers\SupplierController::class, 'index'])->name('supplierList');
@@ -101,9 +102,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('stockorder')->group(function () {
         Route::get('/', [Controllers\SupplierStockController::class, 'index'])->name('stockList');
         Route::post('/list', [Controllers\SupplierStockController::class, 'getList'])->name('getStockOrderList');
+        Route::post('/submit', [Controllers\SupplierStockController::class, 'store'])->name('stockorderSubmit');
         Route::post('/delete', [Controllers\SupplierStockController::class, 'destroy'])->name('stockorderDelete');
         Route::get('/detail/{id}', [Controllers\SupplierStockController::class, 'detailProduct']);
-
+        Route::post('/items', [Controllers\ItemController::class, 'getDeptItems'])->name('getDeptItems');
 
     });
 

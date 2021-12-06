@@ -189,4 +189,14 @@ class ItemController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Item not deleted beacuse it is assigned']);
         }
     }
+
+    public function getDeptItems(Request $request)
+    {
+        $itemID=$request->depID;
+        $getItems=getDepartmentItems($itemID);
+        return response()->json($getItems);
+
+    }
+
+
 }
