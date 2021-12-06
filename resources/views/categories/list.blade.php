@@ -283,6 +283,7 @@
             });
             var form = $("#addForm");
             form[0].reset();
+            $('#id').val('');
         });
 
         $(document).on('click', '#btn_save', function() {

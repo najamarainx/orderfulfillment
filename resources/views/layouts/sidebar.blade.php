@@ -4,7 +4,7 @@
     <div class="brand flex-column-auto" id="kt_brand">
         <!--begin::Logo-->
         <a href="{{route('home')}}" class="brand-logo">
-            <img alt="Logo" src="assets/media/logos/logo-light.png" />
+            <img alt="Logo" src="{{asset('assets/media/logos/logo-light.png')}}" />
         </a>
         <!--end::Logo-->
         <!--begin::Toggle-->
@@ -354,7 +354,15 @@
                                 </span>
                             </li>
                             <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                <a href="javascript:;" class="menu-link menu-toggle">
+                                <a href="{{route('slotList')}}" class="menu-link menu-toggle">
+                                    <i class="menu-bullet menu-bullet-line">
+                                        <span></span>
+                                    </i>
+                                    <span class="menu-text">Time Slot List</span>
+                                </a>
+                            </li>
+                            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                <a href="{{route('bookingList')}}" class="menu-link menu-toggle">
                                     <i class="menu-bullet menu-bullet-line">
                                         <span></span>
                                     </i>

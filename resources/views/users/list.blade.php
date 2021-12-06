@@ -15,6 +15,10 @@
 @endsection
 @php
     $userTypes=array('measurement','installation','customer_support','accountant','production_manager');
+    $type  = Auth::user()->type;
+    if($type == 'production_manager'){
+        $userTypes=array('team_lead','worker');
+    }
 @endphp
 @section('content')
     <!--begin::Content-->
@@ -100,7 +104,7 @@
                                             <select class="form-control kt_select2_1 datatable-input " id="role_search" data-col-index="4" >
                                                 <option value="">Select Role</option>
                                                 @foreach($roles as $role)
-                                                    <option value="{{$role->id}}">{{ucfirst($role->name)}}</option>
+                                                    <option value="{{$role->id}}" >{{ucfirst($role->name)}}</option>
                                                 @endforeach
                                             </select>
 
@@ -226,6 +230,20 @@
                                 </select>
                             </div>
                         </div>
+                        @if(Auth::user()->type == 'production_manager')
+                        <div class="col-6">
+                            <div class="form-group">
+                                <select class="form-control kt_select2_1 user_department" id="user_department" name="user_department" required >
+                                    <option value="">Select Department</option>
+                                    @if(!($departments->isEmpty()))
+                                    @foreach($departments as $department)
+                                    <option value="{{$department->id}}">{{ucfirst($department->name)}}</option>
+                                    @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                        @endif
                         <div class="col-12" id="show_type" style="display:none;">
                             <div class="form-group">
                                 <select class="form-control select2 kt_select2_3 " multiple="multiple" name="zip_id[]" id="zip_id">
@@ -412,10 +430,11 @@
                 user_role: {
                     required: true
                 },
+
             },
             errorPlacement: function(error, element) {
                 var elem = $(element);
-                if (elem.hasClass("user_type")) {
+                if (elem.hasClass("user_type") || elem.hasClass("user_department")) {
 
                     error.appendTo(element.parent().after());
                     //error.insertAfter(element);
@@ -443,10 +462,17 @@
             });
             var form = $("#addForm");
             form[0].reset();
+            $('#id').val('');
+
         });
 
 
         $(document).on('click', '#btn_save', function(){
+            @if(Auth::user()->type == 'production_manager')
+            $( "#user_department" ).rules( "add", {
+                    required: true,
+                    })
+            @endif
             var validate = $("#addForm").valid();
             if(validate) {
                 var userType=$('#user_type').val();
@@ -531,10 +557,14 @@
                         console.log(rec);
                         var id = rec.id;
                         var name = rec.name;
+                        var department_id = rec.department_id;
                         $('#id').val(id);
                         $('#name').val(name);
                         $('#phone').val(rec.phone_number);
                         $('#email').val(rec.email).prop("readonly", true);
+                        if(department_id != null){
+                          $('#user_department').val(department_id).trigger("change.select2");
+                        }
                         //$('#user_type').val(rec.type);
                         $('#user_type').val(rec.type).trigger('change');
                         $('#user_role').val(rec.role_id).trigger('change');

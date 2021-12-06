@@ -12,7 +12,7 @@ class PermissionController extends Controller
 {
     public function index()
     {
-        $categories = OrderFulfillmentCategory::whereNull('deleted_at')->get();
+        $categories = OrderFulfillmentCategory::whereNull('deleted_at')->where('type','permission')->get();
         $dt = [
             'categories' => $categories
         ];

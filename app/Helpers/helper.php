@@ -39,4 +39,24 @@ function getDepartment($departmentId = "", $departmentObjs = false)
     return $result;
 }
 
+function getCategory($type = "", $categoryId = "", $categoryObjs = false)
+{
+    $query = DB::table('orderfulfillment_categories');
+     $query->whereNull('deleted_at');
+    if ($type != "") {
+        $query->where('type', $type);
+    }
+    $result = [];
+    if ($categoryObjs) {
+        $result = $query->get();
+    } else {
+        $result = $query->pluck('id')->toArray();
+    }
+    if ($categoryId > 0) {
+        $query->where('id', $categoryId);
+        $result = $query->first();
+    }
+    return $result;
+}
+
 

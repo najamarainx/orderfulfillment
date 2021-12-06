@@ -42,11 +42,11 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::prefix('users')->group(function () {
-            Route::get('/', [Controllers\UserController::class, 'index'])->name('userList');
-            Route::post('/list', [Controllers\UserController::class, 'getList'])->name('getUserList');
-            Route::post('/edit', [Controllers\UserController::class, 'getUserById'])->name('getUserById');
-            Route::post('/submit', [Controllers\UserController::class, 'store'])->name('userSubmit');
-            Route::post('/delete', [Controllers\UserController::class, 'destroy'])->name('userDelete');
+            Route::get('/', [Controllers\UserController::class, 'index'])->name('userList')->middleware('haspermission:viewUser');
+            Route::post('/list', [Controllers\UserController::class, 'getList'])->name('getUserList')->middleware('haspermission:viewUser');
+            Route::post('/edit', [Controllers\UserController::class, 'getUserById'])->name('getUserById')->middleware('haspermission:editUser');
+            Route::post('/submit', [Controllers\UserController::class, 'store'])->name('userSubmit')->middleware('haspermission:addUser');
+            Route::post('/delete', [Controllers\UserController::class, 'destroy'])->name('userDelete')->middleware('haspermission:deleteUser');
         });
 
     Route::prefix('permission')->group(function () {
@@ -113,6 +113,22 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::post('/submit', [Controllers\VariantController::class, 'store'])->name('variantSubmit');
         // Route::post('/edit', [Controllers\VariantController::class, 'getVariantById'])->name('getVariantById');
         // Route::post('/delete', [Controllers\VariantController::class, 'destroy'])->name('variantDelete');
+
+    });
+    Route::prefix('time-slot')->group(function () {
+        Route::get('/', [Controllers\TimeSlotController::class, 'index'])->name('slotList');
+        Route::post('/list', [Controllers\TimeSlotController::class, 'getList'])->name('getTimeSlotList');
+        Route::post('/submit', [Controllers\TimeSlotController::class, 'store'])->name('timeslotSubmit');
+        Route::post('/edit', [Controllers\TimeSlotController::class, 'getTimeSlotById'])->name('getTimeSlotById');
+        Route::post('/delete', [Controllers\TimeSlotController::class, 'destroy'])->name('timeSlotDelete');
+
+    });
+    Route::prefix('booking')->group(function () {
+        Route::get('/', [Controllers\BookingController::class, 'index'])->name('bookingList');
+        // Route::post('/list', [Controllers\TimeSlotController::class, 'getList'])->name('getTimeSlotList');
+        // Route::post('/submit', [Controllers\TimeSlotController::class, 'store'])->name('timeslotSubmit');
+        // Route::post('/edit', [Controllers\TimeSlotController::class, 'getTimeSlotById'])->name('getTimeSlotById');
+        // Route::post('/delete', [Controllers\TimeSlotController::class, 'destroy'])->name('timeSlotDelete');
 
     });
 

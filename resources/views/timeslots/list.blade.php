@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Supplier')
+@section('title', 'TimeSlot')
 
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -19,7 +19,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">Supplier List
+                        <h3 class="card-label">TimeSlot List
 
                         </h3>
                     </div>
@@ -29,8 +29,8 @@
 
                         <!--end::Dropdown-->
                         <!--begin::Button-->
-                        <a data-target="#addSupplierModal" data-toggle="modal" class="btn btn-primary font-weight-bolder"
-                            id='btn_add_new'>
+                        <a data-target="#bookingAddScheduleModal" data-toggle="modal"
+                            class="btn btn-primary font-weight-bolder" id='btn_add_new'>
                             <span class="svg-icon svg-icon-md">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -44,20 +44,25 @@
                                     </g>
                                 </svg>
                                 <!--end::Svg Icon-->
-                            </span>Add Supplier</a>
+                            </span>Add TimeSlot</a>
                         <!--end::Button-->
                     </div>
 
                 </div>
                 <div class="card-body">
-                    <form class="kt-form kt-form--fit">
+                    {{-- <form class="kt-form kt-form--fit">
                         <div class="row mb-6">
                             <div class="col-lg-3 mb-lg-2 mb-2">
-                                <label>Supplier:</label>
+                                <label>From:</label>
                                 <input type="text" class="form-control datatable-input" placeholder="E.g: test"
-                                    data-col-index="1" />
+                                    data-col-index="2"  id="kt_timepicker_3"/>
                             </div>
-                            <div class="col-lg-9 mb-lg-2 mb-2">
+                            <div class="col-lg-3 mb-lg-2 mb-2">
+                                <label>To:</label>
+                                <input type="text" class="form-control datatable-input" placeholder="E.g: test"
+                                    data-col-index="3"  id="kt_timepicker_4"/>
+                            </div>
+                            <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>&nbsp;</label><br />
                                 <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
                                     <span>
@@ -74,17 +79,16 @@
 
                             </div>
                         </div>
-                    </form>
+                    </form> --}}
                     <!--begin: Datatable-->
-                    <table class="table table-bordered table-checkable" id="roleTableList">
+                    <table class="table table-bordered table-checkable" id="timeslotListTable">
                         <thead>
                             <tr>
                                 <th>Sr</th>
-                                <th>Name</th>
-                                <th>Company Name</th>
-                                <th>Phone No</th>
-                                <th>Company Phone No</th>
-                                <th>Company Address</th>
+                                <th>Slot Limit</th>
+                                <th>Slot Start Time</th>
+                                <th>Slot End Time</th>
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -97,63 +101,67 @@
 
 
 
-    <div class="modal fade show" id="addSupplierModal" data-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-modal="true">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal fade" id="bookingAddScheduleModal" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Supplier</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Time Slot</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form onsubmit="return false" id="addForm">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <input type="hidden" name="id" id="id">
-                                    <label for="name">Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="company_name">Company Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Company Name">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="phone_no">Phone No <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" id="phone_no" name="phone_no" placeholder="Phone No">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="phone_no">Company Phone No <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" id="company_phone_no" name="company_phone_no" placeholder="Company Phone No">
-                                </div>
-                            </div>
-                        </div>
+                    <form id="addForm">
                         <div class="row">
                             <div class="col-12">
-                                <div class="form-group">
-                                    <label for="address">Address <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="address" name="address" placeholder="Address" cols="30" rows="2"></textarea>
+                                <div class="form-group mb-4">
+                                    <input type="hidden" name="id" id="id">
+                                    <label class="mb-0">Slot Limit<span class="text-primary">*</span></label>
+                                    <input type="number" class="form-control" name="slot_limit" id="slot_limit"
+                                        placeholder="Slot Limit">
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group mb-4">
+                                    <label class="mb-0">Start Time Slot<span
+                                            class="text-primary">*</span></label>
+                                    <div class="input-group timepicker">
+                                        <input class="form-control start_time" name="start_time" id="kt_timepicker_3"
+                                            readonly="readonly" placeholder="Select start time" type="text" />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="la la-clock-o"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group mb-4">
+                                    <label class="mb-0">End Time Slot<span class="text-primary">*</span></label>
+                                    <div class="input-group timepicker">
+                                        <input class="form-control end_time" name="end_time" id="kt_timepicker_4"
+                                            readonly="readonly" placeholder="Select end time" type="text" />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="la la-clock-o"></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="text-right">
                             <button type="button" class="btn btn-light-primary font-weight-bold"
-                                data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary font-weight-bold btn_save"
-                                id="btn_save">Save</button>
+                                data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary font-weight-bold" id="btn_save">Save</button>
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
@@ -166,6 +174,7 @@
 @section('page_level_js_plugin')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/jqvalidation/jquery.validate.min.js?v=7.0.4') }}"></script>
+	<script src="{{asset('assets/js/pages/crud/forms/widgets/bootstrap-timepicker.js')}}"></script>
 @endsection
 
 @section('page_level_js')
@@ -183,7 +192,7 @@
         var datatable = function() {
             var initTable = function() {
                 // begin first table
-                table = $('#roleTableList').DataTable({
+                table = $('#timeslotListTable').DataTable({
                     responsive: true,
                     // Pagination settings
                     dom: `<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
@@ -201,12 +210,12 @@
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "{{ route('getSupplierList') }}",
+                        url: "{{ route('getTimeSlotList') }}",
                         type: 'POST',
                         data: {
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id', 'name', 'company_name','phone','company_phone','address'
+                                'id', 'slot_limit', 'booking_from_time', 'booking_to_time', 'status'
                             ],
                         },
                         headers: {
@@ -217,19 +226,18 @@
                             data: 'id'
                         },
                         {
-                            data: 'name'
+                            data: 'slot_limit'
                         },
                         {
-                            data: 'company_name'
+                            data: 'booking_from_time'
                         },
                         {
-                            data: 'phone'
+                            data: 'booking_to_time'
                         },
                         {
-                            data: 'company_phone'
-                        },
-                        {
-                            data: 'address'
+                            data: 'status',
+                            responsivePriority: -1,
+                            bSortable: false
                         },
                         {
                             data: 'action',
@@ -300,27 +308,22 @@
             datatable.init();
             var validator = $("#addForm").validate({
                 rules: {
-                    name: {
+                    slot_limit: {
                         required: true
                     },
-                    company_name: {
+                    start_time: {
                         required: true
                     },
-                    phone_no: {
-                        required: true
-                    },
-                    company_phone_no: {
-                        required: true
-                    },
-                    address: {
+                    end_time: {
                         required: true
                     }
                 },
                 errorPlacement: function(error, element) {
                     var elem = $(element);
-                    if (elem.hasClass("selectpicker")) {
-                        element = elem.parent();
-                        error.insertAfter(element);
+                    if (elem.hasClass("start_time") || elem.hasClass("end_time")) {
+
+                        error.appendTo(element.parent().parent().after());
+                        //error.insertAfter(element);
                     } else {
                         error.insertAfter(element);
                     }
@@ -355,7 +358,7 @@
                 var form_data = $("#addForm").serializeArray();
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('supplierSubmit') }}", // your php file name
+                    url: "{{ route('timeslotSubmit') }}", // your php file name
                     data: form_data,
                     dataType: "json",
                     headers: {
@@ -383,7 +386,7 @@
                             toastr.success(data.message);
                             var form = $("#addForm");
                             form[0].reset();
-                            $('#addSupplierModal').modal('hide');
+                            $('#bookingAddScheduleModal').modal('hide');
                             table.ajax.reload();
                         } else {
                             Swal.fire("Sorry!", data.message, "error");
@@ -402,7 +405,7 @@
             form_data.append('id', id);
             $.ajax({
                 type: "POST",
-                url: "{{ route('getSupplierById') }}", // your php file name
+                url: "{{ route('getTimeSlotById') }}", // your php file name
                 data: form_data,
                 dataType: "json",
                 processData: false,
@@ -420,17 +423,14 @@
                         });
                         var rec = data.data;
                         var id = rec.id;
-                        var name = rec.name;
-                        var company_name = rec.company_name;
-                        var phone = rec.phone;
-                        var address = rec.address;
-                        var company_phone = rec.company_phone;
+                        var slot_limit = rec.slot_limit;
+                        var booking_from_time = rec.booking_from_time;
+                        var booking_to_time = rec.booking_to_time;
                         $('#id').val(id);
-                        $('#name').val(name);
-                        $('#company_name').val(company_name);
-                        $('#phone_no').val(phone);
-                        $('#address').text(address);
-                        $('#company_phone_no').val(company_phone);
+                        $('#slot_limit').val(slot_limit);
+                        $('#start_time').val(booking_from_time);
+                        $('#end_time').val(booking_to_time);
+                        $('#bookingAddScheduleModal').modal('show');
                         window.scrollTo({
                             top: 0,
                             behavior: 'smooth'
@@ -459,7 +459,7 @@
                 if (result.value) {
                     $.ajax({
                         type: "POST",
-                        url: "{{ route('supplierDelete') }}", // your php file name
+                        url: "{{ route('timeSlotDelete') }}", // your php file name
                         data: form_data,
                         dataType: "json",
                         processData: false,
@@ -483,7 +483,5 @@
                 }
             });
         });
-
-
     </script>
 @endsection
