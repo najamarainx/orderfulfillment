@@ -61,12 +61,12 @@
                         <!--begin::Tap pane-->
                         <form class="kt-form kt-form--fit">
                             <div class="row">
-                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                     <div class="form-group">
                                         <label>Billing Number:</label>
                                         <input type="text" name="name" id="name" class="form-control" placeholder="Billing Number" data-col-index="0"> </div>
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                     <div class="form-group">
                                         <label>Supplier:</label>
                                         <select class="form-control kt_select2_1 datatable-input " id="supplier_search" data-col-index="1">
@@ -74,15 +74,8 @@
                                                 <option value="{{$supplier->id}}">{{ucfirst($supplier->name)}}</option> @endforeach </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                                    <div class="form-group">
-                                        <label>Department:</label>
-                                        <select class="form-control kt_select2_1 datatable-input " id="dept_search" data-col-index="2">
-                                            <option value="">Depatement</option> @foreach($departments as $department)
-                                                <option value="{{$department->id}}">{{ucfirst($department->name)}}</option> @endforeach </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                     <label>&nbsp;</label>
                                     <br>
                                     <button class="btn btn-secondary btn-secondary--icon" id="kt_reset"> <span>
@@ -101,7 +94,6 @@
                             <tr>
                                 <th>Billing ID</th>
                                 <th>Name</th>
-                                <th>Department</th>
                                 <th>Total Price</th>
                                 <th>Qty</th>
                                 <th>Created At</th>
@@ -267,9 +259,7 @@
                                 data: 'id'
                             }, {
                                 data: 'name'
-                            }, {
-                                data: 'dept'
-                            }, {
+                            },  {
                                 data: 'price'
                             }, {
                                 data: 'qty'
