@@ -39,4 +39,15 @@ function getDepartment($departmentId = "", $departmentObjs = false)
     return $result;
 }
 
+function getDepartmentItems($deptID)
+{
+    return $query = DB::table('orderfulfillment_items')->where('department_id',$deptID)->get();
+}
+function getVariants()
+{
+    return $query = DB::table('orderfulfillment_variants')->whereNull('deleted_at')->get();
+}
+
+
+
 

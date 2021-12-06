@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\OrderFulfillmentSupplier;
 use App\Models\OrderFulfillmentSupplierStock;
 use App\Models\OrderFulfillmentDepartment;
+use App\Models\OrderFulfillmentSupplierStockOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Zip;
 use Carbon\Carbon;
 use Auth;
 use Illuminate\Support\Facades\Validator;
@@ -19,11 +19,13 @@ class SupplierStockController extends Controller
     {
         $departments=OrderFulfillmentDepartment::whereNULL('deleted_at')->get();
         $suppliers=OrderFulfillmentSupplier::whereNULL('deleted_at')->get();
+        $variants=getVariants();
 
         $dt = [
 
             'departments' => $departments,
             'suppliers' => $suppliers,
+            'variants' => $variants,
 
         ];
         return view('stocks.list',$dt);
@@ -114,6 +116,136 @@ class SupplierStockController extends Controller
 
     }
 
+    public function store(Request $request)
+    {
+        $id = $request->id;
+        $validate = true;
+        $validateInput = $request->all();
+        $rules = [
+            'supplier_stock_id' => 'required|max:150',
+            'dept_stock.*' => 'required|max:150',
+            'unit_stock.*' => 'required|max:150',
+            'variant_stock.*' => 'required|max:150',
+            'per_unit_price.*' => 'required|max:150',
+            'qty_unit_price.*' => 'required|max:150',
+            'total_variant_price.*' => 'required|max:150',
+            'overall_total_price' => 'required|max:150',
+            'overall_total_qty' => 'required|max:150',
+
+        ];
+        $messages=[
+            'supplier_stock_id.required' => 'supplier field is required!',
+            'dept_stock.*.required' => 'department field is required!',
+            'unit_stock.*.required' => 'unit stock field is required!',
+            'variant_stock.*.required' => 'Varaint stock field is required!',
+            'per_unit_price.*.required' => 'per unit price field is required!',
+            'qty_unit_price.*.required' => 'quantity unit price field is required!',
+            'total_variant_price.*.required' => 'total price unit  field is required!',
+
+
+        ];
+        $validator = Validator::make($validateInput, $rules,$messages);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            $allMsg = [];
+            foreach ($errors->all() as $message) {
+                $allMsg[] = $message;
+            }
+            $return['status'] = 'error';
+            $return['message'] = collect($allMsg)->implode('<br />');
+            $validate = false;
+            return response()->json($return);
+        }
+        if ($validate) {
+
+            $stockOrder=new  OrderFulfillmentSupplierStock();
+            $id=$request->id;
+            $supplier_id=$request->supplier_stock_id;
+            $dept_ids=$request->dept_stock;
+            $item_stock=$request->item_stock;
+            $unit_stock=$request->unit_stock;
+            $qty_stock=$request->qty_stock;
+            $variant_stocks=$request->variant_stock;
+            $variant_per_unit_price=$request->per_unit_price;
+            $variant_qty_unit_price=$request->qty_unit_price;
+            $variant_total_variant_price=$request->total_variant_price;
+            $variantData=array();
+            $variants=$request->name;
+            if ($id > 0) {
+                foreach($variants as $variant){
+                    $variantData[]=array(
+                        'id'=>$id,
+                        'name'=>$variant,
+                        'updated_at'=> Carbon::now()->format("Y-m-d H:i:s"),
+                    );
+
+                }
+
+                $query=DB::table('orderfulfillment_variants')->upsert($variantData,['id'], ['name']);
+                $return = [
+                    'status' => 'error',
+                    'message' => 'Variant is not updated successfully',
+                ];
+                if ($query) {
+                    $return = [
+                        'status' => 'success',
+                        'message' => 'Variant is updated successfully',
+
+                    ];
+                }
+            }
+            else{
+                $stock_order_items=array();
+                $stockOrder->supplier_id=$supplier_id;
+                $stockOrder->qty=$request->overall_total_qty;
+                $stockOrder->total_price=$request->overall_total_price;
+                $stockOrder->created_at=Carbon::now()->format("Y-m-d H:i:s");
+                $qry=$stockOrder->save();
+                if($qry)
+                {
+                    $orderID=$stockOrder->id;
+                    foreach($dept_ids as $key=>$dept_id)
+                    {
+                       foreach($variant_stocks[$key] as $va=>$variantinfo)
+                        {
+                            $itemsInfo=explode('~',$item_stock[$key]);
+                            $stock_order_items[]=array(
+                                'stock_order_id'=>$orderID,
+                                'department_id'=>$dept_id,
+                                'item_id'=>$itemsInfo[0],
+                                'variant_id'=>$variantinfo,
+                                'per_unit_price'=>$variant_per_unit_price[$key][$va],
+                                'qty'=>$variant_per_unit_price[$key][$va],
+                                'total_price'=>$variant_total_variant_price[$key][$va],
+                                'created_at'=>Carbon::now()->format("Y-m-d H:i:s"),
+
+
+                            );
+                        }
+
+                    }
+
+                }
+
+
+                $query=OrderFulfillmentSupplierStockOrder::insert($stock_order_items);
+
+                $return = [
+                    'status' => 'error',
+                    'message' => 'stock supplier  is not save successfully',
+                ];
+                if ($query) {
+                    $return = [
+                        'status' => 'success',
+                        'message' => 'stock supplier is save successfully',
+
+                    ];
+                }
+            }
+        }
+
+        return response()->json($return);
+    }
     public function destroy(Request $request)
     {
         $id = $request->id;
