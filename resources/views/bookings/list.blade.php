@@ -11,7 +11,9 @@
         .error {
             color: red !important;
         }
-
+        span.select2.select2-container.select2-container--default {
+            width:100% !important;
+        }
         #msform {
             text-align: center;
             position: relative;
@@ -388,11 +390,12 @@
                         <thead>
                             <tr>
                                 <th>Sr</th>
-                                <th>Department</th>
+                                <th>Date</th>
+                                <th>Time Slot</th>
+                                <th>Category</th>
                                 <th>Name</th>
-                                <th>Min Quantity</th>
-                                <th>Unit</th>
-                                <th>Created</th>
+                                <th>Phone No</th>
+                                <th>Email</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -416,7 +419,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
+                 <form id="addForm">
 
                     <div class="row">
 
@@ -425,32 +428,32 @@
                                 <div class="col-12">
                                     <div class="form-group mb-4">
                                         <label class="mb-0">Customer Name</label>
-                                        <input type="text" class="form-control" placeholder="Customer Name">
+                                        <input type="text" class="form-control" name="customer_name" id="customer_name" placeholder="Customer Name">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group mb-4">
                                         <label class="mb-0">Customer Phone.No</label>
-                                        <input type="number" class="form-control" placeholder="Customer Phone.No">
+                                        <input type="number" class="form-control" name="customer_no" id="customer_no" placeholder="Customer Phone.No">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group mb-4">
                                         <label class="mb-0">Customer Email</label>
-                                        <input type="email" class="form-control" placeholder="Customer Email">
+                                        <input type="email" class="form-control" name="customer_email" id="customer_email" placeholder="Customer Email">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group mb-4">
                                         <label class="mb-0">Customer Address</label>
                                         <textarea type="text" class="form-control"
-                                            placeholder="Customer Address"></textarea>
+                                            placeholder="Customer Address" name="customer_address" id="customer_address"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group mb-4">
                                         <label class="mb-0">Customer postal Code</label>
-                                        <input type="number" class="form-control" placeholder="Customer postal Code">
+                                        <input type="number" class="form-control" name="customer_post_code" id="customer_post_code" placeholder="Customer postal Code">
                                     </div>
                                 </div>
                             </div>
@@ -462,8 +465,9 @@
                                     <div class="form-group mb-4">
                                         <label class="mb-0">Select Category</label>
                                         @if (!$categories->isEmpty())
-                                            <select class="form-control form-control-lg  kt_select2_1 w-100"
-                                                data-live-search="true">
+                                            <select class="form-control form-control-lg  kt_select2_1 w-100 category_id"
+                                                data-live-search="true" name="category_id" id="category_id">
+                                                <option value=""></option>
                                                 @foreach ($categories as $catObj)
                                                     <option value="{{ $catObj->id }}">{{ $catObj->name }}</option>
                                                 @endforeach
@@ -475,26 +479,38 @@
                                 <div class="col-12">
                                     <div class="form-group mb-4">
                                         <label>Select Date: </label>
-                                        <input class="form-group mb-4" id="datepicker" autocomplete="off" />
+                                        <input class="form-group mb-4 date" id="datepicker" name="date" autocomplete="off" />
                                     </div>
                                 </div>
                                 <div class="col-12">
-
-                                   {!!$timeSlotHtml!!}
-
+                                    <div class="form-group mb-4">
+                                        <label>Zip Code: </label>
+                                        <select class="form-control form-control-lg  kt_select2_1 w-100 zip_code"   data-live-search="true" name="zip_code" id="zip_code">
+                                        @if(!empty($zipCode))
+                                        <option value=""></option>
+                                         @foreach ($zipCode as $zipObj)
+                                                 <option value="{{$zipObj->id}}">{{$zipObj->name}}</option>
+                                         @endforeach
+                                        @endif
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <p class="text-danger slot_error"></p>
+                                    <div class="time_slot_html">
+                                        {!!$timeSlotHtml!!}
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                     </div>
-
-
-
+                 </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light-primary font-weight-bold"
                         data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary font-weight-bold">Save</button>
+                    <button type="button" class="btn btn-primary font-weight-bold" id="btn_save">Save</button>
                 </div>
             </div>
         </div>
@@ -539,12 +555,12 @@
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "{{ route('getItemList') }}",
+                        url: "{{ route('getBookingList') }}",
                         type: 'POST',
                         data: {
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id', 'department_id', 'name', 'min_qty', 'unit', 'created_at'
+                                'id', 'date', 'time_slot', 'category_id', 'first_name','phone_number', 'email'
                             ],
                         },
                         headers: {
@@ -555,19 +571,22 @@
                             data: 'id'
                         },
                         {
-                            data: 'department_id'
+                            data: 'date'
                         },
                         {
-                            data: 'name'
+                            data: 'time_slot'
                         },
                         {
-                            data: 'min_qty'
+                            data: 'category_id'
                         },
                         {
-                            data: 'unit'
+                            data: 'first_name'
                         },
                         {
-                            data: 'created_at'
+                            data: 'phone_number'
+                        },
+                        {
+                            data: 'email'
                         },
                         {
                             data: 'action',
@@ -645,27 +664,39 @@
             datatable.init();
             var validator = $("#addForm").validate({
                 rules: {
-                    name: {
+                    customer_name: {
                         required: true
                     },
-                    min_qty: {
+                    customer_no: {
                         required: true
                     },
-                    unit: {
+                    customer_email: {
                         required: true
                     },
-                    department_id: {
+                    customer_address: {
+                        required: true
+                    },
+                    category_id: {
+                        required: true
+                    },
+                    date: {
+                        required: true
+                    },
+                    zip_code: {
+                        required: true
+                    },
+                    customer_post_code: {
                         required: true
                     }
+
 
                 },
                 errorPlacement: function(error, element) {
                     var elem = $(element);
-                    if (elem.hasClass("department_id")) {
-
+                    if (elem.hasClass("category_id") || elem.hasClass("zip_code")) {
                         error.appendTo(element.parent().after());
                         //error.insertAfter(element);
-                    } else {
+                        } else {
                         error.insertAfter(element);
                     }
                 }
@@ -681,7 +712,7 @@
 
         })
         $(document).on('click', '#btn_add_new', function() {
-            $('#addItemModal').modal({
+            $('#addBookingModal').modal({
                 backdrop: 'static',
                 keyboard: false
             }).on('hide.bs.modal', function() {
@@ -695,12 +726,16 @@
 
 
         $(document).on('click', '#btn_save', function() {
+            if(!$("input:radio[name='time_slot']").is(":checked")) {
+                $('.slot_error').text('Please select a slot');
+                validate = false;
+            }
             var validate = $("#addForm").valid();
             if (validate) {
                 var form_data = $("#addForm").serializeArray();
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('itemSubmit') }}", // your php file name
+                    url: "{{ route('bookingSubmit') }}", // your php file name
                     data: form_data,
                     dataType: "json",
                     headers: {
@@ -728,7 +763,7 @@
                             toastr.success(data.message);
                             var form = $("#addForm");
                             form[0].reset();
-                            $('#addItemModal').modal('hide');
+                            $('#addBookingModal').modal('hide');
                             table.ajax.reload();
                         } else {
                             Swal.fire("Sorry!", data.message, "error");
@@ -757,7 +792,7 @@
                 },
                 success: function(data) {
                     if (data.status == 'success') {
-                        $('#addItemModal').modal({
+                        $('#addBookingModal').modal({
                             backdrop: 'static',
                             keyboard: false
                         }).on('hide.bs.modal', function() {
@@ -802,7 +837,7 @@
                 if (result.value) {
                     $.ajax({
                         type: "POST",
-                        url: "{{ route('itemDelete') }}", // your php file name
+                        url: "{{ route('bookingDelete') }}", // your php file name
                         data: form_data,
                         dataType: "json",
                         processData: false,
@@ -826,5 +861,33 @@
                 }
             });
         });
+
+        $(document).on('change','.zip_code',function(){
+          zipCode  =  $(this).val();
+          var form_data = new FormData();
+            form_data.append('zipCode', zipCode);
+            $.ajax({
+                type: "POST",
+                url: "{{ route('getTimeSlotByZipCode') }}", // your php file name
+                data: form_data,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    if (data.status == 'success') {
+                         $('.time_slot_html').html();
+                         $('.time_slot_html').html(data.timeSlotHtml);
+                    } else {
+                        Swal.fire("Sorry!", data.message, "error");
+                    }
+                },
+                error: function(errorString) {
+                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                }
+            });
+        })
     </script>
 @endsection

@@ -127,10 +127,10 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::prefix('booking')->group(function () {
         Route::get('/', [Controllers\BookingController::class, 'index'])->name('bookingList');
-        // Route::post('/list', [Controllers\TimeSlotController::class, 'getList'])->name('getTimeSlotList');
-        // Route::post('/submit', [Controllers\TimeSlotController::class, 'store'])->name('timeslotSubmit');
-        // Route::post('/edit', [Controllers\TimeSlotController::class, 'getTimeSlotById'])->name('getTimeSlotById');
-        // Route::post('/delete', [Controllers\TimeSlotController::class, 'destroy'])->name('timeSlotDelete');
+        Route::post('/list', [Controllers\BookingController::class, 'getList'])->name('getBookingList');
+        Route::post('/submit', [Controllers\BookingController::class, 'store'])->name('bookingSubmit');
+        Route::post('/get_timeslots_by_zipcode', [Controllers\BookingController::class, 'getTimeSlotByZipCode'])->name('getTimeSlotByZipCode');
+        Route::post('/delete', [Controllers\BookingController::class, 'destroy'])->name('bookingDelete');
 
     });
 

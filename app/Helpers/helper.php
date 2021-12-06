@@ -66,6 +66,18 @@ function getVariants()
 {
     return $query = DB::table('orderfulfillment_variants')->whereNull('deleted_at')->get();
 }
+function getZipCode($zipId="")
+{
+     $query = DB::table('orderfulfillment_zip_codes')->whereNull('deleted_at');
+
+     if(!empty($zipId)){
+         $query->where('id',$zipId);
+     }
+     $result = $query->get();
+     return $result;
+}
+
+
 
 
 
