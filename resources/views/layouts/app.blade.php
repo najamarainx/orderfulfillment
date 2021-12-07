@@ -187,5 +187,13 @@
 @yield('page_level_js')
 </body>
 <!--end::Body-->
+<script>
+    $(document).on('click','.booking_status',function(){
+      booking_id  = $(this).attr('data-id');
+      $('#booking_id').val('');
+      $('#booking_id').val(booking_id);
+      $('#statusModal').modal('show');
 
+    })
+</script>
 </html>

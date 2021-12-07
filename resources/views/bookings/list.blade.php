@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css">
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
-
+@php $statusArray = ['not_called','confirmed','rescheduled','not_respond','cancelled']; @endphp
 @section('page_level_css')
     <style>
         .error {
@@ -426,6 +426,7 @@
                         <div class="col-lg-6 col-md-6 col-sm-12 pr-lg-6 pr-md-6 border-right-lg border-right-md">
                             <div class="row">
                                 <div class="col-12">
+                                    <input type="hidden" name="id" id="id">
                                     <div class="form-group mb-4">
                                         <label class="mb-0">Customer Name</label>
                                         <input type="text" class="form-control" name="customer_name" id="customer_name" placeholder="Customer Name">
@@ -515,6 +516,43 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade show" id="statusModal" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-modal="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="return false" id="addForm">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="hidden" name="booking_id" id="booking_id">
+                                 <select name="booking_status" id="booking_status" class="form-control">
+                                     <option value="">Select Status</option>
+                                     @foreach ($statusArray as $status)
+                                     <option value="">{{$status}}</option>
+                                     @endforeach
+                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button type="button" class="btn btn-light-primary font-weight-bold"
+                            data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary font-weight-bold btn_save"
+                            id="btn_save">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('page_level_js_plugin')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
@@ -716,21 +754,23 @@
                 backdrop: 'static',
                 keyboard: false
             }).on('hide.bs.modal', function() {
+                $('.slot_error').text('');
                 $("#addForm").validate().resetForm();
             });
             var form = $("#addForm");
             form[0].reset();
             $('#id').val('');
+            $('.slot_error').text('');
 
         });
 
 
         $(document).on('click', '#btn_save', function() {
+            var validate = $("#addForm").valid();
             if(!$("input:radio[name='time_slot']").is(":checked")) {
                 $('.slot_error').text('Please select a slot');
                 validate = false;
             }
-            var validate = $("#addForm").valid();
             if (validate) {
                 var form_data = $("#addForm").serializeArray();
                 $.ajax({
