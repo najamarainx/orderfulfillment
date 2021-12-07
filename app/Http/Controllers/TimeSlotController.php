@@ -119,7 +119,6 @@ class TimeSlotController extends Controller
         $validate = true;
         $validateInput = $request->all();
         $rules = [
-            'slot_limit' => 'required|max:150',
             'start_time' => 'required',
             'end_time' => 'required',
 
@@ -142,7 +141,6 @@ class TimeSlotController extends Controller
             if ($id > 0) {
                 $timeSlot = OrderFulfillmentTimeSlot::findOrFail($id);
             }
-            $timeSlot->slot_limit = $request->slot_limit;
             $timeSlot->booking_from_time = Carbon::parse($request->start_time)->format('H:i:s');
             $timeSlot->booking_to_time = Carbon::parse($request->end_time)->format('H:i:s');
             $timeSlotData  = $timeSlot->save();
