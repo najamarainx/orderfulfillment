@@ -129,12 +129,12 @@
                                 @endphp
                             <div class="row col-8 m-auto d-flex justify-content-between">
                                 <div class="slot_checkbox col-4">
-                                    <input type="checkbox" name="time_slot[{{$key}}]" id="time_slot_{{$slot->id}}" class="checkbox time_slot" value="{{$slot->id}}" @if(!empty($userselected)) {{'checked'}} @endif >
+                                    <input type="checkbox" name="time_slot[{{$key}}]" id="time_slot_{{$slot->id}}" onclick="showUsers({{$slot->id}})" class="checkbox time_slot" value="{{$slot->id}}" @if(!empty($userselected)) {{'checked'}} @endif >
                                     <label for="time_slot_{{$slot->id}}">{{ date('g:i a',strtotime($slot->booking_from_time)).' - '.date('g:i a',strtotime($slot->booking_to_time)) }}</label>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <select class="form-control select2 kt_select2_3 " multiple="multiple" name="user_zip[{{$key}}][]">
+                                        <select class="form-control select2 kt_select2_3 " id="slot_user_{{$slot->id}}" multiple="multiple" @if(empty($userselected)) {{'disabled'}} @endif  name="user_zip[{{$key}}][]">
                                             @foreach($usersBYZipCode as $user)
                                                 <option value="{{$user->id}}" @if(!empty($userselected) && in_array($user->id,$userselected)) {{'selected'}} @endif>{{ucfirst($user->name)}}</option>
                                             @endforeach
@@ -258,6 +258,16 @@
 
         });
 
+        function showUsers(id){
+            var usersoption = document.getElementById("time_slot_"+id).checked;
+            if(usersoption==true){
+                $("#slot_user_"+id).prop("disabled", false);
+            }else{
+                $("#slot_user_"+id).val('').trigger('change');
+                $("#slot_user_"+id).prop("disabled", true);
+            }
+
+        }
 
     </script>
 @endsection
