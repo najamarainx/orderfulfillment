@@ -133,6 +133,11 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::post('/delete', [Controllers\TimeSlotController::class, 'destroy'])->name('timeSlotDelete');
 
     });
+    Route::prefix('user-time-slot')->group(function () {
+        Route::get('/detail/{id}', [Controllers\UserTimeSlotController::class, 'index'])->name('zipListUsers');
+        Route::post('/submit', [Controllers\UserTimeSlotController::class, 'store'])->name('slotSave');
+
+    });
 
 });
 Auth::routes();

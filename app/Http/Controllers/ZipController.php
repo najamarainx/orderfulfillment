@@ -63,7 +63,8 @@ class ZipController extends Controller
         $i=1;
         foreach ($chargesData as $chargesObj) {
             $action = "";
-
+            $action .= '<a href="' . url('user-time-slot/detail') . '/' . $chargesObj->id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview" data-id="' . $chargesObj->id . '">
+            <i class="la la-eye"></i>';
             $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 edit" data-id="' . $chargesObj->id . '">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
