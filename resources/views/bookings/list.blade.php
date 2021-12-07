@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css">
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
-
 @section('page_level_css')
     <style>
         .error {
@@ -426,6 +425,7 @@
                         <div class="col-lg-6 col-md-6 col-sm-12 pr-lg-6 pr-md-6 border-right-lg border-right-md">
                             <div class="row">
                                 <div class="col-12">
+                                    <input type="hidden" name="id" id="id">
                                     <div class="form-group mb-4">
                                         <label class="mb-0">Customer Name</label>
                                         <input type="text" class="form-control" name="customer_name" id="customer_name" placeholder="Customer Name">
@@ -515,6 +515,8 @@
             </div>
         </div>
     </div>
+
+
 @endsection
 @section('page_level_js_plugin')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
@@ -716,21 +718,23 @@
                 backdrop: 'static',
                 keyboard: false
             }).on('hide.bs.modal', function() {
+                $('.slot_error').text('');
                 $("#addForm").validate().resetForm();
             });
             var form = $("#addForm");
             form[0].reset();
             $('#id').val('');
+            $('.slot_error').text('');
 
         });
 
 
         $(document).on('click', '#btn_save', function() {
+            var validate = $("#addForm").valid();
             if(!$("input:radio[name='time_slot']").is(":checked")) {
                 $('.slot_error').text('Please select a slot');
                 validate = false;
             }
-            var validate = $("#addForm").valid();
             if (validate) {
                 var form_data = $("#addForm").serializeArray();
                 $.ajax({

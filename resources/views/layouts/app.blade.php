@@ -33,6 +33,7 @@
 
     @yield('page_level_css')
     @yield('page_level_css_plugin')
+    @php $statusArray = ['not called','confirmed','rescheduled','not respond','cancelled']; @endphp
 </head>
 
 <body id="kt_body"
@@ -105,7 +106,48 @@
 
     @include('layouts.common.quick_panel')
     @include('layouts.common.quick_user_panel')
-
+    <div class="modal fade show" id="statusModal" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-modal="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="return false" id="updateStatusForm">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                               <p class="status_text"></p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="hidden" name="booking_id" id="booking_id">
+                                <label for="">Select Status:</label>
+                                 <select name="booking_status" id="booking_status" class="form-control">
+                                     <option value="">Select Status</option>
+                                     @foreach ($statusArray as $status)
+                                     <option value="{{$status}}">{{ucfirst($status)}}</option>
+                                     @endforeach
+                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button type="button" class="btn btn-light-primary font-weight-bold"
+                            data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary font-weight-bold btn_save"
+                            id="update_stauts_btn">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 
@@ -187,5 +229,19 @@
 @yield('page_level_js')
 </body>
 <!--end::Body-->
-
+<script>
+    $(document).on('click','.booking_status',function(){
+      booking_id  = $(this).attr('data-id');
+      booking_status  = $(this).text();
+      $('.status_text').text('')
+      $('.status_text').text(booking_status.toUpperCase())
+      $('#booking_id').val('');
+      $('#booking_id').val(booking_id);
+      $('#booking_status').val(booking_status);
+      $('#statusModal').modal('show');
+    });
+    $(document).on('click','.update_status_btn',function(){
+        status = $('#booking_status').val(booking_status);
+    })
+</script>
 </html>

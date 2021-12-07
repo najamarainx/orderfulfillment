@@ -48,7 +48,7 @@ class BookingController extends Controller
             $booking->whereIn('orderfulfillment_bookings.booking_status', ['confirmed','rescheduled']);
         }
         else{
-            $booking->whereIn('orderfulfillment_bookings.booking_status', ['not_called','not_respond','cancelled']);
+            $booking->whereIn('orderfulfillment_bookings.booking_status', ['not called','not respond','cancelled']);
         }
         foreach ($columns as $field) {
             $col = $field['data'];
@@ -135,7 +135,7 @@ class BookingController extends Controller
                 "category_id" => $categoryName,
                 "first_name" => $bookingObj->first_name . ' '. $bookingObj->last_name,
                 "phone_number" => $bookingObj->phone_number,
-                "email" => $bookingObj->email,
+                "email" =>  '<span class="badge badge-success badge-pill booking_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">'.$bookingObj->booking_status.'</span>',
                 "action" => $action
             ];
         }
@@ -147,6 +147,10 @@ class BookingController extends Controller
     }
     public function store(Request $request)
     {
+        $id = $request->id;
+        if(!empty($id)){
+          $booking = OrderFulfillmentBooking::find($id);
+        }
         $booking = new OrderFulfillmentBooking();
         $booking->category_id = $request->category_id;
         $booking->date = $request->date;
@@ -157,6 +161,7 @@ class BookingController extends Controller
         $booking->last_name = $customerName[1];
         $booking->email = $request->customer_email;
         $booking->phone_number = $request->customer_no;
+        $booking->post_code = $request->customer_post_code;
         $booking->address = $request->customer_address;
         // $booking->message = $request->message;
         $booking->save();
@@ -175,8 +180,8 @@ class BookingController extends Controller
         if(!($timeSlotDetail->isEmpty())){
             $date = Carbon::now()->format('Y-m-d');
             $dt = [
-                'date' => $date,
-                'timeSlotDetail' => $timeSlotDetail,
+                 'date' => $date,
+                 'timeSlotDetail' => $timeSlotDetail,
                  'userId'=>$userId,
                  'zipCode'=>$request->zipCode,
                  'date'=>$request->date
