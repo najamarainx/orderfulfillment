@@ -44,6 +44,12 @@ class BookingController extends Controller
         $columns = $request->columns;
 
         $booking = DB::table('orderfulfillment_bookings')->select('orderfulfillment_bookings.*','ots.booking_from_time','ots.booking_to_time')->whereNull('orderfulfillment_bookings.deleted_at')->leftJoin('orderfulfillment_time_slots as ots','orderfulfillment_bookings.time_slot_id','ots.id')->whereNull('ots.deleted_at');
+        if($request->status=='confirmed'){
+            $booking->whereIn('orderfulfillment_bookings.booking_status', ['confirmed','rescheduled']);
+        }
+        else{
+            $booking->whereIn('orderfulfillment_bookings.booking_status', ['not_called','not_respond','cancelled']);
+        }
         foreach ($columns as $field) {
             $col = $field['data'];
             $search = $field['search']['value'];
@@ -210,4 +216,30 @@ class BookingController extends Controller
         }
         return response()->json($return);
     }
+
+    public function confirmedBookings()
+    {
+        $category  = getCategory('product', -1, true);
+        $timeSlotDetail = OrderFulfillmentTimeSlot::where('status', 'active')->get();
+        $zipCode  = getZipCode();
+        $date = Carbon::now()->format('Y-m-d');
+        $dt = [
+            'date' => $date,
+            'timeSlotDetail'=>$timeSlotDetail,
+            'userId'=>['']
+
+        ];
+        $timeSlotHtml = View::make('template.booking-slots', $dt)->render();
+        $data['timeSlotHtml'] = $timeSlotHtml;
+
+        $data['categories'] = $category;
+        $data['zipCode'] = $zipCode;
+        return view('bookings.confirmed_list', $data);
+    }
+
+
+
+
+
+
 }
