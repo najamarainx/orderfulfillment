@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css">
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
-@php $statusArray = ['not_called','confirmed','rescheduled','not_respond','cancelled']; @endphp
 @section('page_level_css')
     <style>
         .error {
@@ -517,42 +516,7 @@
         </div>
     </div>
 
-    <div class="modal fade show" id="statusModal" data-backdrop="static" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalLabel" aria-modal="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update Status</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form onsubmit="return false" id="addForm">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <input type="hidden" name="booking_id" id="booking_id">
-                                 <select name="booking_status" id="booking_status" class="form-control">
-                                     <option value="">Select Status</option>
-                                     @foreach ($statusArray as $status)
-                                     <option value="">{{$status}}</option>
-                                     @endforeach
-                                 </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <button type="button" class="btn btn-light-primary font-weight-bold"
-                            data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary font-weight-bold btn_save"
-                            id="btn_save">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
 @endsection
 @section('page_level_js_plugin')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>

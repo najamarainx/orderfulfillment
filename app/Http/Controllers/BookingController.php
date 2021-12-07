@@ -48,7 +48,7 @@ class BookingController extends Controller
             $booking->whereIn('orderfulfillment_bookings.booking_status', ['confirmed','rescheduled']);
         }
         else{
-            $booking->whereIn('orderfulfillment_bookings.booking_status', ['not_called','not_respond','cancelled']);
+            $booking->whereIn('orderfulfillment_bookings.booking_status', ['not called','not respond','cancelled']);
         }
         foreach ($columns as $field) {
             $col = $field['data'];
