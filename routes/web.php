@@ -129,6 +129,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [Controllers\BookingController::class, 'index'])->name('bookingList');
         Route::post('/list', [Controllers\BookingController::class, 'getList'])->name('getBookingList');
         Route::post('/submit', [Controllers\BookingController::class, 'store'])->name('bookingSubmit');
+        Route::post('/edit', [Controllers\BookingController::class, 'getBookingById'])->name('getBookingById');
         Route::post('/get_timeslots_by_zipcode', [Controllers\BookingController::class, 'getTimeSlotByZipCode'])->name('getTimeSlotByZipCode');
         Route::post('/delete', [Controllers\BookingController::class, 'destroy'])->name('bookingDelete');
 

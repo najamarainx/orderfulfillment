@@ -114,14 +114,6 @@
                 <div class="modal-body">
                     <form id="addForm">
                         <div class="row">
-                            <div class="col-12">
-                                <div class="form-group mb-4">
-                                    <input type="hidden" name="id" id="id">
-                                    <label class="mb-0">Slot Limit<span class="text-primary">*</span></label>
-                                    <input type="number" class="form-control" name="slot_limit" id="slot_limit"
-                                        placeholder="Slot Limit">
-                                </div>
-                            </div>
 
                             <div class="col-12">
                                 <div class="form-group mb-4">
@@ -308,9 +300,7 @@
             datatable.init();
             var validator = $("#addForm").validate({
                 rules: {
-                    slot_limit: {
-                        required: true
-                    },
+
                     start_time: {
                         required: true
                     },
@@ -427,7 +417,6 @@
                         var booking_from_time = rec.booking_from_time;
                         var booking_to_time = rec.booking_to_time;
                         $('#id').val(id);
-                        $('#slot_limit').val(slot_limit);
                         $('#start_time').val(booking_from_time);
                         $('#end_time').val(booking_to_time);
                         $('#bookingAddScheduleModal').modal('show');

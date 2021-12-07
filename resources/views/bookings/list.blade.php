@@ -479,7 +479,7 @@
                                 <div class="col-12">
                                     <div class="form-group mb-4">
                                         <label>Select Date: </label>
-                                        <input class="form-group mb-4 date" id="datepicker" name="date" autocomplete="off" />
+                                        <input class="form-group mb-4 date selected_date" id="datepicker" name="date" autocomplete="off" />
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -780,9 +780,10 @@
             var id = $(this).data('id');
             var form_data = new FormData();
             form_data.append('id', id);
+
             $.ajax({
                 type: "POST",
-                url: "{{ route('getItemById') }}", // your php file name
+                url: "{{ route('getBookingById') }}", // your php file name
                 data: form_data,
                 dataType: "json",
                 processData: false,
@@ -800,15 +801,25 @@
                         });
                         var rec = data.data;
                         var id = rec.id;
-                        var name = rec.name;
-                        var min_qty = rec.min_qty;
-                        var department_id = rec.department_id;
-                        var unit = rec.unit;
+                        var first_name = rec.first_name;
+                        var last_name = rec.last_name;
+                        name = first_name+' '+ last_name;
+                        var date = rec.date;
+                        var category_id  = rec.category_id ;
+                        var time_slot_id = rec.time_slot_id;
+                        var email = rec.email;
+                        var phone_number = rec.phone_number;
+                        var post_code = rec.post_code;
+                        var address = rec.address;
                         $('#id').val(id);
-                        $('#name').val(name);
-                        $('#min_qty').val(min_qty);
-                        $('#unit').val(unit);
-                        $('#department_id').val(department_id).trigger('change.select2');
+                        $('#customer_name').val(name);
+                        $('#customer_no').val(phone_number);
+                        $('#customer_email').val(email);
+                        $('#customer_address').text(address);
+                        $('#customer_post_code').val(post_code);
+                        $('.selected_date').val(date);
+                        $('#category_id').val(category_id).trigger('change.select2');
+                        $('#zip_code').val(time_slot_id).trigger('change.select2');
                         window.scrollTo({
                             top: 0,
                             behavior: 'smooth'
@@ -861,11 +872,16 @@
                 }
             });
         });
-
+        $(document).on('click','.selected_date',function(){
+           console.log('yes');
+        //    $('.zip_code').selectpicker("refresh");
+        });
         $(document).on('change','.zip_code',function(){
           zipCode  =  $(this).val();
+          date = $('.date').val();
           var form_data = new FormData();
             form_data.append('zipCode', zipCode);
+            form_data.append('date', date);
             $.ajax({
                 type: "POST",
                 url: "{{ route('getTimeSlotByZipCode') }}", // your php file name

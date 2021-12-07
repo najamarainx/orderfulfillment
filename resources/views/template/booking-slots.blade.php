@@ -1,10 +1,16 @@
 @foreach ($timeSlotDetail as $timeSlotObj)
     @php
-        $totalBooking = App\Models\OrderFulfillmentBooking::whereDate('date', $date)->where('time_slot_id', $timeSlotObj->id)->count();
+        $booking = App\Models\OrderFulfillmentBooking::whereDate('date', $date)->where(['time_slot_id'=> $timeSlotObj->id]);
+        if(!empty($zipCode)){
+            $booking->where('zip_code_id',$zipCode);
+        }
+        $totalBooking = $booking->count();
         $disabledAtt = '';
         $disabledClass = '';
         $limit = $timeSlotObj->slot_limit;
-        if(!empty($userId) ? substr_count($userId) : 10 <= $totalBooking) {
+    //   echo  count($userId);
+        // echo $totalBooking;
+        if(count($userId) <= $totalBooking) {
             $disabledAtt = 'disabled="disabled"';
             $disabledClass = 'disabled';
         }
