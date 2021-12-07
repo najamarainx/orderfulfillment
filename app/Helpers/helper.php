@@ -1,6 +1,4 @@
 <?php
-
-
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,6 +64,7 @@ function getVariants()
 {
     return $query = DB::table('orderfulfillment_variants')->whereNull('deleted_at')->get();
 }
+
 function getUsersByZip($zipID)
 {
     return $query = DB::table('orderfulfillment_user_zip_codes_mappings')->select('orderfulfillment_users.name','orderfulfillment_users.id')->join('orderfulfillment_users','orderfulfillment_users.id','=','orderfulfillment_user_zip_codes_mappings.user_id')->whereNULL('orderfulfillment_user_zip_codes_mappings.deleted_at')->where('orderfulfillment_user_zip_codes_mappings.zip_id',$zipID)->get();
@@ -74,6 +73,18 @@ function getUserTimeSlots($zipID)
 {
     return $query = DB::table('orderfulfillment_user_time_slot_assigns')->select('orderfulfillment_user_time_slot_assigns.*')->whereNULL('orderfulfillment_user_time_slot_assigns.deleted_at')->where('orderfulfillment_user_time_slot_assigns.zip_code_id',$zipID)->get();
 }
+
+function getZipCode($zipId="")
+{
+     $query = DB::table('orderfulfillment_zip_codes')->whereNull('deleted_at');
+
+     if(!empty($zipId)){
+         $query->where('id',$zipId);
+     }
+     $result = $query->get();
+     return $result;
+}
+
 
 
 
