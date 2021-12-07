@@ -30,10 +30,14 @@
     <!--end::Layout Themes-->
     <link rel="shortcut icon" href="{{asset('assets/media/favicon/favicon.ico')}}" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css">
 
     @yield('page_level_css')
     @yield('page_level_css_plugin')
-    @php $statusArray = ['not called','confirmed','rescheduled','not respond','cancelled']; @endphp
+    @php $statusArray = ['not called','confirmed','rescheduled','not respond','cancelled'];
+    //   $category  = getCategory('product', -1, true);
+    //   $zipCode  = getZipCode();
+    @endphp
 </head>
 
 <body id="kt_body"
@@ -129,11 +133,54 @@
                                 <input type="hidden" name="booking_id" id="booking_id">
                                 <label for="">Select Status:</label>
                                  <select name="booking_status" id="booking_status" class="form-control">
-                                     <option value="">Select Status</option>
                                      @foreach ($statusArray as $status)
                                      <option value="{{$status}}">{{ucfirst($status)}}</option>
                                      @endforeach
                                  </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-6 col-sm-12 pl-lg-6 pl-md-6 resceduled_html" style="display: none">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-0">Select Category</label>
+                                        @if (!$categories->isEmpty())
+                                            <select class="form-control form-control-lg  kt_select2_1 w-100 category_id"
+                                                data-live-search="true" name="category_id" id="category_id">
+                                                <option value=""></option>
+                                                @foreach ($categories as $catObj)
+                                                    <option value="{{ $catObj->id }}">{{ $catObj->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group mb-4">
+                                        <label>Select Date: </label>
+                                        <input class="form-group mb-4 date selected_date" id="datepickers" name="date" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group mb-4">
+                                        <label>Zip Code: </label>
+                                        <select class="form-control form-control-lg  kt_select2_1 w-100 zip_code"   data-live-search="true" name="zip_code" id="zip_code">
+                                        @if(!empty($zipCode))
+                                        <option value=""></option>
+                                         @foreach ($zipCode as $zipObj)
+                                                 <option value="{{$zipObj->id}}">{{$zipObj->name}}</option>
+                                         @endforeach
+                                        @endif
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <p class="text-danger slot_error"></p>
+                                    <div class="time_slot_html">
+                                        {!!$timeSlotHtml!!}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -222,6 +269,7 @@
 <script src="{{ asset('assets/js/pages/widgets.js') }}"></script>
 <script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js')}}"></script>
 <!--end::Page Scripts-->
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 
 @yield('page_level_js_plugin')
 <!--end::Page Vendors-->
@@ -229,7 +277,12 @@
 @yield('page_level_js')
 </body>
 <!--end::Body-->
-<script>
+<script> var today, datepicker;
+    today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+    datepicker = $('#datepickers').datepicker({
+        minDate: today,
+        format: 'yyyy-mm-dd'
+    });
     $(document).on('click','.booking_status',function(){
       booking_id  = $(this).attr('data-id');
       booking_status  = $(this).text();
@@ -238,10 +291,105 @@
       $('#booking_id').val('');
       $('#booking_id').val(booking_id);
       $('#booking_status').val(booking_status);
+      if(booking_status == 'rescheduled'){
+
+        $.ajax({
+                type: "POST",
+                url: "{{ route('getBookingById') }}", // your php file name
+                data: form_data,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    if (data.status == 'success') {
+                        $('#addBookingModal').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        }).on('hide.bs.modal', function() {
+                            $("#addForm").validate().resetForm();
+                        });
+                        var rec = data.data;
+                        var id = rec.id;
+                        var first_name = rec.first_name;
+                        var last_name = rec.last_name;
+                        name = first_name+' '+ last_name;
+                        var date = rec.date;
+                        var category_id  = rec.category_id ;
+                        var time_slot_id = rec.time_slot_id;
+                        var email = rec.email;
+                        var phone_number = rec.phone_number;
+                        var post_code = rec.post_code;
+                        var address = rec.address;
+                        $('#id').val(id);
+                        $('#customer_name').val(name);
+                        $('#customer_no').val(phone_number);
+                        $('#customer_email').val(email);
+                        $('#customer_address').text(address);
+                        $('#customer_post_code').val(post_code);
+                        $('.selected_date').val(date);
+                        $('#category_id').val(category_id).trigger('change.select2');
+                        $('#zip_code').val(time_slot_id).trigger('change.select2');
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        Swal.fire("Sorry!", data.message, "error");
+                    }
+                },
+                error: function(errorString) {
+                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                }
+            });
+                $('.resceduled_html').show();
+            }
+            else{
+                $('.resceduled_html').hide();
+            }
       $('#statusModal').modal('show');
     });
-    $(document).on('click','.update_status_btn',function(){
-        status = $('#booking_status').val(booking_status);
+    $(document).on('change','#booking_status',function(){
+            booking_status = $(this).val();
+            if(booking_status == 'rescheduled'){
+                $('.resceduled_html').show();
+            }
+            else{
+                $('.resceduled_html').hide();
+            }
+    });
+    $(document).on('click','#update_stauts_btn',function(){
+        status = $('#booking_status').val();
+        booking_id = $('#booking_id').val();
+        var form_data = new FormData();
+        form_data.append('status', status);
+        form_data.append('booking_id', booking_id);
+            $.ajax({
+                type: "POST",
+                url: "{{route('updateBookingStatus')}}", // your php file name
+                data: form_data,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data){
+                    if(data.status == 'success') {
+                        $('#statusModal').modal('hide');
+                        Swal.fire("Success!", data.message, "success");
+                        bookingListTable.ajax.reload();
+                    } else {
+                        Swal.fire("Sorry!", data.message, "error");
+                    }
+                },
+                error: function (errorString){
+                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                }
+            });
+
     })
 </script>
 </html>

@@ -133,6 +133,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/get_timeslots_by_zipcode', [Controllers\BookingController::class, 'getTimeSlotByZipCode'])->name('getTimeSlotByZipCode');
         Route::post('/delete', [Controllers\BookingController::class, 'destroy'])->name('bookingDelete');
         Route::get('/confirmed', [Controllers\BookingController::class, 'confirmedBookings'])->name('confirmedList');
+        Route::post('/update_booking_status', [Controllers\BookingController::class, 'updateBookingStatus'])->name('updateBookingStatus');
 
 
     });

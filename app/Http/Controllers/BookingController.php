@@ -135,7 +135,7 @@ class BookingController extends Controller
                 "category_id" => $categoryName,
                 "first_name" => $bookingObj->first_name . ' '. $bookingObj->last_name,
                 "phone_number" => $bookingObj->phone_number,
-                "email" =>  '<span class="badge badge-success badge-pill booking_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">'.$bookingObj->booking_status.'</span>',
+                "booking_status" =>  '<span class="badge badge-success badge-pill booking_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">'.$bookingObj->booking_status.'</span>',
                 "action" => $action
             ];
         }
@@ -242,9 +242,19 @@ class BookingController extends Controller
         return view('bookings.confirmed_list', $data);
     }
 
-
-
-
-
+    public function updateBookingStatus(Request $request){
+           $booking = OrderFulfillmentBooking::where('id',$request->booking_id)->update(['booking_status'=>$request->status]);
+           $return = [
+            'status' => 'success',
+            'message' =>'Status updated successfully!'
+        ];
+            if (empty($booking)) {
+                $return = [
+                    'status' => 'error',
+                    'message' => 'Data not found for edit'
+                ];
+            }
+            return response()->json($return);
+    }
 
 }
