@@ -132,6 +132,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/edit', [Controllers\BookingController::class, 'getBookingById'])->name('getBookingById');
         Route::post('/get_timeslots_by_zipcode', [Controllers\BookingController::class, 'getTimeSlotByZipCode'])->name('getTimeSlotByZipCode');
         Route::post('/delete', [Controllers\BookingController::class, 'destroy'])->name('bookingDelete');
+        Route::get('/confirmed', [Controllers\BookingController::class, 'confirmedBookings'])->name('confirmedList');
+
 
     });
     Route::prefix('user-time-slot')->group(function () {
