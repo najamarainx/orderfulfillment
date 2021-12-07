@@ -8,6 +8,7 @@ use App\Models\OrderFulfillmentCategory;
 use App\Models\OrderFulfillmentUserZipCode;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use DB;
 class BookingController extends Controller
@@ -135,7 +136,7 @@ class BookingController extends Controller
                 "category_id" => $categoryName,
                 "first_name" => $bookingObj->first_name . ' '. $bookingObj->last_name,
                 "phone_number" => $bookingObj->phone_number,
-                "email" =>  '<span class="badge badge-success badge-pill booking_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">'.$bookingObj->booking_status.'</span>',
+                "booking_status" =>  '<span class="badge badge-success badge-pill booking_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">'.$bookingObj->booking_status.'</span>',
                 "action" => $action
             ];
         }
@@ -147,29 +148,105 @@ class BookingController extends Controller
     }
     public function store(Request $request)
     {
+
         $id = $request->id;
-        if(!empty($id)){
-          $booking = OrderFulfillmentBooking::find($id);
+        $validate = true;
+        $validateInput = $request->all();
+        if($request->id==''){
+            $rules = [
+                'customer_name' => 'required|max:150',
+                'customer_no' => 'required|max:150',
+                'customer_email' => 'required|max:150',
+                'customer_address' => 'required|max:150',
+                'customer_post_code' => 'required|max:150',
+                'category_id' => 'required|max:150',
+                'date' => 'required|max:150',
+                'zip_code' => 'required|max:150',
+                'time_slot' => 'required|max:150',
+
+            ];
+
+            $messages=[
+
+                'customer_name.required' => 'customer name is required!',
+                'customer_no.required' => 'customer number is required!',
+                'customer_email.required' => 'customer email is required!',
+                'customer_address.required' => 'customer address is required!',
+                'customer_post_code.required' => 'customer post code is required!',
+                'category_id.required' => 'category field is required!',
+                'date.required' => 'date is required!',
+                'time_slot.required' => 'time slot is required!',
+
+
+            ];
+
+
         }
-        $booking = new OrderFulfillmentBooking();
-        $booking->category_id = $request->category_id;
-        $booking->date = $request->date;
-        $booking->time_slot_id = $request->time_slot;
-        $booking->zip_code_id = $request->zip_code;
-        $customerName = explode(" ", $request->customer_name);
-        $booking->first_name = $customerName[0];
-        $booking->last_name = $customerName[1];
-        $booking->email = $request->customer_email;
-        $booking->phone_number = $request->customer_no;
-        $booking->post_code = $request->customer_post_code;
-        $booking->address = $request->customer_address;
-        // $booking->message = $request->message;
-        $booking->save();
-        $return = [
-            'status' => 'success',
-            'message' => 'Booking is added successfully',
-        ];
+        else{
+
+            $rules = [
+                'customer_name' => 'required|max:150',
+                'customer_no' => 'required|max:150',
+                'customer_email' => 'required|max:150',
+                'customer_address' => 'required|max:150',
+                'customer_post_code' => 'required|max:150',
+            ];
+            $messages=[
+
+
+                'customer_name.required' => 'customer name is required!',
+                'customer_no.required' => 'customer number is required!',
+                'customer_email.required' => 'customer email is required!',
+                'customer_address.required' => 'customer address is required!',
+                'customer_post_code.required' => 'customer post code is required!',
+
+
+            ];
+
+        }
+
+
+        $validator = Validator::make($validateInput, $rules,$messages);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            $allMsg = [];
+            foreach ($errors->all() as $message) {
+                $allMsg[] = $message;
+            }
+            $return['status'] = 'error';
+            $return['message'] = collect($allMsg)->implode('<br />');
+            $validate = false;
+            return response()->json($return);
+        }
+        if ($validate) {
+            $id = $request->id;
+            $booking = new OrderFulfillmentBooking();
+            if(!empty($id)){
+                $booking = OrderFulfillmentBooking::find($id);
+            }
+            if($request->id==''){
+                $booking->category_id = $request->category_id;
+                $booking->date = $request->date;
+                $booking->time_slot_id = $request->time_slot;
+                $booking->zip_code_id = $request->zip_code;
+
+            }
+            $customerName = explode(" ", $request->customer_name);
+            $booking->first_name = $customerName[0];
+            $booking->last_name = isset($customerName[1]) && !empty($customerName[1]) ? $customerName[1] : '';
+            $booking->email = $request->customer_email;
+            $booking->phone_number = $request->customer_no;
+            $booking->post_code = $request->customer_post_code;
+            $booking->address = $request->customer_address;
+            // $booking->message = $request->message;
+            $booking->save();
+            $return = [
+                'status' => 'success',
+                'message' => 'Booking is added successfully',
+            ];
+        }
         return response()->json($return);
+
     }
 
     public function getTimeSlotByZipCode(Request $request){

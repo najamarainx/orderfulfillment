@@ -561,7 +561,7 @@
                             status:'confirmed',
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id', 'date', 'time_slot', 'category_id', 'first_name','phone_number', 'email'
+                                'id', 'date', 'time_slot', 'category_id', 'first_name','phone_number', 'booking_status'
                             ],
                         },
                         headers: {
@@ -587,7 +587,7 @@
                             data: 'phone_number'
                         },
                         {
-                            data: 'status'
+                            data: 'booking_status'
                         },
                         {
                             data: 'action',
@@ -677,15 +677,6 @@
                     customer_address: {
                         required: true
                     },
-                    category_id: {
-                        required: true
-                    },
-                    date: {
-                        required: true
-                    },
-                    zip_code: {
-                        required: true
-                    },
                     customer_post_code: {
                         required: true
                     }
@@ -713,6 +704,11 @@
 
         })
         $(document).on('click', '#btn_add_new', function() {
+            var element = document.getElementById('test');
+            element.classList.add('col-lg-6');
+            element.classList.remove('col-lg-12');
+            $('#set_ctg').show();
+
             $('#addBookingModal').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -727,11 +723,15 @@
 
 
         $(document).on('click', '#btn_save', function() {
-            if(!$("input:radio[name='time_slot']").is(":checked")) {
-                $('.slot_error').text('Please select a slot');
-                validate = false;
-            }
             var validate = $("#addForm").valid();
+            var upid=$('#id').val();
+            if(upid==''){
+                if(!$("input:radio[name='time_slot']").is(":checked")) {
+                    $('.slot_error').text('Please select a slot');
+                    validate = false;
+                }
+            }
+
             if (validate) {
                 var form_data = $("#addForm").serializeArray();
                 $.ajax({
@@ -781,6 +781,10 @@
             var id = $(this).data('id');
             var form_data = new FormData();
             form_data.append('id', id);
+            var element = document.getElementById('test');
+            element.classList.add('col-lg-12');
+            element.classList.remove('col-lg-6');
+            $('#set_ctg').hide();
 
             $.ajax({
                 type: "POST",
