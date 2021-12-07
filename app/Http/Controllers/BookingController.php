@@ -162,7 +162,7 @@ class BookingController extends Controller
         $booking->save();
         $return = [
             'status' => 'success',
-            'message' => 'You booking is added successfully we will contact you soon',
+            'message' => 'Booking is added successfully',
         ];
         return response()->json($return);
     }
