@@ -51,7 +51,7 @@ class BookingController extends Controller
         $columns = $request->columns;
 
         $booking = DB::table('orderfulfillment_bookings')->select('booking_assign.assign_status','orderfulfillment_bookings.*', 'ots.booking_from_time', 'ots.booking_to_time')->whereNull('orderfulfillment_bookings.deleted_at')->leftJoin('orderfulfillment_time_slots as ots', 'orderfulfillment_bookings.time_slot_id', 'ots.id')->whereNull('ots.deleted_at');
-        $booking->leftJoin('orderfulfillment_booking_assigns as booking_assign','orderfulfillment_bookings.id','booking_assign.booking_id');
+        $booking->leftJoin('orderfulfillment_booking_assigns as booking_assign','orderfulfillment_bookings.id','booking_assign.booking_id')->whereNULL('booking_assign.deleted_at');
         if ($request->status == 'confirmed') {
             $booking->whereIn('orderfulfillment_bookings.booking_status', ['confirmed', 'rescheduled']);
         } else {
@@ -263,7 +263,6 @@ class BookingController extends Controller
 
     public function getTimeSlotByZipCode(Request $request)
     {
-
         $userId   = OrderFulfillmentUserZipCode::where('zip_id', $request->zipCode)->whereNull('deleted_at')->pluck('user_id')->toArray();
         $timeSlotId = DB::table('orderfulfillment_user_time_slot_assigns')->whereIn('user_id', $userId)->whereNull('deleted_at')->pluck('time_slot_id')->toArray();
         $timeSlotDetail = OrderFulfillmentTimeSlot::whereIn('id', $timeSlotId)->get();
@@ -397,6 +396,12 @@ class BookingController extends Controller
             return response()->json($return);
         }
         if ($validate) {
+            $checkBooking=OrderFulfillmentBookingAssign::where('booking_id',$request->booking_id)->first();
+            if($checkBooking){
+
+                OrderFulfillmentBookingAssign::where('booking_id',$request->booking_id)
+                    ->update(['deleted_at' =>Carbon::Now()->format('Y-m-d H:i:s')]);
+            }
             $bookingInfo=OrderFulfillmentBooking::find($request->booking_id);
             $bookingassign = new OrderFulfillmentBookingAssign();
             $bookingassign->booking_id =$request->booking_id;
