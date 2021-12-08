@@ -41,7 +41,7 @@ function getDepartment($departmentId = "", $departmentObjs = false)
 
 function getCategory($type = "", $categoryId = "", $categoryObjs = false)
 {
-    $query = DB::table('orderfulfillment_categories');
+    $query = DB::table('categories');
      $query->whereNull('deleted_at');
     if ($type != "") {
         $query->where('type', $type);
@@ -69,12 +69,16 @@ function getVariants()
 
 function getUsersByZip($zipID)
 {
-    return $query = DB::table('orderfulfillment_user_zip_codes_mappings')->select('orderfulfillment_users.name','orderfulfillment_users.id')->join('orderfulfillment_users','orderfulfillment_users.id','=','orderfulfillment_user_zip_codes_mappings.user_id')->whereNULL('orderfulfillment_user_zip_codes_mappings.deleted_at')->where('orderfulfillment_user_zip_codes_mappings.zip_id',$zipID)->get();
+    return $query = DB::table('orderfulfillment_user_zip_codes_mappings')->select('orderfulfillment_users.name','orderfulfillment_users.id')->join('orderfulfillment_users','orderfulfillment_users.id','=','orderfulfillment_user_zip_codes_mappings.user_id')->whereNULL('orderfulfillment_user_zip_codes_mappings.deleted_at')->where('orderfulfillment_users.type','=','measurement')->where('orderfulfillment_user_zip_codes_mappings.zip_id',$zipID)->get();
 }
-function getUserTimeSlots($zipID)
+/*function getUserTimeSlots($zipID)
 {
-    return $query = DB::table('orderfulfillment_user_time_slot_assigns')->select('orderfulfillment_user_time_slot_assigns.*')->whereNULL('orderfulfillment_user_time_slot_assigns.deleted_at')->where('orderfulfillment_user_time_slot_assigns.zip_code_id',$zipID)->get();
-}
+    return $query = DB::table('orderfulfillment_user_time_slot_assigns')
+        ->select('orderfulfillment_user_time_slot_assigns.*')
+        ->whereNULL('orderfulfillment_user_time_slot_assigns.deleted_at')
+        ->where('orderfulfillment_user_time_slot_assigns.zip_code_id',$zipID)
+        ->get();
+}*/
 
 function getZipCode($zipId="")
 {
@@ -85,6 +89,10 @@ function getZipCode($zipId="")
      }
      $result = $query->get();
      return $result;
+}
+function getBookingInfo($bookingID)
+{
+    return $query = DB::table('orderfulfillment_bookings')->select('orderfulfillment_bookings.*')->whereNULL('orderfulfillment_bookings.deleted_at')->where('orderfulfillment_bookings.id',$bookingID)->first();
 }
 
 function getTimeSlotByZipId($userId){
@@ -97,6 +105,40 @@ function getBookingStatus(){
     return $statusArray;
 }
 
+function getUsersTimeSlot($userObjs = false,$zipID,$slotID,$userID=-1)
+{
+    $query = DB::table('orderfulfillment_user_time_slot_assigns');
+    $query->join('orderfulfillment_users','orderfulfillment_users.id','=','orderfulfillment_user_time_slot_assigns.user_id');
+    $query->whereNull('orderfulfillment_user_time_slot_assigns.deleted_at');
+    $query->where('orderfulfillment_user_time_slot_assigns.zip_code_id',$zipID);
+    $query->where('orderfulfillment_user_time_slot_assigns.time_slot_id',$slotID);
+    $query->where('orderfulfillment_users.type','=','measurement');
+    $result = [];
+    if ($userObjs) {
+        $result = $query->get();
+    } else {
+        $result = $query->pluck('orderfulfillment_users.id')->toArray();
+    }
+    if ($userID > 0) {
+        $query->where('orderfulfillment_users.id', $userID);
+        $result = $query->first();
+    }
+    return $result;
+}
+function getBookedUsers($userObjs = false,$UserIDS,$slotID,$date)
+{
+    $query = DB::table('orderfulfillment_booking_assigns');
+    $query->whereNull('orderfulfillment_booking_assigns.deleted_at');
+    $query->whereIn('orderfulfillment_booking_assigns.user_id',$UserIDS);
+    $query->where('orderfulfillment_booking_assigns.slot_id',$slotID);
+    $query->whereDate('orderfulfillment_booking_assigns.date',$date);
 
+    $result = [];
+    if ($userObjs) {
+        $result = $query->get();
+    } else {
+        $result = $query->pluck('orderfulfillment_booking_assigns.user_id')->toArray();
+    }
 
-
+    return $result;
+}
