@@ -375,7 +375,7 @@
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Phone No:</label>
-                                <input type="text" class="form-control datatable-input" placeholder="E.g: test"
+                                <input type="text" class="form-control datatable-input" placeholder="Phone No"
                                     data-col-index="5" />
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
@@ -517,7 +517,7 @@
                                 <div class="col-12">
                                     <p class="text-danger slot_error"></p>
                                     <div class="time_slot_html">
-                                        {!!$timeSlotHtml!!}
+
                                     </div>
                                 </div>
                             </div>
@@ -922,13 +922,13 @@
                 },
                 success: function(data) {
                     if (data.status == 'success') {
-                         if(data.zipCode != ''){
-                         $('.selected_zip_code_time_slot_html').html('');
-                         $('.selected_zip_code_time_slot_html').html(data.timeSlotHtml);
-                         }else{
+                        //  if(data.zipCode != ''){
+                        //  $('.selected_zip_code_time_slot_html').html('');
+                        //  $('.selected_zip_code_time_slot_html').html(data.timeSlotHtml);
+                        //  }else{
                             $('.time_slot_html').html();
                             $('.time_slot_html').html(data.timeSlotHtml);
-                         }
+                        //  }
 
                     } else {
                         Swal.fire("Sorry!", data.message, "error");

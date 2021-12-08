@@ -315,6 +315,7 @@
         }
 
     </style>
+    @php $AssignstatusArray = ['pending', 'in progress', 'not respond', 'completed'];  @endphp
 @endsection
 @section('content')
     <div class="d-flex flex-column-fluid">
@@ -354,14 +355,14 @@
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Phone No:</label>
-                                <input type="text" class="form-control datatable-input" placeholder="E.g: test"
+                                <input type="text" class="form-control datatable-input" placeholder="Phone No"
                                     data-col-index="5" />
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Status:</label>
                                 <select name="" id="" class="form-control datatable-input" data-col-index="6">
                                     <option value=""></option>
-                                   @foreach ($statusArray as $status)
+                                   @foreach ($AssignstatusArray as $status)
                                        <option value="{{$status}}">{{ucfirst($status)}}</option>
                                    @endforeach
                                 </select>
@@ -450,6 +451,49 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade show" id="assignStatusModal" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-modal="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Status</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form onsubmit="return false" id="updateAssignStatusForm">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <p class="assign_status_text"></p>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input type="hidden" name="assign_id" id="assign_id">
+                                    <label for="">Select Status:</label>
+                                    <select name="booking_status" id="booking_status" class="form-control">
+                                        @foreach ($AssignstatusArray as $status)
+                                            <option value="{{ $status }}">{{ ucfirst($status) }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-light-primary font-weight-bold"
+                                data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary font-weight-bold btn_save"
+                                id="update_assign_stauts_btn">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('page_level_js_plugin')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
@@ -490,7 +534,7 @@
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "{{ route('getBookingList') }}",
+                        url: "{{ route('getAssignBookingList') }}",
                         type: 'POST',
                         data: {
                             status:'confirmed',
@@ -599,391 +643,49 @@
                 format: 'yyyy-mm-dd'
             });
             datatable.init();
-            var validator = $("#addForm").validate({
-                rules: {
-                    customer_name: {
-                        required: true
-                    },
-                    customer_no: {
-                        required: true
-                    },
-                    customer_email: {
-                        required: true
-                    },
-                    customer_address: {
-                        required: true
-                    },
-                    customer_post_code: {
-                        required: true
-                    }
 
-
-                },
-                errorPlacement: function(error, element) {
-                    var elem = $(element);
-                    if (elem.hasClass("category_id") || elem.hasClass("zip_code")) {
-                        error.appendTo(element.parent().after());
-                        //error.insertAfter(element);
-                    } else {
-                        error.insertAfter(element);
-                    }
-                }
-            });
-
-            var input = document.getElementById("addForm");
-            input.addEventListener("keyup", function(event) {
-                if (event.keyCode === 13) {
-                    event.preventDefault();
-                    document.getElementById("btn_save").click();
-                }
-            });
 
         })
-        jQuery(document).ready(function() {
 
-
-            var validator = $("#BookingAssign").validate({
-                rules: {
-                    booking_user_id: {
-                        required: true
-                    }
-
-
-                },
-                errorPlacement: function(error, element) {
-                    var elem = $(element);
-                    if (elem.hasClass("booking_user_id")) {
-                        error.appendTo(element.parent().after());
-                        //error.insertAfter(element);
-                    } else {
-                        error.insertAfter(element);
-                    }
-                }
-            });
-
-            var input = document.getElementById("BookingAssign");
-            input.addEventListener("keyup", function(event) {
-                if (event.keyCode === 13) {
-                    event.preventDefault();
-                    document.getElementById("btn_save_booking").click();
-                }
-            });
-
+        $(document).on('click','.booking_assign_status',function(){
+             assign_id = $(this).attr('data-id');
+             assign_status = $(this).text();
+            $('.assign_status_text').text('')
+            $('.assign_status_text').text(assign_status.toUpperCase())
+            $('#assign_id').val('');
+            $('#assign_id').val(assign_id);
+            $('#booking_assign_status').val(assign_status);
+            $('#assignStatusModal').modal('show');
         })
-        $(document).on('click', '#btn_add_new', function() {
-            var element = document.getElementById('test');
-            element.classList.add('col-lg-6');
-            element.classList.remove('col-lg-12');
-            $('#set_ctg').show();
 
-            $('#addBookingModal').modal({
-                backdrop: 'static',
-                keyboard: false
-            }).on('hide.bs.modal', function() {
-                $("#addForm").validate().resetForm();
-            });
-            var form = $("#addForm");
-            form[0].reset();
-            $('#id').val('');
+        $(document).on('click', '#update_assign_stauts_btn', function() {
 
-        });
-
-
-        $(document).on('click', '#btn_save', function() {
-            var validate = $("#addForm").valid();
-            var upid=$('#id').val();
-            if(upid==''){
-                if(!$("input:radio[name='time_slot']").is(":checked")) {
-                    $('.slot_error').text('Please select a slot');
-                    validate = false;
+        var form = $('#updateAssignStatusForm')[0];
+        var form_data = new FormData(form);
+        $.ajax({
+            type: "POST",
+            url: "{{ route('updateAssignBookingStatus') }}", // your php file name
+            data: form_data,
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(data) {
+                if (data.status == 'success') {
+                    $('#assignStatusModal').modal('hide');
+                    Swal.fire("Success!", data.message, "success");
+                    bookingListTable.ajax.reload();
+                } else {
+                    Swal.fire("Sorry!", data.message, "error");
                 }
-            }
-
-            if (validate) {
-                var form_data = $("#addForm").serializeArray();
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('bookingSubmit') }}", // your php file name
-                    data: form_data,
-                    dataType: "json",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        if (data.status == 'success') {
-                            toastr.options = {
-                                "closeButton": true,
-                                "debug": false,
-                                "newestOnTop": false,
-                                "progressBar": false,
-                                "positionClass": "toast-top-right",
-                                "preventDuplicates": true,
-                                "onclick": null,
-                                "showDuration": "300",
-                                "hideDuration": "1000",
-                                "timeOut": "5000",
-                                "extendedTimeOut": "1000",
-                                "showEasing": "swing",
-                                "hideEasing": "linear",
-                                "showMethod": "fadeIn",
-                                "hideMethod": "fadeOut"
-                            };
-                            toastr.success(data.message);
-                            var form = $("#addForm");
-                            form[0].reset();
-                            $('#addBookingModal').modal('hide');
-                            bookingListTable.ajax.reload();
-                        } else {
-                            Swal.fire("Sorry!", data.message, "error");
-                        }
-                    },
-                    error: function(errorString) {
-                        Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
-                    }
-                });
+            },
+            error: function(errorString) {
+                Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
             }
         });
 
-        $(document).on('click', '.edit', function() {
-            var id = $(this).data('id');
-            var form_data = new FormData();
-            form_data.append('id', id);
-            var element = document.getElementById('test');
-            element.classList.add('col-lg-12');
-            element.classList.remove('col-lg-6');
-            $('#set_ctg').hide();
-
-            $.ajax({
-                type: "POST",
-                url: "{{ route('getBookingById') }}", // your php file name
-                data: form_data,
-                dataType: "json",
-                processData: false,
-                contentType: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(data) {
-                    if (data.status == 'success') {
-                        $('#addBookingModal').modal({
-                            backdrop: 'static',
-                            keyboard: false
-                        }).on('hide.bs.modal', function() {
-                            $("#addForm").validate().resetForm();
-                        });
-                        var rec = data.data;
-                        var id = rec.id;
-                        var first_name = rec.first_name;
-                        var last_name = rec.last_name;
-                        name = first_name+' '+ last_name;
-                        var date = rec.date;
-                        var category_id  = rec.category_id ;
-                        var time_slot_id = rec.time_slot_id;
-                        var email = rec.email;
-                        var phone_number = rec.phone_number;
-                        var post_code = rec.post_code;
-                        var address = rec.address;
-                        $('#id').val(id);
-                        $('#customer_name').val(name);
-                        $('#customer_no').val(phone_number);
-                        $('#customer_email').val(email);
-                        $('#customer_address').text(address);
-                        $('#customer_post_code').val(post_code);
-                        $('.selected_date').val(date);
-                        $('#category_id').val(category_id).trigger('change.select2');
-                        $('#zip_code').val(time_slot_id).trigger('change.select2');
-                        window.scrollTo({
-                            top: 0,
-                            behavior: 'smooth'
-                        });
-                    } else {
-                        Swal.fire("Sorry!", data.message, "error");
-                    }
-                },
-                error: function(errorString) {
-                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
-                }
-            });
-        });
-
-        $(document).on('click', '.delete', function() {
-            var id = $(this).data('id');
-            var form_data = new FormData();
-            form_data.append('id', id);
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You wont be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Yes, delete it!"
-            }).then(function(result) {
-                if (result.value) {
-                    $.ajax({
-                        type: "POST",
-                        url: "{{ route('bookingDelete') }}", // your php file name
-                        data: form_data,
-                        dataType: "json",
-                        processData: false,
-                        contentType: false,
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(data) {
-                            if (data.status == 'success') {
-                                Swal.fire("Success!", data.message, "success");
-                                bookingListTable.ajax.reload();
-                            } else {
-                                Swal.fire("Sorry!", data.message, "error");
-                            }
-                        },
-                        error: function(errorString) {
-                            Swal.fire("Sorry!", "Something went wrong please contact to admin",
-                                "error");
-                        }
-                    });
-                }
-            });
-        });
-        $(document).on('click', '.confirmed', function() {
-            var id = $(this).data('id');
-            var form_data = new FormData();
-            form_data.append('id', id);
-
-            $.ajax({
-                type: "POST",
-                url: "{{ route('getUserAgainstZip') }}", // your php file name
-                data: form_data,
-                dataType: "json",
-                processData: false,
-                contentType: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(data) {
-                    if (data.status == 'success') {
-
-                        $('#BookingAssignModal').modal({
-                            backdrop: 'static',
-                            keyboard: false
-                        }).on('hide.bs.modal', function() {
-                            $("#BookingAssign").validate().resetForm();
-                        });
-
-                        var allUsers=data.getUsers;
-                        var booking_id=data.booking_id;
-                        $('#booking_id').val(booking_id);
-                        $("#booking_user_id").append(new Option("Select User", "")).trigger("change");
-                        $.each(allUsers, function (i, allUser) {
-                                $('#booking_user_id').append($('<option>', {
-                                    value: allUser.id,
-                                    text : allUser.name
-                                })).trigger("change");
-                        });
-
-                        var bookedUser = data.bookedUsers;
-                        if(bookedUser!='' || bookedUser!=null){
-                           $.each(bookedUser, function (i, booked) {
-                               $("#booking_user_id option[value="+booked+"]").prop('disabled',true);
-                            });
-                        }
-                        var selectedUser = data.getSelectedUser;
-                        if(selectedUser!=null || selectedUser!=''){
-                           $("#booking_user_id").val(selectedUser.user_id);
-                        }
-
-                    } else {
-                        Swal.fire("Sorry!", data.message, "error");
-                    }
-                },
-                error: function(errorString) {
-                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
-                }
-            });
-
-        });
-        $(document).on('click', '#btn_save_booking', function() {
-            var validate = $("#BookingAssign").valid();
-            if (validate) {
-                var form_data = $("#BookingAssign").serializeArray();
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('bookingAssign') }}", // your php file name
-                    data: form_data,
-                    dataType: "json",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        if (data.status == 'success') {
-                            toastr.options = {
-                                "closeButton": true,
-                                "debug": false,
-                                "newestOnTop": false,
-                                "progressBar": false,
-                                "positionClass": "toast-top-right",
-                                "preventDuplicates": true,
-                                "onclick": null,
-                                "showDuration": "300",
-                                "hideDuration": "1000",
-                                "timeOut": "5000",
-                                "extendedTimeOut": "1000",
-                                "showEasing": "swing",
-                                "hideEasing": "linear",
-                                "showMethod": "fadeIn",
-                                "hideMethod": "fadeOut"
-                            };
-                            toastr.success(data.message);
-                            var form = $("#addForm");
-                            form[0].reset();
-                            $('#BookingAssignModal').modal('hide');
-                            bookingListTable.ajax.reload();
-                        } else {
-                            Swal.fire("Sorry!", data.message, "error");
-                        }
-                    },
-                    error: function(errorString) {
-                        Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
-                    }
-                });
-            }
-        });
-        $(document).on('click','.selected_date',function(){
-            console.log('yes');
-            //    $('.zip_code').selectpicker("refresh");
-        });
-        $(document).on('change','.zip_code',function(){
-            zipCode  =  $(this).val();
-            date = $('.date').val();
-            var form_data = new FormData();
-            form_data.append('zipCode', zipCode);
-            form_data.append('date', date);
-            $.ajax({
-                type: "POST",
-                url: "{{ route('getTimeSlotByZipCode') }}", // your php file name
-                data: form_data,
-                dataType: "json",
-                processData: false,
-                contentType: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(data) {
-                    if (data.status == 'success') {
-                        if(data.zipCode != ''){
-                         $('.selected_zip_code_time_slot_html').html('');
-                         $('.selected_zip_code_time_slot_html').html(data.timeSlotHtml);
-                         }else{
-                            $('.time_slot_html').html();
-                            $('.time_slot_html').html(data.timeSlotHtml);
-                         }
-                    } else {
-                        Swal.fire("Sorry!", data.message, "error");
-                    }
-                },
-                error: function(errorString) {
-                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
-                }
-            });
-        })
+    })
     </script>
 @endsection

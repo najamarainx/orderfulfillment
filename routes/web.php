@@ -138,7 +138,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/update_booking_status', [Controllers\BookingController::class, 'updateBookingStatus'])->name('updateBookingStatus');
     });
     Route::prefix('booking-task')->group(function () {
-        Route::get('/', [Controllers\BookingAssignController::class, 'index'])->name('bookingTaskList');
+        Route::get('/', [Controllers\MeasurementBookingController::class, 'index'])->name('bookingTaskList');
+        Route::post('/list', [Controllers\MeasurementBookingController::class, 'getList'])->name('getAssignBookingList');
+        Route::post('/update-assign-booking-status', [Controllers\MeasurementBookingController::class, 'updateAssignBookingStatus'])->name('updateAssignBookingStatus');
+        Route::get('/detail/{id}/{assignid}', [Controllers\MeasurementBookingController::class, 'bookingDetail'])->name('bookingDetail');
 
     });
     Route::prefix('user-time-slot')->group(function () {

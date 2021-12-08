@@ -23,14 +23,6 @@ class BookingController extends Controller
         $zipCode  = getZipCode();
         $statusArray = getBookingStatus();
         $date = Carbon::now()->format('Y-m-d');
-        $dt = [
-            'date' => $date,
-            'timeSlotDetail' => $timeSlotDetail,
-            'userId' => ['']
-
-        ];
-        $timeSlotHtml = View::make('template.booking-slots', $dt)->render();
-        $data['timeSlotHtml'] = $timeSlotHtml;
         $data['statusArray'] = $statusArray;
 
         $data['categories'] = $category;

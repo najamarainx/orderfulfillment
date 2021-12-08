@@ -13,4 +13,16 @@ class OrderFulfillmentBooking extends Model
     {
         return $this->hasMany(OrderFulfillmentUserTimeSlot::class, 'time_slot_id', 'id');
     }
+    public function bookingDetail()
+    {
+        return $this->hasOne(OrderFulfillmentBookingAssign::class, 'booking_id', 'id');
+    }
+    public function bookingCategory()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+    public function bookingSlot()
+    {
+        return $this->belongsTo(OrderFulfillmentTimeSlot::class, 'time_slot_id', 'id');
+    }
 }

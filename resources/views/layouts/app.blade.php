@@ -180,7 +180,7 @@
                                     </div>
                                     <div class="col-12">
                                         <p class="text-danger slot_error"></p>
-                                        <div class="selected_zip_code_time_slot_html">
+                                        <div class="selected_zip_code_time_slot_html time_slot_html">
                                             @if (isset($timeSlotHtml))
                                                 {!! $timeSlotHtml !!}
                                             @endif
@@ -318,7 +318,7 @@
                 },
                 success: function(data) {
                     if (data.status == 'success') {
-                        $('.time_slot_html').html('');
+                        $('.time_slot_html').html(data.timeSlotHtml);
                         $('.selected_zip_code_time_slot_html').html();
                          $('.selected_zip_code_time_slot_html').html(data.timeSlotHtml);
                         var rec = data.data;

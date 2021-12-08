@@ -375,7 +375,7 @@
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Phone No:</label>
-                                <input type="text" class="form-control datatable-input" placeholder="E.g: test"
+                                <input type="text" class="form-control datatable-input" placeholder="Phone No"
                                     data-col-index="5" />
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
