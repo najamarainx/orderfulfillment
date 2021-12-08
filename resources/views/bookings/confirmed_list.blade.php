@@ -353,20 +353,39 @@
                     <form class="kt-form kt-form--fit">
                         <div class="row mb-6">
                             <div class="col-lg-3 mb-lg-2 mb-2">
-                                <label>Department:</label>
-                                {{-- <select   class="form-control datatable-input kt_select2_1"  data-col-index="1">
-                                    @if (!empty($departments))
-                                    <option value="">Select</option>
-                                    @foreach ($departments as $departmentObj)
-                                      <option value="{{$departmentObj->id}}">{{$departmentObj->name}}</option>
-                                    @endforeach
-                                    @endif
-                            </select> --}}
+                                <label>Date:</label>
+                                   <input type="text"  class="form-control datatable-input "  id="kt_datepicker" autocomplete="off" data-col-index="1">
+                            </div>
+                            <div class="col-lg-3 mb-lg-2 mb-2">
+                                <label>Cateogry:</label>
+                                @if (!$categories->isEmpty())
+                                            <select class="form-control form-control-lg  kt_select2_1 w-100 category_id"
+                                                data-live-search="true" data-col-index="3">
+                                                <option value=""></option>
+                                                @foreach ($categories as $catObj)
+                                                    <option value="{{ $catObj->id }}">{{ $catObj->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        @endif
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Name:</label>
                                 <input type="text" class="form-control datatable-input" placeholder="E.g: test"
-                                       data-col-index="2" />
+                                    data-col-index="4" />
+                            </div>
+                            <div class="col-lg-3 mb-lg-2 mb-2">
+                                <label>Phone No:</label>
+                                <input type="text" class="form-control datatable-input" placeholder="E.g: test"
+                                    data-col-index="5" />
+                            </div>
+                            <div class="col-lg-3 mb-lg-2 mb-2">
+                                <label>Status:</label>
+                                <select name="" id="" class="form-control datatable-input" data-col-index="6">
+                                    <option value=""></option>
+                                   @foreach ($statusArray as $status)
+                                       <option value="{{$status}}">{{ucfirst($status)}}</option>
+                                   @endforeach
+                                </select>
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>&nbsp;</label><br />
@@ -537,7 +556,7 @@
         var datatable = function() {
             var initTable = function() {
                 // begin first table
-                table = $('#itemTableList').DataTable({
+                bookingListTable = $('#itemTableList').DataTable({
                     responsive: true,
                     // Pagination settings
                     dom: `<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
@@ -603,7 +622,7 @@
 
                 var filter = function() {
                     var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                    table.column($(this).data('col-index')).search(val ? val : '', false, false).draw();
+                    bookingListTable.column($(this).data('col-index')).search(val ? val : '', false, false).draw();
                 };
 
                 $('#kt_search').on('click', function(e) {
@@ -619,18 +638,18 @@
                     });
                     $.each(params, function(i, val) {
                         // apply search params to datatable
-                        table.column(i).search(val ? val : '', false, false);
+                        bookingListTable.column(i).search(val ? val : '', false, false);
                     });
-                    table.table().draw();
+                    bookingListTable.table().draw();
                 });
 
                 $('#kt_reset').on('click', function(e) {
                     e.preventDefault();
                     $('.datatable-input').each(function() {
                         $(this).val('');
-                        table.column($(this).data('col-index')).search('', false, false);
+                        bookingListTable.column($(this).data('col-index')).search('', false, false);
                     });
-                    table.table().draw();
+                    bookingListTable.table().draw();
                 });
 
                 $('#kt_datepicker').datepicker({
@@ -765,7 +784,7 @@
                             var form = $("#addForm");
                             form[0].reset();
                             $('#addBookingModal').modal('hide');
-                            table.ajax.reload();
+                            bookingListTable.ajax.reload();
                         } else {
                             Swal.fire("Sorry!", data.message, "error");
                         }
@@ -864,7 +883,7 @@
                         success: function(data) {
                             if (data.status == 'success') {
                                 Swal.fire("Success!", data.message, "success");
-                                table.ajax.reload();
+                                bookingListTable.ajax.reload();
                             } else {
                                 Swal.fire("Sorry!", data.message, "error");
                             }

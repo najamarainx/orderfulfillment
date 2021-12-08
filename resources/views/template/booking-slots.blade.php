@@ -8,8 +8,6 @@
         $disabledAtt = '';
         $disabledClass = '';
         $limit = $timeSlotObj->slot_limit;
-    //   echo  count($userId);
-        // echo $totalBooking;
         if(count($userId) <= $totalBooking) {
             $disabledAtt = 'disabled="disabled"';
             $disabledClass = 'disabled';
@@ -17,7 +15,7 @@
     @endphp
     <div class="col-md-6">
         <div class="slot_radio {{ $disabledClass }}">
-            <input type="radio" name="time_slot" id="time_slot_{{ $timeSlotObj->id }}" class="radio time_slot" value="{{ $timeSlotObj->id }}" data-time="{{ date('g:i a',strtotime($timeSlotObj->booking_from_time)).' - '.date('g:i a',strtotime($timeSlotObj->booking_to_time)) }}" {{ $disabledAtt }} />
+            <input type="radio" name="time_slot" id="time_slot_{{ $timeSlotObj->id }}" class="radio time_slot" value="{{ $timeSlotObj->id }}" @if((!empty($timeSlotId) && $timeSlotObj->id == $timeSlotId)) {{'checked'}} @endif data-time="{{ date('g:i a',strtotime($timeSlotObj->booking_from_time)).' - '.date('g:i a',strtotime($timeSlotObj->booking_to_time)) }}" {{ $disabledAtt }} />
             <label for="time_slot_{{ $timeSlotObj->id }}">{{ date('g:i a',strtotime($timeSlotObj->booking_from_time)).' - '.date('g:i a',strtotime($timeSlotObj->booking_to_time)) }}</label>
         </div>
     </div>

@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use DB;
+
 class BookingController extends Controller
 {
     public function index()
@@ -18,15 +19,17 @@ class BookingController extends Controller
         $category  = getCategory('product', -1, true);
         $timeSlotDetail = OrderFulfillmentTimeSlot::where('status', 'active')->get();
         $zipCode  = getZipCode();
+        $statusArray = getBookingStatus();
         $date = Carbon::now()->format('Y-m-d');
         $dt = [
             'date' => $date,
             'timeSlotDetail' => $timeSlotDetail,
-            'userId'=>['']
+            'userId' => ['']
 
         ];
         $timeSlotHtml = View::make('template.booking-slots', $dt)->render();
         $data['timeSlotHtml'] = $timeSlotHtml;
+        $data['statusArray'] = $statusArray;
 
         $data['categories'] = $category;
         $data['zipCode'] = $zipCode;
@@ -44,31 +47,37 @@ class BookingController extends Controller
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
 
-        $booking = DB::table('orderfulfillment_bookings')->select('orderfulfillment_bookings.*','ots.booking_from_time','ots.booking_to_time')->whereNull('orderfulfillment_bookings.deleted_at')->leftJoin('orderfulfillment_time_slots as ots','orderfulfillment_bookings.time_slot_id','ots.id')->whereNull('ots.deleted_at');
-        if($request->status=='confirmed'){
-            $booking->whereIn('orderfulfillment_bookings.booking_status', ['confirmed','rescheduled']);
-        }
-        else{
-            $booking->whereIn('orderfulfillment_bookings.booking_status', ['not called','not respond','cancelled']);
+        $booking = DB::table('orderfulfillment_bookings')->select('orderfulfillment_bookings.*', 'ots.booking_from_time', 'ots.booking_to_time')->whereNull('orderfulfillment_bookings.deleted_at')->leftJoin('orderfulfillment_time_slots as ots', 'orderfulfillment_bookings.time_slot_id', 'ots.id')->whereNull('ots.deleted_at');
+        if ($request->status == 'confirmed') {
+            $booking->whereIn('orderfulfillment_bookings.booking_status', ['confirmed', 'rescheduled']);
+        } else {
+            $booking->whereIn('orderfulfillment_bookings.booking_status', ['not called', 'not respond', 'cancelled']);
         }
         foreach ($columns as $field) {
             $col = $field['data'];
             $search = $field['search']['value'];
             if ($search != "") {
-                if ($col == 'id') {
+                if ($col == 'date') {
+                    $col = "orderfulfillment_bookings.date";
                     $booking->where($col, $search);
                 }
                 if ($col == 'category_id') {
+                    $col = "orderfulfillment_bookings.category_id";
                     $booking->where($col, $search);
                 }
-                if ($col == 'name') {
+                if ($col == 'phone_number') {
+                    $col = "orderfulfillment_bookings.phone_number";
                     $booking->where($col, 'like', '%' . $search . '%');
                 }
-                if ($col == 'created_at') {
-                    $dateArr = explode('|', $search);
-                    $dateFrom = Carbon::create($dateArr[0] . " 00:00:00")->format('Y-m-d H:i:s');
-                    $dateTo = Carbon::create($dateArr[1] . " 23:59:59")->format('Y-m-d H:i:s');
-                    $booking->whereBetween('created_at', [$dateFrom, $dateTo]);
+                if ($col == 'booking_status') {
+                    $col = "orderfulfillment_bookings.booking_status";
+                    $booking->where($col, $search);
+                }
+                if ($col == 'first_name') {
+                    $col1 = 'orderfulfillment_bookings.first_name';
+                    $col2 = 'orderfulfillment_bookings.last_name';
+                    $booking->Where($col1, 'like', '%' . $search . '%');
+                    $booking->orWhere($col2, 'like', '%' . $search . '%');
                 }
             }
         }
@@ -132,11 +141,11 @@ class BookingController extends Controller
             $data[] = [
                 "id" => $bookingObj->id,
                 "date" => Carbon::parse($bookingObj->date)->format('Y-m-d'),
-                "time_slot" => Carbon::create($bookingObj->booking_from_time)->format('H:ia').' '. Carbon::create($bookingObj->booking_to_time)->format('H:ia'),
+                "time_slot" => Carbon::create($bookingObj->booking_from_time)->format('H:ia') . ' ' . Carbon::create($bookingObj->booking_to_time)->format('H:ia'),
                 "category_id" => $categoryName,
-                "first_name" => $bookingObj->first_name . ' '. $bookingObj->last_name,
+                "first_name" => $bookingObj->first_name . ' ' . $bookingObj->last_name,
                 "phone_number" => $bookingObj->phone_number,
-                "booking_status" =>  '<span class="badge badge-success badge-pill booking_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">'.$bookingObj->booking_status.'</span>',
+                "booking_status" =>  '<span class="badge badge-success badge-pill booking_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->booking_status . '</span>',
                 "action" => $action
             ];
         }
@@ -152,7 +161,7 @@ class BookingController extends Controller
         $id = $request->id;
         $validate = true;
         $validateInput = $request->all();
-        if($request->id==''){
+        if ($request->id == '') {
             $rules = [
                 'customer_name' => 'required|max:150',
                 'customer_no' => 'required|max:150',
@@ -166,7 +175,7 @@ class BookingController extends Controller
 
             ];
 
-            $messages=[
+            $messages = [
 
                 'customer_name.required' => 'customer name is required!',
                 'customer_no.required' => 'customer number is required!',
@@ -179,10 +188,7 @@ class BookingController extends Controller
 
 
             ];
-
-
-        }
-        else{
+        } else {
 
             $rules = [
                 'customer_name' => 'required|max:150',
@@ -191,7 +197,7 @@ class BookingController extends Controller
                 'customer_address' => 'required|max:150',
                 'customer_post_code' => 'required|max:150',
             ];
-            $messages=[
+            $messages = [
 
 
                 'customer_name.required' => 'customer name is required!',
@@ -202,11 +208,10 @@ class BookingController extends Controller
 
 
             ];
-
         }
 
 
-        $validator = Validator::make($validateInput, $rules,$messages);
+        $validator = Validator::make($validateInput, $rules, $messages);
         if ($validator->fails()) {
             $errors = $validator->errors();
             $allMsg = [];
@@ -221,15 +226,14 @@ class BookingController extends Controller
         if ($validate) {
             $id = $request->id;
             $booking = new OrderFulfillmentBooking();
-            if(!empty($id)){
+            if (!empty($id)) {
                 $booking = OrderFulfillmentBooking::find($id);
             }
-            if($request->id==''){
+            if ($request->id == '') {
                 $booking->category_id = $request->category_id;
                 $booking->date = $request->date;
                 $booking->time_slot_id = $request->time_slot;
                 $booking->zip_code_id = $request->zip_code;
-
             }
             $customerName = explode(" ", $request->customer_name);
             $booking->first_name = $customerName[0];
@@ -246,32 +250,33 @@ class BookingController extends Controller
             ];
         }
         return response()->json($return);
-
     }
 
-    public function getTimeSlotByZipCode(Request $request){
+    public function getTimeSlotByZipCode(Request $request)
+    {
 
-    $userId   = OrderFulfillmentUserZipCode::where('zip_id',$request->zipCode)->whereNull('deleted_at')->pluck('user_id')->toArray();
-    $timeSlotId = DB::table('orderfulfillment_user_time_slot_assigns')->whereIn('user_id',$userId)->whereNull('deleted_at')->pluck('time_slot_id')->toArray();
-    $timeSlotDetail = OrderFulfillmentTimeSlot::whereIn('id',$timeSlotId)->get();
-        if(!($timeSlotDetail->isEmpty())){
+        $userId   = OrderFulfillmentUserZipCode::where('zip_id', $request->zipCode)->whereNull('deleted_at')->pluck('user_id')->toArray();
+        $timeSlotId = DB::table('orderfulfillment_user_time_slot_assigns')->whereIn('user_id', $userId)->whereNull('deleted_at')->pluck('time_slot_id')->toArray();
+        $timeSlotDetail = OrderFulfillmentTimeSlot::whereIn('id', $timeSlotId)->get();
+        if (!($timeSlotDetail->isEmpty())) {
             $date = Carbon::now()->format('Y-m-d');
             $dt = [
-                 'date' => $date,
-                 'timeSlotDetail' => $timeSlotDetail,
-                 'userId'=>$userId,
-                 'zipCode'=>$request->zipCode,
-                 'date'=>$request->date
+                'date' => $date,
+                'timeSlotDetail' => $timeSlotDetail,
+                'userId' => $userId,
+                'zipCode' => $request->zipCode,
+                'date' => $request->date
             ];
             $timeSlotHtml = View::make('template.booking-slots', $dt)->render();
             $data['timeSlotHtml'] = $timeSlotHtml;
-            $result = ['status'=>'success','timeSlotHtml'=>$timeSlotHtml];
-        }else{
-            $result = ['status'=>'error','message'=>'Something went wrong'];
+            $result = ['status' => 'success', 'timeSlotHtml' => $timeSlotHtml];
+        } else {
+            $result = ['status' => 'error', 'message' => 'Something went wrong'];
         }
         return response()->json($result);
     }
-    public function destroy(Request $request){
+    public function destroy(Request $request)
+    {
         $id = $request->id;
         if ($id) {
             DB::table('orderfulfillment_bookings')
@@ -283,13 +288,30 @@ class BookingController extends Controller
         }
     }
 
-    public function getBookingById(Request $request){
+    public function getBookingById(Request $request)
+    {
         $id = $request->id;
         $booking = OrderFulfillmentBooking::where('id', $id)->first();
-        $return = [
-            'status' => 'success',
-            'data' => $booking
-        ];
+        $userId   = OrderFulfillmentUserZipCode::where('zip_id', $booking->zip_code_id)->whereNull('deleted_at')->pluck('user_id')->toArray();
+        $timeSlotDetail  = getTimeSlotByZipId($userId);
+        if (!($timeSlotDetail->isEmpty())) {
+            $dt = [
+                'date' => Carbon::parse($booking->date)->format('Y-m-d'),
+                'timeSlotDetail' => $timeSlotDetail,
+                'userId' => $userId,
+                'zipCode' => $booking->zip_code_id,
+                'timeSlotId' => $booking->time_slot_id,
+            ];
+            $timeSlotHtml = View::make('template.booking-slots', $dt)->render();
+            $data['timeSlotHtml'] = $timeSlotHtml;
+            $return = ['status' => 'success', 'timeSlotHtml' => $timeSlotHtml, 'data' => $booking];
+        }
+
+        // dd($bookings)
+        // $return = [
+        //     'status' => 'success',
+        //     'data' => $booking
+        // ];
         if (empty($booking)) {
             $return = [
                 'status' => 'error',
@@ -304,34 +326,42 @@ class BookingController extends Controller
         $category  = getCategory('product', -1, true);
         $timeSlotDetail = OrderFulfillmentTimeSlot::where('status', 'active')->get();
         $zipCode  = getZipCode();
+        $statusArray = getBookingStatus();
         $date = Carbon::now()->format('Y-m-d');
         $dt = [
             'date' => $date,
-            'timeSlotDetail'=>$timeSlotDetail,
-            'userId'=>['']
-
+            'timeSlotDetail' => $timeSlotDetail,
+            'userId' => [''],
         ];
         $timeSlotHtml = View::make('template.booking-slots', $dt)->render();
         $data['timeSlotHtml'] = $timeSlotHtml;
 
         $data['categories'] = $category;
         $data['zipCode'] = $zipCode;
+        $data['statusArray'] = $statusArray;
         return view('bookings.confirmed_list', $data);
     }
 
-    public function updateBookingStatus(Request $request){
-           $booking = OrderFulfillmentBooking::where('id',$request->booking_id)->update(['booking_status'=>$request->status]);
-           $return = [
-            'status' => 'success',
-            'message' =>'Status updated successfully!'
-        ];
-            if (empty($booking)) {
-                $return = [
-                    'status' => 'error',
-                    'message' => 'Data not found for edit'
-                ];
-            }
-            return response()->json($return);
-    }
+    public function updateBookingStatus(Request $request)
+    {
+        //  print_r($request->all());exit;
+        $booking = OrderFulfillmentBooking::where('id', $request->booking_id);
+        if ($request->status == 'rescheduled') {
+            $query = $booking->update(['booking_status' => $request->status, 'category_id' => $request->category_id, 'date' => $request->date, 'zip_code_id' => $request->zip_code, 'time_slot_id' => $request->time_slot]);
+        } else {
+            $query =    $booking->update(['booking_status' => $request->status]);
+        }
 
+        $return = [
+            'status' => 'success',
+            'message' => 'Status updated successfully!'
+        ];
+        if (empty($query)) {
+            $return = [
+                'status' => 'error',
+                'message' => 'Data not found for edit'
+            ];
+        }
+        return response()->json($return);
+    }
 }

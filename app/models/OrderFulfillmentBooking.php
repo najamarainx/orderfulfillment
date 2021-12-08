@@ -9,4 +9,8 @@ class OrderFulfillmentBooking extends Model
 {
     use HasFactory;
     protected $table = 'orderfulfillment_bookings';
+    public function assignSlots()
+    {
+        return $this->hasMany(OrderFulfillmentUserTimeSlot::class, 'time_slot_id', 'id');
+    }
 }

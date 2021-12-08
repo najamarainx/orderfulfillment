@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\OrderFulfillmentPermission;
+use App\Models\OrderFulfillmentTimeSlot;
+use App\Models\OrderFulfillmentUserZipCode;
 
 
 function hasPermission($name)
@@ -83,6 +85,16 @@ function getZipCode($zipId="")
      }
      $result = $query->get();
      return $result;
+}
+
+function getTimeSlotByZipId($userId){
+    $timeSlotId = DB::table('orderfulfillment_user_time_slot_assigns')->whereIn('user_id',$userId)->whereNull('deleted_at')->pluck('time_slot_id')->toArray();
+    $timeSlotDetail = OrderFulfillmentTimeSlot::whereIn('id',$timeSlotId)->get();
+    return $timeSlotDetail;
+}
+function getBookingStatus(){
+    $statusArray = ['not called', 'confirmed', 'rescheduled', 'not respond', 'cancelled'];
+    return $statusArray;
 }
 
 

@@ -316,6 +316,7 @@
     </style>
 @endsection
 @section('content')
+
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
         <div class="container">
@@ -352,20 +353,38 @@
                     <form class="kt-form kt-form--fit">
                         <div class="row mb-6">
                             <div class="col-lg-3 mb-lg-2 mb-2">
-                                <label>Department:</label>
-                                {{-- <select   class="form-control datatable-input kt_select2_1"  data-col-index="1">
-                                    @if (!empty($departments))
-                                    <option value="">Select</option>
-                                    @foreach ($departments as $departmentObj)
-                                      <option value="{{$departmentObj->id}}">{{$departmentObj->name}}</option>
-                                    @endforeach
-                                    @endif
-                            </select> --}}
+                                <label>Date:</label>
+                                   <input type="text"  class="form-control datatable-input "  id="kt_datepicker" autocomplete="off" data-col-index="1">
+                            </div>
+                            <div class="col-lg-3 mb-lg-2 mb-2">
+                                <label>Cateogry:</label>
+                                @if (!$categories->isEmpty())
+                                            <select class="form-control form-control-lg  kt_select2_1 w-100 category_id"
+                                                data-live-search="true" data-col-index="3">
+                                                <option value=""></option>
+                                                @foreach ($categories as $catObj)
+                                                    <option value="{{ $catObj->id }}">{{ $catObj->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        @endif
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Name:</label>
                                 <input type="text" class="form-control datatable-input" placeholder="E.g: test"
-                                    data-col-index="2" />
+                                    data-col-index="4" />
+                            </div>
+                            <div class="col-lg-3 mb-lg-2 mb-2">
+                                <label>Phone No:</label>
+                                <input type="text" class="form-control datatable-input" placeholder="E.g: test"
+                                    data-col-index="5" />
+                            </div>
+                            <div class="col-lg-3 mb-lg-2 mb-2">
+                                <label>Status:</label>
+                                <select name="" id="" class="form-control datatable-input" data-col-index="6">
+                                   @foreach ($statusArray as $status)
+                                       <option value="{{$status}}">{{ucfirst($status)}}</option>
+                                   @endforeach
+                                </select>
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>&nbsp;</label><br />
@@ -718,6 +737,7 @@
                 $('.slot_error').text('');
                 $("#addForm").validate().resetForm();
             });
+
             var form = $("#addForm");
             form[0].reset();
             $('#id').val('');
@@ -826,8 +846,8 @@
                         $('#customer_address').text(address);
                         $('#customer_post_code').val(post_code);
                         $('.selected_date').val(date);
-                        $('#category_id').val(category_id).trigger('change.select2');
-                        $('#zip_code').val(time_slot_id).trigger('change.select2');
+                        // $('#category_id').val(category_id).trigger('change.select2');
+                        // $('#zip_code').val(time_slot_id).trigger('change.select2');
                         window.scrollTo({
                             top: 0,
                             behavior: 'smooth'
