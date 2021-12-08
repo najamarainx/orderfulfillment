@@ -114,6 +114,7 @@ function getUsersTimeSlot($userObjs = false,$zipID,$slotID,$userID=-1)
     $query->where('orderfulfillment_user_time_slot_assigns.zip_code_id',$zipID);
     $query->where('orderfulfillment_user_time_slot_assigns.time_slot_id',$slotID);
     $query->where('orderfulfillment_users.type','=','measurement');
+    $query->whereNull('orderfulfillment_users.deleted_at');
     $result = [];
     if ($userObjs) {
         $result = $query->get();
@@ -126,13 +127,15 @@ function getUsersTimeSlot($userObjs = false,$zipID,$slotID,$userID=-1)
     }
     return $result;
 }
-function getBookedUsers($userObjs = false,$UserIDS,$slotID,$date)
+function getBookedUsers($userObjs = false,$UserIDS,$slotID,$date,$bookingID)
 {
     $query = DB::table('orderfulfillment_booking_assigns');
     $query->whereNull('orderfulfillment_booking_assigns.deleted_at');
+    $query->where('orderfulfillment_booking_assigns.booking_id','!=',$bookingID);
     $query->whereIn('orderfulfillment_booking_assigns.user_id',$UserIDS);
     $query->where('orderfulfillment_booking_assigns.slot_id',$slotID);
     $query->whereDate('orderfulfillment_booking_assigns.date',$date);
+
 
     $result = [];
     if ($userObjs) {
@@ -141,5 +144,13 @@ function getBookedUsers($userObjs = false,$UserIDS,$slotID,$date)
         $result = $query->pluck('orderfulfillment_booking_assigns.user_id')->toArray();
     }
 
+    return $result;
+}
+function assignBookingUser($bookingID)
+{
+    $query = DB::table('orderfulfillment_booking_assigns');
+    $query->whereNull('orderfulfillment_booking_assigns.deleted_at');
+    $query->where('orderfulfillment_booking_assigns.booking_id','=',$bookingID);
+    $result = $query->first();
     return $result;
 }

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use DB;
 use Auth;
+
 class BookingController extends Controller
 {
     public function index()
@@ -97,6 +98,7 @@ class BookingController extends Controller
         foreach ($bookingData as $bookingObj) {
             $categoryName = "";
             if ($bookingObj->category_id != "") {
+
                 $category = DB::table('categories')->whereNull('deleted_at')->find($bookingObj->category_id);
                 $categoryName = $category->name;
             }
@@ -152,6 +154,7 @@ class BookingController extends Controller
                 "first_name" => $bookingObj->first_name . ' ' . $bookingObj->last_name,
                 "phone_number" => $bookingObj->phone_number,
                 "booking_status" =>  '<span class="badge badge-success badge-pill booking_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->booking_status . '</span>',
+                "assign_status" =>  '<span class="badge badge-success badge-pill assign_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->assign_status . '</span>',
                 "action" => $action
             ];
         }
@@ -354,11 +357,15 @@ class BookingController extends Controller
         $bookingInfo = getBookingInfo($booking_id);
         $getUsers = getUsersTimeSlot(true, $bookingInfo->zip_code_id, $bookingInfo->time_slot_id, $userID = -1);
         $UserIDS = $getUsers->pluck('id')->toArray();
-        $getSelectedUsers = getBookedUsers(false, $UserIDS, $bookingInfo->time_slot_id, $bookingInfo->date);
+        $bookedUsers = getBookedUsers(false, $UserIDS, $bookingInfo->time_slot_id, $bookingInfo->date,$booking_id);
+        $getSelectedUser = assignBookingUser($booking_id);
+
         $return = [
             'status' => 'success',
             'getUsers' => $getUsers,
-            'selectedUsers' => $getSelectedUsers,
+            'bookedUsers' => $bookedUsers,
+            'booking_id' => $booking_id,
+            'getSelectedUser' => $getSelectedUser,
         ];
         return response()->json($return);
     }
@@ -377,10 +384,6 @@ class BookingController extends Controller
             'booking_user_id.required' => 'customer name is required!',
             'booking_id.required' => 'something wrong against booking!',
         ];
-
-
-
-
         $validator = Validator::make($validateInput, $rules, $messages);
         if ($validator->fails()) {
             $errors = $validator->errors();
@@ -394,17 +397,28 @@ class BookingController extends Controller
             return response()->json($return);
         }
         if ($validate) {
-
+            $bookingInfo=OrderFulfillmentBooking::find($request->booking_id);
             $bookingassign = new OrderFulfillmentBookingAssign();
-            $bookingassign->booking_id = $request->customer_email;
-            $bookingassign->slot_id = $request->customer_email;
-            $bookingassign->user_id = $request->date;
-            $bookingassign->created_by = $request->date;
-            $bookingassign->save();
-            $return = [
-                'status' => 'success',
-                'message' => 'Booking is added successfully',
-            ];
+            $bookingassign->booking_id =$request->booking_id;
+            $bookingassign->slot_id =$bookingInfo->time_slot_id;
+            $bookingassign->user_id = $request->booking_user_id;
+            $bookingassign->date = $bookingInfo->date;
+            $bookingassign->created_by =Auth::user()->id;
+            $qry=$bookingassign->save();
+            if($qry){
+                $return = [
+                    'status' => 'success',
+                    'message' => 'Booking is assign successfully',
+                ];
+
+            }else{
+                $return = [
+                    'status' => 'error',
+                    'message' => 'Booking is not assign please try again',
+                ];
+            }
+
+
         }
         return response()->json($return);
     }

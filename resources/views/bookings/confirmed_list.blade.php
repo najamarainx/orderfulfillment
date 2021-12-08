@@ -415,6 +415,7 @@
                             <th>Name</th>
                             <th>Phone No</th>
                             <th>Status</th>
+                            <th>Assign Status</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -540,14 +541,14 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Booking</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Assign Booking</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form id="BookingAssign">
-
+                        <input type="hidden" name="booking_id" id="booking_id">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 pl-lg-6 pl-md-6" id="set_ctg">
                                 <div class="row">
@@ -624,7 +625,7 @@
                             status:'confirmed',
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id', 'date', 'time_slot', 'category_id', 'first_name','phone_number', 'booking_status'
+                                'id', 'date', 'time_slot', 'category_id', 'first_name','phone_number', 'booking_status','assign_status'
                             ],
                         },
                         headers: {
@@ -651,6 +652,9 @@
                         },
                         {
                             data: 'booking_status'
+                        },
+                        {
+                            data: 'assign_status'
                         },
                         {
                             data: 'action',
@@ -997,14 +1001,26 @@
                         });
 
                         var allUsers=data.getUsers;
+                        var booking_id=data.booking_id;
+                        $('#booking_id').val(booking_id);
                         $("#booking_user_id").append(new Option("Select User", "")).trigger("change");
                         $.each(allUsers, function (i, allUser) {
-                            $('#booking_user_id').append($('<option>', {
-                                value: allUser.id,
-                                text : allUser.name
-                            })).trigger("change");
+                                $('#booking_user_id').append($('<option>', {
+                                    value: allUser.id,
+                                    text : allUser.name
+                                })).trigger("change");
                         });
 
+                        var bookedUser = data.bookedUsers;
+                        if(bookedUser!='' || bookedUser!=null){
+                           $.each(bookedUser, function (i, booked) {
+                               $("#booking_user_id option[value="+booked+"]").prop('disabled',true);
+                            });
+                        }
+                        var selectedUser = data.getSelectedUser;
+                        if(selectedUser!=null || selectedUser!=''){
+                           $("#booking_user_id").val(selectedUser.user_id);
+                        }
 
                     } else {
                         Swal.fire("Sorry!", data.message, "error");
@@ -1050,8 +1066,8 @@
                             toastr.success(data.message);
                             var form = $("#addForm");
                             form[0].reset();
-                            $('#addBookingModal').modal('hide');
-                            table.ajax.reload();
+                            $('#BookingAssignModal').modal('hide');
+                            bookingListTable.ajax.reload();
                         } else {
                             Swal.fire("Sorry!", data.message, "error");
                         }
