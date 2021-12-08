@@ -322,6 +322,7 @@ class BookingController extends Controller
         return view('bookings.confirmed_list', $data);
     }
 
+
     public function getUsersByZipCode(Request $request)
     {
         $booking_id=$request->id;
@@ -386,6 +387,22 @@ class BookingController extends Controller
         return response()->json($return);
     }
 
+
+
+    public function updateBookingStatus(Request $request){
+           $booking = OrderFulfillmentBooking::where('id',$request->booking_id)->update(['booking_status'=>$request->status]);
+           $return = [
+            'status' => 'success',
+            'message' =>'Status updated successfully!'
+        ];
+            if (empty($booking)) {
+                $return = [
+                    'status' => 'error',
+                    'message' => 'Data not found for edit'
+                ];
+            }
+            return response()->json($return);
+    }
 
 
 }

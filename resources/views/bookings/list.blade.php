@@ -394,7 +394,7 @@
                                 <th>Category</th>
                                 <th>Name</th>
                                 <th>Phone No</th>
-                                <th>Email</th>
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -539,7 +539,7 @@
         var datatable = function() {
             var initTable = function() {
                 // begin first table
-                table = $('#itemTableList').DataTable({
+                bookingListTable = $('#itemTableList').DataTable({
                     responsive: true,
                     // Pagination settings
                     dom: `<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
@@ -604,7 +604,7 @@
 
                 var filter = function() {
                     var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                    table.column($(this).data('col-index')).search(val ? val : '', false, false).draw();
+                    bookingListTable.column($(this).data('col-index')).search(val ? val : '', false, false).draw();
                 };
 
                 $('#kt_search').on('click', function(e) {
@@ -620,18 +620,18 @@
                     });
                     $.each(params, function(i, val) {
                         // apply search params to datatable
-                        table.column(i).search(val ? val : '', false, false);
+                        bookingListTable.column(i).search(val ? val : '', false, false);
                     });
-                    table.table().draw();
+                    bookingListTable.table().draw();
                 });
 
                 $('#kt_reset').on('click', function(e) {
                     e.preventDefault();
                     $('.datatable-input').each(function() {
                         $(this).val('');
-                        table.column($(this).data('col-index')).search('', false, false);
+                        bookingListTable.column($(this).data('col-index')).search('', false, false);
                     });
-                    table.table().draw();
+                    bookingListTable.table().draw();
                 });
 
                 $('#kt_datepicker').datepicker({
@@ -769,7 +769,7 @@
                             var form = $("#addForm");
                             form[0].reset();
                             $('#addBookingModal').modal('hide');
-                            table.ajax.reload();
+                            bookingListTable.ajax.reload();
                         } else {
                             Swal.fire("Sorry!", data.message, "error");
                         }
@@ -867,7 +867,7 @@
                         success: function(data) {
                             if (data.status == 'success') {
                                 Swal.fire("Success!", data.message, "success");
-                                table.ajax.reload();
+                                bookingListTable.ajax.reload();
                             } else {
                                 Swal.fire("Sorry!", data.message, "error");
                             }

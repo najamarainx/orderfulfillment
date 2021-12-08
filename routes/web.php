@@ -135,6 +135,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/confirmed', [Controllers\BookingController::class, 'confirmedBookings'])->name('confirmedList');
         Route::post('/getUserAgainstZip', [Controllers\BookingController::class, 'getUsersByZipCode'])->name('getUserAgainstZip');
         Route::post('/bookingAssign', [Controllers\BookingController::class, 'bookingAssign'])->name('bookingAssign');
+        Route::post('/update_booking_status', [Controllers\BookingController::class, 'updateBookingStatus'])->name('updateBookingStatus');
 
 
     });
