@@ -50,7 +50,7 @@ class BookingController extends Controller
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
 
-        $booking = DB::table('orderfulfillment_bookings')->select('orderfulfillment_bookings.*', 'ots.booking_from_time', 'ots.booking_to_time')->whereNull('orderfulfillment_bookings.deleted_at')->leftJoin('orderfulfillment_time_slots as ots', 'orderfulfillment_bookings.time_slot_id', 'ots.id')->whereNull('ots.deleted_at');
+        $booking = DB::table('orderfulfillment_bookings')->select('booking_assign.assign_status','orderfulfillment_bookings.*', 'ots.booking_from_time', 'ots.booking_to_time')->whereNull('orderfulfillment_bookings.deleted_at')->leftJoin('orderfulfillment_time_slots as ots', 'orderfulfillment_bookings.time_slot_id', 'ots.id')->whereNull('ots.deleted_at');
         $booking->leftJoin('orderfulfillment_booking_assigns as booking_assign','orderfulfillment_bookings.id','booking_assign.booking_id');
         if ($request->status == 'confirmed') {
             $booking->whereIn('orderfulfillment_bookings.booking_status', ['confirmed', 'rescheduled']);
@@ -154,10 +154,11 @@ class BookingController extends Controller
                 "first_name" => $bookingObj->first_name . ' ' . $bookingObj->last_name,
                 "phone_number" => $bookingObj->phone_number,
                 "booking_status" =>  '<span class="badge badge-success badge-pill booking_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->booking_status . '</span>',
-                "assign_status" =>  '<span class="badge badge-success badge-pill assign_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->assign_status . '</span>',
+                "assign_status"=>'<span class="badge badge-success badge-pill assign_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->assign_status . '</span>',
                 "action" => $action
             ];
-        }
+
+            }
         $records["data"] = $data;
         $records["draw"] = $draw;
         $records["recordsTotal"] = $iTotalRecords;

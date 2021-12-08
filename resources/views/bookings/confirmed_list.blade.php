@@ -1003,6 +1003,7 @@
                         var allUsers=data.getUsers;
                         var booking_id=data.booking_id;
                         $('#booking_id').val(booking_id);
+                        $("#booking_user_id").empty();
                         $("#booking_user_id").append(new Option("Select User", "")).trigger("change");
                         $.each(allUsers, function (i, allUser) {
                                 $('#booking_user_id').append($('<option>', {
@@ -1018,7 +1019,7 @@
                             });
                         }
                         var selectedUser = data.getSelectedUser;
-                        if(selectedUser!=null || selectedUser!=''){
+                        if(selectedUser!=null){
                            $("#booking_user_id").val(selectedUser.user_id);
                         }
 
