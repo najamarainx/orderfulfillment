@@ -17,7 +17,7 @@ class UserTimeSlotController extends Controller
     {
         //$slots = OrderFulfillmentTimeSlot::get();
         $usersBYZipCode = getUsersByZip($zipID);
-        $userTimeSlots=getUserTimeSlots($zipID);
+        //$userTimeSlots=getUserTimeSlots($zipID);
         $slots=OrderFulfillmentTimeSlot::with(['slot_users'=>function($qry) use ($zipID){
             $qry->where('zip_code_id',$zipID);
             $qry->whereNULL('deleted_at');
@@ -28,7 +28,7 @@ class UserTimeSlotController extends Controller
             'zip_id'=>$zipID,
             'slots'=>$slots,
             'usersBYZipCode'=>$usersBYZipCode,
-            'userTimeSlots'=>$userTimeSlots,
+            //'userTimeSlots'=>$userTimeSlots,
 
         ];
         return view('zips.user_time_slot', $dt);

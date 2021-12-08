@@ -423,9 +423,10 @@
 
                         <div class="row">
 
-                            <div class="col-lg-6 col-md-6 col-sm-12 pr-lg-6 pr-md-6 border-right-lg border-right-md">
+                            <div class="col-lg-6 col-md-6 col-sm-12 pr-lg-6 pr-md-6 border-right-lg border-right-md" id="test">
                                 <div class="row">
                                     <div class="col-12">
+                                        <input type="hidden" name="id" id="id">
                                         <div class="form-group mb-4">
                                             <label class="mb-0">Customer Name</label>
                                             <input type="text" class="form-control" name="customer_name" id="customer_name" placeholder="Customer Name">
@@ -459,7 +460,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 col-md-6 col-sm-12 pl-lg-6 pl-md-6">
+                            <div class="col-lg-6 col-md-6 col-sm-12 pl-lg-6 pl-md-6" id="set_ctg">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group mb-4">
@@ -511,6 +512,49 @@
                     <button type="button" class="btn btn-light-primary font-weight-bold"
                             data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary font-weight-bold" id="btn_save">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="BookingAssignModal" data-backdrop="static" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Booking</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="BookingAssign">
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 pl-lg-6 pl-md-6" id="set_ctg">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group mb-4">
+                                            <label class="mb-0">Select User</label>
+
+                                                <select class="form-control form-control-lg  kt_select2_1 w-100 booking_user_id"
+                                                        data-live-search="true" name="booking_user_id" id="booking_user_id">
+                                                    <option value="">Select User</option>
+
+                                                </select>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-primary font-weight-bold"
+                            data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary font-weight-bold" id="btn_save_booking">Save</button>
                 </div>
             </div>
         </div>
@@ -703,6 +747,37 @@
             });
 
         })
+        jQuery(document).ready(function() {
+
+
+            var validator = $("#BookingAssign").validate({
+                rules: {
+                    booking_user_id: {
+                        required: true
+                    }
+
+
+                },
+                errorPlacement: function(error, element) {
+                    var elem = $(element);
+                    if (elem.hasClass("booking_user_id")) {
+                        error.appendTo(element.parent().after());
+                        //error.insertAfter(element);
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+
+            var input = document.getElementById("BookingAssign");
+            input.addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    document.getElementById("btn_save_booking").click();
+                }
+            });
+
+        })
         $(document).on('click', '#btn_add_new', function() {
             var element = document.getElementById('test');
             element.classList.add('col-lg-6');
@@ -876,6 +951,97 @@
                     });
                 }
             });
+        });
+        $(document).on('click', '.confirmed', function() {
+            var id = $(this).data('id');
+            var form_data = new FormData();
+            form_data.append('id', id);
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('getUserAgainstZip') }}", // your php file name
+                data: form_data,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    if (data.status == 'success') {
+
+                        $('#BookingAssignModal').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        }).on('hide.bs.modal', function() {
+                            $("#BookingAssign").validate().resetForm();
+                        });
+
+                        var allUsers=data.getUsers;
+                        $("#booking_user_id").append(new Option("Select User", "")).trigger("change");
+                        $.each(allUsers, function (i, allUser) {
+                            $('#booking_user_id').append($('<option>', {
+                                value: allUser.id,
+                                text : allUser.name
+                            })).trigger("change");
+                        });
+
+
+                    } else {
+                        Swal.fire("Sorry!", data.message, "error");
+                    }
+                },
+                error: function(errorString) {
+                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                }
+            });
+
+        });
+        $(document).on('click', '#btn_save_booking', function() {
+            var validate = $("#BookingAssign").valid();
+            if (validate) {
+                var form_data = $("#BookingAssign").serializeArray();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('bookingAssign') }}", // your php file name
+                    data: form_data,
+                    dataType: "json",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.status == 'success') {
+                            toastr.options = {
+                                "closeButton": true,
+                                "debug": false,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-top-right",
+                                "preventDuplicates": true,
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "5000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            };
+                            toastr.success(data.message);
+                            var form = $("#addForm");
+                            form[0].reset();
+                            $('#addBookingModal').modal('hide');
+                            table.ajax.reload();
+                        } else {
+                            Swal.fire("Sorry!", data.message, "error");
+                        }
+                    },
+                    error: function(errorString) {
+                        Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                    }
+                });
+            }
         });
         $(document).on('click','.selected_date',function(){
             console.log('yes');
