@@ -157,7 +157,6 @@ class BookingController extends Controller
                 "assign_status"=>'<span class="badge badge-success badge-pill assign_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->assign_status . '</span>',
                 "action" => $action
             ];
-
             }
         $records["data"] = $data;
         $records["draw"] = $draw;

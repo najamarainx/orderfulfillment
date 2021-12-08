@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Rescheduled & Confirmed Booking')
+@section('title', 'Booking Task')
 
 @section('page_level_css_plugin')
     <link rel="stylesheet" href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css">
@@ -323,31 +323,10 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">Booking List
+                        <h3 class="card-label">Task List
                         </h3>
                     </div>
-                    <div class="card-toolbar">
-                        <!--begin::Dropdown-->
-                        <!--end::Dropdown-->
-                        <!--begin::Button-->
-                        <a class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#addBookingModal"
-                           id="btn_add_new">
-                            <span class="svg-icon svg-icon-md">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <rect x="0" y="0" width="24" height="24" />
-                                        <circle fill="#000000" cx="9" cy="15" r="6" />
-                                        <path
-                                            d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z"
-                                            fill="#000000" opacity="0.3" />
-                                    </g>
-                                </svg>
-                                <!--end::Svg Icon-->
-                            </span>Add Booking</a>
-                        <!--end::Button-->
-                    </div>
+
                 </div>
                 <div class="card-body">
                     <form class="kt-form kt-form--fit">
@@ -414,7 +393,6 @@
                             <th>Category</th>
                             <th>Name</th>
                             <th>Phone No</th>
-                            <th>Status</th>
                             <th>Assign Status</th>
                             <th>Actions</th>
                         </tr>
@@ -428,114 +406,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="addBookingModal" data-backdrop="static" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Booking</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i aria-hidden="true" class="ki ki-close"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="addForm">
 
-                        <div class="row">
-
-                            <div class="col-lg-6 col-md-6 col-sm-12 pr-lg-6 pr-md-6 border-right-lg border-right-md" id="test">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <input type="hidden" name="id" id="id">
-                                        <div class="form-group mb-4">
-                                            <label class="mb-0">Customer Name</label>
-                                            <input type="text" class="form-control" name="customer_name" id="customer_name" placeholder="Customer Name">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group mb-4">
-                                            <label class="mb-0">Customer Phone.No</label>
-                                            <input type="number" class="form-control" name="customer_no" id="customer_no" placeholder="Customer Phone.No">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group mb-4">
-                                            <label class="mb-0">Customer Email</label>
-                                            <input type="email" class="form-control" name="customer_email" id="customer_email" placeholder="Customer Email">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group mb-4">
-                                            <label class="mb-0">Customer Address</label>
-                                            <textarea type="text" class="form-control"
-                                                      placeholder="Customer Address" name="customer_address" id="customer_address"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group mb-4">
-                                            <label class="mb-0">Customer postal Code</label>
-                                            <input type="number" class="form-control" name="customer_post_code" id="customer_post_code" placeholder="Customer postal Code">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 col-md-6 col-sm-12 pl-lg-6 pl-md-6" id="set_ctg">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group mb-4">
-                                            <label class="mb-0">Select Category</label>
-                                            @if (!$categories->isEmpty())
-                                                <select class="form-control form-control-lg  kt_select2_1 w-100 category_id"
-                                                        data-live-search="true" name="category_id" id="category_id">
-                                                    <option value=""></option>
-                                                    @foreach ($categories as $catObj)
-                                                        <option value="{{ $catObj->id }}">{{ $catObj->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <div class="form-group mb-4">
-                                            <label>Select Date: </label>
-                                            <input class="form-group mb-4 date selected_date" id="datepicker" name="date" autocomplete="off" />
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group mb-4">
-                                            <label>Zip Code: </label>
-                                            <select class="form-control form-control-lg  kt_select2_1 w-100 zip_code"   data-live-search="true" name="zip_code" id="zip_code">
-                                                @if(!empty($zipCode))
-                                                    <option value=""></option>
-                                                    @foreach ($zipCode as $zipObj)
-                                                        <option value="{{$zipObj->id}}">{{$zipObj->name}}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <p class="text-danger slot_error"></p>
-                                        <div class="time_slot_html">
-                                            {!!$timeSlotHtml!!}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light-primary font-weight-bold"
-                            data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary font-weight-bold" id="btn_save">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="modal fade" id="BookingAssignModal" data-backdrop="static" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -625,7 +496,7 @@
                             status:'confirmed',
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id', 'date', 'time_slot', 'category_id', 'first_name','phone_number', 'booking_status','assign_status'
+                                'id', 'date', 'time_slot', 'category_id', 'first_name','phone_number','assign_status'
                             ],
                         },
                         headers: {
@@ -650,9 +521,7 @@
                         {
                             data: 'phone_number'
                         },
-                        {
-                            data: 'booking_status'
-                        },
+
                         {
                             data: 'assign_status'
                         },

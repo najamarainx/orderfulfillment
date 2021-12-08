@@ -30,7 +30,6 @@
     <!--end::Layout Themes-->
     <link rel="shortcut icon" href="{{ asset('assets/media/favicon/favicon.ico') }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css">
 
     @yield('page_level_css')
     @yield('page_level_css_plugin')
@@ -275,7 +274,6 @@
 <script src="{{ asset('assets/js/pages/widgets.js') }}"></script>
 <script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js') }}"></script>
 <!--end::Page Scripts-->
-<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 
 @yield('page_level_js_plugin')
 <!--end::Page Vendors-->
