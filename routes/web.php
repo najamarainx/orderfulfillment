@@ -136,7 +136,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/getUserAgainstZip', [Controllers\BookingController::class, 'getUsersByZipCode'])->name('getUserAgainstZip');
         Route::post('/bookingAssign', [Controllers\BookingController::class, 'bookingAssign'])->name('bookingAssign');
         Route::post('/update_booking_status', [Controllers\BookingController::class, 'updateBookingStatus'])->name('updateBookingStatus');
-
+    });
+    Route::prefix('booking-task')->group(function () {
+        Route::get('/', [Controllers\BookingAssignController::class, 'index'])->name('bookingTaskList');
 
     });
     Route::prefix('user-time-slot')->group(function () {
