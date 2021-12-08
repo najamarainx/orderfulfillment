@@ -362,6 +362,7 @@
         }
         $('#statusModal').modal('show');
     });
+
     $(document).on('change', '#booking_status', function() {
         booking_status = $(this).val();
         if (booking_status == 'rescheduled') {
@@ -387,7 +388,7 @@
                 success: function(data) {
                     if (data.status == 'success') {
                         $('.time_slot_html').html('');
-                        $('.selected_zip_code_time_slot_html').html();
+                        $('.selected_zip_code_time_slot_html').html('');
                          $('.selected_zip_code_time_slot_html').html(data.timeSlotHtml);
                         var rec = data.data;
                         var id = rec.id;
@@ -458,6 +459,10 @@
         });
 
     })
+    $(document).on('click','.selected_date',function(){
+          $('.zip_code').val('').trigger('change.select2');
+          $('.selected_zip_code_time_slot_html').html('');
+    });
 </script>
 
 </html>

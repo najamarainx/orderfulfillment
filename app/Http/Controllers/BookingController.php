@@ -12,7 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use DB;
-
+use Auth;
 class BookingController extends Controller
 {
     public function index()
@@ -38,6 +38,7 @@ class BookingController extends Controller
     }
     public function getList(Request $request)
     {
+        $type =  Auth::user()->type;
         $records = [];
         $draw = $request->draw;
         $start = $request->start;
@@ -49,6 +50,7 @@ class BookingController extends Controller
         $columns = $request->columns;
 
         $booking = DB::table('orderfulfillment_bookings')->select('orderfulfillment_bookings.*', 'ots.booking_from_time', 'ots.booking_to_time')->whereNull('orderfulfillment_bookings.deleted_at')->leftJoin('orderfulfillment_time_slots as ots', 'orderfulfillment_bookings.time_slot_id', 'ots.id')->whereNull('ots.deleted_at');
+        $booking->leftJoin('orderfulfillment_booking_assigns as booking_assign','orderfulfillment_bookings.id','booking_assign.booking_id');
         if ($request->status == 'confirmed') {
             $booking->whereIn('orderfulfillment_bookings.booking_status', ['confirmed', 'rescheduled']);
         } else {
@@ -95,7 +97,7 @@ class BookingController extends Controller
         foreach ($bookingData as $bookingObj) {
             $categoryName = "";
             if ($bookingObj->category_id != "") {
-                $category = OrderFulfillmentCategory::find($bookingObj->category_id);
+                $category = DB::table('categories')->whereNull('deleted_at')->find($bookingObj->category_id);
                 $categoryName = $category->name;
             }
             $action = "";
@@ -245,6 +247,7 @@ class BookingController extends Controller
             $booking->phone_number = $request->customer_no;
             $booking->post_code = $request->customer_post_code;
             $booking->address = $request->customer_address;
+            $booking->created_by = Auth::user()->id;
             // $booking->message = $request->message;
             $booking->save();
             $return = [
@@ -272,7 +275,8 @@ class BookingController extends Controller
             ];
             $timeSlotHtml = View::make('template.booking-slots', $dt)->render();
             $data['timeSlotHtml'] = $timeSlotHtml;
-            $result = ['status' => 'success', 'timeSlotHtml' => $timeSlotHtml];
+
+            $result = ['status' => 'success', 'timeSlotHtml' => $timeSlotHtml,'zipCode'=>$request->zipCode];
         } else {
             $result = ['status' => 'error', 'message' => 'Something went wrong'];
         }
@@ -408,12 +412,41 @@ class BookingController extends Controller
 
     public function updateBookingStatus(Request $request)
     {
-        //  print_r($request->all());exit;
+        // print_r($request->all());exit;
         $booking = OrderFulfillmentBooking::where('id', $request->booking_id);
-        if ($request->status == 'rescheduled') {
-            $query = $booking->update(['booking_status' => $request->status, 'category_id' => $request->category_id, 'date' => $request->date, 'zip_code_id' => $request->zip_code, 'time_slot_id' => $request->time_slot]);
-        } else {
+        if($request->status == 'rescheduled'){
+            // echo 'yes';exit;
+        $validate = true;
+        $validateInput = $request->all();
+            $rules = [
+                'category_id'=>'required',
+                'date' => 'required|max:150',
+                'zip_code' => 'required|max:150',
+                'time_slot' => 'required|max:150',
+            ];
+            $messages = [
+                'category_id.required' => 'category field is required!',
+                'date.required' => 'date is required!',
+                'time_slot.required' => 'time slot is required!',
+            ];
+            $validator = Validator::make($validateInput, $rules, $messages);
+            if ($validator->fails()) {
+                $errors = $validator->errors();
+                $allMsg = [];
+                foreach ($errors->all() as $message) {
+                    $allMsg[] = $message;
+                }
+                $return['status'] = 'error';
+                $return['message'] = collect($allMsg)->implode('<br />');
+                $validate = false;
+                return response()->json($return);
+            }
+            if($validate){
+                $query = $booking->update(['booking_status' => $request->status, 'category_id' => $request->category_id, 'date' => $request->date, 'zip_code_id' => $request->zip_code, 'time_slot_id' => $request->time_slot]);
+            }
+        }else{
             $query =    $booking->update(['booking_status' => $request->status]);
+
         }
         $return = [
             'status' => 'success',

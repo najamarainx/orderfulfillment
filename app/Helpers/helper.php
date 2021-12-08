@@ -43,6 +43,7 @@ function getCategory($type = "", $categoryId = "", $categoryObjs = false)
 {
     $query = DB::table('categories');
      $query->whereNull('deleted_at');
+     $query->where('type','product');
     if ($type != "") {
         $query->where('type', $type);
     }
