@@ -64,7 +64,7 @@
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                     <div class="form-group">
                                         <label>Billing Number:</label>
-                                        <input type="text" name="name" id="name" class="form-control" placeholder="Billing Number" data-col-index="0"> </div>
+                                        <input type="text"  class="form-control datatable-input" placeholder="Billing Number" data-col-index="0"> </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                     <div class="form-group">
@@ -216,7 +216,8 @@
         </div>
         <!----end stock----------->@endsection @section('page_level_js_plugin')
             <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4') }}"></script>
-            <script src="{{ asset('assets/plugins/custom/jqvalidation/jquery.validate.min.js?v=7.0.4') }}"></script> @endsection @section('page_level_js')
+            <script src="{{ asset('assets/plugins/custom/jqvalidation/jquery.validate.min.js?v=7.0.4') }}"></script> @endsection
+        @section('page_level_js')
             <script type="text/javascript">
                 $(document).ajaxStart(function() {
                     KTApp.blockPage({
@@ -271,7 +272,7 @@
                                 bSortable: false
                             }, ],
                             order: [
-                                [1, "desc"]
+                                [0, "desc"]
                             ]
                         });
                         var filter = function() {
@@ -685,5 +686,12 @@
 
 
  }
-
+                @if(Session::has('error'))
+                    toastr.options =
+                    {
+                        "closeButton" : true,
+                        "progressBar" : true
+                    }
+                toastr.warning("{{ session('error') }}");
+                @endif
 </script> @endsection

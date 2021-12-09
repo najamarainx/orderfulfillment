@@ -107,6 +107,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/detail/{id}', [Controllers\SupplierStockController::class, 'detailProduct'])->middleware('haspermission:detailStockPurchase');
         Route::post('/items', [Controllers\ItemController::class, 'getDeptItems'])->name('getDeptItems');
         Route::get('/edit/{id}', [Controllers\SupplierStockController::class, 'editPurchaseOrder'])->middleware('haspermission:detailStockPurchase');
+        Route::post('/update', [Controllers\SupplierStockController::class, 'saveAndProceedOrder'])->name('stockorderUpdate');
     });
 
     Route::prefix('inventory')->group(function () {
