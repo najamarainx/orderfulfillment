@@ -154,3 +154,12 @@ function assignBookingUser($bookingID)
     $result = $query->first();
     return $result;
 }
+
+function getPurchaseOrderInfo($purchaseOrderID)
+{
+    $query = DB::table('orderfulfillment_stock_orders');
+    $query->whereNull('orderfulfillment_stock_orders.deleted_at');
+    $query->where('orderfulfillment_stock_orders.id','=',$purchaseOrderID);
+    $result = $query->first();
+    return $result;
+}

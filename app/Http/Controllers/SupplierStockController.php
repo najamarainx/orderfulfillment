@@ -85,7 +85,8 @@ class SupplierStockController extends Controller
             $action .= '<a href="' . url('stockorder/detail') . '/' . $billObj->id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview" data-id="' . $billObj->id . '">
             <i class="la la-eye"></i>
         </a>';
-            $action .= '<a href="javascript:;" class="btn btn-sm btn-clean btn-icon edit" data-id="' . $billObj->id . '" title="Edit details">
+
+            $action .= '<a href="' . url('stockorder/edit') . '/' . $billObj->id . '" class="btn btn-sm btn-clean btn-icon " title="Edit details">
                             <i class="la la-edit"></i>
                         </a>';
             $action .= '<a href="javascript:;" class="btn btn-sm btn-clean btn-icon delete" data-id="' . $billObj->id . '" title="Delete">
@@ -272,4 +273,39 @@ class SupplierStockController extends Controller
         $dt = ['orderItems'=>$orderItems];
         return view('stocks.preview',$dt);
     }
+
+    public function editPurchaseOrder($purchaseOrderID)
+    {
+        $purchaseOrderInfo=getPurchaseOrderInfo($purchaseOrderID);
+        if($purchaseOrderInfo->is_verified==0)
+        {
+            $departments=OrderFulfillmentDepartment::whereNULL('deleted_at')->get();
+            $suppliers=OrderFulfillmentSupplier::whereNULL('deleted_at')->get();
+            $variants=getVariants();
+            $purchaseorderItems= OrderFulfillmentStockOrder::with(['stockOrderDetail'=>function($query){
+                $query->with(['orderItem','orderVariant']);
+            },'supplierDetail'])->where('id',$purchaseOrderID)->first();
+            echo "<pre>";
+            print_r($purchaseorderItems);
+            echo "</pre>";
+            die;
+
+            $dt=[
+                'departments' => $departments,
+                'suppliers' => $suppliers,
+                'variants' => $variants,
+                ];
+
+        }
+        else{
+
+            return redirect()->back()->with('error', 'ERROR: You Can t Access This Page Now');
+        }
+
+
+    }
+
+
+
+
 }
