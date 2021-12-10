@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderFulfillmentDepartment;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
@@ -113,10 +114,19 @@ class OrderController extends Controller
 
     public function detail($id)
     {
-        /*$orderItems= Order::with(['orderdetail'=>function($query){
+        $depatments=OrderFulfillmentDepartment::get();
+        $orderItems= Order::with(['orderdetail'=>function($query){
             $query->with('orderProducts');
         }])->where('id',$id)->first();
-        $dt = ['orderItems'=>$orderItems];*/
+        $dt = [
+                'orderItems'=>$orderItems,
+                'depatments'=>$depatments
+
+            ];
+        return view('orders.assign_detail', $dt);
+
+
+
     }
 
 
