@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-lg-3 mb-lg-3 mb-2">
                                 <label>Stores Name:</label>
-                                <select class="form-control kt_select2_1 datatable-input " id="role_search" data-col-index="1" >
+                                <select class="form-control kt_select2_1 datatable-input " id="store_search" data-col-index="1" >
                                     <option value="">Select Store</option>
                                     @foreach($stores as $store)
                                         <option value="{{$store->id}}" >{{ucfirst($store->name)}}</option>
@@ -216,6 +216,7 @@
                     e.preventDefault();
                     $('.datatable-input').each(function() {
                         $(this).val('');
+                        $('#store_search').val('').trigger('change')
                         table.column($(this).data('col-index')).search('', false, false);
                     });
                     table.table().draw();

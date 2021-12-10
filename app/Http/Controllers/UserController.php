@@ -24,7 +24,7 @@ class UserController extends Controller
         $departments = getDepartment(-1, true);
         $query = OrderFulfillmentRole::whereNULL('deleted_at');
         if ($type == 'production_manager') {
-            $query->whereIn('name', ['Teamlead', 'worker']);
+            $query->whereIn('name', ['Team Lead', 'Worker']);
         }
         $roles = $query->get();
         $dt = [

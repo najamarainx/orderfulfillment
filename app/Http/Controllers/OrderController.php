@@ -30,7 +30,7 @@ class OrderController extends Controller
         $columns = $request->columns;
         $sql = Order::select('orders.*','stores.name as store_name')->where('orders.payment','verified');
         $sql->join('stores','orders.store_id','stores.id');
-       // $sql->where('orders.paid_amount','>=','40');
+        $sql->where('orders.paid_percentage','>=','40');
         $sql->whereNULL('stores.deleted_at');
         $sql->whereNULL('orders.deleted_at')->get();
         foreach ($columns as $field) {
@@ -38,6 +38,11 @@ class OrderController extends Controller
             $search = $field['search']['value'];
             if ($search != "") {
                 if ($col == 'id') {
+                    $colp='orders.id';
+                    $sql->where($colp, $search);
+
+                }
+                if ($col == 'name') {
                     $colp='orders.store_id';
                     $sql->where($colp, $search);
 
@@ -60,7 +65,7 @@ class OrderController extends Controller
         foreach ($orderData as $orderObj) {
             $action = "";
 
-            $action .= '<a href="' . url('order/detail') . '/' . $orderObj->id . '" target="_blank"  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 edit" data-id="' . $orderObj->id . '">
+            $action .= '<a href="' . url('orders/detail') . '/' . $orderObj->id . '" target="_blank"  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 ">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -75,7 +80,7 @@ class OrderController extends Controller
             </a>';
 
 
-            $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm delete" data-id="' . $orderObj->id . '" title="Delete">
+            /*$action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm delete" data-id="' . $orderObj->id . '" title="Delete">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -87,7 +92,7 @@ class OrderController extends Controller
                     </svg>
                     <!--end::Svg Icon-->
                 </span>
-            </a>';
+            </a>';*/
 
             $data[] = [
                 "id" => $orderObj->id,
@@ -105,6 +110,15 @@ class OrderController extends Controller
         $records["recordsFiltered"] = $iTotalRecords;
         echo json_encode($records);
     }
+
+    public function detail($id)
+    {
+        /*$orderItems= Order::with(['orderdetail'=>function($query){
+            $query->with('orderProducts');
+        }])->where('id',$id)->first();
+        $dt = ['orderItems'=>$orderItems];*/
+    }
+
 
 
 
