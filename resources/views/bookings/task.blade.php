@@ -654,7 +654,7 @@
             $('.assign_status_text').text(assign_status.toUpperCase())
             $('#assign_id').val('');
             $('#assign_id').val(assign_id);
-            $('#booking_assign_status').val(assign_status);
+            $('#booking_status').val(assign_status);
             $('#assignStatusModal').modal('show');
         })
 

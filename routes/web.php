@@ -144,6 +144,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/detail/{id}/{assignid}', [Controllers\MeasurementBookingController::class, 'bookingDetail'])->name('bookingDetail');
 
     });
+    Route::prefix('booking-order')->group(function () {
+        Route::get('/create_order/{id}/{assignid}', [Controllers\MeasurementOrderController::class, 'index'])->name('measurementOrderDetail');
+        Route::post('get-products', [Controllers\MeasurementOrderController::class, 'getProductByCategory'])->name('getProductByCategory');
+        Route::post('get-prices', [Controllers\MeasurementOrderController::class, 'getProductMinPrices'])->name('getProductMinPrices');
+        Route::post('/product_quote/{id?}', [Controllers\MeasurementOrderController::class, 'getProductQuote'])->name('store.produt.quote');
+
+
+    });
     Route::prefix('user-time-slot')->group(function () {
         Route::get('/detail/{id}', [Controllers\UserTimeSlotController::class, 'index'])->name('zipListUsers');
         Route::post('/submit', [Controllers\UserTimeSlotController::class, 'store'])->name('slotSave');
