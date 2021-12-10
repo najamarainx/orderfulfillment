@@ -206,6 +206,7 @@ function assignBookingUser($bookingID)
     return $result;
 }
 
+
 function getProductByCategory($categoryId = -1, $storeID)
 {
     if ($storeID > 0) {
@@ -290,3 +291,13 @@ function overallProductPrice($bandPrice,$additionalCharges=-1,$contractDiscount=
     }
         return number_format($totalPrice,2);
 }
+
+function getPurchaseOrderInfo($purchaseOrderID)
+{
+    $query = DB::table('orderfulfillment_stock_orders');
+    $query->whereNull('orderfulfillment_stock_orders.deleted_at');
+    $query->where('orderfulfillment_stock_orders.id','=',$purchaseOrderID);
+    $result = $query->first();
+    return $result;
+}
+

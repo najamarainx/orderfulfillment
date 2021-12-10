@@ -38,7 +38,7 @@
             data-menu-dropdown-timeout="500">
             <!--begin::Menu Nav-->
             <ul class="menu-nav">
-                <li class="menu-item menu-item-active" aria-haspopup="true">
+                <li class="menu-item  {{ ((Route::currentRouteName() == 'home') ) ? 'menu-item-active' : ''}}" aria-haspopup="true">
                     <a href="{{route('home')}}" class="menu-link">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
@@ -59,7 +59,8 @@
                         <span class="menu-text">Dashboard</span>
                     </a>
                 </li>
-                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                @if(hasPermission('viewZip'))
+                <li class="menu-item menu-item-submenu {{ ((Route::currentRouteName() == 'zipList') ) ? 'menu-item-open' : ''}}" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -97,7 +98,9 @@
                         </ul>
                     </div>
                 </li>
-                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                @endif
+                @if(hasPermission('viewUser') || hasPermission('viewCategory') || hasPermission('viewPermission') || hasPermission('viewRole'))
+                <li class="menu-item menu-item-submenu {{ ((Route::currentRouteName() == 'userList'  ||  Route::currentRouteName() == 'categoryList' || Route::currentRouteName() == 'permissionList' || Route::currentRouteName() == 'roleList') ) ? 'menu-item-open' : ''}}" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -164,11 +167,9 @@
                         </ul>
                     </div>
                 </li>
-                <!-- <li class="menu-section">
-                            <h4 class="menu-text">Custom</h4>
-                            <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-                        </li> -->
-                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                @endif
+                @if(hasPermission('viewDepartment'))
+                <li class="menu-item menu-item-submenu {{ ((Route::currentRouteName() == 'departmentList') ) ? 'menu-item-open' : ''}}" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -212,7 +213,9 @@
                         </ul>
                     </div>
                 </li>
-                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                @endif
+                @if(hasPermission('viewItem') || hasPermission('viewVariant') || hasPermission('viewSupplier') || hasPermission('viewStockPurchase'))
+                <li class="menu-item menu-item-submenu {{ ((Route::currentRouteName() == 'itemList'  ||  Route::currentRouteName() == 'variantList' || Route::currentRouteName() == 'supplierList' || Route::currentRouteName() == 'stockList') ) ? 'menu-item-open' : ''}}" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
@@ -276,6 +279,8 @@
                         </ul>
                     </div>
                 </li>
+                @endif
+
                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
                         <span class="svg-icon menu-icon">
@@ -320,6 +325,7 @@
                         </ul>
                     </div>
                 </li>
+
                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
                         <span class="svg-icon menu-icon">
