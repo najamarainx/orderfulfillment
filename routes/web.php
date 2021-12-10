@@ -160,5 +160,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [Controllers\OrderController::class, 'index'])->name('orderList');
+        Route::post('/list', [Controllers\OrderController::class, 'getList'])->name('getList');
+
+
+    });
+
+
 });
 Auth::routes();
