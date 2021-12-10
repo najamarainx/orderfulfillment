@@ -100,11 +100,11 @@
                                                                             x="7 " y="11 " width="10 " height="2 "
                                                                             rx="1 " />
                                                                         <path d="M6.70710678,8.70710678 C6.31658249,9.09763107 5.68341751,9.09763107 5.29289322,8.70710678 C4.90236893,8.31658249 4.90236893,7.68341751 5.29289322,7.29289322 L11.2928932,1.29289322 C11.6714722,0.914314282 12.2810586,0.90106866
-                                12.6757246,1.26284586 L18.6757246,6.76284586 C19.0828436,7.13603827 19.1103465,7.76860564 18.7371541,8.17572463 C18.3639617,8.58284362 17.7313944,8.61034655 17.3242754,8.23715414 L12.0300757,3.38413782 L6.70710678,8.70710678
-                                Z " fill="#000000 " fill-rule="nonzero " />
+                                    12.6757246,1.26284586 L18.6757246,6.76284586 C19.0828436,7.13603827 19.1103465,7.76860564 18.7371541,8.17572463 C18.3639617,8.58284362 17.7313944,8.61034655 17.3242754,8.23715414 L12.0300757,3.38413782 L6.70710678,8.70710678
+                                    Z " fill="#000000 " fill-rule="nonzero " />
                                                                         <path d="M6.70710678,22.7071068 C6.31658249,23.0976311 5.68341751,23.0976311 5.29289322,22.7071068 C4.90236893,22.3165825 4.90236893,21.6834175 5.29289322,21.2928932 L11.2928932,15.2928932 C11.6714722,14.9143143 12.2810586,14.9010687
-                                12.6757246,15.2628459 L18.6757246,20.7628459 C19.0828436,21.1360383 19.1103465,21.7686056 18.7371541,22.1757246 C18.3639617,22.5828436 17.7313944,22.6103465 17.3242754,22.2371541 L12.0300757,17.3841378 L6.70710678,22.7071068
-                                Z " fill="#000000 " fill-rule="nonzero "
+                                    12.6757246,15.2628459 L18.6757246,20.7628459 C19.0828436,21.1360383 19.1103465,21.7686056 18.7371541,22.1757246 C18.3639617,22.5828436 17.7313944,22.6103465 17.3242754,22.2371541 L12.0300757,17.3841378 L6.70710678,22.7071068
+                                    Z " fill="#000000 " fill-rule="nonzero "
                                                                             transform="translate(12.000003, 18.999999) rotate(-180.000000) translate(-12.000003, -18.999999) " />
                                                                     </g>
                                                                 </svg>
@@ -135,12 +135,12 @@
                                                                             x="7 " y="11 " width="10 " height="2 "
                                                                             rx="1 " />
                                                                         <path d="M13.7071045,15.7071104 C13.3165802,16.0976347 12.6834152,16.0976347 12.2928909,15.7071104 C11.9023666,15.3165861 11.9023666,14.6834211 12.2928909,14.2928968 L18.2928909,8.29289682 C18.6714699,7.91431789 19.2810563,7.90107226
-                                19.6757223,8.26284946 L25.6757223,13.7628495 C26.0828413,14.1360419 26.1103443,14.7686092 25.7371519,15.1757282 C25.3639594,15.5828472 24.7313921,15.6103502 24.3242731,15.2371577 L19.0300735,10.3841414 L13.7071045,15.7071104
-                                Z " fill="#000000 " fill-rule="nonzero "
+                                    19.6757223,8.26284946 L25.6757223,13.7628495 C26.0828413,14.1360419 26.1103443,14.7686092 25.7371519,15.1757282 C25.3639594,15.5828472 24.7313921,15.6103502 24.3242731,15.2371577 L19.0300735,10.3841414 L13.7071045,15.7071104
+                                    Z " fill="#000000 " fill-rule="nonzero "
                                                                             transform="translate(19.000001, 12.000003) rotate(-270.000000) translate(-19.000001, -12.000003) " />
                                                                         <path d="M-0.292895505,15.7071104 C-0.683419796,16.0976347 -1.31658478,16.0976347 -1.70710907,15.7071104 C-2.09763336,15.3165861 -2.09763336,14.6834211 -1.70710907,14.2928968 L4.29289093,8.29289682 C4.67146987,7.91431789 5.28105631,7.90107226
-                                5.67572234,8.26284946 L11.6757223,13.7628495 C12.0828413,14.1360419 12.1103443,14.7686092 11.7371519,15.1757282 C11.3639594,15.5828472 10.7313921,15.6103502 10.3242731,15.2371577 L5.03007346,10.3841414 L-0.292895505,15.7071104
-                                Z " fill="#000000 " fill-rule="nonzero "
+                                    5.67572234,8.26284946 L11.6757223,13.7628495 C12.0828413,14.1360419 12.1103443,14.7686092 11.7371519,15.1757282 C11.3639594,15.5828472 10.7313921,15.6103502 10.3242731,15.2371577 L5.03007346,10.3841414 L-0.292895505,15.7071104
+                                    Z " fill="#000000 " fill-rule="nonzero "
                                                                             transform="translate(5.000001, 12.000003) rotate(-450.000000) translate(-5.000001, -12.000003) " />
                                                                     </g>
                                                                 </svg>
@@ -265,29 +265,81 @@
                     <h3 class="card-title align-items-center pt-7 ">
                         <span class="card-label font-weight-bolder text-dark ">Order Detail</span>
                     </h3>
-                    <div class=" mb-20">
-                        <table class="table table-head-custom table-vertical-center" id="form_data">
-                            <thead>
-                                <tr class="w3-blue">
-                                    <th nowrap>Sr#</th>
-                                    <th nowrap>Category</th>
-                                    <th nowrap>Product</th>
-                                    <th nowrap>Qty</th>
-                                    <th nowrap>Parameters</th>
-                                    <th nowrap>Length</th>
-                                    <th nowrap>Width</th>
-                                    <th nowrap>Fitting</th>
-                                    <th nowrap>Fitting Option</th>
-                                    <th nowrap>Side of Controls</th>
-                                    <th nowrap>Side of Controls</th>
-                                    <th nowrap>Note</th>
-                                    <th nowrap>Price</th>
-                                    <th nowrap>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                    <div class="table-responsive mb-20">
+                        <form id="addOrderForm">
+                            <table class="table table-head-custom table-vertical-center" id="form_data">
+                                <thead>
+                                    <tr class="w3-blue">
+                                        <th nowrap>Sr#</th>
+                                        <th nowrap>Category</th>
+                                        <th nowrap>Product</th>
+                                        <th nowrap style="min-width: 75px">Qty</th>
+                                        <th nowrap>Parameters</th>
+                                        <th nowrap>Length</th>
+                                        <th nowrap>Width</th>
+                                        <th nowrap>Fitting</th>
+                                        <th nowrap>Fitting Option</th>
+                                        <th nowrap>Side of Controls</th>
+                                        <th nowrap>Side of Controls</th>
+                                        <th nowrap>Note</th>
+                                        <th nowrap style="min-width: 75px">Price</th>
+                                        <th nowrap>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($orderDetail->orderdetail as $i=> $orderObj)
+                                    @php $measurement = explode("x",$orderObj->dimension)  @endphp
+                                    <tr class="child"><td>
+                                        {{$i+1}}
+                                        </td><td>
+                                            {{$orderObj->orderCategory->name}}
+                                        <input type="hidden" name="category_id[]"  class="form-control" value="{{$orderObj->orderCategory->name}}"  >
+                                       </td>
+                                        <td>{{$orderObj->orderProducts->name}}
+                                          <input type="hidden" name="product_id[]"  class="form-control" value="{{$orderObj->orderProducts->id}}"  ></td><td>
+                                        <input type="number" name="order_qty[]" data-key="{{$i}}"  class="form-control order_qty w-100" value="{{$orderObj->qty}}" min="1" >  </td><td>
+                                        <input type="text" readonly name="measurement[]"  class="form-control" value="{{$orderObj->scale}}"  >  </td><td>
+                                        <input type="text" readonly name="length[]"  class="form-control" value="{{$measurement[0]}}"  >  </td><td>
+                                        <input type="text" readonly name="width[]"  class="form-control" value="{{$measurement[1]}}"  >  </td><td>
+                                        <input type="text" readonly name="fitting[]"  class="form-control" value="{{$orderObj->fitting_type}}"  >  </td>
+                                        <td>
+                                        <input type="text" readonly name="fitting_option[]"  class="form-control" value="{{$orderObj->fitting_option}}"  >  </td><td>
+                                        <input type="text" readonly name="side_control[]"  class="form-control" value="{{$orderObj->side_control}}"  >  </td><td>
+                                        <input type="text" readonly name="chain_color[]"  class="form-control" value="{{$orderObj->chain_color}}"  >  </td><td>
+                                        <input type="text" readonly name="customer_note[]"  class="form-control" value=""  >
+                                        </td><td>
+                                        <input type="text" name="order_price[]"  class="form-control" id="price_  i
+                                        " value="{{$orderObj->price}}"  ><input type="hidden"  class="form-control" id="hidden_price_{{$i}}  " value="{{$orderObj->price}}"  >
+                                        </td><td><a href="javascript:void(0);" class="remCF1"><i class="fas trash fa-trash"></i></a></td></tr>
+                                    @endforeach
+                                </tbody>
+
+                            </table>
+                            <p class="text-danger payment_error"></p>
+                            <div class="row footer_wrapper_html" style="display:none">
+                                <div class="col-5"></div>
+                                <div class="col-2 ">
+                                    <label for="">Total Price</label>
+                                    <div class="form-goup text-right">
+                                        <input type="number" name="order_total_price" class="form-control border" readonly
+                                        name="totalPrice" id="order_total_price">
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <label for="">Paid Amount</label>
+                                   <div class="form-group text-right">
+                                    <input type="number" placeholder="Paid Amount" class="form-control border"
+                                    name="paid_price" id="order_paid_price">
+                                   </div>
+                                </div>
+                                <div class="col-3  text-right mt-4">
+                                      <div class="mt-2">
+                                        <button type="button" class="btn btn-primary" id="save_order">Save and proceed</button>
+                                        <button type="button" class="btn btn-primary" id="save_order">Save</button>
+                                      </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
                     <!--end::Table-->
@@ -368,6 +420,8 @@
             if (validate) {
 
                 var category = $('#category_id option:selected').text();
+                var category_id = $('#category_id').val();
+                var product_id = $('#category_products').val();
                 var product = $('#category_products option:selected').text();
                 var parameters = $('input[name="parameter"]:checked').val();
                 var fitting = $('input[name="fitting"]:checked').val();
@@ -376,25 +430,57 @@
 
                 // var fitting_type = $('#fitting_type').val();
                 var side_of_controls = $('#side_control').val();
-                var price = $('#order_price').val();
+                price = $('#order_price').val();
+
                 var chain_color = $('#chain_color').val();
-                qty =
-                    '<input type="number" name="order_qty" class="form-control order_qty" vlaue="1" min-length="1" >';
+
                 var set_fitting = $('#set_fitting').val();
                 var customer_note = $('#customer_note').val();
                 var count = $('#form_data tr').length;
                 if (category != "" && product != "" && length != "") {
-                    $('#form_data tbody').append('<tr class="child"><td>' + count + '</td><td>' + category +
-                        '</td><td>' + product + '</td><td>' + qty + '</td><td>' + parameters + '</td><td>' +
-                        length + '</td><td>' +
-                        width + '</td><td>' + fitting + '</td><td>' + set_fitting + '</td><td>' +
-                        side_of_controls + '</td><td>' + chain_color + '</td><td>' +
-                        customer_note +
+                    var i = 0;
+
+                    $('#form_data tbody').append(
+                        '<tr class="child"><td>' + count + '</td><td>' + category +
+                        '<input type="hidden" name="category_id[]"  class="form-control" value="' +
+                        category_id + '"  ></td><td>' +
+                        product + '<input type="hidden" name="product_id[]"  class="form-control" value="' +
+                        product_id + '"  ></td><td>' +
+                        '<input type="number" name="order_qty[]" data-key="' + i +
+                        '"  class="form-control order_qty w-100" value="1" min="1" >' + '</td><td>' +
+                        '<input type="text" readonly name="measurement[]"  class="form-control" value="' +
+                        parameters + '"  >' + '</td><td>' +
+                        '<input type="text" readonly name="length[]"  class="form-control" value="' + length +
+                        '"  >' + '</td><td>' +
+                        '<input type="text" readonly name="width[]"  class="form-control" value="' + width +
+                        '"  >' + '</td><td>' +
+                        '<input type="text" readonly name="fitting[]"  class="form-control" value="' + fitting +
+                        '"  >' + '</td><td>' +
+                        '<input type="text" readonly name="fitting_option[]"  class="form-control" value="' +
+                        set_fitting + '"  >' + '</td><td>' +
+                        '<input type="text" readonly name="side_control[]"  class="form-control" value="' +
+                        side_of_controls + '"  >' + '</td><td>' +
+                        '<input type="text" readonly name="chain_color[]"  class="form-control" value="' +
+                        chain_color + '"  >' + '</td><td>' +
+                        '<input type="text" readonly name="customer_note[]"  class="form-control" value="' +
+                        customer_note + '"  >' +
                         '</td><td>' +
-                        price +
+                        '<input type="text" name="order_price[]"  class="form-control" id="price_' + i +
+                        '" value="' + price +
+                        '"  ><input type="hidden"  class="form-control" id="hidden_price_' + i + '" value="' +
+                        price + '"  >' +
                         '</td><td><a href="javascript:void(0);" class="remCF1"><i class="fas trash fa-trash"></i></a></td></tr>'
                     );
+                    i++;
                 }
+                var paid_amount = 0;
+                $("input[name='order_price[]']").each(function() {
+                    paid_amount += parseFloat($(this).val());
+                });
+                $('#order_total_price').val('');
+                $('#order_total_price').val(paid_amount);
+                console.log(paid_amount);
+                $('.footer_wrapper_html').show()
                 var form = $("#addItem");
                 form[0].reset();
                 $('#category_id').val('').trigger('change.select2');
@@ -514,7 +600,6 @@
                 var cmheight = min_height * 2.54;
                 cmwidth = cmwidth.toFixed(2);
                 cmheight = cmheight.toFixed(2);
-                console.log(cmwidth);
                 $("#length").attr("placeholder", "min " + cmwidth);
                 $("#width").attr("placeholder", "min " + cmheight);
 
@@ -581,7 +666,6 @@
                         $('#height_measure_error').html('');
                         $('.height_measure_error').html('');
 
-                        console.log(data.price);
                         $('#get-quotes').show();
                         $('#get_quote_price').text('');
                         $('#get_quote_price').text(data.price);
@@ -629,5 +713,87 @@
             });
 
         }
+
+
+        $(document).on('keyup', '.order_qty', function() {
+            var qty_key = $(this).attr('data-key');
+            var qty = $(this).val();
+            console.log(qty);
+            var price = $('#hidden_price_' + qty_key).val();
+            totalPrice = qty * price;
+            $('#price_' + qty_key).val(totalPrice);
+            var paid_amount = 0;
+            $("input[name='order_price[]']").each(function() {
+                paid_amount += parseFloat($(this).val());
+            });
+            $('#order_total_price').val('');
+            $('#order_total_price').val(paid_amount);
+        });
+
+        $(document).on('keyup', '#order_paid_price', function() {
+            paid_price = $(this).val();
+            console.log(paid_price);
+        });
+
+        $(document).on('click', '#save_order', function() {
+            var totalPrice = $('#order_total_price').val();
+             var paidPrice = $('#order_paid_price').val();
+            if(paidPrice == ''){
+                $('.payment_error').text('');
+                $('.payment_error').text('Please add paid amount');
+                return;
+            }
+            if (totalPrice < paidPrice) {
+                $('.payment_error').text('');
+                $('.payment_error').text('Please add paid amount less than total amount');
+                return;
+            }
+            $('.payment_error').text('');
+
+            var form_data = $("#addOrderForm").serializeArray();
+            var booking_id = {{ last(request()->segments()) }};
+            form_data.push({
+                name: "booking_id",
+                value: booking_id
+            })
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('storeMeasurementOrder') }}", // your php file name
+                data: form_data,
+                dataType: "json",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    if (data.status == 'success') {
+                        toastr.options = {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": true,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "timeOut": "5000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        };
+                        toastr.success(data.message);
+                        location.reload();
+                    } else {
+                        Swal.fire("Sorry!", data.message, "error");
+                    }
+                },
+                error: function(errorString) {
+                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                }
+            });
+        });
     </script>
 @endsection

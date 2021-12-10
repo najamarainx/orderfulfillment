@@ -90,7 +90,7 @@ class MeasurementBookingController extends Controller
             }
             $action = "";
             if ($request->status == 'confirmed') {
-                $action .= '<a href="' . url('booking-order/create_order') . '/' . $bookingObj->assign_id . '/' .  $bookingObj->booking_id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm">
+                $action .= '<a href="' . url('booking-order/create_order') . '/' . $bookingObj->booking_id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -107,9 +107,6 @@ class MeasurementBookingController extends Controller
                 <i class="la la-eye"></i>
             </a>';
             }
-
-
-
 
             $data[] = [
                 "id" => $bookingObj->id,
