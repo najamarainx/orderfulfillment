@@ -265,29 +265,44 @@
                     <h3 class="card-title align-items-center pt-7 ">
                         <span class="card-label font-weight-bolder text-dark ">Order Detail</span>
                     </h3>
-                    <div class=" mb-20">
-                        <table class="table table-head-custom table-vertical-center" id="form_data">
-                            <thead>
-                                <tr class="w3-blue">
-                                    <th nowrap>Sr#</th>
-                                    <th nowrap>Category</th>
-                                    <th nowrap>Product</th>
-                                    <th nowrap>Qty</th>
-                                    <th nowrap>Parameters</th>
-                                    <th nowrap>Length</th>
-                                    <th nowrap>Width</th>
-                                    <th nowrap>Fitting</th>
-                                    <th nowrap>Fitting Option</th>
-                                    <th nowrap>Side of Controls</th>
-                                    <th nowrap>Side of Controls</th>
-                                    <th nowrap>Note</th>
-                                    <th nowrap>Price</th>
-                                    <th nowrap>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                    <div class="table-responsive mb-20">
+                        <form id="addOrderForm">
+                            <table class="table table-head-custom table-vertical-center" id="form_data">
+                                <thead>
+                                    <tr class="w3-blue">
+                                        <th nowrap>Sr#</th>
+                                        <th nowrap>Category</th>
+                                        <th nowrap>Product</th>
+                                        <th nowrap style="min-width: 75px">Qty</th>
+                                        <th nowrap>Parameters</th>
+                                        <th nowrap>Length</th>
+                                        <th nowrap>Width</th>
+                                        <th nowrap>Fitting</th>
+                                        <th nowrap>Fitting Option</th>
+                                        <th nowrap>Side of Controls</th>
+                                        <th nowrap>Side of Controls</th>
+                                        <th nowrap>Note</th>
+                                        <th nowrap style="min-width: 75px">Price</th>
+                                        <th nowrap>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+
+                            </table>
+                            <div class="row footer_wrapper_html" style="display:none">
+                              <div class="col-6"></div>
+                                <div class="col-2 text-right">
+                                    <input type="number" name="orde_total_price" class="form-control border" readonly name="totalPrice" id="order_total_price">
+                                </div>
+                                <div class="col-2  text-right">
+                                    <input type="number" placeholder="Paid Amount" class="form-control border"    name="paid_price" id="order_paid_price">
+                                </div>
+                                <div class="col-2  text-right">
+                                    <button type="button" class="btn btn-primary" id="save_order">Save</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
                     <!--end::Table-->
@@ -368,6 +383,8 @@
             if (validate) {
 
                 var category = $('#category_id option:selected').text();
+                var category_id = $('#category_id').val();
+                var product_id = $('#category_products').val();
                 var product = $('#category_products option:selected').text();
                 var parameters = $('input[name="parameter"]:checked').val();
                 var fitting = $('input[name="fitting"]:checked').val();
@@ -376,25 +393,40 @@
 
                 // var fitting_type = $('#fitting_type').val();
                 var side_of_controls = $('#side_control').val();
-                var price = $('#order_price').val();
+                price = $('#order_price').val();
+
                 var chain_color = $('#chain_color').val();
-                qty =
-                    '<input type="number" name="order_qty" class="form-control order_qty" vlaue="1" min-length="1" >';
+
                 var set_fitting = $('#set_fitting').val();
                 var customer_note = $('#customer_note').val();
                 var count = $('#form_data tr').length;
                 if (category != "" && product != "" && length != "") {
-                    $('#form_data tbody').append('<tr class="child"><td>' + count + '</td><td>' + category +
-                        '</td><td>' + product + '</td><td>' + qty + '</td><td>' + parameters + '</td><td>' +
-                        length + '</td><td>' +
-                        width + '</td><td>' + fitting + '</td><td>' + set_fitting + '</td><td>' +
-                        side_of_controls + '</td><td>' + chain_color + '</td><td>' +
-                        customer_note +
+                    var i = 0;
+
+                    $('#form_data tbody').append(
+                        '<tr class="child"><td>' + count + '</td><td>' + category +
+                        '<input type="hidden" name="category_id[]"  class="form-control" value="'+category_id+'"  ></td><td>'
+                         + product + '<input type="hidden" name="product_id[]"  class="form-control" value="'+product_id+'"  ></td><td>'
+                         + '<input type="number" name="order_qty[]" data-key="'+i+'"  class="form-control order_qty w-100" value="1" min="1" >' + '</td><td>'
+                         + '<input type="text" readonly name="measurement[]"  class="form-control" value="'+parameters+'"  >' + '</td><td>' +
+                            '<input type="text" readonly name="length[]"  class="form-control" value="'+length+'"  >' + '</td><td>' +
+                                '<input type="text" readonly name="width[]"  class="form-control" value="'+width+'"  >' + '</td><td>' + '<input type="text" readonly name="fitting[]"  class="form-control" value="'+fitting+'"  >' + '</td><td>' + '<input type="text" readonly name="fitting_option[]"  class="form-control" value="'+set_fitting+'"  >' + '</td><td>' +
+                                    '<input type="text" readonly name="side_control[]"  class="form-control" value="'+side_of_controls+'"  >' + '</td><td>' + '<input type="text" readonly name="chain_color[]"  class="form-control" value="'+chain_color+'"  >' + '</td><td>' +
+                                        '<input type="text" readonly name="customer_note[]"  class="form-control" value="'+customer_note+'"  >' +
                         '</td><td>' +
-                        price +
+                            '<input type="text" name="order_price[]"  class="form-control" id="price_'+i+'" value="'+price+'"  ><input type="hidden"  class="form-control" id="hidden_price_'+i+'" value="'+price+'"  >' +
                         '</td><td><a href="javascript:void(0);" class="remCF1"><i class="fas trash fa-trash"></i></a></td></tr>'
                     );
+                    i++;
                 }
+                var paid_amount = 0;
+                    $("input[name='order_price[]']").each(function() {
+                       paid_amount += parseFloat($(this).val());
+                    });
+                    $('#order_total_price').val('');
+                    $('#order_total_price').val(paid_amount);
+                    console.log(paid_amount);
+                $('.footer_wrapper_html').show()
                 var form = $("#addItem");
                 form[0].reset();
                 $('#category_id').val('').trigger('change.select2');
@@ -514,7 +546,6 @@
                 var cmheight = min_height * 2.54;
                 cmwidth = cmwidth.toFixed(2);
                 cmheight = cmheight.toFixed(2);
-                console.log(cmwidth);
                 $("#length").attr("placeholder", "min " + cmwidth);
                 $("#width").attr("placeholder", "min " + cmheight);
 
@@ -581,7 +612,6 @@
                         $('#height_measure_error').html('');
                         $('.height_measure_error').html('');
 
-                        console.log(data.price);
                         $('#get-quotes').show();
                         $('#get_quote_price').text('');
                         $('#get_quote_price').text(data.price);
@@ -629,5 +659,73 @@
             });
 
         }
+
+
+            $(document).on('keyup','.order_qty',function(){
+                var qty_key = $(this).attr('data-key');
+                var qty = $(this).val();
+                var price  = $('#hidden_price_'+qty_key).val();
+                totalPrice = qty * price;
+                $('#price_'+qty_key).val(totalPrice);
+                var paid_amount = 0;
+                    $("input[name='order_price[]']").each(function() {
+                       paid_amount += parseFloat($(this).val());
+                    });
+                    $('#order_total_price').val('');
+                    $('#order_total_price').val(paid_amount);
+            });
+
+            $(document).on('keyup','#order_paid_price',function(){
+                paid_price = $(this).val();
+                console.log(paid_price);
+            });
+
+           $(document).on('click','#save_order',function(){
+             var form_data = $("#addOrderForm").serializeArray();
+             var booking_id = {{last(request()->segments())}};
+             form_data.push({ name: "booking_id", value: booking_id })
+
+             $.ajax({
+                    type: "POST",
+                    url: "{{ route('storeMeasurementOrder') }}", // your php file name
+                    data: form_data,
+                    dataType: "json",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.status == 'success') {
+                            toastr.options = {
+                                "closeButton": true,
+                                "debug": false,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-top-right",
+                                "preventDuplicates": true,
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "5000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            };
+                            toastr.success(data.message);
+                            var form = $("#addForm");
+                            form[0].reset();
+                            $('#addRoleModal').modal('hide');
+                            table.ajax.reload();
+                        } else {
+                            Swal.fire("Sorry!", data.message, "error");
+                        }
+                    },
+                    error: function(errorString) {
+                        Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                    }
+                });
+           });
+
     </script>
 @endsection

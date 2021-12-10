@@ -146,10 +146,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
     Route::prefix('booking-order')->group(function () {
-        Route::get('/create_order/{id}/{assignid}', [Controllers\MeasurementOrderController::class, 'index'])->name('measurementOrderDetail');
+        Route::get('/create_order/{id}', [Controllers\MeasurementOrderController::class, 'index'])->name('measurementOrderDetail');
         Route::post('get-products', [Controllers\MeasurementOrderController::class, 'getProductByCategory'])->name('getProductByCategory');
         Route::post('get-prices', [Controllers\MeasurementOrderController::class, 'getProductMinPrices'])->name('getProductMinPrices');
         Route::post('/product_quote/{id?}', [Controllers\MeasurementOrderController::class, 'getProductQuote'])->name('store.produt.quote');
+        Route::post('store', [Controllers\MeasurementOrderController::class, 'storeMeasurementOrder'])->name('storeMeasurementOrder');
 
 
     });

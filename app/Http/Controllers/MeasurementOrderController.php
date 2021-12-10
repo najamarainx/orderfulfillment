@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderFulfillmentBooking;
+use App\Models\OrderFulfillmentUser;
 use Illuminate\Http\Request;
 use DB;
 class MeasurementOrderController extends Controller
@@ -69,5 +71,30 @@ class MeasurementOrderController extends Controller
             return response()->json(['status' => 'error', 'message' => 'you can\'t access this store product price']);
         }
 
+    }
+
+    public function storeMeasurementOrder(Request $request){
+      $bookingData  = OrderFulfillmentBooking::where('id',$request->booking_id)->first();
+       if(!empty($bookingData)){
+           $store_id =1;
+          $order = new Order;
+          $order->booking_id = $bookingData->id;
+          $order->store_id = $store_id;
+          $order->name = $bookingData->first_name . ' '. $bookingData->last_name;
+          $order->email = $bookingData->email;
+          $order->phone_number = $bookingData->phone_number;
+          $order->total_price = $request->order_total_price;
+          $order->paid_amount = $request->paid_price;
+          $order->address = $request->address;
+          $order->zip_code = $request->post_code;
+          $price_percentage = ($request->paid_price / 100) * $request->order_total_price;
+          if($request->order_total_price == $request->paid_price){
+              $order->payment_type = 'full';
+          }else{
+            $order->payment_type = 'partial';
+          }
+          $order->paid_percentage = $price_percentage;
+
+       }
     }
 }
