@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\OrderFulfillmentDepartment;
+use App\Models\OrderFulfillmentInventoryItem;
 use Illuminate\Http\Request;
 use App\Models\OrderFulfillmentItem;
 use Illuminate\Support\Facades\Validator;
@@ -197,6 +198,22 @@ class ItemController extends Controller
         return response()->json($getItems);
 
     }
+
+    public function getItemsQantity(Request $request)
+    {
+
+        $depID=$request->depID;
+        $itemID=$request->itemID;
+        $variantID=$request->variantID;
+        $availableQty=OrderFulfillmentInventoryItem::where('item_id',$itemID)->where('department_id',$depID)->where('variant_id',$variantID)->get();
+        return response()->json($availableQty);
+
+
+    }
+
+
+
+
 
 
 }
