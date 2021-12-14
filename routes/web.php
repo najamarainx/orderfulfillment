@@ -165,6 +165,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [Controllers\OrderController::class, 'index'])->name('orderList');
         Route::post('/list', [Controllers\OrderController::class, 'getList'])->name('getList');
         Route::get('/detail/{id}', [Controllers\OrderController::class, 'detail'])->name('orderListDetail');
+        Route::post('/assignedInventory', [Controllers\OrderController::class, 'getAssignedProductInventory'])->name('getAssignedProductInventory');
+        Route::post('/itemsvariant', [Controllers\OrderController::class, 'getItemVariant'])->name('getItemVariant');
+        Route::post('/itemsqty', [Controllers\ItemController::class, 'getItemsQantity'])->name('getDeptItemsQty');
+        Route::post('/salelog', [Controllers\OrderController::class, 'saleLog'])->name('orderSaleLogSubmit');
+        Route::post('/salelogproceed', [Controllers\OrderController::class, 'saveProceedOrderInventory'])->name('proceedSaleInventory');
+        Route::post('/productInventoryList', [Controllers\OrderController::class, 'productInventoryList'])->name('getProductInventoryList');
 
     });
 
