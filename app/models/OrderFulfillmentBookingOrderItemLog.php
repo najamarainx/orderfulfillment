@@ -9,6 +9,7 @@ class OrderFulfillmentBookingOrderItemLog extends Model
 {
     use HasFactory;
     protected $table = 'orderfulfillment_booking_order_item_logs';
+    protected $guarded = [];
     public function orderProducts()
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');

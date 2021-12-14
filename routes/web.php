@@ -151,6 +151,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('get-prices', [Controllers\MeasurementOrderController::class, 'getProductMinPrices'])->name('getProductMinPrices');
         Route::post('/product_quote/{id?}', [Controllers\MeasurementOrderController::class, 'getProductQuote'])->name('store.produt.quote');
         Route::post('store', [Controllers\MeasurementOrderController::class, 'storeMeasurementOrder'])->name('storeMeasurementOrder');
+        Route::post('edit', [Controllers\MeasurementOrderController::class, 'getOrderItemById'])->name('getOrderItemById');
 
 
     });

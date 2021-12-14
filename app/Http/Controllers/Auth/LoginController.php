@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use Auth;
 class LoginController extends Controller
 {
     /*
@@ -40,7 +41,14 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    protected function authenticated(Request $request, $user)
+    {
+        if ( $user->type  == 'team_lead' ) {// do your magic here
+            $departmentId  =  DB::table('orderfulfillment_user_departments')->where('user_id',Auth::user()->id)->select('department_id')->first();
+            session(['department_id' => $departmentId->department_id]);
+        }
 
+    }
     public function logout(Request $request)
 {
     $this->performLogout($request);

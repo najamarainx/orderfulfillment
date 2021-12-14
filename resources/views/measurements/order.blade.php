@@ -100,11 +100,11 @@
                                                                             x="7 " y="11 " width="10 " height="2 "
                                                                             rx="1 " />
                                                                         <path d="M6.70710678,8.70710678 C6.31658249,9.09763107 5.68341751,9.09763107 5.29289322,8.70710678 C4.90236893,8.31658249 4.90236893,7.68341751 5.29289322,7.29289322 L11.2928932,1.29289322 C11.6714722,0.914314282 12.2810586,0.90106866
-                                    12.6757246,1.26284586 L18.6757246,6.76284586 C19.0828436,7.13603827 19.1103465,7.76860564 18.7371541,8.17572463 C18.3639617,8.58284362 17.7313944,8.61034655 17.3242754,8.23715414 L12.0300757,3.38413782 L6.70710678,8.70710678
-                                    Z " fill="#000000 " fill-rule="nonzero " />
+                                            12.6757246,1.26284586 L18.6757246,6.76284586 C19.0828436,7.13603827 19.1103465,7.76860564 18.7371541,8.17572463 C18.3639617,8.58284362 17.7313944,8.61034655 17.3242754,8.23715414 L12.0300757,3.38413782 L6.70710678,8.70710678
+                                            Z " fill="#000000 " fill-rule="nonzero " />
                                                                         <path d="M6.70710678,22.7071068 C6.31658249,23.0976311 5.68341751,23.0976311 5.29289322,22.7071068 C4.90236893,22.3165825 4.90236893,21.6834175 5.29289322,21.2928932 L11.2928932,15.2928932 C11.6714722,14.9143143 12.2810586,14.9010687
-                                    12.6757246,15.2628459 L18.6757246,20.7628459 C19.0828436,21.1360383 19.1103465,21.7686056 18.7371541,22.1757246 C18.3639617,22.5828436 17.7313944,22.6103465 17.3242754,22.2371541 L12.0300757,17.3841378 L6.70710678,22.7071068
-                                    Z " fill="#000000 " fill-rule="nonzero "
+                                            12.6757246,15.2628459 L18.6757246,20.7628459 C19.0828436,21.1360383 19.1103465,21.7686056 18.7371541,22.1757246 C18.3639617,22.5828436 17.7313944,22.6103465 17.3242754,22.2371541 L12.0300757,17.3841378 L6.70710678,22.7071068
+                                            Z " fill="#000000 " fill-rule="nonzero "
                                                                             transform="translate(12.000003, 18.999999) rotate(-180.000000) translate(-12.000003, -18.999999) " />
                                                                     </g>
                                                                 </svg>
@@ -135,12 +135,12 @@
                                                                             x="7 " y="11 " width="10 " height="2 "
                                                                             rx="1 " />
                                                                         <path d="M13.7071045,15.7071104 C13.3165802,16.0976347 12.6834152,16.0976347 12.2928909,15.7071104 C11.9023666,15.3165861 11.9023666,14.6834211 12.2928909,14.2928968 L18.2928909,8.29289682 C18.6714699,7.91431789 19.2810563,7.90107226
-                                    19.6757223,8.26284946 L25.6757223,13.7628495 C26.0828413,14.1360419 26.1103443,14.7686092 25.7371519,15.1757282 C25.3639594,15.5828472 24.7313921,15.6103502 24.3242731,15.2371577 L19.0300735,10.3841414 L13.7071045,15.7071104
-                                    Z " fill="#000000 " fill-rule="nonzero "
+                                            19.6757223,8.26284946 L25.6757223,13.7628495 C26.0828413,14.1360419 26.1103443,14.7686092 25.7371519,15.1757282 C25.3639594,15.5828472 24.7313921,15.6103502 24.3242731,15.2371577 L19.0300735,10.3841414 L13.7071045,15.7071104
+                                            Z " fill="#000000 " fill-rule="nonzero "
                                                                             transform="translate(19.000001, 12.000003) rotate(-270.000000) translate(-19.000001, -12.000003) " />
                                                                         <path d="M-0.292895505,15.7071104 C-0.683419796,16.0976347 -1.31658478,16.0976347 -1.70710907,15.7071104 C-2.09763336,15.3165861 -2.09763336,14.6834211 -1.70710907,14.2928968 L4.29289093,8.29289682 C4.67146987,7.91431789 5.28105631,7.90107226
-                                    5.67572234,8.26284946 L11.6757223,13.7628495 C12.0828413,14.1360419 12.1103443,14.7686092 11.7371519,15.1757282 C11.3639594,15.5828472 10.7313921,15.6103502 10.3242731,15.2371577 L5.03007346,10.3841414 L-0.292895505,15.7071104
-                                    Z " fill="#000000 " fill-rule="nonzero "
+                                            5.67572234,8.26284946 L11.6757223,13.7628495 C12.0828413,14.1360419 12.1103443,14.7686092 11.7371519,15.1757282 C11.3639594,15.5828472 10.7313921,15.6103502 10.3242731,15.2371577 L5.03007346,10.3841414 L-0.292895505,15.7071104
+                                            Z " fill="#000000 " fill-rule="nonzero "
                                                                             transform="translate(5.000001, 12.000003) rotate(-450.000000) translate(-5.000001, -12.000003) " />
                                                                     </g>
                                                                 </svg>
@@ -164,6 +164,7 @@
                                                 </a>
                                             </li>
                                         </ul>
+                                        <input type="hidden" name="order_item_id" id="order_item_id">
                                         <p class="text-danger mt-2 text-center" id="qoute_error"></p>
                                         <input type="hidden" name="order_price" id="order_price">
                                         <div class="mt-2 fade alert alert-success text-center active show"
@@ -267,6 +268,8 @@
                     </h3>
                     <div class="table-responsive mb-20">
                         <form id="addOrderForm">
+                            <input type="hidden" name="order_id" id="order_id"
+                                value="{{ !empty($orderDetail->id) ? $orderDetail->id : '' }}">
                             <table class="table table-head-custom table-vertical-center" id="form_data">
                                 <thead>
                                     <tr class="w3-blue">
@@ -287,56 +290,133 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($orderDetail->orderdetail as $i=> $orderObj)
-                                    @php $measurement = explode("x",$orderObj->dimension)  @endphp
-                                    <tr class="child"><td>
-                                        {{$i+1}}
-                                        </td><td>
-                                            {{$orderObj->orderCategory->name}}
-                                        <input type="hidden" name="category_id[]"  class="form-control" value="{{$orderObj->orderCategory->name}}"  >
-                                       </td>
-                                        <td>{{$orderObj->orderProducts->name}}
-                                          <input type="hidden" name="product_id[]"  class="form-control" value="{{$orderObj->orderProducts->id}}"  ></td><td>
-                                        <input type="number" name="order_qty[]" data-key="{{$i}}"  class="form-control order_qty w-100" value="{{$orderObj->qty}}" min="1" >  </td><td>
-                                        <input type="text" readonly name="measurement[]"  class="form-control" value="{{$orderObj->scale}}"  >  </td><td>
-                                        <input type="text" readonly name="length[]"  class="form-control" value="{{$measurement[0]}}"  >  </td><td>
-                                        <input type="text" readonly name="width[]"  class="form-control" value="{{$measurement[1]}}"  >  </td><td>
-                                        <input type="text" readonly name="fitting[]"  class="form-control" value="{{$orderObj->fitting_type}}"  >  </td>
-                                        <td>
-                                        <input type="text" readonly name="fitting_option[]"  class="form-control" value="{{$orderObj->fitting_option}}"  >  </td><td>
-                                        <input type="text" readonly name="side_control[]"  class="form-control" value="{{$orderObj->side_control}}"  >  </td><td>
-                                        <input type="text" readonly name="chain_color[]"  class="form-control" value="{{$orderObj->chain_color}}"  >  </td><td>
-                                        <input type="text" readonly name="customer_note[]"  class="form-control" value=""  >
-                                        </td><td>
-                                        <input type="text" name="order_price[]"  class="form-control" id="price_  i
-                                        " value="{{$orderObj->price}}"  ><input type="hidden"  class="form-control" id="hidden_price_{{$i}}  " value="{{$orderObj->price}}"  >
-                                        </td><td><a href="javascript:void(0);" class="remCF1"><i class="fas trash fa-trash"></i></a></td></tr>
-                                    @endforeach
+                                    @if (!empty($orderDetail))
+                                        @foreach ($orderDetail->orderdetail as $i => $orderObj)
+                                            @php $measurement = explode("x",$orderObj->dimension)  @endphp
+                                            <tr class="child" id="order_item_row_wrapper_{{ $orderObj->id }}">
+                                                <td>
+                                                    {{ $i + 1 }}
+                                                </td>
+                                                <td>
+                                                    {{ $orderObj->orderCategory->name }}
+                                                    <input type="hidden" name="category_id[]" class="form-control cat_id"
+                                                        value="{{ $orderObj->orderCategory->id }}">
+                                                </td>
+                                                <td>{{ $orderObj->orderProducts->name }}
+                                                    <input type="hidden" name="product_id[]" class="form-control pro_id"
+                                                        value="{{ $orderObj->orderProducts->id }}">
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="order_qty[]" data-key="{{ $i }}"
+                                                        class="form-control order_qty w-100" value="{{ $orderObj->qty }}"
+                                                        min="1">
+                                                </td>
+                                                <td>
+                                                    <input type="text" readonly name="measurement[]"
+                                                        class="form-control measurement" value="{{ $orderObj->scale }}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" readonly name="length[]" class="form-control length"
+                                                        value="{{ $measurement[0] }}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" readonly name="width[]" class="form-control width"
+                                                        value="{{ $measurement[1] }}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" readonly name="fitting[]"
+                                                        class="form-control fitting"
+                                                        value="{{ $orderObj->fitting_type }}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" readonly name="fitting_option[]"
+                                                        class="form-control fitting_option"
+                                                        value="{{ $orderObj->fitting_option }}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" readonly name="side_control[]"
+                                                        class="form-control side_control"
+                                                        value="{{ $orderObj->side_control }}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" readonly name="chain_color[]"
+                                                        class="form-control chain_color"
+                                                        value="{{ $orderObj->chain_color }}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" readonly name="customer_note[]"
+                                                        class="form-control" value="">
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="order_price[]"
+                                                        class="form-control single_price" id="price_{{ $i }}"
+                                                        value="{{ $orderObj->price }}"><input type="hidden"
+                                                        class="form-control single_hidden_price"
+                                                        id="hidden_price_{{ $i }}"
+                                                        value="{{ $orderObj->price }}">
+                                                </td>
+                                                <td>
+                                                    <a href="javascript:void(0);" class="remCF1"><i
+                                                            class="fas trash fa-trash"></i></a>
+                                                    <a href="javascript:;"
+                                                        class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 edit"
+                                                        data-id="{{ $orderObj->id }}">
+                                                        <span class="svg-icon svg-icon-md svg-icon-primary">
+                                                            <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                                height="24px" viewBox="0 0 24 24" version="1.1">
+                                                                <g stroke="none" stroke-width="1" fill="none"
+                                                                    fill-rule="evenodd">
+                                                                    <rect x="0" y="0" width="24" height="24"></rect>
+                                                                    <path
+                                                                        d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z"
+                                                                        fill="#000000" fill-rule="nonzero"
+                                                                        transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953)">
+                                                                    </path>
+                                                                    <path
+                                                                        d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z"
+                                                                        fill="#000000" fill-rule="nonzero" opacity="0.3">
+                                                                    </path>
+                                                                </g>
+                                                            </svg>
+                                                            <!--end::Svg Icon-->
+                                                        </span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                 </tbody>
 
                             </table>
                             <p class="text-danger payment_error"></p>
-                            <div class="row footer_wrapper_html" style="display:none">
+                            <div class="row footer_wrapper_html"
+                                style=" {{ !empty($orderDetail) }} ? 'display:block' : 'display:none'">
                                 <div class="col-5"></div>
                                 <div class="col-2 ">
                                     <label for="">Total Price</label>
                                     <div class="form-goup text-right">
                                         <input type="number" name="order_total_price" class="form-control border" readonly
-                                        name="totalPrice" id="order_total_price">
+                                            name="totalPrice" id="order_total_price"
+                                            value="{{ !empty($orderDetail->total_price) ? $orderDetail->total_price : '' }}">
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <label for="">Paid Amount</label>
-                                   <div class="form-group text-right">
-                                    <input type="number" placeholder="Paid Amount" class="form-control border"
-                                    name="paid_price" id="order_paid_price">
-                                   </div>
+                                    <div class="form-group text-right">
+                                        <input type="number" placeholder="Paid Amount" class="form-control border"
+                                            name="paid_price" id="order_paid_price"
+                                            value="{{ !empty($orderDetail->paid_amount) ? $orderDetail->paid_amount : '' }}">
+                                    </div>
                                 </div>
                                 <div class="col-3  text-right mt-4">
-                                      <div class="mt-2">
-                                        <button type="button" class="btn btn-primary" id="save_order">Save and proceed</button>
-                                        <button type="button" class="btn btn-primary" id="save_order">Save</button>
-                                      </div>
+                                    <div class="mt-2">
+                                        <button type="button" class="btn btn-primary" data-id="1" id="save_order">Save and
+                                            proceed</button>
+                                        <button type="button" class="btn btn-primary" data-id="0"
+                                            id="save_order">Save</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -437,41 +517,77 @@
                 var set_fitting = $('#set_fitting').val();
                 var customer_note = $('#customer_note').val();
                 var count = $('#form_data tr').length;
+                var order_item_id = $('#order_item_id').val();
+
+                if (order_item_id != '') {
+                    $('#order_item_row_wrapper_' + order_item_id).remove();
+                }
                 if (category != "" && product != "" && length != "") {
                     var i = 0;
+                    var ca_id = $('#form_data tbody .child').find('.cat_id').val();
+                    var pro_id = $('#form_data tbody .child').find('.pro_id').val();
+                    var measurement = $('#form_data tbody .child').find('.measurement').val();
+                    //    var  measurement =  $('#form_data tbody .child').find('.measurement').val();
+                    var pre_length = $('#form_data tbody .child').find('.length').val();
+                    var pre_width = $('#form_data tbody .child').find('.width').val();
+                    var pre_fitting = $('#form_data tbody .child').find('.fitting').val();
+                    var pre_fitting_option = $('#form_data tbody .child').find('.fitting_option').val();
+                    var pre_side_control = $('#form_data tbody .child').find('.side_control').val();
+                    var pre_chain_color = $('#form_data tbody .child').find('.chain_color').val();
+                    if (((ca_id) && cat_id == category_id) && ((pro_id) && pro_id == product_id) && ((
+                            measurement) && measurement == parameters) && ((pre_length) && pre_length == length) &&
+                        ((pre_width) && pre_width == width) && ((pre_fitting) && pre_fitting == fitting) && ((
+                            pre_side_control) && pre_side_control == side_of_controls) && ((pre_chain_color) &&
+                            pre_chain_color == chain_color)) {
+                        var qty = $('#form_data tbody .child').find('.order_qty').val();
+                        var price = $('#form_data tbody .child').find('.single_price').val();
+                        total_qty = parseInt(qty) + parseInt(1);
+                        total_price = total_qty * price;
+                        $('#form_data tbody .child').find('.order_qty').val(total_qty);
+                        $('#form_data tbody .child').find('.single_price').val(total_price);
+                        $('#form_data tbody .child').find('.single_hidden_price').val(total_price);
 
-                    $('#form_data tbody').append(
-                        '<tr class="child"><td>' + count + '</td><td>' + category +
-                        '<input type="hidden" name="category_id[]"  class="form-control" value="' +
-                        category_id + '"  ></td><td>' +
-                        product + '<input type="hidden" name="product_id[]"  class="form-control" value="' +
-                        product_id + '"  ></td><td>' +
-                        '<input type="number" name="order_qty[]" data-key="' + i +
-                        '"  class="form-control order_qty w-100" value="1" min="1" >' + '</td><td>' +
-                        '<input type="text" readonly name="measurement[]"  class="form-control" value="' +
-                        parameters + '"  >' + '</td><td>' +
-                        '<input type="text" readonly name="length[]"  class="form-control" value="' + length +
-                        '"  >' + '</td><td>' +
-                        '<input type="text" readonly name="width[]"  class="form-control" value="' + width +
-                        '"  >' + '</td><td>' +
-                        '<input type="text" readonly name="fitting[]"  class="form-control" value="' + fitting +
-                        '"  >' + '</td><td>' +
-                        '<input type="text" readonly name="fitting_option[]"  class="form-control" value="' +
-                        set_fitting + '"  >' + '</td><td>' +
-                        '<input type="text" readonly name="side_control[]"  class="form-control" value="' +
-                        side_of_controls + '"  >' + '</td><td>' +
-                        '<input type="text" readonly name="chain_color[]"  class="form-control" value="' +
-                        chain_color + '"  >' + '</td><td>' +
-                        '<input type="text" readonly name="customer_note[]"  class="form-control" value="' +
-                        customer_note + '"  >' +
-                        '</td><td>' +
-                        '<input type="text" name="order_price[]"  class="form-control" id="price_' + i +
-                        '" value="' + price +
-                        '"  ><input type="hidden"  class="form-control" id="hidden_price_' + i + '" value="' +
-                        price + '"  >' +
-                        '</td><td><a href="javascript:void(0);" class="remCF1"><i class="fas trash fa-trash"></i></a></td></tr>'
-                    );
-                    i++;
+                    } else {
+
+                        $('#form_data tbody').append(
+                            ' <tr class="child" ><td>' + count + '</td><td>' + category +
+                            '<input type="hidden" name="category_id[]"  class="form-control cat_id" value="' +
+                            category_id + '"  ></td><td>' +
+                            product +
+                            '<input type="hidden" name="product_id[]"  class="form-control pro_id" value="' +
+                            product_id + '"  ></td><td>' +
+                            '<input type="number" name="order_qty[]" data-key="' + i +
+                            '"  class="form-control order_qty w-100" value="1" min="1" >' + '</td><td>' +
+                            '<input type="text" readonly name="measurement[]"  class="form-control measurement" value="' +
+                            parameters + '"  >' + '</td><td>' +
+                            '<input type="text" readonly name="length[]"  class="form-control length" value="' +
+                            length +
+                            '"  >' + '</td><td>' +
+                            '<input type="text" readonly name="width[]"  class="form-control width" value="' +
+                            width +
+                            '"  >' + '</td><td>' +
+                            '<input type="text" readonly name="fitting[]"  class="form-control fitting" value="' +
+                            fitting +
+                            '"  >' + '</td><td>' +
+                            '<input type="text" readonly name="fitting_option[]"  class="form-control fitting_option" value="' +
+                            set_fitting + '"  >' + '</td><td>' +
+                            '<input type="text" readonly name="side_control[]"  class="form-control side_controle" value="' +
+                            side_of_controls + '"  >' + '</td><td>' +
+                            '<input type="text" readonly name="chain_color[]"  class="form-control chain_color" value="' +
+                            chain_color + '"  >' + '</td><td>' +
+                            '<input type="text" readonly name="customer_note[]"  class="form-control" value="' +
+                            customer_note + '"  >' +
+                            '</td><td>' +
+                            '<input type="text" name="order_price[]"  class="form-control single_price" id="price_' +
+                            i +
+                            '" value="' + price +
+                            '"  ><input type="hidden"  class="form-control single_hidden_price" id="hidden_price_' +
+                            i + '" value="' +
+                            price + '"  >' +
+                            '</td><td><a href="javascript:void(0);" class="remCF1"><i class="fas trash fa-trash"></i></a></td></tr>'
+                        );
+                        i++;
+                    }
                 }
                 var paid_amount = 0;
                 $("input[name='order_price[]']").each(function() {
@@ -498,6 +614,10 @@
         });
         $(document).on('change', '#category_id', function() {
             cat_id = $(this).val();
+            getProductCategory(cat_id);
+        });
+
+        function getProductCategory(cat_id) {
             var form_data = new FormData();
             form_data.append('id', cat_id);
             $.ajax({
@@ -530,7 +650,7 @@
                     Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                 }
             });
-        });
+        }
         $(document).on('click', '.fitting_type', function() {
             fitting_type = $(this).val();
             if (fitting_type == 'Exact') {
@@ -718,8 +838,8 @@
         $(document).on('keyup', '.order_qty', function() {
             var qty_key = $(this).attr('data-key');
             var qty = $(this).val();
-            console.log(qty);
             var price = $('#hidden_price_' + qty_key).val();
+            console.log(price);
             totalPrice = qty * price;
             $('#price_' + qty_key).val(totalPrice);
             var paid_amount = 0;
@@ -736,14 +856,16 @@
         });
 
         $(document).on('click', '#save_order', function() {
+            var verified_id = $(this).attr('data-id');
             var totalPrice = $('#order_total_price').val();
-             var paidPrice = $('#order_paid_price').val();
-            if(paidPrice == ''){
+            var paidPrice = $('#order_paid_price').val();
+            // console.log(paidPrice);
+            if (paidPrice == '') {
                 $('.payment_error').text('');
                 $('.payment_error').text('Please add paid amount');
                 return;
             }
-            if (totalPrice < paidPrice) {
+            if (paidPrice > totalPrice) {
                 $('.payment_error').text('');
                 $('.payment_error').text('Please add paid amount less than total amount');
                 return;
@@ -755,6 +877,10 @@
             form_data.push({
                 name: "booking_id",
                 value: booking_id
+            });
+            form_data.push({
+                name: "verified_id",
+                value: verified_id
             })
 
             $.ajax({
@@ -785,7 +911,79 @@
                             "hideMethod": "fadeOut"
                         };
                         toastr.success(data.message);
-                        location.reload();
+                        if (data.verified_id == 1) {
+                            window.location = "{{ route('bookingTaskList') }}";
+                        } else {
+                            location.reload();
+                        }
+                    } else {
+                        Swal.fire("Sorry!", data.message, "error");
+                    }
+                },
+                error: function(errorString) {
+                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                }
+            });
+        });
+
+        $(document).on('click', '.edit', function() {
+            var id = $(this).data('id');
+            var form_data = new FormData();
+            form_data.append('id', id);
+            $.ajax({
+                type: "POST",
+                url: "{{ route('getOrderItemById') }}", // your php file name
+                data: form_data,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    if (data.status == 'success') {
+                        $('#addRoleModal').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        }).on('hide.bs.modal', function() {
+                            $("#addForm").validate().resetForm();
+                        });
+                        var rec = data.data;
+                        var category_id = rec.category_id;
+                        getProductCategory(category_id);
+                        var product_id = rec.product_id;
+                        var scale = rec.scale;
+                        var dimension = rec.dimension;
+                        dimension = dimension.split('x');
+                        // console.log(dimension);
+                        // var dimension = rec.dimension;
+                        var fitting = rec.fitting_type;
+                        var side_control = rec.side_control;
+                        var chain_color = rec.chain_color;
+                        var fitting_option = rec.fitting_option;
+                        var qty = rec.qty;
+                        var price = rec.price;
+                        var id = rec.id;
+                        $('#category_id').val(category_id).trigger('change.select2');
+                        setTimeout(function() {
+                            $('.category_products').val(product_id).trigger('change.select2');
+                        }, 1000);
+                        $("input[name=parameter][value='" + scale + "']").prop("checked",
+                            true);
+                        $("input[name=fitting][value='" + fitting + "']").prop("checked",
+                            true);
+                        $('#side_control').val(side_control).trigger('change.select2');
+                        $('#chain_color').val(chain_color).trigger('change.select2');
+                        $('#length').val(dimension[0]);
+                        $('#width').val(dimension[1]);
+                        $('#get_quote_price').text(price);
+                        $('#get-quotes').show();
+                        $('#order_item_id').val(id);
+                        $('#order_price').val(price);
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
                     } else {
                         Swal.fire("Sorry!", data.message, "error");
                     }

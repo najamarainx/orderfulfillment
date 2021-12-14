@@ -300,4 +300,12 @@ function getPurchaseOrderInfo($purchaseOrderID)
     $result = $query->first();
     return $result;
 }
+function getMeasurementsOrderInfo($orderId)
+{
+    $query = DB::table('orders');
+    $query->whereNull('orders.deleted_at');
+    $query->where('orders.id','=',$orderId);
+    $result = $query->first();
+    return $result;
+}
 
