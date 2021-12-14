@@ -174,6 +174,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 
+    Route::prefix('tasks')->group(function () {
+        Route::get('/', [Controllers\TaskController::class, 'index'])->name('tasksList');
+
+
+    });
 
 });
 Auth::routes();
