@@ -25,6 +25,8 @@ class UserController extends Controller
         $query = OrderFulfillmentRole::whereNULL('deleted_at');
         if ($type == 'production_manager') {
             $query->whereIn('name', ['Team Lead', 'Worker']);
+        }else if($type == 'worker'){
+            $query->whereIn('name', ['Worker']);
         }
         $roles = $query->get();
         $dt = [
@@ -47,11 +49,14 @@ class UserController extends Controller
         $sortColumnName = $request->columns[$sortColumnIndex]['data']; // Column name
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
-
+        $department_id =  session()->get('department_id');
         $user = OrderFulfillmentUser::select('orderfulfillment_users.*', 'orderfulfillment_roles.name as role_name')->whereNULL('orderfulfillment_users.deleted_at')->whereNotIn('orderfulfillment_users.type', ['developer', 'super_admin']);
         $user->join('orderfulfillment_roles', 'orderfulfillment_users.role_id', '=', 'orderfulfillment_roles.id');
         if ($type == 'production_manager') {
             $user->join('orderfulfillment_user_departments as o_user_dpt', 'orderfulfillment_users.id', 'o_user_dpt.user_id');
+        }else if($type == 'team_lead'){
+            $user->join('orderfulfillment_user_departments as o_user_dpt', 'orderfulfillment_users.id', 'o_user_dpt.user_id');
+            $user->where('o_user_dpt.department_id',$department_id);
         }
         foreach ($columns as $field) {
             $col = $field['data'];

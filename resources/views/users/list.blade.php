@@ -18,6 +18,9 @@
     $type  = Auth::user()->type;
     if($type == 'production_manager'){
         $userTypes=array('team_lead','worker');
+    }else if($type == 'worker'){
+        $userTypes=array('worker');
+
     }
 @endphp
 @section('content')
@@ -220,6 +223,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-6">
                             <div class="form-group">
                                 <select class="form-control kt_select2_1 user_role" id="user_role" name="user_role" required >

@@ -687,5 +687,14 @@
         });
 
     })
+
+    @if(Session::has('error'))
+  toastr.options =
+  {
+  	"closeButton" : true,
+  	"progressBar" : true
+  }
+  		toastr.warning("{{ session('error') }}");
+  @endif
     </script>
 @endsection
