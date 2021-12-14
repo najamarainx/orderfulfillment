@@ -18,7 +18,7 @@
     $type  = Auth::user()->type;
     if($type == 'production_manager'){
         $userTypes=array('team_lead','worker');
-    }else if($type == 'worker'){
+    }else if($type == 'team_lead'){
         $userTypes=array('worker');
 
     }
