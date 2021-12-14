@@ -301,3 +301,14 @@ function getPurchaseOrderInfo($purchaseOrderID)
     return $result;
 }
 
+function getProductSaleLogVariant($orderID,$productID,$depID,$itemID)
+{
+    $query = DB::table('orderfulfillment_sale_logs');
+    $query->whereNull('orderfulfillment_sale_logs.deleted_at');
+    $query->where('orderfulfillment_sale_logs.product_id','=',$productID);
+    $query->where('orderfulfillment_sale_logs.order_id','=',$orderID);
+    $query->where('orderfulfillment_sale_logs.department_id','=',$depID);
+    $query->where('orderfulfillment_sale_logs.item_id','=',$itemID);
+    $result = $query->pluck('orderfulfillment_sale_logs.variant_id')->toArray();
+    return $result;
+}

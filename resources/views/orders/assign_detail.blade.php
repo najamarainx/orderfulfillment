@@ -148,7 +148,7 @@
                                             </td>
                                             <td class="text-right pr-0">
 
-                                                <a href="#" class="btn btn-icon btn-light btn-hover-primary btn-sm">
+                                                <a onclick="returnProductInventory({{$orderItem->product_id}})" class="btn btn-icon btn-light btn-hover-primary btn-sm">
                                                                     <span class="svg-icon svg-icon-md svg-icon-primary">
                                                                         <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -353,6 +353,31 @@
 
         }
 
+        function returnProductInventory(ProductID)
+        {
+            var order_id=$('#order_id').val();
+            var form_data = new FormData();
+            form_data.append('orderID', order_id);
+            form_data.append('ProductID', ProductID);
+            $.ajax({
+                type: "POST",
+                url: "{{route('getProductInventoryList')}}", // your php file name
+                data: form_data,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(datas) {
+                    console.log(datas);
+
+                },
+                error: function(errorString) {
+                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                }
+            });
+        }
 
         var numbervar = 1;
 
@@ -371,7 +396,7 @@
             @endforeach
             html += '</select>';
             html += '</select></div>';
-            html += '<div class="form-group col-lg-2 col-5"><select class="form-control"  name="item_id[]" id="item_id_'+ numbervar + '">';
+            html += '<div class="form-group col-lg-2 col-5"><select class="form-control"  onchange="getItemVariant(this.value,'+numbervar+')"  name="item_id[]" id="item_id_'+ numbervar + '">';
 
             html += '<option value="">item</option>';
             html += '</select>';
@@ -379,21 +404,18 @@
             html += '<div class="form-group col-lg-2 col-5"><select class="form-control" onchange="getVariantQty(this.value,'+numbervar+')" name="variant[]" id="variant_id_'+ numbervar + '">';
 
             html += '<option value="">Variant</option>';
-            @foreach($variants as $variant)
-                html+='<option value="{{$variant->id}}">{{ucfirst($variant->name)}}</option>';
-            @endforeach
             html += '</select>';
             html += '</select></div>';
-            html += '<div class="form-group col-lg-2 col-5"><select class="form-control" name="qty[]" id="qty_id_'+ numbervar + '">';
+            html += '<div class="form-group col-lg-2 col-5"><select class="form-control"   name="qty[]" id="qty_id_'+ numbervar + '">';
 
             html += '<option value="">Actual Qty</option>';
             html += '</select>';
-            html += '</select></div>';
+            html += '</select><span class="text-danger" id="actual_qty_'+ numbervar + '"></span></div>';
             html += '<div class="row col-lg-3 col-10">';
             html += '<div class="col-3 inc_dec">';
             html += '<button type="button" class="btn btn-primary qty-plus" data-id="'+ numbervar +'">+</button>';
             html += '</div>';
-            html += '<div class="form-group col-lg-5 col-6 inc_dec"><input type="text" name="choose_qty[]" id="check_qty_'+ numbervar +'" class="form-control w_5 inc_dec col-12"></div>';
+            html += '<div class="form-group col-lg-5 col-6 inc_dec"><input type="text" readonly name="choose_qty[]" id="check_qty_'+ numbervar +'" class="form-control w_5 inc_dec col-12"></div>';
             html += '<div class="col-1 inc_dec">';
             html += '<button type="button" class="btn btn-primary qty-minus" data-id="'+ numbervar +'">-</button>';
             html += '</div>';
@@ -440,6 +462,47 @@
             });
 
         }
+        function getItemVariant(itemID,line)
+        {
+            var order_id=$('#order_id').val();
+            var product_id=$('#product_id').val();
+            var depID=$('#department_'+line).val();
+            var itemID=$('#item_id_'+line).val();
+            var form_data = new FormData();
+            form_data.append('depID', depID);
+            form_data.append('itemID', itemID);
+            form_data.append('orderID', order_id);
+            form_data.append('productID', product_id);
+
+            $.ajax({
+                type: "POST",
+                url: "{{route('getItemVariant')}}", // your php file name
+                data: form_data,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(datas) {
+
+                    $('#variant_id_'+line).empty();
+                    $('#variant_id_'+line).append(new Option("Select Variant", "")).trigger("updated");
+                    $.each(datas, function (i, data) {
+                        // console.log(data.id);
+                        $('#variant_id_'+line).append($('<option>', {
+                            value: data.id,
+                            text : data.name
+                        })).trigger("updated");
+                    });
+
+
+                },
+                error: function(errorString) {
+                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                }
+            });
+        }
 
         function getVariantQty(variantID,line){
             var depID=$('#department_'+line).val();
@@ -463,7 +526,7 @@
                 success: function(datas) {
 
                     $('#qty_id_'+line).empty();
-                    $('#qty_id_'+line).append(new Option("Select Quantity", "")).trigger("updated");
+                    $('#qty_id_'+line).append(new Option("Select Quantity", " ")).trigger("updated");
                     $.each(datas, function (i, data) {
                        // console.log(data.id);
                         $('#qty_id_'+line).append($('<option>', {
@@ -532,10 +595,22 @@
 
         $(document).on('click', '.qty-plus', function() {
             var id = $(this).data('id');
-            var getval=$('#check_qty_'+id).val();
-            if(getval==''){getval=0;}
-            var total=parseInt(getval) + parseInt(1);
-           $('#check_qty_'+id).val(total);
+            var availableQty=$('#qty_id_'+id).val();
+            if(availableQty!=''){
+                $('#actual_qty_'+id).text('');
+                var totalQty=Math.floor($('#qty_id_'+id+' option:selected').text());
+                var getval=$('#check_qty_'+id).val();
+                if(getval==''){getval=0;}
+                var put_total_qty=$('#check_qty_'+id).val();
+                if(put_total_qty < totalQty){
+                    var total=parseInt(getval) + parseInt(1);
+                    $('#check_qty_'+id).val(total);
+                }
+
+            }
+           else{
+              $('#actual_qty_'+id).text('please choose actual quantity first');
+            }
 
         });
 
@@ -602,6 +677,14 @@
                 }
             });
         });
+
+
+
+
+
+
+
+
 
     </script>
 @endsection

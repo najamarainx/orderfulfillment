@@ -308,6 +308,40 @@ class OrderController extends Controller
 
     }
 
+    public function productInventoryList(Request $request)
+    {
+        $saveassignedInventory=OrderFulfillmentSaleLog::select('orderfulfillment_sale_logs.*','orderfulfillment_departments.name as department_name','orderfulfillment_items.name as item_name','orderfulfillment_variants.name as variant_name')->where('orderfulfillment_sale_logs.order_id',$request->orderID)->where('orderfulfillment_sale_logs.product_id',$request->ProductID);
+        $saveassignedInventory->join('orderfulfillment_departments','orderfulfillment_sale_logs.department_id','=','orderfulfillment_departments.id');
+        $saveassignedInventory->join('orderfulfillment_items','orderfulfillment_sale_logs.item_id','=','orderfulfillment_items.id');
+        $saveassignedInventory->join('orderfulfillment_variants','orderfulfillment_sale_logs.variant_id','=','orderfulfillment_variants.id');
+        $saveassignedInventory->whereNULL('orderfulfillment_sale_logs.deleted_at');
+        $assignedInventory=$saveassignedInventory->get();
+
+        $departments=OrderFulfillmentDepartment::get();
+        $variants=OrderFulfillmentVariant::get();
+
+        $dt = [
+            'departments'=>$departments,
+            'variants'=>$variants,
+            'assignedInventory'=>$assignedInventory,
+            'product_id'=>$request->ProductID,
+
+        ];
+
+
+    }
+
+    public function getItemVariant(Request $request)
+    {
+       $variant_ids=getProductSaleLogVariant($request->orderID,$request->productID,$request->depID,$request->itemID);
+       $variants=OrderFulfillmentVariant::whereNull('deleted_at');
+       if(!empty($variant_ids)){$variants->whereNotIn('id',$variant_ids);}
+       $result=$variants->get();
+       return response()->json($result);
+
+    }
+
+
 
 
 

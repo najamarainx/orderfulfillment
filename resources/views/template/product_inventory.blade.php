@@ -59,31 +59,28 @@
         </div>
         <div class=" form-group col-lg-2 col-5">
             <label>Item</label>
-            <select class="form-control kt_select2_1"  id="item_id_0" name="item_id[]">
-                <option>Item</option>
+            <select class="form-control kt_select2_1" onchange="getItemVariant(this.value,0)" id="item_id_0" name="item_id[]">
+                <option value="">Item</option>
             </select>
         </div>
         <div class=" form-group col-lg-2 col-5 ml-auto">
             <label>Variant</label>
             <select class="form-control kt_select2_1" onchange="getVariantQty(this.value,0)" name="variant[]" id="variant_id_0">
-                <option value="">Varient</option>
-                @foreach($variants as $variant)
-                <option value="{{$variant->id}}">{{ucfirst($variant->name)}}</option>
-                @endforeach
-
+                <option value="">Variant</option>
             </select>
         </div>
         <div class=" form-group col-lg-2 col-5 mr-auto">
             <label>Actual Qty</label>
             <select class="form-control kt_select2_1" name="qty[]" id="qty_id_0">
-                <option>Qty</option>
+                <option value="">Select Quantity</option>
             </select>
+            <span class="text-danger" id="actual_qty_0"></span>
         </div>
         <div class="col-lg-3 col-10 ml-auto mr-auto">
             <label>Qty</label>
             <div class="row">
                 <div><button type="button" class="btn btn-primary qty-plus" data-id="0">+</button></div>
-                <input type="text " class="form-control datatable-input inc_dec ml col-lg-4 col-8" data-col-index="1 " name="choose_qty[]" id="check_qty_0">
+                <input type="text " class="form-control datatable-input inc_dec ml col-lg-4 col-8" data-col-index="1 "  readonly name="choose_qty[]" id="check_qty_0">
                 <div><button type="button" class="btn btn-primary qty-minus" data-id="0">-</button></div>
             </div>
         </div>
