@@ -53,23 +53,26 @@ class TaskController extends Controller
             $sql->where('orderfulfillment_sale_logs.department_id', '=', session()->get('department_id'));
         }
 
-        /*foreach ($columns as $field) {
+        foreach ($columns as $field) {
             $col = $field['data'];
             $search = $field['search']['value'];
             if ($search != "") {
-                if ($col == 'id') {
-                    $colp='orders.id';
-                    $sql->where($colp, $search);
+                if ($col == 'date') {
+                    $col = "orderfulfillment_sale_logs.updated_at";
+                    $sql->Where($col, 'like', '%' . $search . '%');
 
+                    // $sql->where($col, $search);
                 }
-                if ($col == 'name') {
-                    $colp='orders.store_id';
-                    $sql->where($colp, $search);
-
+                if ($col == 'department_id') {
+                    $col = "orderfulfillment_sale_logs.department_id";
+                    $sql->where($col, $search);
                 }
-
+                if ($col == 'status') {
+                    $col = "orderfulfillment_sale_logs.status";
+                    $sql->where($col, $search);
+                }
             }
-        }*/
+        }
 
         if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
             $sql->orderBy($sortColumnName, $sortColumnSortOrder);
