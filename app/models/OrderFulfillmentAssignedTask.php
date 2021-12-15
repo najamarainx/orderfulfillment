@@ -12,4 +12,5 @@ class OrderFulfillmentAssignedTask extends Model
     public function assignedUser(){
         return $this->belongsTo(OrderFulfillmentUser::class,'user_id','id');
     }
+    protected $guarded=[];
 }
