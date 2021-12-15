@@ -394,7 +394,7 @@
         </div>
     </div>
 
-    <div class="modal fade show" id="assignModal" data-backdrop="static" tabindex="-1" role="dialog"
+    <div class="modal fade show" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalLabel" aria-modal="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -405,7 +405,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form onsubmit="return false" id="updateStatusForm">
+                    <form onsubmit="return false" id="addForm">
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
@@ -427,7 +427,7 @@
                             <button type="button" class="btn btn-light-primary font-weight-bold"
                                     data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary font-weight-bold btn_save"
-                                    id="update_stauts_btn">Save</button>
+                                    id="btn_save">Save</button>
                         </div>
                     </form>
                 </div>
@@ -581,6 +581,10 @@
 
         }();
 
+
+
+
+
     $(document).on('click', '.assign_task', function() {
         var id = $(this).data('id');
         var form_data = new FormData();
@@ -597,7 +601,7 @@
             },
             success: function(data) {
                 if (data.status == 'success') {
-                    $('#assignModal').modal({
+                    $('#staticBackdrop').modal({
                         backdrop: 'static',
                         keyboard: false
                     }).on('hide.bs.modal', function() {
@@ -613,7 +617,10 @@
                             text : data.name
                         })).trigger("updated");
                     });
-
+                    $('#task_id').val(data.id);
+                    if(data.user_id != null){
+                        $('#user_id').val(data.user_id).trigger("change.select2");
+                    }
 
 
                     window.scrollTo({
@@ -630,6 +637,98 @@
         });
     });
 
+
+    jQuery(document).ready(function() {
+        //datatable.init();
+
+        var validator = $("#addForm").validate({
+            ignore: ":hidden:not(.selectpicker)",
+            rules: {
+                user_id: {
+                    required: true
+                },
+
+
+            },
+            errorPlacement: function(error, element) {
+                var elem = $(element);
+                if (elem.hasClass("user_id")) {
+
+                    error.appendTo(element.parent().after());
+                    //error.insertAfter(element);
+                }
+                else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+
+
+
+
+
+        $(document).on('click', '#btn_save', function(){
+
+            var validate = $("#addForm").valid();
+            if(validate) {
+                var form_data = $("#addForm").serializeArray();
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('assignuserTask')}}", // your php file name
+                    data: form_data,
+                    dataType: "json",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (data) {
+                        if (data.status == 'success') {
+                            toastr.options = {
+                                "closeButton": true,
+                                "debug": false,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-top-right",
+                                "preventDuplicates": true,
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "5000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            };
+                            toastr.success(data.message);
+                            var form = $("#addForm");
+                            form[0].reset();
+                            $('#staticBackdrop').modal('hide');
+                            table.ajax.reload();
+                        } else {
+                            Swal.fire("Sorry!", data.message, "error");
+                        }
+                    },
+                    error: function (errorString) {
+                        Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                    }
+                });
+            }
+        });
+
+
+
+        var input = document.getElementById("addForm");
+        input.addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("btn_save").click();
+            }
+        });
+
+
+
+    });
 
 </script>
 @endsection

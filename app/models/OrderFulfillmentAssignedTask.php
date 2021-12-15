@@ -9,4 +9,5 @@ class OrderFulfillmentAssignedTask extends Model
 {
     use HasFactory;
     protected $table = 'orderfulfillment_assigned_tasks';
+    protected $guarded=[];
 }

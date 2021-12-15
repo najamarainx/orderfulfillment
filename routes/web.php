@@ -178,6 +178,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [Controllers\TaskController::class, 'index'])->name('tasksList');
         Route::post('/list', [Controllers\TaskController::class, 'getList'])->name('getTasksList');
         Route::post('/taskInfo', [Controllers\TaskController::class, 'getTaskInfo'])->name('getTaskInfo');
+        Route::post('/taskAssign', [Controllers\TaskController::class, 'assignuserTask'])->name('assignuserTask');
         Route::get('completed-task', [Controllers\TaskController::class, 'completedTasksList'])->name('completedTasksList');
         Route::post('completed-task-list', [Controllers\TaskController::class, 'getCompletedTasksList'])->name('getCompletedTasksList');
 
