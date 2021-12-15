@@ -37,7 +37,7 @@ class OrderController extends Controller
         $sql->join('stores','orders.store_id','stores.id');
         $sql->where('orders.paid_percentage','>=','40');
         $sql->whereNULL('stores.deleted_at');
-        $sql->whereNULL('orders.deleted_at')->get();
+        $sql->whereNULL('orders.deleted_at');
         foreach ($columns as $field) {
             $col = $field['data'];
             $search = $field['search']['value'];
@@ -199,7 +199,7 @@ class OrderController extends Controller
 
             DB::beginTransaction();
             try{
-                $saleLog=new  OrderFulfillmentSaleLog();
+                $saleLog = new  OrderFulfillmentSaleLog();
                 $product_id=$request->product_id;
                 $departments=$request->department;
                 $item_ids=$request->item_id;
