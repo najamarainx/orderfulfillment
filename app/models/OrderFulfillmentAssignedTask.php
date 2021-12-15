@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class OrderFulfillmentAssignedTask extends Model
 {
     use HasFactory;
-    protected $table = 'orderfulfillment_assigned_tasks'
+    protected $table = 'orderfulfillment_assigned_tasks';
 }
