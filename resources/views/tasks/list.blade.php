@@ -330,13 +330,13 @@
                 </div>
                 <div class="card-body">
                     <form class="kt-form kt-form--fit">
-                        @php $type = Auth::user()->type; @endphp
+                        
                         <div class="row mb-6">
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Date:</label>
                                    <input type="text"  class="form-control datatable-input "  id="kt_datepicker" autocomplete="off" data-col-index="5">
                             </div>
-                            @if($type != 'team_lead')
+                            @if(Auth::user()->type!='team_lead')
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Department:</label>
                                 @if (!$departments->isEmpty())
@@ -350,7 +350,7 @@
                             @endif
                             </div>
                             @endif
-                            @if($type == 'team_lead')
+
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Status:</label>
                                 <select  class="form-control datatable-input" data-col-index="6">
@@ -360,7 +360,7 @@
                                    @endforeach
                                 </select>
                             </div>
-                            @endif
+
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>&nbsp;</label><br />
                                 <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
