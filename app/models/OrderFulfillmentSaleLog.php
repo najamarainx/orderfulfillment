@@ -12,7 +12,7 @@ class OrderFulfillmentSaleLog extends Model
     use SoftDeletes;
     protected $table = 'orderfulfillment_sale_logs';
 
-    public function orderDetials(){
+    public function orderDetails(){
         return $this->belongsTo(Order::class,'order_id','id');
     }
     public function itemDetails(){
@@ -25,11 +25,9 @@ class OrderFulfillmentSaleLog extends Model
         return $this->belongsTo(OrderFulfillmentDepartment::class,'department_id','id');
     }
     public function assignedTask(){
-        return $this->belongsTo(OrderFulfillmentAssignedTask::class,'task_id','id');
+        return $this->hasOne(OrderFulfillmentAssignedTask::class,'task_id','id');
     }
-    public function assignedUser(){
-        return $this->belongsTo(OrderFulfillmentUser::class,'user_id','id');
-    }
+
 
 
 

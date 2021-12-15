@@ -330,29 +330,37 @@
                 </div>
                 <div class="card-body">
                     <form class="kt-form kt-form--fit">
+                        @php $type = Auth::user()->type; @endphp
                         <div class="row mb-6">
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Date:</label>
-                                <input type="text"  class="form-control datatable-input "  id="kt_datepicker" autocomplete="off" data-col-index="1">
+                                   <input type="text"  class="form-control datatable-input "  id="kt_datepicker" autocomplete="off" data-col-index="5">
                             </div>
+                            @if($type != 'team_lead')
                             <div class="col-lg-3 mb-lg-2 mb-2">
-                                <label>Cateogry:</label>
-
+                                <label>Department:</label>
+                                @if (!$departments->isEmpty())
+                                <select class="form-control form-control-lg  kt_select2_1 w-100 datatable-input"
+                                    data-live-search="true"  data-col-index="1">
+                                    <option value=""></option>
+                                    @foreach ($departments as $departmentObj)
+                                        <option value="{{ $departmentObj->id }}">{{ $departmentObj->name }}</option>
+                                    @endforeach
+                                </select>
+                            @endif
                             </div>
-                            <div class="col-lg-3 mb-lg-2 mb-2">
-                                <label>Name:</label>
-                                <input type="text" class="form-control datatable-input" placeholder="E.g: test"
-                                       data-col-index="4" />
-                            </div>
-                            <div class="col-lg-3 mb-lg-2 mb-2">
-                                <label>Phone No:</label>
-                                <input type="text" class="form-control datatable-input" placeholder="Phone No"
-                                       data-col-index="5" />
-                            </div>
+                            @endif
+                            @if($type == 'team_lead')
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Status:</label>
-
+                                <select  class="form-control datatable-input" data-col-index="6">
+                                    <option value="">Select a status</option>
+                                   @foreach ($AssignTaskArray as $status)
+                                       <option value="{{$status}}">{{ucfirst($status)}}</option>
+                                   @endforeach
+                                </select>
                             </div>
+                            @endif
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>&nbsp;</label><br />
                                 <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">

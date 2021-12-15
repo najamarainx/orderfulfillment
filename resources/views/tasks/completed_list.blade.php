@@ -14,308 +14,7 @@
         span.select2.select2-container.select2-container--default {
             width:100% !important;
         }
-        #msform {
-            text-align: center;
-            position: relative;
-            margin-top: 20px
-        }
-
-        #msform fieldset:not(:first-of-type) {
-            display: none
-        }
-
-        #msform fieldset .form-card {
-            text-align: left;
-            color: #9E9E9E
-        }
-
-        #msform .action-button {
-            width: 100px;
-            background: #FF3414;
-            font-weight: bold;
-            color: white;
-            border: 0 none;
-            border-radius: 0px;
-            cursor: pointer;
-            padding: 10px 5px;
-            margin: 10px 5px
-        }
-
-        #msform .action-button:hover,
-        #msform .action-button:focus {
-            box-shadow: 0 0 0 2px white, 0 0 0 3px #FF3414;
-        }
-
-        #msform .action-button-previous {
-            width: 100px;
-            background: #616161;
-            font-weight: bold;
-            color: white;
-            border: 0 none;
-            border-radius: 0px;
-            cursor: pointer;
-            padding: 10px 5px;
-            margin: 10px 5px
-        }
-
-        #msform .action-button-previous:hover,
-        #msform .action-button-previous:focus {
-            box-shadow: 0 0 0 2px white, 0 0 0 3px #616161
-        }
-
-        select.list-dt {
-            border: none;
-            outline: 0;
-            border-bottom: 1px solid #ccc;
-            padding: 2px 5px 3px 5px;
-            margin: 2px
-        }
-
-        select.list-dt:focus {
-            border-bottom: 2px solid skyblue
-        }
-
-        .card {
-            z-index: 0;
-            border: none;
-            border-radius: 0.5rem;
-            position: relative
-        }
-
-        .fs-title {
-            font-size: 25px;
-            color: #2C3E50;
-            margin-bottom: 10px;
-            font-weight: bold;
-            text-align: left
-        }
-
-        #progressbar {
-            margin-bottom: 30px;
-            overflow: hidden;
-            color: lightgrey
-        }
-
-        #progressbar .active {
-            color: #000000
-        }
-
-        #progressbar li {
-            list-style-type: none;
-            font-size: 12px;
-            width: 25%;
-            float: left;
-            position: relative
-        }
-
-        #progressbar #category:before {
-            font-family: FontAwesome;
-            content: "\f023"
-        }
-
-        #progressbar #date_and_time:before {
-            font-family: FontAwesome;
-            content: "\f007"
-        }
-
-        #progressbar #client_detail:before {
-            font-family: FontAwesome;
-            content: "\f09d"
-        }
-
-        #progressbar #confirm:before {
-            font-family: FontAwesome;
-            content: "\f00c"
-        }
-
-        #progressbar li:before {
-            width: 50px;
-            height: 50px;
-            line-height: 45px;
-            display: block;
-            font-size: 18px;
-            color: #ffffff;
-            background: lightgray;
-            border-radius: 50%;
-            margin: 0 auto 10px auto;
-            padding: 2px
-        }
-
-        #progressbar li:after {
-            content: '';
-            width: 100%;
-            height: 2px;
-            background: lightgray;
-            position: absolute;
-            left: 0;
-            top: 25px;
-            z-index: -1
-        }
-
-        #progressbar li.active:before,
-        #progressbar li.active:after {
-            background: #FF3414;
-        }
-
-        .radio-group {
-            position: relative;
-            margin-bottom: 25px
-        }
-
-        .radio {
-            display: inline-block;
-            width: 20;
-            height: 30;
-            border-radius: 0;
-            background: lightblue;
-            box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
-            box-sizing: border-box;
-            cursor: pointer;
-            margin: 8px 2px
-        }
-
-        .radio:hover {
-            box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3)
-        }
-
-        .radio.selected {
-            box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1)
-        }
-
-        .fit-image {
-            width: 100%;
-            object-fit: cover
-        }
-
-        fieldset {
-            padding: 0px 30px;
-        }
-
-        .form-control:focus {
-            border-color: #FF3414;
-            box-shadow: 0 0 0 0.2rem rgb(255 52 20 / 25%);
-        }
-
-
-        /* check the balance */
-        .slot_radio input.radio:empty {
-            display: none;
-        }
-
-        .slot_radio input.radio:empty ~ label {
-            position: relative;
-            float: left;
-            line-height: 1.5em;
-            text-indent: 3.25em;
-            cursor: pointer;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            width: 100%;
-            border: 1px solid #B21F24;
-            background-color: #B21F24;
-            color: #fff;
-            padding-top: 15px;
-        }
-
-        .slot_radio input.radio:empty ~ label:before {
-            position: absolute;
-            display: block;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            content: '';
-            width: 2.5em;
-            background: #B21F24;
-            border-radius: 3px 0 0 3px;
-        }
-
-        .slot_radio input.radio:hover:not(:checked) ~ label:before {
-            content:'\2714';
-            text-indent: .9em;
-            line-height: 2.5em;
-            color: #C2C2C2;
-        }
-
-        .slot_radio input.radio:hover:not(:checked) ~ label {
-            color: #888;
-        }
-
-        .slot_radio input.radio:checked ~ label:before {
-            content:'\2714';
-            text-indent: .9em;
-            color: #fff;
-            background-color: #B21F24;
-            padding-top: 14px;
-        }
-
-        .slot_radio input.radio:checked ~ label {
-            color: #fff;
-            background-color: #B21F24;
-        }
-
-        .slot_radio input.radio:focus ~ label:before {
-            box-shadow: 0 0 0 3px #999;
-        }
-
-        .disabled input.radio:empty ~ label, .disabled input.radio:empty ~ label:before {
-            background-color: lightgray !important;
-        }
-
-        .disabled input.radio:hover:not(:checked) ~ label:before {
-            content:'';
-            text-indent: .9em;
-            color: #fff !important;
-        }
-
-        .cat_box {
-            box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
-            text-align: center;
-            padding-top: 15px;
-        }
-
-        .cat_box label {
-            display: block;
-        }
-
-        h6 {
-            font-size: 1rem;
-            font-weight: 700;
-            font-family: 'Roboto', sans-serif;
-            text-transform: capitalize;
-            color: #333;
-            letter-spacing: 0px;
-        }
-
-        .confirmation_table td, .confirmation_table th, .confirmation_table, th, tr, td{
-            border: none;
-        }
-
-        .confirmation_table:first-child tr th {
-            padding-bottom: 0px;
-        }
-
-        .confirmation_table {
-            border-radius: 5px;
-            margin-top: 20px;
-            text-align: center;
-            border-style: hidden;
-            box-shadow: 0 0 0 1px #ddd;
-        }
-        @media only screen
-        and (device-width : 375px){
-
-            .flatpickr-calendar {
-                width: 307.875px;
-                margin-left: -34px;
-                margin-bottom: 20px;
-            }
-
-        }
-
     </style>
-    @php $AssignstatusArray = ['pending', 'in progress', 'not respond', 'completed'];  @endphp
 @endsection
 @section('content')
     <div class="d-flex flex-column-fluid">
@@ -324,49 +23,44 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">Task List
+                        <h3 class="card-label">Completed Task List
                         </h3>
                     </div>
 
                 </div>
                 <div class="card-body">
-                    {{-- <form class="kt-form kt-form--fit">
+                    <form class="kt-form kt-form--fit">
+                        @php $type = Auth::user()->type; @endphp
                         <div class="row mb-6">
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Date:</label>
-                                   <input type="text"  class="form-control datatable-input "  id="kt_datepicker" autocomplete="off" data-col-index="1">
+                                   <input type="text"  class="form-control datatable-input "  id="kt_datepicker" autocomplete="off" data-col-index="5">
                             </div>
+                            @if($type != 'team_lead')
                             <div class="col-lg-3 mb-lg-2 mb-2">
-                                <label>Cateogry:</label>
-                                @if (!$categories->isEmpty())
-                                            <select class="form-control form-control-lg  kt_select2_1 w-100 category_id"
-                                                data-live-search="true" data-col-index="3">
-                                                <option value=""></option>
-                                                @foreach ($categories as $catObj)
-                                                    <option value="{{ $catObj->id }}">{{ $catObj->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        @endif
+                                <label>Department:</label>
+                                @if (!$departments->isEmpty())
+                                <select class="form-control form-control-lg  kt_select2_1 w-100 datatable-input"
+                                    data-live-search="true"  data-col-index="1">
+                                    <option value=""></option>
+                                    @foreach ($departments as $departmentObj)
+                                        <option value="{{ $departmentObj->id }}">{{ $departmentObj->name }}</option>
+                                    @endforeach
+                                </select>
+                            @endif
                             </div>
-                            <div class="col-lg-3 mb-lg-2 mb-2">
-                                <label>Name:</label>
-                                <input type="text" class="form-control datatable-input" placeholder="E.g: test"
-                                    data-col-index="4" />
-                            </div>
-                            <div class="col-lg-3 mb-lg-2 mb-2">
-                                <label>Phone No:</label>
-                                <input type="text" class="form-control datatable-input" placeholder="Phone No"
-                                    data-col-index="5" />
-                            </div>
+                            @endif
+                            @if($type == 'team_lead')
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Status:</label>
-                                <select name="" id="" class="form-control datatable-input" data-col-index="6">
-                                    <option value=""></option>
-                                   @foreach ($AssignstatusArray as $status)
+                                <select  class="form-control datatable-input" data-col-index="6">
+                                    <option value="">Select a status</option>
+                                   @foreach ($AssignTaskArray as $status)
                                        <option value="{{$status}}">{{ucfirst($status)}}</option>
                                    @endforeach
                                 </select>
                             </div>
+                            @endif
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>&nbsp;</label><br />
                                 <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
@@ -383,7 +77,7 @@
                                 </button>&#160;&#160;
                             </div>
                         </div>
-                    </form> --}}
+                    </form>
                     <!--begin: Datatable-->
                     <table class="table table-bordered table-checkable" id="itemTableList">
                         <thead>
@@ -396,7 +90,6 @@
                             <th>Date</th>
                             <th>Status</th>
                             <th>Assign To</th>
-                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -455,7 +148,7 @@
                             status:'confirmed',
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id', 'item_id', 'variant_id', 'qty','status','date','assign_to'
+                                'id', 'item_id', 'variant_id', 'qty','date','status','assign_to'
                             ],
                         },
                         headers: {
@@ -477,23 +170,20 @@
                         {
                             data: 'qty'
                         },
+                        {
+                            data: 'date'
+                        },
 
                         {
                             data: 'status'
                         },
-                        {
-                            data: 'date'
-                        },
+
                         {
                             data: 'assign_to',
                             responsivePriority: -1,
                             bSortable: false
                         },
-                        {
-                            data: 'action',
-                            responsivePriority: -1,
-                            bSortable: false
-                        },
+
 
                     ],
                     order: [

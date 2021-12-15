@@ -12,6 +12,7 @@ use App\Models\OrderItem;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 
 class MeasurementOrderController extends Controller
 {
@@ -126,7 +127,8 @@ class MeasurementOrderController extends Controller
                         'address' => $bookingData->address,
                         'zip_code' => $request->post_code,
                         'paid_percentage' => $price_percentage,
-                        'payment_type' => $payment_type
+                        'payment_type' => $payment_type,
+                        'created_by'=>Auth::user()->id
                     ];
 
                     if (!empty($orderId)) {

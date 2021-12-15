@@ -527,6 +527,7 @@
                     var ca_id = $('#form_data tbody .child').find('.cat_id').val();
                     var pro_id = $('#form_data tbody .child').find('.pro_id').val();
                     var measurement = $('#form_data tbody .child').find('.measurement').val();
+                    console.log(measurement);
                     //    var  measurement =  $('#form_data tbody .child').find('.measurement').val();
                     var pre_length = $('#form_data tbody .child').find('.length').val();
                     var pre_width = $('#form_data tbody .child').find('.width').val();
@@ -571,7 +572,7 @@
                             '"  >' + '</td><td>' +
                             '<input type="text" readonly name="fitting_option[]"  class="form-control fitting_option" value="' +
                             set_fitting + '"  >' + '</td><td>' +
-                            '<input type="text" readonly name="side_control[]"  class="form-control side_controle" value="' +
+                            '<input type="text" readonly name="side_control[]"  class="form-control side_control" value="' +
                             side_of_controls + '"  >' + '</td><td>' +
                             '<input type="text" readonly name="chain_color[]"  class="form-control chain_color" value="' +
                             chain_color + '"  >' + '</td><td>' +
