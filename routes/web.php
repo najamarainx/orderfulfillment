@@ -176,7 +176,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::prefix('tasks')->group(function () {
         Route::get('/', [Controllers\TaskController::class, 'index'])->name('tasksList');
-
+        Route::post('/list', [Controllers\TaskController::class, 'getList'])->name('getTasksList');
+        Route::post('/taskInfo', [Controllers\TaskController::class, 'getTaskInfo'])->name('getTaskInfo');
 
     });
 

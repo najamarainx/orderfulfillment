@@ -576,6 +576,10 @@
                             };
                             toastr.success(data.message);
 
+                            setTimeout(function(){
+                                window.location.reload();
+                            }, 5000);
+
                         } else {
                             Swal.fire("Sorry!", data.message, "error");
                         }

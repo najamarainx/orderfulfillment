@@ -320,3 +320,24 @@ function getProductSaleLogVariant($orderID,$productID,$depID,$itemID)
     $result = $query->pluck('orderfulfillment_sale_logs.variant_id')->toArray();
     return $result;
 }
+function getUsersDepartments($userObjs=false,$depID=-1,$usertype)
+{
+    $query = DB::table('orderfulfillment_user_departments')->select('orderfulfillment_users.id','orderfulfillment_users.name','orderfulfillment_user_departments.department_id');
+    $query->join('orderfulfillment_users','orderfulfillment_user_departments.user_id','=','orderfulfillment_users.id');
+    $query->whereNull('orderfulfillment_user_departments.deleted_at');
+    $query->whereNull('orderfulfillment_users.deleted_at');
+    $query->where('orderfulfillment_users.type',$usertype);
+    if($depID > 0){$query->where('orderfulfillment_user_departments.department_id',$depID);}
+    $result = [];
+    if ($userObjs) {
+        $result = $query->get();
+    } else {
+        $result = $query->pluck('orderfulfillment_users.id')->toArray();
+    }
+
+    return $result;
+
+
+
+
+}

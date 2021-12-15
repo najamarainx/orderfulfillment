@@ -37,7 +37,7 @@ class OrderController extends Controller
         $sql->join('stores','orders.store_id','stores.id');
         $sql->where('orders.paid_percentage','>=','40');
         $sql->whereNULL('stores.deleted_at');
-        $sql->whereNULL('orders.deleted_at')->get();
+        $sql->whereNULL('orders.deleted_at');
         foreach ($columns as $field) {
             $col = $field['data'];
             $search = $field['search']['value'];
@@ -286,7 +286,7 @@ class OrderController extends Controller
 
                     $return = [
                         'status' => 'success',
-                        'message' => 'you alrready assign inventory',
+                        'message' => 'you already assign inventory',
 
                     ];
 
