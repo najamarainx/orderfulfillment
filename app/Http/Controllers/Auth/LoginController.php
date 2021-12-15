@@ -46,6 +46,8 @@ class LoginController extends Controller
         if ( $user->type  == 'team_lead' ) {// do your magic here
             $departmentId  =  DB::table('orderfulfillment_user_departments')->where('user_id',Auth::user()->id)->select('department_id')->first();
             session(['department_id' => $departmentId->department_id]);
+        }else if( $user->type  == 'screen' ){
+           redirect('')
         }
 
     }
