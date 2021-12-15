@@ -199,7 +199,7 @@ class OrderController extends Controller
 
             DB::beginTransaction();
             try{
-                $saleLog=new  OrderFulfillmentSaleLog();
+                $saleLog = new  OrderFulfillmentSaleLog();
                 $product_id=$request->product_id;
                 $departments=$request->department;
                 $item_ids=$request->item_id;
