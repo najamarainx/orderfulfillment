@@ -43,12 +43,12 @@ class LoginController extends Controller
     }
     protected function authenticated(Request $request, $user)
     {
-        if ( $user->type  == 'team_lead' ) {// do your magic here
+        if ($user->type  == 'team_lead' ) {// do your magic here
             $departmentId  = getUsersDepartment(Auth::user()->id);
             session(['department_id' => $departmentId->department_id]);
-        }else if( $user->type  == 'screen' ){
+        }if($user->type  == 'screen'){
           $departmentId  = getUsersDepartment(Auth::user()->id);
-          session(['department_id' => $departmentId->department_id]);
+          session(['department_id' =>$departmentId->department_id]);
           return redirect('worker-task-screen');
         }
 

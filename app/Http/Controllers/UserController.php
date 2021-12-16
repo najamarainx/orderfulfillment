@@ -117,9 +117,20 @@ class UserController extends Controller
                             <i class="la la-trash"></i>
                         </a>';
             }
+
+
+
+
+            $name="";
+            $name.='<p class="m-0 font-weight-bolder">'.$userObj->name.'</p>';
+            if($userObj->type=='worker')
+            {
+                $name.='<small>Security Code : <span class="m-0 text-dark font-weight-bolder">'.$userObj->security_code.'</span></small>';
+            }
+
             $data[] = [
                 "Sr" => $i,
-                "name" => $userObj->name,
+                "name" =>$name,
                 "email" => $userObj->email,
                 "phone_number" => $userObj->phone_number,
                 "role" => $userObj->role_name,
@@ -228,6 +239,17 @@ class UserController extends Controller
                         );
                     }
                     DB::table('orderfulfillment_user_zip_codes_mappings')->insert($zipmapping);
+                }
+
+                if ($request->user_type == 'worker' && $id=='') {
+                    $code=$this->generatePassword();
+                    $securityCode=$userID.''.$code;
+                    $affected = DB::table('orderfulfillment_users')
+                        ->where('id', $userID)
+                        ->update(['security_code' =>$securityCode]);
+
+
+
                 }
 
 
