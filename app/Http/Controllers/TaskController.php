@@ -301,4 +301,6 @@ class TaskController extends Controller
         $records["recordsFiltered"] = $iTotalRecords;
         echo json_encode($records);
     }
+
+
 }

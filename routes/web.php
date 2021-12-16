@@ -181,10 +181,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/taskAssign', [Controllers\TaskController::class, 'assignuserTask'])->name('assignuserTask');
         Route::get('completed-task', [Controllers\TaskController::class, 'completedTasksList'])->name('completedTasksList');
         Route::post('completed-task-list', [Controllers\TaskController::class, 'getCompletedTasksList'])->name('getCompletedTasksList');
-
-
-
     });
+    Route::get('worker-task-screen', [Controllers\WorkerTaskController::class, 'getWorkerTasksByDepartment'])->name('getWorkerTasksByDepartment');
+    Route::post('worker-tasks-list', [Controllers\WorkerTaskController::class, 'getWorkerTasksList'])->name('getWorkerTasksList');
 
 });
 Auth::routes();

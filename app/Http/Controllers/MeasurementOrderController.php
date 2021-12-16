@@ -7,6 +7,7 @@ use App\Models\OrderFulfillmentBookingOrderLog;
 use App\Models\OrderFulfillmentBookingOrderItemLog;
 use App\Models\OrderFulfillmentUser;
 use App\Models\Order;
+use App\Models\OrderFulfillmentBookingAssign;
 use App\Models\OrderFulfillmentItem;
 use App\Models\OrderItem;
 use Carbon\Carbon;
@@ -182,10 +183,7 @@ class MeasurementOrderController extends Controller
                     if (!empty($product_id)) {
                         foreach ($product_id as $key => $productArr) {
                             if ($order_id) {
-
-
                                 $LogOrderArr[] = [
-
                                     'order_id' => $order_id,
                                     'product_id' => $productArr,
                                     'category_id' => $cateogry_id[$key],
@@ -202,10 +200,8 @@ class MeasurementOrderController extends Controller
                             }
                             if (!empty($main_order_id)) {
                                 $mainOrderArr[] = [
-
                                     'order_id' => $main_order_id,
                                     'product_id' => $productArr,
-                                    'category_id' => $cateogry_id[$key],
                                     'dimension' => $length[$key] . 'x' . $width[$key],
                                     'fitting_type' => $fitting[$key],
                                     'fitting_option' => !empty($fitting_option[$key]) ? $fitting_option[$key] : NULL,
@@ -224,6 +220,7 @@ class MeasurementOrderController extends Controller
                         } else {
                             $orderItemId = OrderFulfillmentBookingOrderItemLog::insert($LogOrderArr);
                             $orderItemId = OrderItem::insert($mainOrderArr);
+                            OrderFulfillmentBookingAssign::where(['booking_id'=>$bookingData->booking_id])->whereNull('deleted_at')->update(['assign_status'=>'completed']);
                         }
                     } else {
                         $return = ['status' => 'error', 'message' => 'Sorry Your order not submitted!'];
