@@ -1,0 +1,98 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\OrderFulfillmentSaleLog;
+use Auth;
+use Illuminate\Support\Carbon;
+class WorkerTaskController extends Controller
+{
+    public function getWorkerTasksByDepartment(){
+        $workers  =   getUsersDepartments(true,session()->get('department_id'),'worker');
+        print_r($workers);exit;
+        $data['workers'] = $workers;
+        return view('workers.task-list',$data);
+
+    }
+    public function getWorkerTasksList(Request $request)
+    {
+        $type =  Auth::user()->type;
+        $records = [];
+        $draw = $request->draw;
+        $start = $request->start;
+        $length = $request->length;
+        $sortColumnIndex = $request->order[0]['column']; // Column index
+        $sortColumnName = $request->columns[$sortColumnIndex]['data']; // Column name
+        $sortColumnName = 'orderfulfillment_sale_logs.id'; // Column name
+        $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
+        $columns = $request->columns;
+        $department_id =  session()->get('department_id');
+        $orderSaleLogDetail = OrderFulfillmentSaleLog::with(['orderDetails' => function ($q) {
+            $q->where('payment', 'verified');
+            $q->where('paid_percentage', '>=', '40');
+            $q->whereNull('deleted_at');
+        }, 'departmentDetails', 'itemDetails' => function ($item) {
+            $item->whereNull('deleted_at');
+        }, 'variantDetails' => function ($variant) {
+            $variant->whereNull('deleted_at');
+        }, 'assignedTask' => function ($task) {
+            $task->whereNull('deleted_at');
+            $task->with(['assignedUser' => function ($user) {
+                $user->whereNull('deleted_at');
+            }]);
+        }])->whereNull('deleted_at')->where('status', 'assigned');
+            $orderSaleLogDetail->where('department_id', $department_id);
+            $orderSaleLogDetail->where('created_at', 'like', '%'. Carbon::now()->format('Y-m-d').'%');
+
+
+
+        foreach ($columns as $field) {
+            $col = $field['data'];
+            $search = $field['search']['value'];
+            if ($search != "") {
+                if ($col == 'date') {
+                    $col = "orderfulfillment_sale_logs.updated_at";
+                    $orderSaleLogDetail->Where($col, 'like', '%' . $search . '%');
+
+                    // $orderSaleLogDetail->where($col, $search);
+                }
+                if ($col == 'department_id') {
+                    $col = "orderfulfillment_sale_logs.department_id";
+                    $orderSaleLogDetail->where($col, $search);
+                }
+                if ($col == 'status') {
+                    $col = "orderfulfillment_sale_logs.status";
+                    $orderSaleLogDetail->where($col, $search);
+                }
+            }
+        }
+        if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
+            $orderSaleLogDetail->orderBy($sortColumnName, $sortColumnSortOrder);
+        } else {
+            $orderSaleLogDetail->orderBy("orderfulfillment_sale_logs.id", "desc");
+        }
+        $iTotalRecords = $orderSaleLogDetail->count();
+        $orderSaleLogDetail->skip($start);
+        $orderSaleLogDetail->take($length);
+        $orderSaleLogDetailData = $orderSaleLogDetail->get();
+        $data = [];
+        foreach ($orderSaleLogDetailData as $orderObj) {
+            $data[] = [
+                "id" => $orderObj->id,
+                "department_id" => $orderObj->departmentDetails->name,
+                "item_id" => $orderObj->itemDetails->name,
+                "variant_id" =>  $orderObj->variantDetails->name,
+                "qty" => $orderObj->qty,
+                "date" =>  !empty($orderObj->updated_at) ? Carbon::parse($orderObj->updated_at)->format('Y-m-d H:i:s') : '',
+                "status" => '<span class="badge badge-success badge-pill booking_assign_status" style="cursor:pointer" >' . $orderObj->status . '</span>',
+                "assign_to" => '<span class="badge badge-success badge-pill booking_assign_status" style="cursor:pointer>' .  !empty($orderObj->assignedTask->assignedUser) ? $orderObj->assignedTask->assignedUser->name  : '' . '</span>',
+            ];
+        }
+        $records["data"] = $data;
+        $records["draw"] = $draw;
+        $records["recordsTotal"] = $iTotalRecords;
+        $records["recordsFiltered"] = $iTotalRecords;
+        echo json_encode($records);
+    }
+}

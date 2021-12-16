@@ -322,6 +322,7 @@ function getProductSaleLogVariant($orderID,$productID,$depID,$itemID)
 }
 function getUsersDepartments($userObjs=false,$depID=-1,$usertype)
 {
+
     $query = DB::table('orderfulfillment_user_departments')->select('orderfulfillment_users.id','orderfulfillment_users.name','orderfulfillment_user_departments.department_id');
     $query->join('orderfulfillment_users','orderfulfillment_user_departments.user_id','=','orderfulfillment_users.id');
     $query->whereNull('orderfulfillment_user_departments.deleted_at');
@@ -342,4 +343,9 @@ function getUsersDepartments($userObjs=false,$depID=-1,$usertype)
 function assignTaskStatus(){
     $AssignTaskArray =['pending','assigned', 'in progress', 'not respond'];
     return $AssignTaskArray;
+}
+
+function getUsersDepartment($userId){
+    $departmentId  =  DB::table('orderfulfillment_user_departments')->where('user_id',Auth::user()->id)->select('department_id')->first();
+    return $departmentId;
 }

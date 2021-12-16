@@ -518,7 +518,7 @@
                 var customer_note = $('#customer_note').val();
                 var count = $('#form_data tr').length;
                 var order_item_id = $('#order_item_id').val();
-
+                var rowCount = $('#form_data tbody .child').length;
                 if (order_item_id != '') {
                     $('#order_item_row_wrapper_' + order_item_id).remove();
                 }
@@ -549,7 +549,7 @@
                         $('#form_data tbody .child').find('.single_hidden_price').val(total_price);
 
                     } else {
-
+                            row =   rowCount + 1;
                         $('#form_data tbody').append(
                             ' <tr class="child" ><td>' + count + '</td><td>' + category +
                             '<input type="hidden" name="category_id[]"  class="form-control cat_id" value="' +
@@ -557,7 +557,7 @@
                             product +
                             '<input type="hidden" name="product_id[]"  class="form-control pro_id" value="' +
                             product_id + '"  ></td><td>' +
-                            '<input type="number" name="order_qty[]" data-key="' + i +
+                            '<input type="number" name="order_qty[]" data-key="' +row  +
                             '"  class="form-control order_qty w-100" value="1" min="1" >' + '</td><td>' +
                             '<input type="text" readonly name="measurement[]"  class="form-control measurement" value="' +
                             parameters + '"  >' + '</td><td>' +
@@ -580,14 +580,14 @@
                             customer_note + '"  >' +
                             '</td><td>' +
                             '<input type="text" name="order_price[]"  class="form-control single_price" id="price_' +
-                            i +
+                            row +
                             '" value="' + price +
                             '"  ><input type="hidden"  class="form-control single_hidden_price" id="hidden_price_' +
-                            i + '" value="' +
+                            row + '" value="' +
                             price + '"  >' +
                             '</td><td><a href="javascript:void(0);" class="remCF1"><i class="fas trash fa-trash"></i></a></td></tr>'
                         );
-                        i++;
+
                     }
                 }
                 var paid_amount = 0;
