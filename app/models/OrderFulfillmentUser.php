@@ -14,6 +14,11 @@ class OrderFulfillmentUser extends Authenticatable
 {
 
 
+
+
+
+
+
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
     protected $table = "orderfulfillment_users";
 
