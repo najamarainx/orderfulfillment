@@ -196,7 +196,7 @@ class MeasurementOrderController extends Controller
                                     'qty' => $order_qty[$key],
                                     'scale' => $measurement[$key],
                                     'price' => $order_price[$key],
-                                    'customer_note'=>$customer_note[$key]
+                                    'customer_note'=>!empty($customer_note[$key]) ? $customer_note[$key] : ''
 
                                 ];
                             }
@@ -212,7 +212,7 @@ class MeasurementOrderController extends Controller
                                     'qty' => $order_qty[$key],
                                     'scale' => $measurement[$key],
                                     'price' => $order_price[$key],
-                                    'customer_note'=>$customer_note[$key]
+                                    'customer_note'=>!empty($customer_note[$key]) ? $customer_note[$key] : ''
 
                                 ];
                             }
