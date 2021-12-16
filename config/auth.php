@@ -62,7 +62,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\OrderFulfillmentUser::class,
+            'model' => Models\OrderFulfillmentUser::class,
         ],
 
         // 'users' => [
