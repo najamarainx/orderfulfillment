@@ -108,6 +108,7 @@ class MeasurementOrderController extends Controller
         }
         if ($is_verified == 0) {
             if (!empty($bookingData)) {
+                DB::beginTransaction();
                 if (!empty($request->order_qty)) {
 
                     $price_percentage = ($request->paid_price / $request->order_total_price) * 100;
@@ -195,6 +196,7 @@ class MeasurementOrderController extends Controller
                                     'qty' => $order_qty[$key],
                                     'scale' => $measurement[$key],
                                     'price' => $order_price[$key],
+                                    'customer_note'=>$customer_note[$key]
 
                                 ];
                             }
@@ -210,6 +212,7 @@ class MeasurementOrderController extends Controller
                                     'qty' => $order_qty[$key],
                                     'scale' => $measurement[$key],
                                     'price' => $order_price[$key],
+                                    'customer_note'=>$customer_note[$key]
 
                                 ];
                             }
@@ -228,6 +231,7 @@ class MeasurementOrderController extends Controller
                     }
 
                     if (!empty($orderItemId)) {
+                        DB::commit();
                         $return = ['status' => 'success', 'verified_id' => $verified_id, 'message' => 'Your order submitted successfully!'];
                     } else {
                         $return = ['status' => 'error', 'message' => 'Sorry Your order not submitted!'];
