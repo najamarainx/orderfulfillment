@@ -258,6 +258,12 @@
                             </div>
                             <span class="text-danger zip_error"></span>
                         </div>
+                        <div class="col-12" id=".security_code" style="display:none;">
+                            <div class="form-group">
+                                <input type="number" name="security_code" id="security_code" class="form-control" placeholder="Security Code">
+                            </div>
+                            <span class="text-danger security_code_error"></span>
+                        </div>
 
 
 
@@ -652,7 +658,16 @@
        else{
            $('#show_type').hide();
        }
+       if(userType=='worker')
+       {$('.security_code').show();}else{ $('.security_code').hide();}
+
     }
+
+
+
+
+
+
 
 </script>
 @endsection
