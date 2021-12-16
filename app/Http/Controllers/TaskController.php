@@ -107,9 +107,9 @@ class TaskController extends Controller
 
             $data[] = [
                 "id" => $orderObj->id,
-                "department" =>$orderObj->department_name,
-                "item" =>$orderObj->item_name,
-                "variant"=>$orderObj->variant_name,
+                "department_id" =>$orderObj->department_name,
+                "item_id" =>$orderObj->item_name,
+                "variant_id"=>$orderObj->variant_name,
                 "qty"=>$orderObj->qty,
                 "status"=>'<span class="badge badge-success badge-pill" style="cursor:pointer">' . $orderObj->status . '</span>',
                 "date"=>Carbon::create($orderObj->updated_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),

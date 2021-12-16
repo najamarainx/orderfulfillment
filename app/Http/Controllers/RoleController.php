@@ -61,6 +61,7 @@ class RoleController extends Controller
         $roleData = $role->get();
         $data = [];
         $userId = auth()->user()->id;
+        $checkuser=array('Super Admin','Developer','Measurement','Production Manager','Team Lead','Worker','Screen');
         foreach ($roleData as $roleObj) {
             $action = "";
             if (hasPermission('assignPermissionRole')) {
@@ -78,7 +79,7 @@ class RoleController extends Controller
             </span>
         </a>';
             }
-            if (hasPermission('editRole') && $roleObj->name!='Super Admin' && $roleObj->name!='Developer') {
+            if (hasPermission('editRole') && (!in_array($roleObj->name,$checkuser))) {
             $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 edit" data-id="' . $roleObj->id . '">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
@@ -95,7 +96,7 @@ class RoleController extends Controller
 
             }
 
-            if (hasPermission('deleteRole') && $roleObj->name!='Super Admin' && $roleObj->name!='Developer') {
+            if (hasPermission('deleteRole') && (!in_array($roleObj->name,$checkuser))) {
             $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm delete" data-id="' . $roleObj->id . '" title="Delete">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->

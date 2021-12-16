@@ -330,11 +330,11 @@
                 </div>
                 <div class="card-body">
                     <form class="kt-form kt-form--fit">
-                        
+
                         <div class="row mb-6">
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Date:</label>
-                                   <input type="text"  class="form-control datatable-input "  id="kt_datepicker" autocomplete="off" data-col-index="5">
+                                   <input type="text"  class="form-control datatable-input "  id="kt_datepicker" autocomplete="off" data-col-index="6">
                             </div>
                             @if(Auth::user()->type!='team_lead')
                             <div class="col-lg-3 mb-lg-2 mb-2">
@@ -353,7 +353,7 @@
 
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Status:</label>
-                                <select  class="form-control datatable-input" data-col-index="6">
+                                <select  class="form-control datatable-input" data-col-index="5">
                                     <option value="">Select a status</option>
                                    @foreach ($AssignTaskArray as $status)
                                        <option value="{{$status}}">{{ucfirst($status)}}</option>
@@ -493,7 +493,7 @@
                         data: {
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id','department' ,'item', 'variant','qty','status','date','assigned'
+                                'id','department_id' ,'item_id', 'variant_id','qty','status','date','assigned'
                             ],
                         },
                         headers: {
@@ -504,13 +504,13 @@
                         data: 'id'
                     },
                         {
-                            data: 'department'
+                            data: 'department_id'
                         },
                         {
-                            data: 'item'
+                            data: 'item_id'
                         },
                         {
-                            data: 'variant'
+                            data: 'variant_id'
                         },
                         {
                             data: 'qty'

@@ -50,6 +50,22 @@
         .w_5 {
             width: 5rem;
         }
+        .tableFixHead {
+            overflow-y: auto;
+            height: 200px;
+        }
+        .tableFixHead thead th {
+            position: sticky;
+            top: 0;
+        }
+        .tableFixHead1 {
+            overflow-y: auto;
+            height: 350px;
+        }
+        .tableFixHead1 thead th {
+            position: sticky;
+            top: 0;
+        }
 
     </style>
 @endsection
@@ -118,7 +134,7 @@
                                         </thead>
                                         <tbody>
                                         @foreach($orderItems->orderdetail as $orderItem)
-                                        <tr>
+                                        <tr id="{{$orderItem->id}}">
                                             <td class="pl-0">
                                                 <a href="#" class="text-dark-75 font-weight-normal text-hover-primary mb-1 ">{{ucfirst($orderItem->orderProducts->name)}}</a>
                                             </td>
@@ -148,7 +164,7 @@
                                             </td>
                                             <td class="text-right pr-0">
 
-                                                <a onclick="returnProductInventory({{$orderItem->product_id}})" class="btn btn-icon btn-light btn-hover-primary btn-sm">
+                                                <a class="btn btn-icon btn-light btn-hover-primary btn-sm append">
                                                                     <span class="svg-icon svg-icon-md svg-icon-primary">
                                                                         <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
                                                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -353,7 +369,7 @@
 
         }
 
-        function returnProductInventory(ProductID)
+        /*function returnProductInventory(ProductID)
         {
             var order_id=$('#order_id').val();
             var form_data = new FormData();
@@ -370,15 +386,39 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(datas) {
-                    console.log(datas);
+                    $('#kt_advance_table_widget_3 tr:last').after('<tr>...</tr><tr>...</tr>');
 
                 },
                 error: function(errorString) {
                     Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                 }
             });
-        }
+        }*/
+        $('#kt_advance_table_widget_3').on('click','.append', function() {
+            var ProductID = jQuery(this).closest('tr').attr('id');
+            var order_id=$('#order_id').val();
+            var form_data = new FormData();
+            form_data.append('orderID', order_id);
+            form_data.append('ProductID', ProductID);
+            $.ajax({
+                type: "POST",
+                url: "{{route('getProductInventoryList')}}", // your php file name
+                data: form_data,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(datas) {
+                    $('#kt_advance_table_widget_3 tr:last').after(datas.inventoryassignedHtml);
 
+                },
+                error: function(errorString) {
+                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                }
+            });
+        });
         var numbervar = 1;
 
         function addfield(id) {

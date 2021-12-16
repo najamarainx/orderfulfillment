@@ -328,6 +328,9 @@ class OrderController extends Controller
 
         ];
 
+        $inventoryassignedHtml = View::make('template.edit_product_inventory',$dt)->render();
+        $data['inventoryassignedHtml'] = $inventoryassignedHtml;
+        return response()->json($data);
 
     }
 
