@@ -29,7 +29,7 @@ class CategoryController extends Controller
         $columns = $request->columns;
 
         $userId = auth()->user()->id;
-        $category = DB::table('orderfulfillment_categories')->where('type','product')->whereNull('deleted_at');
+        $category = DB::table('orderfulfillment_categories')->where('type','permission')->whereNull('deleted_at');
         //        if($type != 'super_admin') {
         //            $category->whereRaw('FIND_IN_SET(?,branch_id)',$userBranchIds);
         //        }
