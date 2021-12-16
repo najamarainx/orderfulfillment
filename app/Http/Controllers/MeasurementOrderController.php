@@ -213,7 +213,6 @@ class MeasurementOrderController extends Controller
                                     'scale' => $measurement[$key],
                                     'price' => $order_price[$key],
                                     'customer_note'=>!empty($customer_note[$key]) ? $customer_note[$key] : ''
-
                                 ];
                             }
                         }

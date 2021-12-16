@@ -184,6 +184,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::get('worker-task-screen', [Controllers\WorkerTaskController::class, 'getWorkerTasksByDepartment'])->name('getWorkerTasksByDepartment');
     Route::post('worker-tasks-list', [Controllers\WorkerTaskController::class, 'getWorkerTasksList'])->name('getWorkerTasksList');
+    Route::post('update-worker-tasks-status', [Controllers\WorkerTaskController::class, 'updateWorkertaskStatus'])->name('updateWorkertaskStatus');
 
 });
 Auth::routes();
