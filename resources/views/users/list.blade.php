@@ -26,6 +26,7 @@
 @section('content')
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+
         <!--begin::Subheader-->
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
@@ -36,7 +37,7 @@
                     <!--end::Page Title-->
                     <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
-                    <span class="text-muted font-weight-bold mr-4">Dashboard</span>
+                    <span class="text-muted font-weight-bold mr-4">Users</span>
                     <!--end::Actions-->
                 </div>
                 <!--end::Info-->

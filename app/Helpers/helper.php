@@ -341,7 +341,7 @@ function getUsersDepartments($userObjs=false,$depID=-1,$usertype)
 
 
 function assignTaskStatus(){
-    $AssignTaskArray =['pending','assigned', 'in progress', 'not respond'];
+    $AssignTaskArray =['pending','assigned', 'in progress', 'not respond','completed'];
     return $AssignTaskArray;
 }
 

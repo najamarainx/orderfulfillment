@@ -86,7 +86,6 @@
     <div class="d-flex flex-row flex-column-fluid page">
         <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
             @include('layouts.header')
-            @include('layouts.subheader')
             <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                 <div class="d-flex flex-column-fluid">
                     <!--begin::Container-->
