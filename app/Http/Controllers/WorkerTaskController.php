@@ -46,7 +46,7 @@ class WorkerTaskController extends Controller
             }]);
         }])->whereNull('deleted_at')->whereIn('status', ['in progress','completed']);
             $orderSaleLogDetail->where('department_id', $department_id);
-            // $orderSaleLogDetail->where('created_at', 'like', '%'. Carbon::now()->format('Y-m-d').'%');
+
 
 
 
