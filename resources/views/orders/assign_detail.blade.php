@@ -112,7 +112,7 @@
                             <div class="card-body pt-0 pb-3">
                                 <!--begin::Table-->
                                 <div class="table-responsive">
-                                    <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_3">
+                                    <table class="table table-condensed table-head-custom table-vertical-center" id="kt_advance_table_widget_3_check">
                                         <thead>
                                         <tr class="text-left text-uppercase">
                                             <th class="px-0">Product Name</th>
@@ -134,7 +134,7 @@
                                         </thead>
                                         <tbody>
                                         @foreach($orderItems->orderdetail as $orderItem)
-                                        <tr id="{{$orderItem->id}}">
+                                        <tr id="{{$orderItem->product_id}}" class="sub-container">
                                             <td class="pl-0">
                                                 <a href="#" class="text-dark-75 font-weight-normal text-hover-primary mb-1 ">{{ucfirst($orderItem->orderProducts->name)}}</a>
                                             </td>
@@ -164,33 +164,8 @@
                                             </td>
                                             <td class="text-right pr-0">
 
-                                                <a class="btn btn-icon btn-light btn-hover-primary btn-sm append">
-                                                                    <span class="svg-icon svg-icon-md svg-icon-primary">
-                                                                        <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
-                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                             xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                             width="24px" height="24px"
-                                                                             viewBox="0 0 24 24" version="1.1">
-                                                                            <g stroke="none" stroke-width="1"
-                                                                               fill="none" fill-rule="evenodd">
-                                                                                <rect x="0" y="0" width="24"
-                                                                                      height="24" />
-                                                                                <path
-                                                                                    d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z"
-                                                                                    fill="#000000" fill-rule="nonzero"
-                                                                                    transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953)" />
-                                                                                <path
-                                                                                    d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z"
-                                                                                    fill="#000000" fill-rule="nonzero"
-                                                                                    opacity="0.3" />
-                                                                            </g>
-                                                                        </svg>
-                                                                        <!--end::Svg Icon-->
-                                                                    </span>
-                                                </a>
-
-                                                <a onclick="assignProductInventory({{$orderItem->product_id}})" class="btn btn-icon btn-light btn-hover-primary btn-sm" data-toggle="modal" data-target="#staticBackdrop1">
-                                                                    <span class="svg-icon svg-icon-md svg-icon-primary">
+                                                <a class="btn btn-icon btn-light btn-hover-primary btn-sm exploder">
+                                                                   <span class="svg-icon svg-icon-md svg-icon-primary">
                                                                         <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
                                                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
 																			<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -199,6 +174,20 @@
 																				<path d="M6.70710678,18.7071068 C6.31658249,19.0976311 5.68341751,19.0976311 5.29289322,18.7071068 C4.90236893,18.3165825 4.90236893,17.6834175 5.29289322,17.2928932 L11.2928932,11.2928932 C11.6714722,10.9143143 12.2810586,10.9010687 12.6757246,11.2628459 L18.6757246,16.7628459 C19.0828436,17.1360383 19.1103465,17.7686056 18.7371541,18.1757246 C18.3639617,18.5828436 17.7313944,18.6103465 17.3242754,18.2371541 L12.0300757,13.3841378 L6.70710678,18.7071068 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000003, 14.999999) scale(1, -1) translate(-12.000003, -14.999999)"></path>
 																			</g>
 																		</svg>
+                                                                       <!--end::Svg Icon-->
+                                                                    </span>
+                                                </a>
+
+
+                                                <a onclick="assignProductInventory({{$orderItem->product_id}})" class="btn btn-icon btn-light btn-hover-primary btn-sm" data-toggle="modal" data-target="#staticBackdrop1">
+                                                                    <span class="svg-icon svg-icon-md svg-icon-primary">
+                                                                        <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                                        <rect x="0" y="0" width="24" height="24"/>
+                                                                                        <path d="M14,13.381038 L14,3.47213595 L7.99460483,15.4829263 L14,13.381038 Z M4.88230018,17.2353996 L13.2844582,0.431083506 C13.4820496,0.0359007077 13.9625881,-0.12427877 14.3577709,0.0733126292 C14.5125928,0.15072359 14.6381308,0.276261584 14.7155418,0.431083506 L23.1176998,17.2353996 C23.3152912,17.6305824 23.1551117,18.1111209 22.7599289,18.3087123 C22.5664522,18.4054506 22.3420471,18.4197165 22.1378777,18.3482572 L14,15.5 L5.86212227,18.3482572 C5.44509941,18.4942152 4.98871325,18.2744737 4.84275525,17.8574509 C4.77129597,17.6532815 4.78556182,17.4288764 4.88230018,17.2353996 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.000087, 9.191034) rotate(-315.000000) translate(-14.000087, -9.191034) "/>
+                                                                                    </g>
+                                                                                </svg>
                                                                         <!--end::Svg Icon-->
                                                                     </span>
                                                 </a>
@@ -394,30 +383,43 @@
                 }
             });
         }*/
-        $('#kt_advance_table_widget_3').on('click','.append', function() {
-            var ProductID = jQuery(this).closest('tr').attr('id');
-            var order_id=$('#order_id').val();
-            var form_data = new FormData();
-            form_data.append('orderID', order_id);
-            form_data.append('ProductID', ProductID);
-            $.ajax({
-                type: "POST",
-                url: "{{route('getProductInventoryList')}}", // your php file name
-                data: form_data,
-                dataType: "json",
-                processData: false,
-                contentType: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(datas) {
-                    $('#kt_advance_table_widget_3 tr:last').after(datas.inventoryassignedHtml);
 
-                },
-                error: function(errorString) {
-                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+            $(".exploder").click(function(){
+                //$(this).closest("tr").next("tr").toggleClass("hide");
+                if($(this).closest("tr").next("tr").hasClass("hide")){
+                    var ProductID = jQuery(this).closest('tr').attr('id');
+                    $('table#kt_advance_table_widget_3_check tr#remove_append_tr_'+ProductID+'').remove();
                 }
-            });
+            else{
+                    var ProductID = jQuery(this).closest('tr').attr('id');
+                    var order_id=$('#order_id').val();
+                    var form_data = new FormData();
+                    form_data.append('orderID', order_id);
+                    form_data.append('ProductID', ProductID);
+                    $.ajax({
+                        type: "POST",
+                        url: "{{route('getProductInventoryList')}}", // your php file name
+                        data: form_data,
+                        dataType: "json",
+                        processData: false,
+                        contentType: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(datas) {
+                            // console.log(JSON.stringify(datas.inventoryassignedHtml));
+                            $('#kt_advance_table_widget_3_check tr:last').after(datas.inventoryassignedHtml).slideDown(350);
+                            //$(this).closest("tr").next("tr").children("td").slideDown(350);
+                            //$(this).closest("tr").next("tr").children("td").slideDown(350);
+
+
+                        },
+                        error: function(errorString) {
+                            Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                        }
+                    });
+            }
+
         });
         var numbervar = 1;
 
@@ -722,9 +724,134 @@
             });
         });
 
+        $(document).on('click', '.remove_invenoty_product', function() {
+
+            var ids = $(this).data('id');
+            var get_ids=ids.split("~");
+            var form_data = new FormData();
+            form_data.append('product_id',get_ids[0]);
+            form_data.append('log_id',get_ids[1]);
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You wont be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!"
+            }).then(function(result) {
+                if (result.value) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{route('logItemDelete')}}", // your php file name
+                        data: form_data,
+                        dataType: "json",
+                        processData: false,
+                        contentType: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function (data){
+                            if(data.status == 'success') {
+                                toastr.options = {
+                                    "closeButton": true,
+                                    "debug": false,
+                                    "newestOnTop": false,
+                                    "progressBar": false,
+                                    "positionClass": "toast-top-right",
+                                    "preventDuplicates": true,
+                                    "onclick": null,
+                                    "showDuration": "300",
+                                    "hideDuration": "1000",
+                                    "timeOut": "5000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                };
+                                toastr.success(data.message);
+                                $('table#exist_append_items tr#append_'+get_ids[1]+'').remove();
+
+                            } else {
+                                Swal.fire("Sorry!", data.message, "error");
+                            }
+                        },
+                        error: function (errorString){
+                            Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                        }
+                    });
+                }
+            });
+
+        });
+
+        $(document).on('click', '.update_invenoty_product', function() {
+
+            var ids = $(this).data('id');
+            var get_ids=ids.split("~");
+            if($('#qty_'+get_ids[1]).val() > $('#available_qty_'+get_ids[1]).val()){
+                $('#qty_error_'+get_ids[1]).html('quantity limit is exceed against available quantity');
+                return false;
+            }
+            else{
+                $('#qty_error_'+get_ids[1]).html('');
+            }
+            var form_data = new FormData();
+            form_data.append('product_id',get_ids[0]);
+            form_data.append('log_id',get_ids[1]);
+            form_data.append('qty',$('#qty_'+get_ids[1]).val());
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You wont be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, updated it!"
+            }).then(function(result) {
+                if (result.value) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{route('logItemUpdate')}}", // your php file name
+                        data: form_data,
+                        dataType: "json",
+                        processData: false,
+                        contentType: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function (data){
+                            if(data.status == 'success') {
+                                toastr.options = {
+                                    "closeButton": true,
+                                    "debug": false,
+                                    "newestOnTop": false,
+                                    "progressBar": false,
+                                    "positionClass": "toast-top-right",
+                                    "preventDuplicates": true,
+                                    "onclick": null,
+                                    "showDuration": "300",
+                                    "hideDuration": "1000",
+                                    "timeOut": "5000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                };
+                                toastr.success(data.message);
 
 
+                            } else {
+                                Swal.fire("Sorry!", data.message, "error");
+                            }
+                        },
+                        error: function (errorString){
+                            Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                        }
+                    });
+                }
+            });
 
+        });
 
 
 

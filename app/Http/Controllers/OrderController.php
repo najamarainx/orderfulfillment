@@ -310,15 +310,21 @@ class OrderController extends Controller
 
     public function productInventoryList(Request $request)
     {
-        $saveassignedInventory=OrderFulfillmentSaleLog::select('orderfulfillment_sale_logs.*','orderfulfillment_departments.name as department_name','orderfulfillment_items.name as item_name','orderfulfillment_variants.name as variant_name')->where('orderfulfillment_sale_logs.order_id',$request->orderID)->where('orderfulfillment_sale_logs.product_id',$request->ProductID);
+        $saveassignedInventory=OrderFulfillmentSaleLog::select('orderfulfillment_sale_logs.*','orderfulfillment_departments.name as department_name','orderfulfillment_items.name as item_name','orderfulfillment_variants.name as variant_name','orderfulfillment_inventory_items.qty as available_qty')->where('orderfulfillment_sale_logs.order_id',$request->orderID)->where('orderfulfillment_sale_logs.product_id',$request->ProductID);
         $saveassignedInventory->join('orderfulfillment_departments','orderfulfillment_sale_logs.department_id','=','orderfulfillment_departments.id');
         $saveassignedInventory->join('orderfulfillment_items','orderfulfillment_sale_logs.item_id','=','orderfulfillment_items.id');
         $saveassignedInventory->join('orderfulfillment_variants','orderfulfillment_sale_logs.variant_id','=','orderfulfillment_variants.id');
-        $saveassignedInventory->whereNULL('orderfulfillment_sale_logs.deleted_at');
-        $assignedInventory=$saveassignedInventory->get();
+        $saveassignedInventory->join('orderfulfillment_inventory_items',function($q){
+            $q->on('orderfulfillment_sale_logs.department_id','=','orderfulfillment_inventory_items.department_id');
+            $q->on('orderfulfillment_sale_logs.item_id','=','orderfulfillment_inventory_items.item_id');
+            $q->on('orderfulfillment_sale_logs.variant_id','=','orderfulfillment_inventory_items.variant_id');
 
-        $departments=OrderFulfillmentDepartment::get();
-        $variants=OrderFulfillmentVariant::get();
+        });
+        $saveassignedInventory->whereNULL('orderfulfillment_sale_logs.deleted_at');
+        $saveassignedInventory->whereNULL('orderfulfillment_inventory_items.deleted_at');
+        $assignedInventory=$saveassignedInventory->get();
+        $departments=OrderFulfillmentDepartment::whereNULL('deleted_at')->get();
+        $variants=OrderFulfillmentVariant::whereNULL('deleted_at')->get();
 
         $dt = [
             'departments'=>$departments,
@@ -342,6 +348,50 @@ class OrderController extends Controller
        $result=$variants->get();
        return response()->json($result);
 
+    }
+
+    public function logItemDelete(Request $request)
+    {
+        $productID=$request->product_id;
+        $logID=$request->log_id;
+        $query=OrderFulfillmentSaleLog::where('id',$logID)
+            ->update(['deleted_at' =>Carbon::now()->format("Y-m-d H:i:s")]);
+        $return = [
+            'status' => 'error',
+            'message' => 'inventory not removed from items product',
+        ];
+        if($query)
+        {
+            $return = [
+                'status' => 'success',
+                'message' => 'remove inventory items from product',
+            ];
+        }
+
+        return response()->json($return);
+
+    }
+
+    public function logItemUpdate(Request $request)
+    {
+        $productID=$request->product_id;
+        $logID=$request->log_id;
+        $query=OrderFulfillmentSaleLog::where('id',$logID)
+            ->where('is_verified',0)
+            ->update(['updated_at'=>Carbon::now()->format("Y-m-d H:i:s"),'qty'=>$request->qty]);
+        $return = [
+            'status' => 'error',
+            'message' => 'quantity not updated agaisnt product inventory',
+        ];
+        if($query)
+        {
+            $return = [
+                'status' => 'success',
+                'message' => 'quantity updated agaisnt product inventory',
+            ];
+        }
+
+        return response()->json($return);
     }
 
 

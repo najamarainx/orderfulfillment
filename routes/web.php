@@ -171,6 +171,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/salelog', [Controllers\OrderController::class, 'saleLog'])->name('orderSaleLogSubmit');
         Route::post('/salelogproceed', [Controllers\OrderController::class, 'saveProceedOrderInventory'])->name('proceedSaleInventory');
         Route::post('/productInventoryList', [Controllers\OrderController::class, 'productInventoryList'])->name('getProductInventoryList');
+        Route::post('/logItemDelete', [Controllers\OrderController::class, 'logItemDelete'])->name('logItemDelete');
+        Route::post('/logItemUpdate', [Controllers\OrderController::class, 'logItemUpdate'])->name('logItemUpdate');
 
     });
 
