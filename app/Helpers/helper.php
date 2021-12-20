@@ -349,3 +349,15 @@ function getUsersDepartment($userId){
     $departmentId  =  DB::table('orderfulfillment_user_departments')->where('user_id',Auth::user()->id)->select('department_id')->first();
     return $departmentId;
 }
+
+function checkTaskProductItems($orderID,$productID,$type='')
+{
+    $totalProductSaleItems = DB::table('orderfulfillment_sale_logs')->whereNULL('deleted_at')->where('order_id')->where('product_id');
+    if($type){
+        $totalProductSaleItems->where('status','=','completed');
+    }
+
+    return $totalProductSaleItems->count();
+
+}
+

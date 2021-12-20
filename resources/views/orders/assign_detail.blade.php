@@ -160,7 +160,7 @@
                                                  <span class="text-dark-75 font-weight-normal d-block ">{{ucfirst($orderItem->fitting_option)}}</span>
                                             </td>
                                             <td>
-                                                <span class="label label-lg label-light-success label-inline">Pending</span>
+                                                <span class="label label-lg label-light-success label-inline">{{ucfirst($orderItem->status)}}</span>
                                             </td>
                                             <td class="text-right pr-0">
 
