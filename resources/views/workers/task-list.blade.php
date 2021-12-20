@@ -138,7 +138,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="">Security Code</label>
-                                    <input type="text" name="security_code" class="form-control" required
+                                    <input type="text" name="security_code" class="form-control" id="security_code" required
                                         placeholder="Enter your security code">
                                 </div>
                             </div>
@@ -330,6 +330,7 @@
     }();
 
     $(document).on('click', '.worker_assign_status', function() {
+        $('#security_code').val('');
         worker_log_id = $(this).attr('data-id');
         worker_id = $(this).attr('data-user-id');
         worker_status = $(this).text();

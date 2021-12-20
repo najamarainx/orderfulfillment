@@ -89,7 +89,7 @@ class MeasurementBookingController extends Controller
                 $categoryName = $category->name;
             }
             $action = "";
-            if ($request->status == 'confirmed' && $bookingObj->assign_status!='pending') {
+            if ($request->status == 'confirmed' && $bookingObj->assign_status !='pending') {
                 $action .= '<a href="' . url('booking-order/create_order') . '/' . $bookingObj->booking_id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->

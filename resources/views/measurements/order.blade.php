@@ -398,31 +398,32 @@ input::-webkit-inner-spin-button {
 
                             </table>
                             <p class="text-danger payment_error"></p>
-                            <div class="row footer_wrapper_html"
-                                style=" {{ !empty($orderDetail) }} ? 'display:block' : 'display:none'">
-                                <div class="col-5"></div>
-                                <div class="col-2 ">
-                                    <label for="">Total Price</label>
-                                    <div class="form-goup text-right">
-                                        <input type="number" name="order_total_price" class="form-control border" readonly
-                                            name="totalPrice" id="order_total_price"
-                                            value="{{ !empty($orderDetail->total_price) ? $orderDetail->total_price : '' }}">
+                            <div class="footer_wrapper_html" style=" {{ !empty($orderDetail) }} ? 'display:block' : 'display:none'">
+                                <div class="row" >
+                                    <div class="col-5"></div>
+                                    <div class="col-2 ">
+                                        <label for="">Total Price</label>
+                                        <div class="form-goup text-right">
+                                            <input type="number" name="order_total_price" class="form-control border" readonly
+                                                name="totalPrice" id="order_total_price"
+                                                value="{{ !empty($orderDetail->total_price) ? $orderDetail->total_price : '' }}">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-2">
-                                    <label for="">Paid Amount</label>
-                                    <div class="form-group text-right">
-                                        <input type="number" placeholder="Paid Amount" class="form-control border"
-                                            name="paid_price" id="order_paid_price"
-                                            value="{{ !empty($orderDetail->paid_amount) ? $orderDetail->paid_amount : '' }}">
+                                    <div class="col-2">
+                                        <label for="">Paid Amount</label>
+                                        <div class="form-group text-right">
+                                            <input type="number" placeholder="Paid Amount" class="form-control border"
+                                                name="paid_price" id="order_paid_price"
+                                                value="{{ !empty($orderDetail->paid_amount) ? $orderDetail->paid_amount : '' }}">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-3  text-right mt-4">
-                                    <div class="mt-2">
-                                        <button type="button" class="btn btn-primary" data-id="1" id="save_order">Save and
-                                            proceed</button>
-                                        <button type="button" class="btn btn-primary" data-id="0"
-                                            id="save_order">Save</button>
+                                    <div class="col-3  text-right mt-4">
+                                        <div class="mt-2">
+                                            <button type="button" class="btn btn-primary" data-id="1" id="save_order">Save and
+                                                proceed</button>
+                                            <button type="button" class="btn btn-primary" data-id="0"
+                                                id="save_order">Save</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -711,6 +712,7 @@ input::-webkit-inner-spin-button {
             var min_width = $('#length_placeholder').val();
             var min_height = $('#width_placeholder').val();
             var measure = $('input[name="parameter"]:checked').val();
+
             $('#length').val('');
             $('#width').val('');
             $('#get_quote_price').text('');
@@ -724,6 +726,7 @@ input::-webkit-inner-spin-button {
             } else if (measure == 'cm') {
                 $("#length").attr("placeholder", " ");
                 $("#width").attr("placeholder", " ");
+
                 var cmwidth = min_width * 2.54;
                 var cmheight = min_height * 2.54;
                 cmwidth = cmwidth.toFixed(2);
@@ -735,7 +738,7 @@ input::-webkit-inner-spin-button {
             } else {
                 $("#length").attr("placeholder", " ");
                 $("#width").attr("placeholder", " ");
-
+             console.log(min_width);
                 var mmwidth = min_width * 25.4;
                 var mmheight = min_height * 25.4;
                 mmwidth = mmwidth.toFixed(2);

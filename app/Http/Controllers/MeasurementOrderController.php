@@ -55,6 +55,7 @@ class MeasurementOrderController extends Controller
     }
     public function getProductQuote($productID, Request $request)
     {
+
         $storeId = 1;
         $store = DB::table('stores')->where('id', $storeId)->where('deleted_at', '=', NULL)->first();
         $productIDs = getContractProducts($store->contract_id);
@@ -65,15 +66,15 @@ class MeasurementOrderController extends Controller
             $height = $request->length;
             $minorderheight = $request->min_length;
             $minorderwidth = $request->min_width;
-
             if ($request->measure == 'cm') {
-                $width = $request->width_measure / 2.54;
-                $height = $request->height_measure / 2.54;
+                $width = $width / 2.54;
+                $height = $height / 2.54;
             }
             if ($request->measure == 'mm') {
-                $width = $request->width_measure / 25.4;
-                $height = $request->height_measure / 25.4;
+                $width = $width / 25.4;
+                $height = $height / 25.4;
             }
+
             if ($width >= $minorderwidth && $height >= $minorderheight) {
                 $result = calculateProductQuote($productID, $width, $height);
                 if ($result) {

@@ -103,7 +103,7 @@
                             <div class="row mb-6">
                                 <div class="col-lg-3 mb-lg-2 mb-2">
                                     <label>Select Category:</label>
-                                    <select class="form-control datatable-input selectpicker" data-live-search="true" id="">
+                                    <select class="form-control datatable-input selectpicker" data-live-search="true" data-col-index="1" id="">
                                         <option value="">Select</option>
                                         @if (!empty($categories))
                                             @foreach ($categories as $catObj)
