@@ -1019,8 +1019,14 @@
                             });
                         }
                         var selectedUser = data.getSelectedUser;
+                        //console.log(selectedUser);
                         if(selectedUser!=null){
                            $("#booking_user_id").val(selectedUser.user_id);
+                           if(selectedUser.assign_status !='pending'){
+                               $('.modal-footer').hide();
+                           }
+
+
                         }
 
                     } else {

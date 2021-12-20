@@ -393,6 +393,7 @@
                     $(this).val('');
                     $('#type_search').val('').trigger('change')
                     $('#role_search').val('').trigger('change')
+
                     table.column($(this).data('col-index')).search('', false, false);
                 });
                 table.table().draw();
@@ -470,10 +471,16 @@
                 keyboard: false
             }).on('hide.bs.modal', function(){
                 $("#addForm").validate().resetForm();
+
             });
             var form = $("#addForm");
             form[0].reset();
             $('#id').val('');
+            $('#zip_id').val('').trigger('change');
+            $('#user_type').val('').trigger('change');
+            $('#user_role').val('').trigger('change');
+            $('#user_role').val('').trigger('change');
+            $('#email').val('').prop("readonly", false);
 
         });
 

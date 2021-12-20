@@ -86,6 +86,7 @@ class BookingController extends Controller
         $booking->skip($start);
         $booking->take($length);
         $bookingData = $booking->get();
+
         $data = [];
         foreach ($bookingData as $bookingObj) {
             $categoryName = "";
@@ -110,8 +111,8 @@ class BookingController extends Controller
                 </span>
             </a>';
             }
-
-            $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 edit" data-id="' . $bookingObj->id . '">
+            if($bookingObj->assign_status=='' or $bookingObj->assign_status=='pending') {
+                $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 edit" data-id="' . $bookingObj->id . '">
             <span class="svg-icon svg-icon-md svg-icon-primary">
                 <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -124,7 +125,7 @@ class BookingController extends Controller
                 <!--end::Svg Icon-->
             </span>
         </a>';
-            $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm delete" data-id="' . $bookingObj->id . '" title="Delete">
+                $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm delete" data-id="' . $bookingObj->id . '" title="Delete">
         <span class="svg-icon svg-icon-md svg-icon-primary">
             <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -137,6 +138,7 @@ class BookingController extends Controller
             <!--end::Svg Icon-->
         </span>
     </a>';
+            }
 
             $data[] = [
                 "id" => $bookingObj->id,

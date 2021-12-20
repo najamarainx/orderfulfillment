@@ -97,11 +97,11 @@ class TimeSlotController extends Controller
                 </span>
             </a>';
             // }
+
             $data[] = [
                 "id" => $timeSlotObj->id,
-                "slot_limit" => $timeSlotObj->slot_limit,
-                "booking_from_time" => \Carbon\Carbon::parse($timeSlotObj->booking_from_time)->format('h:i:s A'),
-                "booking_to_time" =>\Carbon\Carbon::parse($timeSlotObj->booking_to_time)->format('h:i:s A') ,
+                "booking_from_time" =>date('H:i',strtotime($timeSlotObj->booking_from_time)),
+                "booking_to_time" =>date('H:i',strtotime($timeSlotObj->booking_to_time)),
                 "status" => $timeSlotObj->status,
                 "action" => $action
             ];
@@ -114,7 +114,6 @@ class TimeSlotController extends Controller
     }
     public function store(Request $request)
     {
-
         $id = $request->id;
         $validate = true;
         $validateInput = $request->all();
@@ -141,8 +140,8 @@ class TimeSlotController extends Controller
             if ($id > 0) {
                 $timeSlot = OrderFulfillmentTimeSlot::findOrFail($id);
             }
-            $timeSlot->booking_from_time = Carbon::parse($request->start_time)->format('H:i:s');
-            $timeSlot->booking_to_time = Carbon::parse($request->end_time)->format('H:i:s');
+            $timeSlot->booking_from_time = date('H:i',strtotime($request->start_time));
+            $timeSlot->booking_to_time = date('H:i',strtotime($request->end_time));
             $timeSlotData  = $timeSlot->save();
             if (!empty($timeSlotData)) {
                 $return = [
