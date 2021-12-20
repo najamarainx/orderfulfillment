@@ -25,4 +25,7 @@ class OrderFulfillmentBooking extends Model
     {
         return $this->belongsTo(OrderFulfillmentTimeSlot::class, 'time_slot_id', 'id');
     }
+    public function bookingOrder(){
+        return $this->hasOne(OrderFulfillmentBookingOrderLog::class, 'booking_id', 'id');
+    }
 }

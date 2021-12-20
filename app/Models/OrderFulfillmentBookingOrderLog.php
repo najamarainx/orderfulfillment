@@ -14,5 +14,8 @@ class OrderFulfillmentBookingOrderLog extends Model
     {
         return $this->hasMany(OrderFulfillmentBookingOrderItemLog::class, 'order_id', 'id');
     }
-
+    public function productDetail()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
 }

@@ -219,6 +219,7 @@
                                     </a>
                                 </li>
                                 @endif
+                                @if(hasPermission('workertaskList'))
                                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                     <a href="{{ route('tasksList') }}" class="menu-link menu-toggle">
                                         <i class="menu-bullet menu-bullet-line">
@@ -227,6 +228,7 @@
                                         <span class="menu-text">Task List</span>
                                     </a>
                                 </li>
+                                @endif
                             </ul>
                         </div>
                     </li>
@@ -298,7 +300,7 @@
                         </div>
                     </li>
                 @endif
-                @if (hasPermission('inventoryList'))
+                {{-- @if (hasPermission('inventoryList')) --}}
                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
@@ -332,6 +334,7 @@
                                         <span class="menu-text">Inventory</span>
                                     </span>
                                 </li>
+                                @if(hasPermission('ProductInventoryList'))
                                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                     <a href="{{ route('inventoryList') }}" class="menu-link menu-toggle">
                                         <i class="menu-bullet menu-bullet-line">
@@ -340,10 +343,11 @@
                                         <span class="menu-text">Inventory List</span>
                                     </a>
                                 </li>
+                                @endif
                             </ul>
                         </div>
                     </li>
-                @endif
+                {{-- @endif --}}
                 @if (hasPermission('viewBooking'))
                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
@@ -493,7 +497,7 @@
                                 </svg>
                                 <!--end::Svg Icon-->
                             </span>
-                            <span class="menu-text">Production</span>
+                            <span class="menu-text">Production Orders</span>
                             <i class="menu-arrow"></i>
                         </a>
                         <div class="menu-submenu">
@@ -501,9 +505,10 @@
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-parent" aria-haspopup="true">
                                     <span class="menu-link">
-                                        <span class="menu-text">Production</span>
+                                        <span class="menu-text">Production Orders</span>
                                     </span>
                                 </li>
+                                @if(hasPermission('pendingOrder'))
                                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                     <a href="{{ route('orderList') }}" class="menu-link menu-toggle">
                                         <i class="menu-bullet menu-bullet-line">
@@ -512,6 +517,8 @@
                                         <span class="menu-text">Pending List</span>
                                     </a>
                                 </li>
+                                @endif
+                                @if(hasPermission('confirmedOrder'))
                                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                     <a href="{{ route('confirmedOrderList') }}" class="menu-link menu-toggle">
                                         <i class="menu-bullet menu-bullet-line">
@@ -520,6 +527,7 @@
                                         <span class="menu-text">Confirmed List</span>
                                     </a>
                                 </li>
+                                @endif
                             </ul>
                         </div>
                     </li>

@@ -144,10 +144,21 @@ class MeasurementBookingController extends Controller
     }
     public function bookingDetail($assignId, $id)
     {
+
         $bookingDetail  = OrderFulfillmentBooking::with(['bookingDetail' => function ($q) use ($assignId) {
             $q->with(['assignedUser', 'bookedUser']);
             $q->where('id', $assignId);
-        }, 'bookingCategory', 'bookingSlot'])->where('orderfulfillment_bookings.id', $id)->first();
+        }, 'bookingCategory', 'bookingSlot','bookingOrder'=>function($order) use($id){
+               $order->where('payment','verified');
+               $order->where('paid_percentage','>=','40');
+               $order->where('booking_id',$id);
+               $order->whereNull('deleted_at');
+               $order->with(['orderdetail'=>function($orderItem){
+                   $orderItem->with(['productDetail']);
+                    $orderItem->whereNull('deleted_at');
+               }]);
+        }])->where('orderfulfillment_bookings.id', $id)->first();
+        echo "<pre>"; print_r($bookingDetail);exit;
 
         if (
             !empty($bookingDetail) && !empty($bookingDetail->bookingDetail)

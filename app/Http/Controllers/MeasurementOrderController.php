@@ -130,7 +130,8 @@ class MeasurementOrderController extends Controller
                         'zip_code' => $request->post_code,
                         'paid_percentage' => $price_percentage,
                         'payment_type' => $payment_type,
-                        'created_by'=>Auth::user()->id
+                        'created_by'=>Auth::user()->id,
+                        'payment'=>'verified'
                     ];
 
                     if (!empty($orderId)) {
