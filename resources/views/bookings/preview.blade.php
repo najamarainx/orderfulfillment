@@ -196,7 +196,7 @@
                                             <tr id="2" class="sub-container">
                                                 <td class="pl-0">
                                                     <a href="#"
-                                                        class="text-dark-75 font-weight-normal text-hover-primary mb-1 ">{{$orderDetailObj->productDetail->name}}</a>
+                                                        class="text-dark-75 font-weight-normal text-hover-primary mb-1 ">{{$orderDetailObj->orderProducts->name}}</a>
                                                 </td>
                                                 <td>
                                                     <span class="text-dark-75 font-weight-normal d-block ">{{$orderDetailObj->qty}}</span>
