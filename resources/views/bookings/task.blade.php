@@ -315,7 +315,10 @@
         }
 
     </style>
-    @php $AssignstatusArray = ['pending', 'in progress', 'not respond', 'completed'];  @endphp
+    @php
+        $AssignstatusArray = ['pending', 'in progress', 'not respond', 'completed'];
+        $statusArray = ['pending', 'in progress'];
+  @endphp
 @endsection
 @section('content')
     <div class="d-flex flex-column-fluid">
@@ -475,8 +478,8 @@
                                     <input type="hidden" name="assign_id" id="assign_id">
                                     <label for="">Select Status:</label>
                                     <select name="booking_status" id="booking_status" class="form-control">
-                                        @foreach ($AssignstatusArray as $status)
-                                            <option value="{{ $status }}">{{ ucfirst($status) }}</option>
+                                        @foreach ($statusArray as $Array)
+                                            <option value="{{ $Array }}">{{ ucfirst($Array) }}</option>
                                         @endforeach
                                     </select>
                                 </div>

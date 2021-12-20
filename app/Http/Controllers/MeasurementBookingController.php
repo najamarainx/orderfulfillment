@@ -89,7 +89,7 @@ class MeasurementBookingController extends Controller
                 $categoryName = $category->name;
             }
             $action = "";
-            if ($request->status == 'confirmed') {
+            if ($request->status == 'confirmed' && $bookingObj->assign_status!='pending') {
                 $action .= '<a href="' . url('booking-order/create_order') . '/' . $bookingObj->booking_id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
@@ -103,11 +103,13 @@ class MeasurementBookingController extends Controller
                     <!--end::Svg Icon-->
                 </span>
             </a>';
-                $action .= '<a  href="' . url('booking-task/detail') . '/' . $bookingObj->assign_id . '/' .  $bookingObj->booking_id . '"  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview" data-id="1">
+
+            }
+            if ($request->status == 'confirmed') {
+                $action .= '<a  href="' . url('booking-task/detail') . '/' . $bookingObj->assign_id . '/' . $bookingObj->booking_id . '"  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview" data-id="1">
                 <i class="la la-eye"></i>
             </a>';
             }
-
             $data[] = [
                 "id" => $bookingObj->id,
                 "date" => Carbon::parse($bookingObj->assign_date)->format('Y-m-d'),

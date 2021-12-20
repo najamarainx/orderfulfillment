@@ -162,6 +162,7 @@ class OrderController extends Controller
     }
     public function saleLog(Request $request)
     {
+
         $validate = true;
         $validateInput = $request->all();
         $rules = [
@@ -270,6 +271,7 @@ class OrderController extends Controller
                 }
 
                 DB::commit();
+                Order::where('id',$orderID)->update(['status' =>'assigned inventory']);
                 $return = [
                     'status' => 'success',
                     'message' => 'Inventory assigned against order',

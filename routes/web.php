@@ -141,7 +141,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('booking-task')->group(function () {
         Route::get('/', [Controllers\MeasurementBookingController::class, 'index'])->name('bookingTaskList')->middleware('haspermission:bookingtaskList');
         Route::post('/list', [Controllers\MeasurementBookingController::class, 'getList'])->name('getAssignBookingList')->middleware('haspermission:bookingtaskList');
-        Route::post('/update-assign-booking-status', [Controllers\MeasurementBookingController::class, 'updateAssignBookingStatus'])->name('updateAssignBookingStatus')->middleware('haspermission:updateStatus');
+        Route::post('/update-assign-booking-status', [Controllers\MeasurementBookingController::class, 'updateAssignBookingStatus'])->name('updateAssignBookingStatus')->middleware('haspermission:updateBookingAssignStatus');
         Route::get('/detail/{id}/{assignid}', [Controllers\MeasurementBookingController::class, 'bookingDetail'])->name('bookingDetail')->middleware('haspermission:bookingDetail');
 
     });
