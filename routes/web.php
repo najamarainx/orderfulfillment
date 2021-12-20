@@ -121,9 +121,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('time-slot')->group(function () {
         Route::get('/', [Controllers\TimeSlotController::class, 'index'])->name('slotList')->middleware('haspermission:viewTimeSlot');
         Route::post('/list', [Controllers\TimeSlotController::class, 'getList'])->name('getTimeSlotList')->middleware('haspermission:viewTimeSlot');
-        Route::post('/submit', [Controllers\TimeSlotController::class, 'store'])->name('timeslotSubmit')->middleware('haspermission:addviewTimeSlot');
-        Route::post('/edit', [Controllers\TimeSlotController::class, 'getTimeSlotById'])->name('getTimeSlotById')->middleware('haspermission:editviewTimeSlot');
-        Route::post('/delete', [Controllers\TimeSlotController::class, 'destroy'])->name('timeSlotDelete')->middleware('haspermission:deleteviewTimeSlot');
+        Route::post('/submit', [Controllers\TimeSlotController::class, 'store'])->name('timeslotSubmit')->middleware('haspermission:addTimeSlot');
+        Route::post('/edit', [Controllers\TimeSlotController::class, 'getTimeSlotById'])->name('getTimeSlotById')->middleware('haspermission:editTimeSlot');
+        Route::post('/delete', [Controllers\TimeSlotController::class, 'destroy'])->name('timeSlotDelete')->middleware('haspermission:deleteTimeSlot');
 
     });
     Route::prefix('booking')->group(function () {

@@ -85,7 +85,6 @@
                         <thead>
                             <tr>
                                 <th>Sr</th>
-                                <th>Slot Limit</th>
                                 <th>Slot Start Time</th>
                                 <th>Slot End Time</th>
                                 <th>Status</th>
@@ -114,7 +113,7 @@
                 <div class="modal-body">
                     <form id="addForm">
                         <div class="row">
-
+                            <input type="hidden" name="id" id="id">
                             <div class="col-12">
                                 <div class="form-group mb-4">
                                     <label class="mb-0">Start Time Slot<span
@@ -207,7 +206,7 @@
                         data: {
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id', 'slot_limit', 'booking_from_time', 'booking_to_time', 'status'
+                                'id', 'booking_from_time', 'booking_to_time', 'status'
                             ],
                         },
                         headers: {
@@ -216,9 +215,6 @@
                     },
                     columns: [{
                             data: 'id'
-                        },
-                        {
-                            data: 'slot_limit'
                         },
                         {
                             data: 'booking_from_time'
@@ -417,8 +413,8 @@
                         var booking_from_time = rec.booking_from_time;
                         var booking_to_time = rec.booking_to_time;
                         $('#id').val(id);
-                        $('#start_time').val(booking_from_time);
-                        $('#end_time').val(booking_to_time);
+                        $('.start_time').val(booking_from_time);
+                        $('.end_time').val(booking_to_time);
                         $('#bookingAddScheduleModal').modal('show');
                         window.scrollTo({
                             top: 0,
