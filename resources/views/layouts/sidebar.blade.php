@@ -174,7 +174,6 @@
                         </div>
                     </li>
                 @endif
-                @if (hasPermission('viewDepartment'))
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'departmentList' ? 'menu-item-open' : '' }}"
                         aria-haspopup="true" data-menu-toggle="hover">
                         <a href="javascript:;" class="menu-link menu-toggle">
@@ -209,6 +208,8 @@
                                         <span class="menu-text">Departments</span>
                                     </span>
                                 </li>
+                                @if (hasPermission('viewDepartment'))
+
                                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                     <a href="{{ route('departmentList') }}" class="menu-link menu-toggle">
                                         <i class="menu-bullet menu-bullet-line">
@@ -217,6 +218,7 @@
                                         <span class="menu-text">Department List</span>
                                     </a>
                                 </li>
+                                @endif
                                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                     <a href="{{ route('tasksList') }}" class="menu-link menu-toggle">
                                         <i class="menu-bullet menu-bullet-line">
@@ -228,7 +230,7 @@
                             </ul>
                         </div>
                     </li>
-                @endif
+
                 @if (hasPermission('viewItem') || hasPermission('viewVariant') || hasPermission('viewSupplier') || hasPermission('viewStockPurchase'))
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'itemList' || Route::currentRouteName() == 'variantList' || Route::currentRouteName() == 'supplierList' || Route::currentRouteName() == 'stockList' ? 'menu-item-open' : '' }}"
                         aria-haspopup="true" data-menu-toggle="hover">
