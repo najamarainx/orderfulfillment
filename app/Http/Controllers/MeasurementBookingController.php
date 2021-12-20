@@ -156,11 +156,10 @@ class MeasurementBookingController extends Controller
                $order->where('booking_id',$id);
                $order->whereNull('deleted_at');
                $order->with(['orderdetail'=>function($orderItem){
-                   $orderItem->with(['productDetail']);
+                   $orderItem->with(['orderProducts']);
                     $orderItem->whereNull('deleted_at');
                }]);
         }])->where('orderfulfillment_bookings.id', $id)->first();
-        echo "<pre>"; print_r($bookingDetail);exit;
 
         if (
             !empty($bookingDetail) && !empty($bookingDetail->bookingDetail)
