@@ -180,6 +180,7 @@ class RoleController extends Controller
         $permission->select('permissions.*', 'categories.name as category_name');
         $permission->Join('orderfulfillment_categories as categories', 'categories.id', '=', 'permissions.category_id');
         $permissions = $permission->get();
+
         $assignPermissionTORole = DB::table('orderfulfillment_role_has_permissions')->where('role_id', $roleId)->pluck('permission_id')->toArray();
         $html = '<input type="hidden" name="role_id" value="' . $roleId . '" >';
         $perArr = [];
@@ -195,11 +196,11 @@ class RoleController extends Controller
                 $printPermissionHeading = true;
                 foreach ($permission as $p) {
                     $showPermission = true;
-                    if($userType != 'super_admin') {
+                    /*if($userType != 'super_admin' or $userType != 'developer') {
                         if(!hasPermission($p['name'])) {
                             $showPermission = false;
                         }
-                    }
+                    }*/
                     if($showPermission) {
                     if ($printPermissionHeading) {
                         $html .= '<div class="col-sm-12" style="margin:5px 0px;">

@@ -180,7 +180,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('tasks')->group(function () {
         Route::get('/', [Controllers\TaskController::class, 'index'])->name('tasksList')->middleware('haspermission:departmentTaskList');
         Route::post('/list', [Controllers\TaskController::class, 'getList'])->name('getTasksList')->middleware('haspermission:departmentTaskList');
-        Route::post('/taskInfo', [Controllers\TaskController::class, 'getTaskInfo'])->name('getTaskInfo')->middleware('haspermission:departmentTInfo');
+        Route::post('/taskInfo', [Controllers\TaskController::class, 'getTaskInfo'])->name('getTaskInfo')->middleware('haspermission:departmentInfo');
         Route::post('/taskAssign', [Controllers\TaskController::class, 'assignuserTask'])->name('assignuserTask')->middleware('haspermission:departmentAssignTask');
         Route::get('completed-task', [Controllers\TaskController::class, 'completedTasksList'])->name('completedTasksList')->middleware('haspermission:departmentCompletedTask');
         Route::post('completed-task-list', [Controllers\TaskController::class, 'getCompletedTasksList'])->name('getCompletedTasksList')->middleware('haspermission:departmentCompletedTask');

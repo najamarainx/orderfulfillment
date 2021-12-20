@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\OrderFulfillmentAssignedTask;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use App\Models\OrderFulfillmentSaleLog;
 use App\Models\OrderFulfillmentStockOrder;
@@ -27,25 +28,25 @@ class WorkerTaskController extends Controller
         $length = $request->length;
         $sortColumnIndex = $request->order[0]['column']; // Column index
         $sortColumnName = $request->columns[$sortColumnIndex]['data']; // Column name
-        $sortColumnName = 'orderfulfillment_sale_logs.id'; // Column name
+        $sortColumnName = 'orderfulfillment_assigned_tasks.id'; // Column name
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
         $department_id =  session()->get('department_id');
-        $orderSaleLogDetail = OrderFulfillmentSaleLog::with(['orderDetails' => function ($q) {
-            $q->where('payment', 'verified');
-            $q->where('paid_percentage', '>=', '40');
-            $q->whereNull('deleted_at');
-        }, 'departmentDetails', 'itemDetails' => function ($item) {
-            $item->whereNull('deleted_at');
-        }, 'variantDetails' => function ($variant) {
-            $variant->whereNull('deleted_at');
-        }, 'assignedTask' => function ($task) {
-            $task->whereNull('deleted_at');
-            $task->with(['assignedUser' => function ($user) {
-                $user->whereNull('deleted_at');
+
+
+        $orderSaleLogDetail = OrderFulfillmentAssignedTask::with(['saleLogs'=>function($saleLog) use ($department_id){
+            $saleLog->whereNull('deleted_at')->whereIn('status', ['in progress','pending']);
+            $saleLog->where('department_id', $department_id);
+            $saleLog->with(['departmentDetails'=>function($department){
+                $department->whereNull('deleted_at');
             }]);
-        }])->whereNull('deleted_at')->whereIn('status', ['in progress','completed']);
-            $orderSaleLogDetail->where('department_id', $department_id);
+            $saleLog->with(['itemDetails'=>function($item){
+                $item->whereNull('deleted_at');
+            },'variantDetails']);
+        }, 'assignedUser'=>function($user){
+            $user->whereNull('deleted_at');
+        }]);
+
 
 
 
@@ -74,23 +75,24 @@ class WorkerTaskController extends Controller
         if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
             $orderSaleLogDetail->orderBy($sortColumnName, $sortColumnSortOrder);
         } else {
-            $orderSaleLogDetail->orderBy("orderfulfillment_sale_logs.id", "asc");
+            $orderSaleLogDetail->orderBy("orderfulfillment_assigned_tasks.id", "asc");
         }
         $iTotalRecords = $orderSaleLogDetail->count();
         $orderSaleLogDetail->skip($start);
         $orderSaleLogDetail->take($length);
         $orderSaleLogDetailData = $orderSaleLogDetail->get();
+
         $data = [];
         foreach ($orderSaleLogDetailData as $orderObj) {
             $data[] = [
                 "id" => $orderObj->id,
-                "department_id" => $orderObj->departmentDetails->name,
-                "item_id" => $orderObj->itemDetails->name,
-                "variant_id" =>  $orderObj->variantDetails->name,
-                "qty" => $orderObj->qty,
-                "date" =>  !empty($orderObj->updated_at) ? Carbon::parse($orderObj->updated_at)->format('Y-m-d H:i:s') : '',
-                "status" => '<span class="badge badge-success badge-pill worker_assign_status"  data-user-id="'.$orderObj->assignedTask->assignedUser->id.'" data-id="'.$orderObj->id.'" style="cursor:pointer" >' . $orderObj->status . '</span>',
-                "assign_to" => '<span class="badge badge-success badge-pill"  style="cursor:pointer>' .  !empty($orderObj->assignedTask->assignedUser) ? $orderObj->assignedTask->assignedUser->name  : '' . '</span>',
+                "department_id" => $orderObj->saleLogs->departmentDetails->name,
+                "item_id" => $orderObj->saleLogs->itemDetails->name,
+                "variant_id" =>  $orderObj->saleLogs->variantDetails->name,
+                "qty" => $orderObj->saleLogs->qty,
+                "date" =>  !empty($orderObj->created_at) ? Carbon::parse($orderObj->created_at)->format('Y-m-d H:i:s') : '',
+                "status" => '<span class="badge badge-success badge-pill worker_assign_status" data-user-id="'.$orderObj->assignedUser->id.'"   data-id="'.$orderObj->saleLogs->id.'" style="cursor:pointer" >' . $orderObj->saleLogs->status . '</span>',
+                "assign_to" => $orderObj->assignedUser->name,
             ];
         }
         $records["data"] = $data;
@@ -101,11 +103,20 @@ class WorkerTaskController extends Controller
     }
 
     public function updateWorkertaskStatus(Request $request){
-         if(!empty($request->security_code)){
+       if(!empty($request->security_code)){
            $userDetail = OrderFulfillmentUser::where(['id'=>$request->worker_id,'security_code'=>$request->security_code])->whereNull('deleted_at')->first();
              if(!empty($userDetail)){
-                 $query   = OrderFulfillmentSaleLog::where('id',$request->worker_task_log_id)->whereNull('deleted_at')->update(['status'=>$request->worker_status]);
+               $query   = OrderFulfillmentSaleLog::where('id',$request->worker_task_log_id)->whereNull('deleted_at')->update(['status'=>$request->worker_status]);
                  if($query){
+
+                     $orderInfo=OrderFulfillmentSaleLog::where('id',$request->worker_task_log_id)->whereNull('deleted_at')->first();
+                     $totalProducts=checkTaskProductItems($orderInfo->order_id,$orderInfo->product_id,'');
+                     $completedtotalProducts=checkTaskProductItems($orderInfo->order_id,$orderInfo->product_id,'completed');
+                     if($completedtotalProducts==$totalProducts){
+                         OrderItem::where('order_id',$orderInfo->order_id)->whereNull('deleted_at')->update(['status'=>'completed']);
+                     }
+
+
                     $return = ['status' => 'success', 'message' => 'Your status updated successfully!'];
                  }
                 }else{

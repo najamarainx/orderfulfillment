@@ -219,7 +219,7 @@
                                     </a>
                                 </li>
                                 @endif
-                                @if(hasPermission('workertaskList'))
+                                @if(hasPermission('departmentTaskList'))
                                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                     <a href="{{ route('tasksList') }}" class="menu-link menu-toggle">
                                         <i class="menu-bullet menu-bullet-line">
