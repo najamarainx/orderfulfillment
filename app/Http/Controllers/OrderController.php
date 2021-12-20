@@ -25,6 +25,7 @@ class OrderController extends Controller
 
     public function getList(Request $request)
     {
+
         $records = [];
         $draw = $request->draw;
         $start = $request->start;
@@ -33,9 +34,13 @@ class OrderController extends Controller
         $sortColumnName = $request->columns[$sortColumnIndex]['data']; // Column name
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
-        $sql = Order::select('orders.*','stores.name as store_name')->where('orders.payment','verified');
-        $sql->join('stores','orders.store_id','stores.id');
-        $sql->where('orders.paid_percentage','>=','40');
+        $sql = Order::select('orders.*', 'stores.name as store_name')->where('orders.payment', 'verified');
+        $sql->join('stores', 'orders.store_id', 'stores.id');
+        if (!empty($request->order_status) && $request->order_status == 'confirmed') {
+            $sql->where('orders.paid_percentage', '>=', '40');
+        } else {
+            $sql->where('orders.paid_percentage', '<=', '40');
+        }
         $sql->whereNULL('stores.deleted_at');
         $sql->whereNULL('orders.deleted_at');
         foreach ($columns as $field) {
@@ -43,16 +48,13 @@ class OrderController extends Controller
             $search = $field['search']['value'];
             if ($search != "") {
                 if ($col == 'id') {
-                    $colp='orders.id';
+                    $colp = 'orders.id';
                     $sql->where($colp, $search);
-
                 }
                 if ($col == 'name') {
-                    $colp='orders.store_id';
+                    $colp = 'orders.store_id';
                     $sql->where($colp, $search);
-
                 }
-
             }
         }
 
@@ -69,8 +71,9 @@ class OrderController extends Controller
         $data = [];
         foreach ($orderData as $orderObj) {
             $action = "";
+            if (!empty($request->order_status) && $request->order_status == 'confirmed') {
 
-            $action .= '<a href="' . url('orders/detail') . '/' . $orderObj->id . '" target="_blank"  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 ">
+                $action .= '<a href="' . url('orders/detail') . '/' . $orderObj->id . '" target="_blank"  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 ">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -83,6 +86,7 @@ class OrderController extends Controller
                     <!--end::Svg Icon-->
                 </span>
             </a>';
+            }
 
 
             /*$action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm delete" data-id="' . $orderObj->id . '" title="Delete">
@@ -118,44 +122,41 @@ class OrderController extends Controller
 
     public function detail($id)
     {
-        $departments=OrderFulfillmentDepartment::get();
-        $variants=OrderFulfillmentVariant::get();
-        $orderItems= Order::with(['orderdetail'=>function($query){
+        $departments = OrderFulfillmentDepartment::get();
+        $variants = OrderFulfillmentVariant::get();
+        $orderItems = Order::with(['orderdetail' => function ($query) {
             $query->with('orderProducts');
-        }])->where('id',$id)->first();
+        }])->where('id', $id)->first();
         $dt = [
-                'orderItems'=>$orderItems,
-                'departments'=>$departments,
-                'variants'=>$variants,
+            'orderItems' => $orderItems,
+            'departments' => $departments,
+            'variants' => $variants,
 
-            ];
+        ];
         return view('orders.assign_detail', $dt);
-
-
-
     }
 
     public function getAssignedProductInventory(Request $request)
     {
-        $saveassignedInventory=OrderFulfillmentSaleLog::select('orderfulfillment_sale_logs.*','orderfulfillment_departments.name as department_name','orderfulfillment_items.name as item_name','orderfulfillment_variants.name as variant_name')->where('orderfulfillment_sale_logs.order_id',$request->orderID)->where('orderfulfillment_sale_logs.product_id',$request->ProductID);
-        $saveassignedInventory->join('orderfulfillment_departments','orderfulfillment_sale_logs.department_id','=','orderfulfillment_departments.id');
-        $saveassignedInventory->join('orderfulfillment_items','orderfulfillment_sale_logs.item_id','=','orderfulfillment_items.id');
-        $saveassignedInventory->join('orderfulfillment_variants','orderfulfillment_sale_logs.variant_id','=','orderfulfillment_variants.id');
+        $saveassignedInventory = OrderFulfillmentSaleLog::select('orderfulfillment_sale_logs.*', 'orderfulfillment_departments.name as department_name', 'orderfulfillment_items.name as item_name', 'orderfulfillment_variants.name as variant_name')->where('orderfulfillment_sale_logs.order_id', $request->orderID)->where('orderfulfillment_sale_logs.product_id', $request->ProductID);
+        $saveassignedInventory->join('orderfulfillment_departments', 'orderfulfillment_sale_logs.department_id', '=', 'orderfulfillment_departments.id');
+        $saveassignedInventory->join('orderfulfillment_items', 'orderfulfillment_sale_logs.item_id', '=', 'orderfulfillment_items.id');
+        $saveassignedInventory->join('orderfulfillment_variants', 'orderfulfillment_sale_logs.variant_id', '=', 'orderfulfillment_variants.id');
         $saveassignedInventory->whereNULL('orderfulfillment_sale_logs.deleted_at');
-        $assignedInventory=$saveassignedInventory->get();
+        $assignedInventory = $saveassignedInventory->get();
 
-        $departments=OrderFulfillmentDepartment::get();
-        $variants=OrderFulfillmentVariant::get();
+        $departments = OrderFulfillmentDepartment::get();
+        $variants = OrderFulfillmentVariant::get();
 
         $dt = [
-            'departments'=>$departments,
-            'variants'=>$variants,
-            'assignedInventory'=>$assignedInventory,
-            'product_id'=>$request->ProductID,
+            'departments' => $departments,
+            'variants' => $variants,
+            'assignedInventory' => $assignedInventory,
+            'product_id' => $request->ProductID,
 
         ];
 
-        $inventoryassignedHtml = View::make('template.product_inventory',$dt)->render();
+        $inventoryassignedHtml = View::make('template.product_inventory', $dt)->render();
         $data['inventoryassignedHtml'] = $inventoryassignedHtml;
         return response()->json($data);
     }
@@ -174,7 +175,7 @@ class OrderController extends Controller
 
 
         ];
-        $messages=[
+        $messages = [
             'product_id.required' => 'something wrong against product!',
             'order_id.required' => 'something wrong against product order field is required!',
             'department.*.required' => 'department field is required!',
@@ -183,7 +184,7 @@ class OrderController extends Controller
             'qty.*.required' => 'qty field is required!',
             'choose_qty.*.required' => 'choose_qty field is required!',
         ];
-        $validator = Validator::make($validateInput, $rules,$messages);
+        $validator = Validator::make($validateInput, $rules, $messages);
         if ($validator->fails()) {
             $errors = $validator->errors();
             $allMsg = [];
@@ -198,56 +199,51 @@ class OrderController extends Controller
         if ($validate) {
 
             DB::beginTransaction();
-            try{
+            try {
                 $saleLog = new  OrderFulfillmentSaleLog();
-                $product_id=$request->product_id;
-                $departments=$request->department;
-                $item_ids=$request->item_id;
-                $variants=$request->variant;
+                $product_id = $request->product_id;
+                $departments = $request->department;
+                $item_ids = $request->item_id;
+                $variants = $request->variant;
                 //$qtys=$request->qty;
-                $choose_qty=$request->choose_qty;
-                $order_id=$request->order_id;
+                $choose_qty = $request->choose_qty;
+                $order_id = $request->order_id;
 
-                $inventoryData=array();
-                foreach($departments as $key=>$department){
-                        $inventoryData[]=array(
-                            'order_id'=>$order_id,
-                            'product_id'=>$product_id,
-                            'department_id'=>$department[$key],
-                            'item_id'=>$item_ids[$key],
-                            'variant_id'=>$variants[$key],
-                            'qty'=>$choose_qty[$key],
-                            'created_at'=> Carbon::now()->format("Y-m-d H:i:s"),
-                        );
-
-                    }
-
-                if(!empty($inventoryData)) {
-                    $query=OrderFulfillmentSaleLog::insert($inventoryData);
+                $inventoryData = array();
+                foreach ($departments as $key => $department) {
+                    $inventoryData[] = array(
+                        'order_id' => $order_id,
+                        'product_id' => $product_id,
+                        'department_id' => $department[$key],
+                        'item_id' => $item_ids[$key],
+                        'variant_id' => $variants[$key],
+                        'qty' => $choose_qty[$key],
+                        'created_at' => Carbon::now()->format("Y-m-d H:i:s"),
+                    );
                 }
+
+                if (!empty($inventoryData)) {
+                    $query = OrderFulfillmentSaleLog::insert($inventoryData);
+                }
+                $return = [
+                    'status' => 'error',
+                    'message' => 'inventory is not added agaist this product',
+                ];
+                if ($query) {
                     $return = [
-                        'status' => 'error',
-                        'message' => 'inventory is not added agaist this product',
+                        'status' => 'success',
+                        'message' => 'Inventory ready to assigned this product',
+
                     ];
-                    if ($query) {
-                        $return = [
-                            'status' => 'success',
-                            'message' => 'Inventory ready to assigned this product',
-
-                        ];
-                    }
+                }
                 DB::commit();
-
-
-            }
-            catch(\Exception $e){
+            } catch (\Exception $e) {
 
                 $return = [
                     'status' => 'error',
                     'message' => 'inventory is not added agaist this product',
                 ];
             }
-
         }
 
         return response()->json($return);
@@ -255,47 +251,39 @@ class OrderController extends Controller
 
     public function saveProceedOrderInventory(Request $request)
     {
-        $orderID=$request->order_id;
-        $saleLogInventorys=OrderFulfillmentSaleLog::where('order_id',$orderID)->where('is_verified',0)->get();
+        $orderID = $request->order_id;
+        $saleLogInventorys = OrderFulfillmentSaleLog::where('order_id', $orderID)->where('is_verified', 0)->get();
 
         DB::beginTransaction();
         try {
-                if(!$saleLogInventorys->isEmpty()){
-                    foreach ($saleLogInventorys as $saleLogInventory) {
-                        $qty = OrderFulfillmentInventoryItem::select('qty')->where('department_id', $saleLogInventory->department_id)->where('item_id', $saleLogInventory->item_id)->where('variant_id', $saleLogInventory->variant_id)->first();
-                        OrderFulfillmentInventoryItem::where('department_id', $saleLogInventory->department_id)
-                            ->where('item_id', $saleLogInventory->item_id)
-                            ->where('variant_id', $saleLogInventory->variant_id)
-                            ->update(['qty' => $qty->qty - $saleLogInventory->qty]);
+            if (!$saleLogInventorys->isEmpty()) {
+                foreach ($saleLogInventorys as $saleLogInventory) {
+                    $qty = OrderFulfillmentInventoryItem::select('qty')->where('department_id', $saleLogInventory->department_id)->where('item_id', $saleLogInventory->item_id)->where('variant_id', $saleLogInventory->variant_id)->first();
+                    OrderFulfillmentInventoryItem::where('department_id', $saleLogInventory->department_id)
+                        ->where('item_id', $saleLogInventory->item_id)
+                        ->where('variant_id', $saleLogInventory->variant_id)
+                        ->update(['qty' => $qty->qty - $saleLogInventory->qty]);
 
-                        OrderFulfillmentSaleLog::where('department_id', $saleLogInventory->department_id)
-                            ->where('id', $saleLogInventory->id)
-                            ->update(['is_verified' => '1']);
-
-
-                    }
-
-                    DB::commit();
-                    $return = [
-                        'status' => 'success',
-                        'message' => 'Inventory assigned against order',
-
-                    ];
-
-                }else{
-
-                    $return = [
-                        'status' => 'success',
-                        'message' => 'you already assign inventory',
-
-                    ];
-
+                    OrderFulfillmentSaleLog::where('department_id', $saleLogInventory->department_id)
+                        ->where('id', $saleLogInventory->id)
+                        ->update(['is_verified' => '1']);
                 }
 
+                DB::commit();
+                $return = [
+                    'status' => 'success',
+                    'message' => 'Inventory assigned against order',
 
+                ];
+            } else {
 
-        }
-        catch(\Exception $e){
+                $return = [
+                    'status' => 'success',
+                    'message' => 'you already assign inventory',
+
+                ];
+            }
+        } catch (\Exception $e) {
 
             $return = [
                 'status' => 'error',
@@ -304,64 +292,60 @@ class OrderController extends Controller
         }
 
         return response()->json($return);
-
-
     }
 
     public function productInventoryList(Request $request)
     {
-        $saveassignedInventory=OrderFulfillmentSaleLog::select('orderfulfillment_sale_logs.*','orderfulfillment_departments.name as department_name','orderfulfillment_items.name as item_name','orderfulfillment_variants.name as variant_name','orderfulfillment_inventory_items.qty as available_qty')->where('orderfulfillment_sale_logs.order_id',$request->orderID)->where('orderfulfillment_sale_logs.product_id',$request->ProductID);
-        $saveassignedInventory->join('orderfulfillment_departments','orderfulfillment_sale_logs.department_id','=','orderfulfillment_departments.id');
-        $saveassignedInventory->join('orderfulfillment_items','orderfulfillment_sale_logs.item_id','=','orderfulfillment_items.id');
-        $saveassignedInventory->join('orderfulfillment_variants','orderfulfillment_sale_logs.variant_id','=','orderfulfillment_variants.id');
-        $saveassignedInventory->join('orderfulfillment_inventory_items',function($q){
-            $q->on('orderfulfillment_sale_logs.department_id','=','orderfulfillment_inventory_items.department_id');
-            $q->on('orderfulfillment_sale_logs.item_id','=','orderfulfillment_inventory_items.item_id');
-            $q->on('orderfulfillment_sale_logs.variant_id','=','orderfulfillment_inventory_items.variant_id');
-
+        $saveassignedInventory = OrderFulfillmentSaleLog::select('orderfulfillment_sale_logs.*', 'orderfulfillment_departments.name as department_name', 'orderfulfillment_items.name as item_name', 'orderfulfillment_variants.name as variant_name', 'orderfulfillment_inventory_items.qty as available_qty')->where('orderfulfillment_sale_logs.order_id', $request->orderID)->where('orderfulfillment_sale_logs.product_id', $request->ProductID);
+        $saveassignedInventory->join('orderfulfillment_departments', 'orderfulfillment_sale_logs.department_id', '=', 'orderfulfillment_departments.id');
+        $saveassignedInventory->join('orderfulfillment_items', 'orderfulfillment_sale_logs.item_id', '=', 'orderfulfillment_items.id');
+        $saveassignedInventory->join('orderfulfillment_variants', 'orderfulfillment_sale_logs.variant_id', '=', 'orderfulfillment_variants.id');
+        $saveassignedInventory->join('orderfulfillment_inventory_items', function ($q) {
+            $q->on('orderfulfillment_sale_logs.department_id', '=', 'orderfulfillment_inventory_items.department_id');
+            $q->on('orderfulfillment_sale_logs.item_id', '=', 'orderfulfillment_inventory_items.item_id');
+            $q->on('orderfulfillment_sale_logs.variant_id', '=', 'orderfulfillment_inventory_items.variant_id');
         });
         $saveassignedInventory->whereNULL('orderfulfillment_sale_logs.deleted_at');
         $saveassignedInventory->whereNULL('orderfulfillment_inventory_items.deleted_at');
-        $assignedInventory=$saveassignedInventory->get();
-        $departments=OrderFulfillmentDepartment::whereNULL('deleted_at')->get();
-        $variants=OrderFulfillmentVariant::whereNULL('deleted_at')->get();
+        $assignedInventory = $saveassignedInventory->get();
+        $departments = OrderFulfillmentDepartment::whereNULL('deleted_at')->get();
+        $variants = OrderFulfillmentVariant::whereNULL('deleted_at')->get();
 
         $dt = [
-            'departments'=>$departments,
-            'variants'=>$variants,
-            'assignedInventory'=>$assignedInventory,
-            'product_id'=>$request->ProductID,
+            'departments' => $departments,
+            'variants' => $variants,
+            'assignedInventory' => $assignedInventory,
+            'product_id' => $request->ProductID,
 
         ];
 
-        $inventoryassignedHtml = View::make('template.edit_product_inventory',$dt)->render();
+        $inventoryassignedHtml = View::make('template.edit_product_inventory', $dt)->render();
         $data['inventoryassignedHtml'] = $inventoryassignedHtml;
         return response()->json($data);
-
     }
 
     public function getItemVariant(Request $request)
     {
-       $variant_ids=getProductSaleLogVariant($request->orderID,$request->productID,$request->depID,$request->itemID);
-       $variants=OrderFulfillmentVariant::whereNull('deleted_at');
-       if(!empty($variant_ids)){$variants->whereNotIn('id',$variant_ids);}
-       $result=$variants->get();
-       return response()->json($result);
-
+        $variant_ids = getProductSaleLogVariant($request->orderID, $request->productID, $request->depID, $request->itemID);
+        $variants = OrderFulfillmentVariant::whereNull('deleted_at');
+        if (!empty($variant_ids)) {
+            $variants->whereNotIn('id', $variant_ids);
+        }
+        $result = $variants->get();
+        return response()->json($result);
     }
 
     public function logItemDelete(Request $request)
     {
-        $productID=$request->product_id;
-        $logID=$request->log_id;
-        $query=OrderFulfillmentSaleLog::where('id',$logID)
-            ->update(['deleted_at' =>Carbon::now()->format("Y-m-d H:i:s")]);
+        $productID = $request->product_id;
+        $logID = $request->log_id;
+        $query = OrderFulfillmentSaleLog::where('id', $logID)
+            ->update(['deleted_at' => Carbon::now()->format("Y-m-d H:i:s")]);
         $return = [
             'status' => 'error',
             'message' => 'inventory not removed from items product',
         ];
-        if($query)
-        {
+        if ($query) {
             $return = [
                 'status' => 'success',
                 'message' => 'remove inventory items from product',
@@ -369,22 +353,20 @@ class OrderController extends Controller
         }
 
         return response()->json($return);
-
     }
 
     public function logItemUpdate(Request $request)
     {
-        $productID=$request->product_id;
-        $logID=$request->log_id;
-        $query=OrderFulfillmentSaleLog::where('id',$logID)
-            ->where('is_verified',0)
-            ->update(['updated_at'=>Carbon::now()->format("Y-m-d H:i:s"),'qty'=>$request->qty]);
+        $productID = $request->product_id;
+        $logID = $request->log_id;
+        $query = OrderFulfillmentSaleLog::where('id', $logID)
+            ->where('is_verified', 0)
+            ->update(['updated_at' => Carbon::now()->format("Y-m-d H:i:s"), 'qty' => $request->qty]);
         $return = [
             'status' => 'error',
             'message' => 'quantity not updated agaisnt product inventory',
         ];
-        if($query)
-        {
+        if ($query) {
             $return = [
                 'status' => 'success',
                 'message' => 'quantity updated agaisnt product inventory',
@@ -395,8 +377,10 @@ class OrderController extends Controller
     }
 
 
-
-
-
-
+    public function confirmedOrderList()
+    {
+        $stores = $query = DB::table('stores')->whereNull('deleted_at')->get();
+        $dt = ['stores' => $stores];
+        return view('orders.confirmed_order_list', $dt);
+    }
 }

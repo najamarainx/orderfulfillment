@@ -8,7 +8,14 @@
         .error {
             color: red !important;
         }
+        input[type='number'] {
+    -moz-appearance:textfield;
+}
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
     </style>
 @endsection
 @section('content')
@@ -829,7 +836,7 @@
                     }
                 },
                 error: function(errorString) {
-                    alert('contact to admin');
+                    Swal.fire("Sorry!", "Please Select Product first", "error");
                 }
             });
 

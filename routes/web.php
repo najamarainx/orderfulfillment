@@ -111,8 +111,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::prefix('inventory')->group(function () {
-        Route::get('/', [Controllers\InventoryItemController::class, 'index'])->name('inventoryList');
-        Route::post('/list', [Controllers\InventoryItemController::class, 'getList'])->name('getInventoryItemList');
+        Route::get('/', [Controllers\InventoryItemController::class, 'index'])->name('inventoryList')->middleware('inventoryList');
+        Route::post('/list', [Controllers\InventoryItemController::class, 'getList'])->name('getInventoryItemList')->middleware('inventoryList');
         // Route::post('/submit', [Controllers\VariantController::class, 'store'])->name('variantSubmit');
         // Route::post('/edit', [Controllers\VariantController::class, 'getVariantById'])->name('getVariantById');
         // Route::post('/delete', [Controllers\VariantController::class, 'destroy'])->name('variantDelete');
@@ -121,9 +121,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('time-slot')->group(function () {
         Route::get('/', [Controllers\TimeSlotController::class, 'index'])->name('slotList')->middleware('haspermission:viewTimeSlot');
         Route::post('/list', [Controllers\TimeSlotController::class, 'getList'])->name('getTimeSlotList')->middleware('haspermission:viewTimeSlot');
-        Route::post('/submit', [Controllers\TimeSlotController::class, 'store'])->name('timeslotSubmit')->middleware('haspermission:addviewTimeSlot');
-        Route::post('/edit', [Controllers\TimeSlotController::class, 'getTimeSlotById'])->name('getTimeSlotById')->middleware('haspermission:editviewTimeSlot');
-        Route::post('/delete', [Controllers\TimeSlotController::class, 'destroy'])->name('timeSlotDelete')->middleware('haspermission:deleteviewTimeSlot');
+        Route::post('/submit', [Controllers\TimeSlotController::class, 'store'])->name('timeslotSubmit')->middleware('haspermission:addTimeSlot');
+        Route::post('/edit', [Controllers\TimeSlotController::class, 'getTimeSlotById'])->name('getTimeSlotById')->middleware('haspermission:editTimeSlot');
+        Route::post('/delete', [Controllers\TimeSlotController::class, 'destroy'])->name('timeSlotDelete')->middleware('haspermission:deleteTimeSlot');
 
     });
     Route::prefix('booking')->group(function () {
@@ -135,58 +135,59 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/delete', [Controllers\BookingController::class, 'destroy'])->name('bookingDelete')->middleware('haspermission:deleteBooking');
         Route::get('/confirmed', [Controllers\BookingController::class, 'confirmedBookings'])->name('confirmedList')->middleware('haspermission:confirmedBooking');
         Route::post('/getUserAgainstZip', [Controllers\BookingController::class, 'getUsersByZipCode'])->name('getUserAgainstZip');
-        Route::post('/bookingAssign', [Controllers\BookingController::class, 'bookingAssign'])->name('bookingAssign');
-        Route::post('/update_booking_status', [Controllers\BookingController::class, 'updateBookingStatus'])->name('updateBookingStatus');
+        Route::post('/bookingAssign', [Controllers\BookingController::class, 'bookingAssign'])->name('bookingAssign')->middleware('haspermission:bookingAssign');
+        Route::post('/update_booking_status', [Controllers\BookingController::class, 'updateBookingStatus'])->name('updateBookingStatus')->middleware('haspermission:updateStatus');
     });
     Route::prefix('booking-task')->group(function () {
-        Route::get('/', [Controllers\MeasurementBookingController::class, 'index'])->name('bookingTaskList');
-        Route::post('/list', [Controllers\MeasurementBookingController::class, 'getList'])->name('getAssignBookingList');
-        Route::post('/update-assign-booking-status', [Controllers\MeasurementBookingController::class, 'updateAssignBookingStatus'])->name('updateAssignBookingStatus');
-        Route::get('/detail/{id}/{assignid}', [Controllers\MeasurementBookingController::class, 'bookingDetail'])->name('bookingDetail');
+        Route::get('/', [Controllers\MeasurementBookingController::class, 'index'])->name('bookingTaskList')->middleware('haspermission:bookingtaskList');
+        Route::post('/list', [Controllers\MeasurementBookingController::class, 'getList'])->name('getAssignBookingList')->middleware('haspermission:bookingtaskList');
+        Route::post('/update-assign-booking-status', [Controllers\MeasurementBookingController::class, 'updateAssignBookingStatus'])->name('updateAssignBookingStatus')->middleware('haspermission:updateStatus');
+        Route::get('/detail/{id}/{assignid}', [Controllers\MeasurementBookingController::class, 'bookingDetail'])->name('bookingDetail')->middleware('haspermission:bookingDetail');
 
     });
     Route::prefix('booking-order')->group(function () {
-        Route::get('/create_order/{id}', [Controllers\MeasurementOrderController::class, 'index'])->name('measurementOrderDetail');
-        Route::post('get-products', [Controllers\MeasurementOrderController::class, 'getProductByCategory'])->name('getProductByCategory');
-        Route::post('get-prices', [Controllers\MeasurementOrderController::class, 'getProductMinPrices'])->name('getProductMinPrices');
+        Route::get('/create_order/{id}', [Controllers\MeasurementOrderController::class, 'index'])->name('measurementOrderDetail')->middleware('haspermission:bookingorderDetail');
+        Route::post('get-products', [Controllers\MeasurementOrderController::class, 'getProductByCategory'])->name('getProductByCategory')->middleware('haspermission:orderCategory');
+        Route::post('get-prices', [Controllers\MeasurementOrderController::class, 'getProductMinPrices'])->name('getProductMinPrices')->middleware('haspermission:productMinPrices');
         Route::post('/product_quote/{id?}', [Controllers\MeasurementOrderController::class, 'getProductQuote'])->name('store.produt.quote');
-        Route::post('store', [Controllers\MeasurementOrderController::class, 'storeMeasurementOrder'])->name('storeMeasurementOrder');
-        Route::post('edit', [Controllers\MeasurementOrderController::class, 'getOrderItemById'])->name('getOrderItemById');
+        Route::post('store', [Controllers\MeasurementOrderController::class, 'storeMeasurementOrder'])->name('storeMeasurementOrder')->middleware('haspermission:storeOrder');
+        Route::post('edit', [Controllers\MeasurementOrderController::class, 'getOrderItemById'])->name('getOrderItemById')->middleware('haspermission:orderItem');
 
 
     });
     Route::prefix('user-time-slot')->group(function () {
-        Route::get('/detail/{id}', [Controllers\UserTimeSlotController::class, 'index'])->name('zipListUsers');
-        Route::post('/submit', [Controllers\UserTimeSlotController::class, 'store'])->name('slotSave');
+        Route::get('/detail/{id}', [Controllers\UserTimeSlotController::class, 'index'])->name('zipListUsers')->middleware('haspermission:zipUserList');
+        Route::post('/submit', [Controllers\UserTimeSlotController::class, 'store'])->name('slotSave')->middleware('haspermission:storeUserSlot');
 
     });
 
     Route::prefix('orders')->group(function () {
-        Route::get('/', [Controllers\OrderController::class, 'index'])->name('orderList');
-        Route::post('/list', [Controllers\OrderController::class, 'getList'])->name('getList');
-        Route::get('/detail/{id}', [Controllers\OrderController::class, 'detail'])->name('orderListDetail');
-        Route::post('/assignedInventory', [Controllers\OrderController::class, 'getAssignedProductInventory'])->name('getAssignedProductInventory');
-        Route::post('/itemsvariant', [Controllers\OrderController::class, 'getItemVariant'])->name('getItemVariant');
-        Route::post('/itemsqty', [Controllers\ItemController::class, 'getItemsQantity'])->name('getDeptItemsQty');
-        Route::post('/salelog', [Controllers\OrderController::class, 'saleLog'])->name('orderSaleLogSubmit');
-        Route::post('/salelogproceed', [Controllers\OrderController::class, 'saveProceedOrderInventory'])->name('proceedSaleInventory');
-        Route::post('/productInventoryList', [Controllers\OrderController::class, 'productInventoryList'])->name('getProductInventoryList');
-        Route::post('/logItemDelete', [Controllers\OrderController::class, 'logItemDelete'])->name('logItemDelete');
-        Route::post('/logItemUpdate', [Controllers\OrderController::class, 'logItemUpdate'])->name('logItemUpdate');
+        Route::get('/', [Controllers\OrderController::class, 'index'])->name('orderList')->middleware('haspermission:pendingOrder');
+        Route::get('confirmed-order-list', [Controllers\OrderController::class, 'confirmedOrderList'])->name('confirmedOrderList')->middleware('haspermission:confirmedOrder');
+        Route::post('/list', [Controllers\OrderController::class, 'getList'])->name('getList')->middleware('haspermission:orderList');
+        Route::get('/detail/{id}', [Controllers\OrderController::class, 'detail'])->name('orderListDetail')->middleware('haspermission:orderDetail');
+        Route::post('/assignedInventory', [Controllers\OrderController::class, 'getAssignedProductInventory'])->name('getAssignedProductInventory')->middleware('haspermission:AssignedProductInventory');
+        Route::post('/itemsvariant', [Controllers\OrderController::class, 'getItemVariant'])->name('getItemVariant')->middleware('haspermission:itemsVariant');
+        Route::post('/itemsqty', [Controllers\ItemController::class, 'getItemsQantity'])->name('getDeptItemsQty')->middleware('haspermission:itemsQuantity');
+        Route::post('/salelog', [Controllers\OrderController::class, 'saleLog'])->name('orderSaleLogSubmit')->middleware('haspermission:storeOrderSaleLog');
+        Route::post('/salelogproceed', [Controllers\OrderController::class, 'saveProceedOrderInventory'])->name('proceedSaleInventory')->middleware('haspermission:SaleInventory');
+        Route::post('/productInventoryList', [Controllers\OrderController::class, 'productInventoryList'])->name('getProductInventoryList')->middleware('haspermission:ProductInventoryList');
+        Route::post('/logItemDelete', [Controllers\OrderController::class, 'logItemDelete'])->name('logItemDelete')->middleware('haspermission:logItemDelete');
+        Route::post('/logItemUpdate', [Controllers\OrderController::class, 'logItemUpdate'])->name('logItemUpdate')->middleware('haspermission:logItemUpdate');
 
     });
 
     Route::prefix('tasks')->group(function () {
-        Route::get('/', [Controllers\TaskController::class, 'index'])->name('tasksList');
-        Route::post('/list', [Controllers\TaskController::class, 'getList'])->name('getTasksList');
-        Route::post('/taskInfo', [Controllers\TaskController::class, 'getTaskInfo'])->name('getTaskInfo');
-        Route::post('/taskAssign', [Controllers\TaskController::class, 'assignuserTask'])->name('assignuserTask');
-        Route::get('completed-task', [Controllers\TaskController::class, 'completedTasksList'])->name('completedTasksList');
-        Route::post('completed-task-list', [Controllers\TaskController::class, 'getCompletedTasksList'])->name('getCompletedTasksList');
+        Route::get('/', [Controllers\TaskController::class, 'index'])->name('tasksList')->middleware('haspermission:workertaskList');
+        Route::post('/list', [Controllers\TaskController::class, 'getList'])->name('getTasksList')->middleware('haspermission:workertaskList');
+        Route::post('/taskInfo', [Controllers\TaskController::class, 'getTaskInfo'])->name('getTaskInfo')->middleware('haspermission:taskInfo');
+        Route::post('/taskAssign', [Controllers\TaskController::class, 'assignuserTask'])->name('assignuserTask')->middleware('haspermission:assignTask');
+        Route::get('completed-task', [Controllers\TaskController::class, 'completedTasksList'])->name('completedTasksList')->middleware('haspermission:completedTask');
+        Route::post('completed-task-list', [Controllers\TaskController::class, 'getCompletedTasksList'])->name('getCompletedTasksList')->middleware('haspermission:completedTask');
     });
-    Route::get('worker-task-screen', [Controllers\WorkerTaskController::class, 'getWorkerTasksByDepartment'])->name('getWorkerTasksByDepartment');
-    Route::post('worker-tasks-list', [Controllers\WorkerTaskController::class, 'getWorkerTasksList'])->name('getWorkerTasksList');
-    Route::post('update-worker-tasks-status', [Controllers\WorkerTaskController::class, 'updateWorkertaskStatus'])->name('updateWorkertaskStatus');
+    Route::get('worker-task-screen', [Controllers\WorkerTaskController::class, 'getWorkerTasksByDepartment'])->name('getWorkerTasksByDepartment')->middleware('haspermission:workerTask');
+    Route::post('worker-tasks-list', [Controllers\WorkerTaskController::class, 'getWorkerTasksList'])->name('getWorkerTasksList')->middleware('haspermission:workerTask');
+    Route::post('update-worker-tasks-status', [Controllers\WorkerTaskController::class, 'updateWorkertaskStatus'])->name('updateWorkertaskStatus')->middleware('haspermission:updateWorkerTask');
 
 });
 Auth::routes();

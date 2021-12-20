@@ -222,7 +222,7 @@ class MeasurementOrderController extends Controller
                         } else {
                             $orderItemId = OrderFulfillmentBookingOrderItemLog::insert($LogOrderArr);
                             $orderItemId = OrderItem::insert($mainOrderArr);
-                            OrderFulfillmentBookingAssign::where(['booking_id'=>$bookingData->booking_id])->whereNull('deleted_at')->update(['assign_status'=>'completed']);
+                            OrderFulfillmentBookingAssign::where(['booking_id'=>$bookingData->id])->whereNull('deleted_at')->update(['assign_status'=>'completed']);
                         }
                     } else {
                         $return = ['status' => 'error', 'message' => 'Sorry Your order not submitted!'];
