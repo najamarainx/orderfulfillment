@@ -408,9 +408,13 @@
                         },
                         success: function(datas) {
                             // console.log(JSON.stringify(datas.inventoryassignedHtml));
-                            $('#kt_advance_table_widget_3_check tr:last').after(datas.inventoryassignedHtml).slideDown(350);
+                            //$('#kt_advance_table_widget_3_check tr:last').after(datas.inventoryassignedHtml).slideDown(350);
+                            $('#'+ProductID).after(datas.inventoryassignedHtml);
+
                             //$(this).closest("tr").next("tr").children("td").slideDown(350);
                             //$(this).closest("tr").next("tr").children("td").slideDown(350);
+                            //$(this).closest('tr').after(datas.inventoryassignedHtml);
+                            //$(datas.inventoryassignedHtml).insertAfter($(this).closest('tr'));
 
 
                         },

@@ -50,7 +50,7 @@ class UserController extends Controller
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
         $department_id =  session()->get('department_id');
-        $user = OrderFulfillmentUser::select('orderfulfillment_users.*', 'orderfulfillment_roles.name as role_name')->whereNULL('orderfulfillment_users.deleted_at')->whereNotIn('orderfulfillment_users.type', ['developer', 'super_admin']);
+        $user = OrderFulfillmentUser::select('orderfulfillment_users.*', 'orderfulfillment_roles.name as role_name')->whereNULL('orderfulfillment_users.deleted_at')->whereNotIn('orderfulfillment_users.type', ['developer', 'super_admin'])->where('orderfulfillment_users.id','!=',auth()->user()->id);
         $user->join('orderfulfillment_roles', 'orderfulfillment_users.role_id', '=', 'orderfulfillment_roles.id');
         if ($type == 'production_manager') {
             $user->join('orderfulfillment_user_departments as o_user_dpt', 'orderfulfillment_users.id', 'o_user_dpt.user_id');
@@ -215,7 +215,7 @@ class UserController extends Controller
             ];
             if ($query) {
                 $userID = $user->id;
-                if ($type == 'production_manager') {
+                if ($type == 'production_manager' or $type =='team_lead') {
                     $userDepartment = OrderFulfillmentUserDepartment::where('user_id', $userID)->first();
                     if (empty($userDepartment)) {
                         $userDepartment  = new OrderFulfillmentUserDepartment;
