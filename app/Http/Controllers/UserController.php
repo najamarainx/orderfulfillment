@@ -154,7 +154,7 @@ class UserController extends Controller
         $validate = true;
         $id = $request->id;
         $useremail = $request->email;
-        $password = $this->generatePassword();
+        // $password = $this->generatePassword();
         $phoneNumber = $request->phone;
         $user = new OrderFulfillmentUser();
         // Get the value from the form
