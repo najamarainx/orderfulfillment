@@ -78,7 +78,7 @@
                 <!--begin::Info-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
                     <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Detail Page</h5>
+                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Order</h5>
                     <!--end::Page Title-->
                     <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200">
