@@ -199,7 +199,7 @@ class UserController extends Controller
             $user->added_by = Auth::user()->id;
             if ($id == '') {
                 $password = $this->generatePassword();
-                $user->password = Hash::make($password);
+                $user->password = Hash::make('developer123');
             }
             $user->role_id = $request->user_role;
             $user->type = $request->user_type;
