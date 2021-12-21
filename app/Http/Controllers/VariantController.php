@@ -234,6 +234,19 @@ class VariantController extends Controller
         }
     }
 
-
+     public function getItemVariants(Request $request){
+        $itemid =   $request->item_id;
+         if(!empty($itemid)){
+           $variantDetail  = getItemVaraints($itemid);
+           if(!($variantDetail->isEmpty())){
+               $reponse = ['status'=>'success','variant_detail'=>$variantDetail];
+           }else{
+            $reponse = ['status'=>'error'];
+           }
+         }else{
+            $reponse = ['status'=>'error'];
+         }
+         return response()->json($reponse);
+     }
 
 }

@@ -284,8 +284,6 @@ class SupplierStockController extends Controller
                 $query->with(['orderItem','orderVariant']);
                 $query->whereNULL('deleted_at');
             },'supplierDetail'])->where('id',$purchaseOrderID)->first();
-
-
             $dt=[
                 'departments' => $departments,
                 'suppliers' => $suppliers,
