@@ -266,7 +266,6 @@ class SupplierStockController extends Controller
         $orderItems= OrderFulfillmentStockOrder::with(['stockOrderDetail'=>function($query){
             $query->with(['orderItem','orderVariant']);
         },'supplierDetail'])->where('id',$id)->first();
-        // echo "<pre>"; print_r($orderItems);exit;
         $dt = ['orderItems'=>$orderItems];
         return view('stocks.preview',$dt);
     }
@@ -281,9 +280,14 @@ class SupplierStockController extends Controller
             $items=OrderFulfillmentItem::whereNULL('deleted_at')->get();
             $variants=getVariants();
             $orderItems= OrderFulfillmentStockOrder::with(['stockOrderDetail'=>function($query){
-                $query->with(['orderItem','orderVariant']);
+                $query->with(['orderItem'=>function($item){
+                    $item->with(['orderVariant'=>function($variant){
+                        $variant->whereNULL('deleted_at');
+                    }]);
+                }]);
                 $query->whereNULL('deleted_at');
             },'supplierDetail'])->where('id',$purchaseOrderID)->first();
+
             $dt=[
                 'departments' => $departments,
                 'suppliers' => $suppliers,
