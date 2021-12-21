@@ -594,11 +594,7 @@
                     html+='<div class=col-10>';
                     html+='<div class="row">';
                     html+='<div class="form-group col-lg-3 col-6"><label for=department>Variant<span class="text-danger">*</span></label><select class="form-control kt_select2_1" name="variant_stock['+main+']['+numbervar+']" id="variant_stock_id_'+main+'_'+numbervar+'">';
-
                     html+='<option value="">Variants</option>';
-                        @foreach($variants as $variant)
-                    html+='<option value="{{$variant->id}}">{{ucfirst($variant->name)}}</option>';
-                        @endforeach
                     html+='</select>';
                     html+='</select></div>';
                     html+='<div class="form-group col-lg-3 col-6">';
