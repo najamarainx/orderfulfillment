@@ -86,13 +86,13 @@ class WorkerTaskController extends Controller
         foreach ($orderSaleLogDetailData as $orderObj) {
             $data[] = [
                 "id" => $orderObj->id,
-                "department_id" => !empty($orderObj->saleLogs->departmentDetails) ? $orderObj->saleLogs->departmentDetails->name : '',
-                "item_id" => !empty($orderObj->saleLogs->itemDetails) ?  $orderObj->saleLogs->itemDetails->name : '',
-                "variant_id" => !empty( $orderObj->saleLogs->variantDetails) ?  $orderObj->saleLogs->variantDetails->name : '',
-                "qty" => !empty($orderObj->saleLogs->qty) ? $orderObj->saleLogs->qty :'',
+                "department_id" => !empty($orderObj->saleLogs) && !empty($orderObj->saleLogs->departmentDetails) ? $orderObj->saleLogs->departmentDetails->name : '',
+                "item_id" => !empty($orderObj->saleLogs) && !empty($orderObj->saleLogs->itemDetails) ?  $orderObj->saleLogs->itemDetails->name : '',
+                "variant_id" => !empty( $orderObj->saleLogs) && !empty($orderObj->saleLogs->variantDetails) ?  $orderObj->saleLogs->variantDetails->name : '',
+                "qty" => !empty($orderObj->saleLogs) && !empty($orderObj->saleLogs->qty) ? $orderObj->saleLogs->qty :'',
                 "date" =>  !empty($orderObj->created_at) ? Carbon::parse($orderObj->created_at)->format('Y-m-d H:i:s') : '',
-                "status" => '<span class="badge badge-success badge-pill worker_assign_status" data-user-id="'.(!empty($orderObj->assignedUser->id) ? $orderObj->assignedUser->id : '').'"   data-id="'.(!empty($orderObj->saleLogs->id) ? $orderObj->saleLogs->id : '').'" style="cursor:pointer" >' . !empty($orderObj->saleLogs->status) ? $orderObj->saleLogs->status : '' . '</span>',
-                "assign_to" => $orderObj->assignedUser->name,
+                "status" => '<span class="badge badge-success badge-pill worker_assign_status" data-user-id="'.(!empty($orderObj->assignedUser) ? $orderObj->assignedUser->id : '').'"   data-id="'.(!empty($orderObj->saleLogs->id) ? $orderObj->saleLogs->id : '').'" style="cursor:pointer" >' . !empty($orderObj->saleLogs->status) ? $orderObj->saleLogs->status : '' . '</span>',
+                "assign_to" => !empty($orderObj->assignedUser) ? $orderObj->assignedUser->name : '',
             ];
         }
         $records["data"] = $data;
