@@ -111,8 +111,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::prefix('inventory')->group(function () {
-        Route::get('/', [Controllers\InventoryItemController::class, 'index'])->name('inventoryList');
-        Route::post('/list', [Controllers\InventoryItemController::class, 'getList'])->name('getInventoryItemList');
+        Route::get('/', [Controllers\InventoryItemController::class, 'index'])->name('inventoryList')->middleware('inventoryList');
+        Route::post('/list', [Controllers\InventoryItemController::class, 'getList'])->name('getInventoryItemList')->middleware('inventoryList');
         // Route::post('/submit', [Controllers\VariantController::class, 'store'])->name('variantSubmit');
         // Route::post('/edit', [Controllers\VariantController::class, 'getVariantById'])->name('getVariantById');
         // Route::post('/delete', [Controllers\VariantController::class, 'destroy'])->name('variantDelete');
