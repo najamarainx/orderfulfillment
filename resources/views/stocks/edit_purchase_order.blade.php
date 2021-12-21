@@ -121,7 +121,9 @@
                                                     <td>
                                                         <div class="form-group mb-0">
                                                             <select class="form-control form-control-lg kt_select2_1 w-100" name="variant[]" id="varaint_id_{{$key}}"  data-live-search="true">
-
+                                                           @foreach($orderItemObj->orderItem->orderVariant as $variantObj)
+                                                           <option value="{{$variantObj->id}}" {{isset($orderItemObj->variant_id) && $orderItemObj->variant_id == $variantObj->id ? 'selected' : ''}} >{{$variantObj->name}}</option>
+                                                           @endforeach
                                                             </select>
                                                         </div>
                                                     </td>
