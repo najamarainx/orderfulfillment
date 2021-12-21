@@ -96,6 +96,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/submit', [Controllers\VariantController::class, 'store'])->name('variantSubmit')->middleware('haspermission:viewItem');
         Route::post('/edit', [Controllers\VariantController::class, 'getVariantById'])->name('getVariantById')->middleware('haspermission:editVariant');
         Route::post('/delete', [Controllers\VariantController::class, 'destroy'])->name('variantDelete')->middleware('haspermission:deleteVariant');
+        Route::post('get_item_variant', [Controllers\VariantController::class, 'getItemVariants'])->name('getItemVariants');
 
     });
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderFulfillmentItem;
 use App\Models\OrderFulfillmentVariant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,9 @@ class VariantController extends Controller
 {
     public function index()
     {
-        return view('variants.list');
+        $items=OrderFulfillmentItem::whereNULL('deleted_at')->get();
+        $data['items']=$items;
+        return view('variants.list',$data);
     }
 
     public function getList(Request $request)
@@ -27,8 +30,9 @@ class VariantController extends Controller
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
 
-        $variants = DB::table('orderfulfillment_variants');
-        $variants->where('deleted_at', NULL);
+        $variants = DB::table('orderfulfillment_variants')->select('orderfulfillment_items.name as item_name','orderfulfillment_variants.*')->join('orderfulfillment_items','orderfulfillment_variants.item_id','=','orderfulfillment_items.id');
+        $variants->where('orderfulfillment_variants.deleted_at', NULL);
+        $variants->where('orderfulfillment_items.deleted_at', NULL);
 
         foreach($columns as $field) {
             $col = $field['data'];
@@ -36,22 +40,26 @@ class VariantController extends Controller
             if($search != "") {
 
                 if ($col == 'name') {
-                    $col1='name';
+                    $col1='orderfulfillment_variants.name';
                     $variants->where($col1, 'like','%' . $search . '%');
+                }
+                if ($col == 'item_name') {
+                    $col12='orderfulfillment_items.id';
+                    $variants->where($col12,$search);
                 }
 
             }
         }
         if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
             if($sortColumnName=='id'){
-                $variants->orderBy("id", "desc");
+                $variants->orderBy("orderfulfillment_variants.id", "desc");
             }
             if($sortColumnName=='created_at'){
                 $variants->orderBy("created_at", "desc");
             }
 
         } else {
-            $variants->orderBy("name", "desc");
+            $variants->orderBy("orderfulfillment_variants.name", "desc");
         }
         $iTotalRecords = $variants->count();
         $variants->skip($start);
@@ -93,6 +101,7 @@ class VariantController extends Controller
             $data[] = [
                 "id" => $i,
                 "name" => $variantObj->name,
+                "item_name" => $variantObj->item_name,
                 "created_at" => Carbon::create($variantObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
                 "action" => $action
             ];
@@ -113,13 +122,15 @@ class VariantController extends Controller
         $validate = true;
         $validateInput = $request->all();
         $rules = [
+            'item_id' => 'required|max:150',
             'name.*' => 'required|max:150',
 
         ];
         $messages=[
 
 
-            'name.*.required' => 'title is required!',
+            'item_id.required' => 'Item field is required!',
+            'name.*.required' => 'title field is required!',
 
 
         ];
@@ -143,12 +154,13 @@ class VariantController extends Controller
                     $variantData[]=array(
                         'id'=>$id,
                         'name'=>$variant,
+                        'item_id'=>$request->item_id,
                         'updated_at'=> Carbon::now()->format("Y-m-d H:i:s"),
                     );
 
                 }
 
-                $query=DB::table('orderfulfillment_variants')->upsert($variantData,['id'], ['name']);
+                $query=DB::table('orderfulfillment_variants')->upsert($variantData,['id']);
                 $return = [
                     'status' => 'error',
                     'message' => 'Variant is not updated successfully',
@@ -166,6 +178,7 @@ class VariantController extends Controller
                 foreach($variants as $variant){
                     $variantData[]=array(
                         'name'=>$variant,
+                        'item_id'=>$request->item_id,
                         'created_by'=>Auth::user()->id,
                         'created_at'=> Carbon::now()->format("Y-m-d H:i:s"),
                     );
@@ -221,6 +234,19 @@ class VariantController extends Controller
         }
     }
 
-
+     public function getItemVariants(Request $request){
+        $itemid =   $request->item_id;
+         if(!empty($itemid)){
+           $variantDetail  = getItemVaraints($itemid);
+           if(!($variantDetail->isEmpty())){
+               $reponse = ['status'=>'success','variant_detail'=>$variantDetail];
+           }else{
+            $reponse = ['status'=>'error'];
+           }
+         }else{
+            $reponse = ['status'=>'error'];
+         }
+         return response()->json($reponse);
+     }
 
 }

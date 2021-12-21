@@ -361,3 +361,9 @@ function checkTaskProductItems($orderID,$productID,$type='')
 
 }
 
+function getItemVaraints($itemID)
+{
+    $variants  =  DB::table('orderfulfillment_variants')->whereNULL('deleted_at')->where('item_id',$itemID)->get();
+    return $variants;
+}
+

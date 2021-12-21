@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Role')
+@section('title', 'Variants')
 
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -21,7 +21,7 @@
                 <!--begin::Info-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
                     <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Stock</h5>
+                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Variant</h5>
                     <!--end::Page Title-->
                     <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
@@ -72,7 +72,18 @@
                                        data-col-index="1" />
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
-                                <label>&nbsp;</label><br /><button class="btn btn-primary btn-primary--icon" id="kt_search">
+                                <label>Item<span class="text-danger">*</span></label>
+                                <select class="form-control kt_select2_1 datatable-input" id="item_search"  data-col-index="2" >
+                                    <option value="">Items</option>
+                                    @foreach($items as $item)
+                                        <option value="{{$item->id}}">{{ucfirst($item->name)}}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                            <div class="col-lg-3 mb-lg-2 mb-2">
+                                <label>&nbsp;</label><br />
+                                <button class="btn btn-primary btn-primary--icon" id="kt_search">
                                 <span>
                                     <i class="la la-search"></i>
                                     <span>Search</span>
@@ -94,6 +105,7 @@
                         <tr>
                             <th>Sr</th>
                             <th>Name</th>
+                            <th>Item name</th>
                             <th>Created</th>
                             <th>Actions</th>
                         </tr>
@@ -122,6 +134,17 @@
                     <form onsubmit="return false" id="addForm">
                         <input type="hidden" class="form-control" name="id" id="id" value="" />
                         <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Item<span class="text-danger">*</span></label>
+                                    <select class="form-control kt_select2_1" name="item_id" id="item_id">
+                                        <option value="">Items</option>
+                                        @foreach($items as $item)
+                                            <option value="{{$item->id}}">{{ucfirst($item->name)}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-10">
                                 <div class="form-group">
                                     <label>Variant<span class="text-danger">*</span></label>
@@ -188,7 +211,7 @@
                         data: {
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id', 'name', 'created_at'
+                                'id', 'name','item_name','created_at'
                             ],
                         },
                         headers: {
@@ -201,6 +224,9 @@
 
                         {
                             data: 'name'
+                        },
+                        {
+                            data: 'item_name'
                         },
                         {
                             data: 'created_at'
@@ -244,6 +270,7 @@
                     e.preventDefault();
                     $('.datatable-input').each(function() {
                         $(this).val('');
+                        $('#item_search').val('').trigger('change');
                         table.column($(this).data('col-index')).search('', false, false);
                     });
                     table.table().draw();
@@ -306,6 +333,11 @@
             });
             var form = $("#addForm");
             form[0].reset();
+            $('#item_id').val('').trigger('change');
+            $('#test_up').show();
+            $('#newfield_0').empty();
+
+
         });
 
 
@@ -385,7 +417,9 @@
                         var name = rec.name;
                         $('#id').val(id);
                         $('#variant_0').val(name);
+                        $('#item_id').val(rec.item_id).trigger('change');
                         $('#test_up').hide();
+                        $('#newfield_0').empty();
                         window.scrollTo({
                             top: 0,
                             behavior: 'smooth'

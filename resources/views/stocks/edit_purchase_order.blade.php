@@ -121,10 +121,9 @@
                                                     <td>
                                                         <div class="form-group mb-0">
                                                             <select class="form-control form-control-lg kt_select2_1 w-100" name="variant[]" id="varaint_id_{{$key}}"  data-live-search="true">
-                                                                <option value="">Select Variant</option>
-                                                                @foreach($variants as $variant)
-                                                                    <option value="{{$variant->id}}" {{isset($orderItemObj->variant_id) && $orderItemObj->variant_id==$variant->id ? 'selected' : ''}}>{{$variant->name}}</option>
-                                                                @endforeach
+                                                           @foreach($orderItemObj->orderItem->orderVariant as $variantObj)
+                                                           <option value="{{$variantObj->id}}" {{isset($orderItemObj->variant_id) && $orderItemObj->variant_id == $variantObj->id ? 'selected' : ''}} >{{$variantObj->name}}</option>
+                                                           @endforeach
                                                             </select>
                                                         </div>
                                                     </td>
@@ -252,6 +251,38 @@
             $('#unit_item_'+line).val(myArray[1]);
             $('#item_select_'+line).val('');
             $('#item_select_'+line).val(myArray[0]);
+
+            var form_data = new FormData();
+            form_data.append('item_id',myArray[0]);
+            $.ajax({
+                type: "POST",
+                url: "{{route('getItemVariants')}}", // your php file name
+                data: form_data,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    if(data.status == 'success'){
+                   $('#varaint_id_'+line).val('');
+                    $('#varaint_id_'+line).removeAttr('disabled');
+                    $('#varaint_id_'+line).html('');
+                    $('#varaint_id_'+line).append(new Option("Select Variant", "")).trigger("updated");
+                    $.each(data.variant_detail, function (i, item_data) {
+                        $('#varaint_id_'+line).append($('<option>', {
+                            value: item_data.id,
+                            text : item_data.name
+                        })).trigger("updated");
+                    });
+                    }
+                },
+                error: function(errorString) {
+                    // Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                }
+            });
+
         }
 
         function calculateTotalPrice(number=-1){
@@ -323,10 +354,6 @@
 
             html+='<td><div class="form-group mb-0">';
             html+='<select class="form-control form-control-lg kt_select2_1 " name="variant[]" id="varaint_id_'+rowid+'"  data-live-search=true>';
-            html+='<option value="">Select Variant</option>';
-            @foreach($variants as $variant)
-             html+='<option value="{{$variant->id}}">{{$variant->name}}</option>';
-            @endforeach
             html+='</select>';
             html+='</div></td>';
 

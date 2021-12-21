@@ -549,9 +549,6 @@
                                                                 card+='<label for="department">Variant<span class="text-danger">*</span></label>';
                                                                         card+='<select class="form-control kt_select2_1" name="variant_stock['+cardnumber+'][]" id="variant_stock_id_'+cardnumber+'_0">';
                                                                                 card+='<option value="">Variants</option>';
-                                                                                @foreach($variants as $variant)
-                                                                                card+='<option value="{{$variant->id}}">{{ucfirst($variant->name)}}</option>';
-                                                                                @endforeach
                                                                         card+='</select>';
                                                         card+='</div>';
                                                         card+='<div class="form-group col-lg-3 col-6">';
@@ -591,31 +588,58 @@
 
                 function addfield(main,id) {
 
-                   var html='<div class=row id=row_'+numbervar+'>';
-                    html+='<div class=col-10>';
-                    html+='<div class="row">';
-                    html+='<div class="form-group col-lg-3 col-6"><label for=department>Variant<span class="text-danger">*</span></label><select class="form-control kt_select2_1" name="variant_stock['+main+']['+numbervar+']" id="variant_stock_id_'+main+'_'+numbervar+'">';
+                   var item_id=$('#item_stock_id_'+main+'_'+id).val();
 
-                    html+='<option value="">Variants</option>';
-                        @foreach($variants as $variant)
-                    html+='<option value="{{$variant->id}}">{{ucfirst($variant->name)}}</option>';
-                        @endforeach
-                    html+='</select>';
-                    html+='</select></div>';
-                    html+='<div class="form-group col-lg-3 col-6">';
-                    html+='<label for="name">Per Unit Price<span class="text-danger">*</span></label><input type="text" id="per_unit_price_'+main+'_'+numbervar+'" name="per_unit_price['+main+']['+numbervar+']" class="form-control" onkeyup="calculateTotalPrice('+main+','+numbervar+')"></div>';
-                    html+='<div class="form-group col-lg-3 col-6"><label for="unit">qty<span class="text-danger">*</span></label><input type="text" id="qty_unit_price_'+main+'_'+numbervar+'" onkeyup="calculateTotalPrice('+main+','+numbervar+')" name="qty_unit_price['+main+']['+numbervar+']" class="form-control total_qty"></div>';
-                    html+='<div class="form-group col-lg-3 col-6"><label for="unit">Total Price<span class="text-danger">*</span></label><input type="text"  id="total_variant_price_'+main+'_'+numbervar+'"  name="total_variant_price['+main+']['+numbervar+']" class="form-control total_price" readonly></div>';
-                    html+='</div>';
-                    html+='</div>';
-                    html+='<div class="col-2 mt-7">';
-                    html+='<button type="button" onclick="removeField('+numbervar+')" class="btn btn-primary">-</button>';
-                    html+='</div>';
-                    html+='<div id="newfield_'+main+'_'+numbervar+'" class="col-12"></div>';
-                    html+='</div>';
+                   if(item_id!=''){
 
-                    $('#newfield_'+main+'_'+id+'').append(html);
-                    numbervar++;
+                       var html='<div class=row id=row_'+numbervar+'>';
+                       html+='<div class=col-10>';
+                       html+='<div class="row">';
+                       html+='<div class="form-group col-lg-3 col-6"><label for=department>Variant<span class="text-danger">*</span></label><div id="append_va_'+main+'_'+numbervar+'"><select class="form-control kt_select2_1" name="variant_stock['+main+']['+numbervar+']" id="variant_stock_id_'+main+'_'+numbervar+'">';
+                       html+='<option value="">Variants</option>';
+                       html+='</select>';
+                       html+='</select></div></div>';
+                       html+='<div class="form-group col-lg-3 col-6">';
+                       html+='<label for="name">Per Unit Price<span class="text-danger">*</span></label><input type="text" id="per_unit_price_'+main+'_'+numbervar+'" name="per_unit_price['+main+']['+numbervar+']" class="form-control" onkeyup="calculateTotalPrice('+main+','+numbervar+')"></div>';
+                       html+='<div class="form-group col-lg-3 col-6"><label for="unit">qty<span class="text-danger">*</span></label><input type="text" id="qty_unit_price_'+main+'_'+numbervar+'" onkeyup="calculateTotalPrice('+main+','+numbervar+')" name="qty_unit_price['+main+']['+numbervar+']" class="form-control total_qty"></div>';
+                       html+='<div class="form-group col-lg-3 col-6"><label for="unit">Total Price<span class="text-danger">*</span></label><input type="text"  id="total_variant_price_'+main+'_'+numbervar+'"  name="total_variant_price['+main+']['+numbervar+']" class="form-control total_price" readonly></div>';
+                       html+='</div>';
+                       html+='</div>';
+                       html+='<div class="col-2 mt-7">';
+                       html+='<button type="button" onclick="removeField('+numbervar+')" class="btn btn-primary">-</button>';
+                       html+='</div>';
+                       html+='<div id="newfield_'+main+'_'+numbervar+'" class="col-12"></div>';
+                       html+='</div>';
+
+                       $('#newfield_'+main+'_'+id+'').append(html);
+                       clonevariant(main,id,numbervar);
+
+
+                       numbervar++;
+
+                   }else{
+
+                           toastr.options = {
+                               "closeButton": true,
+                               "debug": false,
+                               "newestOnTop": false,
+                               "progressBar": false,
+                               "positionClass": "toast-top-right",
+                               "preventDuplicates": true,
+                               "onclick": null,
+                               "showDuration": "300",
+                               "hideDuration": "1000",
+                               "timeOut": "5000",
+                               "extendedTimeOut": "1000",
+                               "showEasing": "swing",
+                               "hideEasing": "linear",
+                               "showMethod": "fadeIn",
+                               "hideMethod": "fadeOut"
+                           };
+                           toastr.warning('please choose item first');
+                   }
+
+
  }
  function removeField(id) {
     $('#row_' + id).remove();
@@ -657,8 +681,59 @@
  function getItemUnit(itemID,number,line){
      let itemUnit = itemID;
      var myArray = itemUnit.split("~");
-     $('#unit_stock_id_'+number+'_'+line).val('');
-     $('#unit_stock_id_'+number+'_'+line).val(myArray[1]);
+     var form_data = new FormData();
+     form_data.append('item_id', myArray[0]);
+
+     $.ajax({
+         type: "POST",
+         url: "{{route('getItemVariants')}}", // your php file name
+         data: form_data,
+         dataType: "json",
+         processData: false,
+         contentType: false,
+         headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         },
+         success: function(datas) {
+
+             var myArray = itemUnit.split("~");
+             $('#unit_stock_id_'+number+'_'+line).val('');
+             $('#unit_stock_id_'+number+'_'+line).val(myArray[1]);
+
+             $('#variant_stock_id_'+number+'_'+line).empty();
+             $('#variant_stock_id_'+number+'_'+line).append(new Option("Select Variant", "")).trigger("updated");
+             $.each(datas.variant_detail, function (i, data) {
+                 $('#variant_stock_id_'+number+'_'+line).append($('<option>', {
+                     value: data.id,
+                     text : data.name
+                 })).trigger("updated");
+             });
+
+
+
+
+
+         },
+         error: function(errorString) {
+             Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+         }
+     });
+
+
+
+
+
+ }
+
+ function  clonevariant(main,id,numbervar)
+ {
+     var ddl = $("#variant_stock_id_"+main+'_'+id).clone();
+     ddl.attr("id", 'variant_stock_id_'+main+'_'+numbervar);
+     ddl.attr("name", "variant_stock["+main+"]["+numbervar+"]");
+     ddl.attr("class", "form-control kt_select2_1");
+     $('#append_va_'+main+'_'+numbervar).empty();
+     $("#append_va_"+main+'_'+numbervar).append(ddl);
+
  }
 
  function calculateTotalPrice(main,number){

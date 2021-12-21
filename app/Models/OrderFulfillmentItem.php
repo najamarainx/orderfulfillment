@@ -10,5 +10,12 @@ class OrderFulfillmentItem extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'orderfulfillment_items';
-
+    public function orderVariant()
+    {
+        return $this->hasMany(OrderFulfillmentVariant::class, 'item_id', 'id');
+    }
+    public function selectedVariant()
+    {
+        return $this->hasOne(OrderFulfillmentVariant::class, 'item_id', 'id');
+    }
 }
