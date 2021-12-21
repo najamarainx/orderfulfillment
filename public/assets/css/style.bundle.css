@@ -7,7 +7,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
-:root {
+ :root {
     --blue: #007bff;
     --indigo: #6610f2;
     --purple: #6f42c1;
@@ -253,6 +253,47 @@ button:focus {
     outline: 5px auto -webkit-focus-ring-color;
 }
 
+.checkbox-inline input:checked~.geekmark {
+    background-color: #F64E60;
+}
+
+.geekmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 22px;
+    width: 23px;
+    background-color: white;
+    border: 1px solid silver;
+}
+
+.geekmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+input[type=checkbox] {
+    visibility: hidden;
+    margin-right: 0.75rem;
+}
+
+.checkbox-inline input:checked~.geekmark:after {
+    display: block;
+}
+
+.checkbox-inline .geekmark:after {
+    left: 8px;
+    bottom: 5px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
 input,
 button,
 select,
@@ -359,7 +400,7 @@ progress {
     -webkit-appearance: none;
 }
 
-::-webkit-file-upload-button {
+ ::-webkit-file-upload-button {
     font: inherit;
     -webkit-appearance: button;
 }
@@ -2885,6 +2926,10 @@ textarea.form-control {
     position: relative;
     display: block;
     padding-left: 1.25rem;
+}
+
+.permission_checkbox {
+    background-color: #F64E60;
 }
 
 .form-check-input {
@@ -89522,4 +89567,28 @@ body {
 
 div#kt_aside_menu_wrapper {
     background-color: #e8e9f2;
+}
+
+div#kt_aside_menu_wrapper {
+    background-color: #e8e9f2;
+}
+
+div#kt_aside_menu_wrapper {
+    background-color: #e8e9f2;
+}
+
+div#kt_aside_menu_wrapper {
+    background-color: #e8e9f2;
+}
+
+div#kt_aside_menu_wrapper {
+    background-color: #e8e9f2;
+}
+
+div#kt_aside_menu_wrapper {
+    background-color: #e8e9f2;
+}
+
+background-color: #e8e9f2;
+
 }
