@@ -26,7 +26,7 @@
         <!--begin::Topbar-->
         <div class="topbar">
             <!--begin::Search-->
-            <div class="dropdown" id="kt_quick_search_toggle">
+            {{-- <div class="dropdown" id="kt_quick_search_toggle">
                 <!--begin::Toggle-->
                 <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
                     <div class="btn btn-icon btn-clean btn-lg btn-dropdown mr-1">
@@ -80,12 +80,12 @@
                     </div>
                 </div>
                 <!--end::Dropdown-->
-            </div>
+            </div> --}}
             <!--end::Search-->
             <!--begin::Notifications-->
             <div class="dropdown">
                 <!--begin::Toggle-->
-                <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
+                {{-- <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
                     <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1 pulse pulse-primary">
                         <span class="svg-icon svg-icon-xl svg-icon-primary">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Code/Compiling.svg-->
@@ -100,7 +100,7 @@
                         </span>
                         <span class="pulse-ring"></span>
                     </div>
-                </div>
+                </div> --}}
                 <!--end::Toggle-->
                 <!--begin::Dropdown-->
                 <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg">
