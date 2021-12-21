@@ -334,6 +334,10 @@
             var form = $("#addForm");
             form[0].reset();
             $('#item_id').val('').trigger('change');
+            $('#test_up').show();
+            $('#newfield_0').empty();
+
+
         });
 
 
@@ -415,6 +419,7 @@
                         $('#variant_0').val(name);
                         $('#item_id').val(rec.item_id).trigger('change');
                         $('#test_up').hide();
+                        $('#newfield_0').empty();
                         window.scrollTo({
                             top: 0,
                             behavior: 'smooth'

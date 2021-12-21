@@ -160,7 +160,7 @@ class VariantController extends Controller
 
                 }
 
-                $query=DB::table('orderfulfillment_variants')->upsert($variantData,['id'], ['name']);
+                $query=DB::table('orderfulfillment_variants')->upsert($variantData,['id']);
                 $return = [
                     'status' => 'error',
                     'message' => 'Variant is not updated successfully',
