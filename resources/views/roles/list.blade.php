@@ -73,20 +73,19 @@
                                     data-col-index="1" />
                             </div>
                             <div class="col-lg-9 mb-lg-2 mb-2">
-                                <label>&nbsp;</label><br />
-                                <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
-                                    <span>
-                                        <i class="la la-close"></i>
-                                        <span>Reset</span>
-                                    </span>
-                                </button>
+                                <label>&nbsp;</label><br /> 
                                 <button class="btn btn-primary btn-primary--icon" id="kt_search">
                                     <span>
                                         <i class="la la-search"></i>
                                         <span>Search</span>
                                     </span>
                                 </button>&#160;&#160;
-
+                                <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
+                                    <span>
+                                        <i class="la la-close"></i>
+                                        <span>Reset</span>
+                                    </span>
+                                </button>                             
                             </div>
                         </div>
                     </form>
@@ -124,6 +123,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
+                                    <label class="control-label" for="role">Role</label>
                                     <input type="hidden" name="id" id="id">
                                     <input type="text" class="form-control" id="name" name="name" placeholder="Role Name">
                                 </div>
