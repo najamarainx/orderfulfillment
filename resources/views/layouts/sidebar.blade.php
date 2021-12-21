@@ -174,6 +174,7 @@
                         </div>
                     </li>
                 @endif
+                @if(hasPermission('viewDepartment'))
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'departmentList' ? 'menu-item-open' : '' }}"
                         aria-haspopup="true" data-menu-toggle="hover">
                         <a href="javascript:;" class="menu-link menu-toggle">
@@ -232,7 +233,7 @@
                             </ul>
                         </div>
                     </li>
-
+                @endif
                 @if (hasPermission('viewItem') || hasPermission('viewVariant') || hasPermission('viewSupplier') || hasPermission('viewStockPurchase'))
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'itemList' || Route::currentRouteName() == 'variantList' || Route::currentRouteName() == 'supplierList' || Route::currentRouteName() == 'stockList' ? 'menu-item-open' : '' }}"
                         aria-haspopup="true" data-menu-toggle="hover">
@@ -300,7 +301,7 @@
                         </div>
                     </li>
                 @endif
-                {{-- @if (hasPermission('inventoryList')) --}}
+                @if (hasPermission('inventoryList'))
                     <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
@@ -347,7 +348,7 @@
                             </ul>
                         </div>
                     </li>
-                {{-- @endif --}}
+                @endif
                 @if (hasPermission('viewBooking'))
                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
