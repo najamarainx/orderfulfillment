@@ -135,7 +135,7 @@ class CategoryController extends Controller
             }
 
             $category->name = $request->name;
-            $category->type = 'product';
+            //$category->type = 'permission';
             $category->added_by = Auth::user()->id;
             $query = $category->save();
             $return = [
