@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\OrderFulfillmentAssignedTask;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
@@ -37,6 +38,7 @@ class WorkerTaskController extends Controller
         $orderSaleLogDetail = OrderFulfillmentAssignedTask::with(['saleLogs'=>function($saleLog) use ($department_id){
             $saleLog->whereNull('deleted_at')->whereIn('status', ['in progress','pending']);
             $saleLog->where('department_id', $department_id);
+            $saleLog->where('is_verified', 1);
             $saleLog->with(['departmentDetails'=>function($department){
                 $department->whereNull('deleted_at');
             }]);
@@ -83,19 +85,23 @@ class WorkerTaskController extends Controller
         $orderSaleLogDetailData = $orderSaleLogDetail->get();
 
         $data = [];
-        foreach ($orderSaleLogDetailData as $orderObj) {
-            if(!empty($orderObj->saleLog)){
-                $data[] = [
-                    "id" => !empty($orderObj->id) ? $orderObj->id : '',
-                    "department_id" => !empty($orderObj->saleLogs) && !empty($orderObj->saleLogs->departmentDetails) ? $orderObj->saleLogs->departmentDetails->name : '',
-                    "item_id" => !empty($orderObj->saleLogs) && !empty($orderObj->saleLogs->itemDetails) ?  $orderObj->saleLogs->itemDetails->name : '',
-                    "variant_id" => !empty( $orderObj->saleLogs) && !empty($orderObj->saleLogs->variantDetails) ?  $orderObj->saleLogs->variantDetails->name : '',
-                    "qty" => !empty($orderObj->saleLogs) && !empty($orderObj->saleLogs->qty) ? $orderObj->saleLogs->qty :'',
-                    "date" =>  !empty($orderObj->created_at) ? Carbon::parse($orderObj->created_at)->format('Y-m-d H:i:s') : '',
-                    "status" => '<span class="badge badge-success badge-pill worker_assign_status" data-user-id="'.(!empty($orderObj->assignedUser) ? $orderObj->assignedUser->id : '').'"   data-id="'.(!empty($orderObj->saleLogs->id) ? $orderObj->saleLogs->id : '').'" style="cursor:pointer" >' . !empty($orderObj->saleLogs) && !empty($orderObj->saleLogs->status) ? $orderObj->saleLogs->status : '' . '</span>',
-                    "assign_to" => !empty($orderObj->assignedUser) && !empty($orderObj->assignedUser->name) ? $orderObj->assignedUser->name : '',
-                ];
-            }
+        foreach ($orderSaleLogDetailData as $key=> $orderObj) {
+           if(!empty($orderObj->saleLogs)){
+               $status = '';
+               $status .= '<span class="badge badge-success badge-pill worker_assign_status" data-user-id="'.(!empty($orderObj->assignedUser) ? $orderObj->assignedUser->id : '').'"   data-id="'.(!empty($orderObj->saleLogs->id) ? $orderObj->saleLogs->id : '').'" style="cursor:pointer" >' .  $orderObj->saleLogs->status  . '</span>';
+               $data[] = [
+                   "id" => !empty($orderObj->id) ? $orderObj->id : '',
+                   "department_id" => !empty($orderObj->saleLogs) && !empty($orderObj->saleLogs->departmentDetails) ? $orderObj->saleLogs->departmentDetails->name : '',
+                   "item_id" => !empty($orderObj->saleLogs) && !empty($orderObj->saleLogs->itemDetails) ?  $orderObj->saleLogs->itemDetails->name : '',
+                   "variant_id" => !empty( $orderObj->saleLogs) && !empty($orderObj->saleLogs->variantDetails) ?  $orderObj->saleLogs->variantDetails->name : '',
+                   "qty" => !empty($orderObj->saleLogs) && !empty($orderObj->saleLogs->qty) ? $orderObj->saleLogs->qty :'',
+                   "date" =>  !empty($orderObj->created_at) ? Carbon::parse($orderObj->created_at)->format('Y-m-d H:i:s') : '',
+                   "status" => $status,
+                   "assign_to" => !empty($orderObj->assignedUser) && !empty($orderObj->assignedUser->name) ? $orderObj->assignedUser->name : '',
+               ];
+           }
+
+
         }
         $records["data"] = $data;
         $records["draw"] = $draw;
@@ -117,7 +123,12 @@ class WorkerTaskController extends Controller
                      if($completedtotalProducts==$totalProducts){
                          OrderItem::where('order_id',$orderInfo->order_id)->whereNull('deleted_at')->update(['status'=>'completed']);
                      }
-
+                     $totalOrderTasks=totalOrderTaskStatus($orderInfo->order_id,'');
+                     $totalCompletedOrderTasks=totalOrderTaskStatus($orderInfo->order_id,'completed');
+                     if($totalOrderTasks==$totalCompletedOrderTasks)
+                     {
+                         Order::where('id',$orderInfo->order_id)->whereNull('deleted_at')->update(['status'=>'assembling']);
+                     }
 
                     $return = ['status' => 'success', 'message' => 'Your status updated successfully!'];
                  }

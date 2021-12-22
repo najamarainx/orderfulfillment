@@ -352,8 +352,8 @@ function getUsersDepartment($userId){
 
 function checkTaskProductItems($orderID,$productID,$type='')
 {
-    $totalProductSaleItems = DB::table('orderfulfillment_sale_logs')->whereNULL('deleted_at')->where('order_id')->where('product_id');
-    if($type){
+    $totalProductSaleItems = DB::table('orderfulfillment_sale_logs')->whereNULL('deleted_at')->where('order_id',$orderID)->where('product_id',$productID);
+    if($type!=''){
         $totalProductSaleItems->where('status','=','completed');
     }
 
@@ -366,4 +366,16 @@ function getItemVaraints($itemID)
     $variants  =  DB::table('orderfulfillment_variants')->whereNULL('deleted_at')->where('item_id',$itemID)->get();
     return $variants;
 }
+
+function totalOrderTaskStatus($orderID,$type='')
+{
+    $totalProductSaleItems = DB::table('order_items')->whereNULL('deleted_at')->where('order_id',$orderID);
+    if($type!=''){
+        $totalProductSaleItems->where('status','=','completed');
+    }
+
+    return $totalProductSaleItems->count();
+}
+
+
 
