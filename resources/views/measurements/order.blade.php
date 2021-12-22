@@ -550,7 +550,6 @@ input::-webkit-inner-spin-button {
                     var ca_id = $('#form_data tbody .child').find('.cat_id').val();
                     var pro_id = $('#form_data tbody .child').find('.pro_id').val();
                     var measurement = $('#form_data tbody .child').find('.measurement').val();
-                    console.log(measurement);
                     //    var  measurement =  $('#form_data tbody .child').find('.measurement').val();
                     var pre_length = $('#form_data tbody .child').find('.length').val();
                     var pre_width = $('#form_data tbody .child').find('.width').val();

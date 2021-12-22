@@ -170,7 +170,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/assignedInventory', [Controllers\OrderController::class, 'getAssignedProductInventory'])->name('getAssignedProductInventory')->middleware('haspermission:AssignedProductInventory');
         Route::post('/itemsvariant', [Controllers\OrderController::class, 'getItemVariant'])->name('getItemVariant')->middleware('haspermission:itemsVariant');
         Route::post('/itemsqty', [Controllers\ItemController::class, 'getItemsQantity'])->name('getDeptItemsQty')->middleware('haspermission:itemsQuantity');
-        Route::post('/salelog', [Controllers\OrderController::class, 'saleLog'])->name('orderSaleLogSubmit')->middleware('haspermission:storeOrderSaleLog');
+        Route::post('/salelog', [Controllers\OrderController::class, 'saleLog'])->name('orderSaleLogSubmit');
         Route::post('/salelogproceed', [Controllers\OrderController::class, 'saveProceedOrderInventory'])->name('proceedSaleInventory')->middleware('haspermission:SaleInventory');
         Route::post('/productInventoryList', [Controllers\OrderController::class, 'productInventoryList'])->name('getProductInventoryList')->middleware('haspermission:ProductInventoryList');
         Route::post('/logItemDelete', [Controllers\OrderController::class, 'logItemDelete'])->name('logItemDelete')->middleware('haspermission:logItemDelete');

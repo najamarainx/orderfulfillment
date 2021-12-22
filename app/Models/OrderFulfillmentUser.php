@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Validation\Rules;
-
+use Illuminate\Support\Facades\DB;
 class OrderFulfillmentUser extends Authenticatable
 {
 
@@ -55,4 +55,13 @@ class OrderFulfillmentUser extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function checkRoleAssigned($id)
+    {
+        $check = true;
+        $checkRolesnCount = DB::table('orderfulfillment_users')->where('role_id', $id)->count();
+        if ($checkRolesnCount) {
+            $check = false;
+        }
+        return $check;
+    }
 }

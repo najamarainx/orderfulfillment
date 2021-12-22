@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\OrderFulfillmentPermission;
 use Illuminate\Http\Request;
 use App\Models\OrderFulfillmentRole;
+use App\Models\OrderFulfillmentUser;
 use Carbon\Carbon;
 use DB;
 
@@ -161,8 +162,8 @@ class RoleController extends Controller
     public function destroy(Request $request)
     {
         $id = $request->id;
-        $checkrolehasPermission = new OrderFulfillmentPermission();
-        $res = $checkrolehasPermission->checkRoleAssigned($id);
+        $checkRoleAssign = new OrderFulfillmentUser();
+        $res = $checkRoleAssign->checkRoleAssigned($id);
         if ($res) {
             DB::table('orderfulfillment_roles')
                 ->where('id', $id)

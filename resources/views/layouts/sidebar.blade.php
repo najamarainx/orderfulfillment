@@ -174,7 +174,7 @@
                         </div>
                     </li>
                 @endif
-                @if(hasPermission('viewDepartment'))
+                @if(hasPermission('viewDepartment') || hasPermission('departmentTaskList'))
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'departmentList' ? 'menu-item-open' : '' }}"
                         aria-haspopup="true" data-menu-toggle="hover">
                         <a href="javascript:;" class="menu-link menu-toggle">

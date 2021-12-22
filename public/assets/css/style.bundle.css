@@ -61159,8 +61159,8 @@ body {
 .aside-menu .menu-nav {
   margin: 0;
   list-style: none;
-  padding: 40px 0;
-  background-color: #e8e9f2; }
+  background-color: #e8e9f2;
+  padding: 0px 0!important; }
   .aside-menu .menu-nav .menu-scroll {
     position: relative;
     overflow: hidden;

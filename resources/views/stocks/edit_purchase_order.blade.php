@@ -226,6 +226,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(datas) {
+                    $('#varaint_id_'+line).val('').trigger('change.select2');
                     $('#unit_item_'+line).val('');
                     $('#item_id_'+line).removeAttr('disabled');
                     $('#item_id_'+line).empty();

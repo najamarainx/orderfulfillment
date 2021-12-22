@@ -37,7 +37,7 @@ class ItemController extends Controller
                 if ($col == 'id') {
                     $item->where($col, $search);
                 }
-                if ($col == 'department)_id') {
+                if ($col == 'department_id') {
                     $item->where($col, $search);
                 }
                 if ($col == 'name') {
@@ -161,7 +161,7 @@ class ItemController extends Controller
             return response()->json($return);
         }
     }
-   public function getItemById(Request $request)
+    public function getItemById(Request $request)
     {
         $id = $request->id;
         $item = OrderFulfillmentItem::where('id', $id)->first();
@@ -193,27 +193,18 @@ class ItemController extends Controller
 
     public function getDeptItems(Request $request)
     {
-        $itemID=$request->depID;
-        $getItems=getDepartmentItems($itemID);
+        $itemID = $request->depID;
+        $getItems = getDepartmentItems($itemID);
         return response()->json($getItems);
-
     }
 
     public function getItemsQantity(Request $request)
     {
 
-        $depID=$request->depID;
-        $itemID=$request->itemID;
-        $variantID=$request->variantID;
-        $availableQty=OrderFulfillmentInventoryItem::where('item_id',$itemID)->where('department_id',$depID)->where('variant_id',$variantID)->get();
+        $depID = $request->depID;
+        $itemID = $request->itemID;
+        $variantID = $request->variantID;
+        $availableQty = OrderFulfillmentInventoryItem::where('item_id', $itemID)->where('department_id', $depID)->where('variant_id', $variantID)->get();
         return response()->json($availableQty);
-
-
     }
-
-
-
-
-
-
 }

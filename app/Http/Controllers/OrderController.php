@@ -8,6 +8,7 @@ use App\Models\OrderFulfillmentSaleLog;
 use App\Models\OrderFulfillmentVariant;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\OrderFulfillmentUser;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Auth;
@@ -150,7 +151,7 @@ class OrderController extends Controller
 
         $dt = [
             'departments' => $departments,
-            'variants' => $variants,
+            // 'variants' => $variants,
             'assignedInventory' => $assignedInventory,
             'product_id' => $request->ProductID,
 
@@ -328,12 +329,20 @@ class OrderController extends Controller
 
     public function getItemVariant(Request $request)
     {
+        $varinats_id  =  OrderFulfillmentInventoryItem::where(['department_id'=> $request->depID , 'item_id'=> $request->itemID])->whereNull('deleted_at')->pluck('variant_id')->toArray();
         $variant_ids = getProductSaleLogVariant($request->orderID, $request->productID, $request->depID, $request->itemID);
         $variants = OrderFulfillmentVariant::whereNull('deleted_at');
+
         if (!empty($variant_ids)) {
             $variants->whereNotIn('id', $variant_ids);
         }
-        $result = $variants->get();
+        if(!empty($varinats_id)){
+            $variants->whereIn('id', $varinats_id);
+            $result = $variants->get();
+        }else{
+            $result = '';
+        }
+
         return response()->json($result);
     }
 
