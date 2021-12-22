@@ -186,6 +186,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('completed-task', [Controllers\TaskController::class, 'completedTasksList'])->name('completedTasksList')->middleware('haspermission:departmentCompletedTask');
         Route::post('completed-task-list', [Controllers\TaskController::class, 'getCompletedTasksList'])->name('getCompletedTasksList')->middleware('haspermission:departmentCompletedTask');
     });
+    Route::prefix('assembled-order')->group(function () {
+        Route::get('/', [Controllers\AssembledOrderController::class, 'index'])->name('assembledOrderList');
+        Route::post('/list', [Controllers\TaskController::class, 'getList'])->name('getTasksList')->middleware('haspermission:departmentTaskList');
+        // Route::post('/taskInfo', [Controllers\TaskController::class, 'getTaskInfo'])->name('getTaskInfo')->middleware('haspermission:departmentTaskInfo');
+        // Route::post('/taskAssign', [Controllers\TaskController::class, 'assignuserTask'])->name('assignuserTask')->middleware('haspermission:departmentAssignTask');
+        // Route::get('completed-task', [Controllers\TaskController::class, 'completedTasksList'])->name('completedTasksList')->middleware('haspermission:departmentCompletedTask');
+        // Route::post('completed-task-list', [Controllers\TaskController::class, 'getCompletedTasksList'])->name('getCompletedTasksList')->middleware('haspermission:departmentCompletedTask');
+    });
     Route::get('worker-task-screen', [Controllers\WorkerTaskController::class, 'getWorkerTasksByDepartment'])->name('getWorkerTasksByDepartment')->middleware('haspermission:workerTask');
     Route::post('worker-tasks-list', [Controllers\WorkerTaskController::class, 'getWorkerTasksList'])->name('getWorkerTasksList')->middleware('haspermission:workerTask');
     Route::post('update-worker-tasks-status', [Controllers\WorkerTaskController::class, 'updateWorkertaskStatus'])->name('updateWorkertaskStatus')->middleware('haspermission:updateWorkerTask');
