@@ -8,12 +8,12 @@
         </div>
         <!--end::Copyright-->
         <!--begin::Nav-->
-        <div class="nav nav-dark">
+        {{-- <div class="nav nav-dark">
             <a href="#" target="_blank" class="nav-link pl-0 pr-5">Contact</a>
             <a href="#" target="_blank" class="nav-link pl-0 pr-5">Customer Support</a>
             <a href="#" target="_blank" class="nav-link pl-0 pr-5">premiumblindsuk.com</a>
             <a href="#" target="_blank" class="nav-link pl-0 pr-5">Dealer Extranet</a>
-        </div>
+        </div> --}}
         <!--end::Nav-->
     </div>
     <!--end::Container-->
