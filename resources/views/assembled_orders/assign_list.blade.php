@@ -326,19 +326,32 @@
                         <h3 class="card-label">Tasks List
                         </h3>
                     </div>
+                    @php
+                    $statusarray=array('pending','in progress','completed');
+                    @endphp
 
                 </div>
                 <div class="card-body">
                     <form class="kt-form kt-form--fit">
 
                         <div class="row mb-6">
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label>Order No:</label>
+                                    <input type="text" class="form-control datatable-input" placeholder="order no" data-col-index="1">
+                                </div>
+                            </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Status:</label>
                                 <select  class="form-control datatable-input" data-col-index="5">
                                     <option value="">Select a status</option>
+                                    @foreach($statusarray as $sta)
+                                    <option value="{{$sta}}">{{ucfirst($sta)}}</option>
+                                   @endforeach
 
                                 </select>
                             </div>
+
 
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>&nbsp;</label><br />
@@ -363,9 +376,10 @@
                         <tr>
                             <th>Sr</th>
                             <th>Order ID</th>
-                            <th>Status</th>
-                            <th>Date</th>
+                            <th>Assigned From</th>
                             <th>Assigned To</th>
+                            <th>Date</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -378,18 +392,18 @@
         </div>
     </div>
 
-    <div class="modal fade show" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
+    <div class="modal fade show" id="assemblingstatusModal" data-backdrop="static" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalLabel" aria-modal="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Assign User</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Update Status</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form onsubmit="return false" id="addForm">
+                    <form onsubmit="return false" id="updateStatusAssemblingForm">
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
@@ -398,10 +412,14 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <input type="hidden" name="task_id" id="task_id">
-                                    <label for="">Select User:</label>
-                                    <select name="user_id" id="user_id" class="form-control kt_select2_1">
-
+                                    <input type="hidden" name="assembling_id" id="assembling_id">
+                                    <input type="hidden" name="order_id" id="order_id">
+                                    <label for="">Select Status:</label>
+                                    <select name="assembling_status" id="assembling_status" class="form-control">
+                                        <option value="">Select Status</option>
+                                        @foreach ($statusarray as $stat)
+                                            <option value="{{ $stat }}">{{ ucfirst($stat) }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -411,7 +429,7 @@
                             <button type="button" class="btn btn-light-primary font-weight-bold"
                                     data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary font-weight-bold btn_save"
-                                    id="btn_save">Save</button>
+                                    id="update_assemble_stauts_btn">Save</button>
                         </div>
                     </form>
                 </div>
@@ -469,7 +487,7 @@
                         data: {
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id','order_id' ,'status','date','assigned'
+                                'id','order_id' ,'assigned_from','assigned_to','date','status',
                             ],
                         },
                         headers: {
@@ -483,13 +501,16 @@
                             data: 'order_id'
                         },
                         {
-                            data: 'status'
+                            data: 'assigned_from'
+                        },
+                        {
+                            data: 'assigned_to'
                         },
                         {
                             data: 'date'
                         },
                         {
-                            data: 'assigned'
+                            data: 'status'
                         },
                         {
                             data: 'action',
@@ -560,13 +581,13 @@
 
 
 
-        $(document).on('click', '.assign_task', function() {
+        $(document).on('click', '.assemble_update', function() {
             var id = $(this).data('id');
             var form_data = new FormData();
             form_data.append('id', id);
             $.ajax({
                 type: "POST",
-                url: "{{ route('getTaskInfo') }}", // your php file name
+                url: "{{ route('getAssemblerStatus') }}", // your php file name
                 data: form_data,
                 dataType: "json",
                 processData: false,
@@ -576,28 +597,19 @@
                 },
                 success: function(data) {
                     if (data.status == 'success') {
-                        $('#staticBackdrop').modal({
+                        $('#assemblingstatusModal').modal({
                             backdrop: 'static',
                             keyboard: false
                         }).on('hide.bs.modal', function() {
-                            $("#addForm").validate().resetForm();
+                            $("#updateStatusAssemblingForm").validate().resetForm();
                         });
-                        var datas = data.data;
-                        $('#user_id').empty();
-                        $('#user_id').append(new Option("Select User", " ")).trigger("updated");
-                        $.each(datas, function (i, data) {
-                            // console.log(data.id);
-                            $('#user_id').append($('<option>', {
-                                value: data.id,
-                                text : data.name
-                            })).trigger("updated");
-                        });
-                        $('#task_id').val(data.id);
-                        if(data.user_id != null){
-                            $('#user_id').val(data.user_id).trigger("change.select2");
-                        }
-
-
+                        var datas = data.assembler_status;
+                        $('#assembling_status').val('');
+                        $('#assembling_id').val('');
+                        $('#order_id').val('');
+                        $('#assembling_status').val(datas.status);
+                        $('#assembling_id').val(datas.id);
+                        $('#order_id').val(datas.order_id);
                         window.scrollTo({
                             top: 0,
                             behavior: 'smooth'
@@ -612,14 +624,43 @@
             });
         });
 
+        $(document).on('click', '#update_assemble_stauts_btn', function() {
+
+            var form = $('#updateStatusAssemblingForm')[0];
+            var form_data = new FormData(form);
+            $.ajax({
+                type: "POST",
+                url: "{{ route('updateAssemblingStatus') }}", // your php file name
+                data: form_data,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    if (data.status == 'success') {
+                        $('#assemblingstatusModal').modal('hide');
+                        Swal.fire("Success!", data.message, "success");
+                        table.ajax.reload();
+                    } else {
+                        Swal.fire("Sorry!", data.message, "error");
+                    }
+                },
+                error: function(errorString) {
+                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                }
+            });
+
+        })
 
         jQuery(document).ready(function() {
             //datatable.init();
 
-            var validator = $("#addForm").validate({
+            var validator = $("#updateStatusAssemblingForm").validate({
                 ignore: ":hidden:not(.selectpicker)",
                 rules: {
-                    user_id: {
+                    assembling_status: {
                         required: true
                     },
 
@@ -627,7 +668,7 @@
                 },
                 errorPlacement: function(error, element) {
                     var elem = $(element);
-                    if (elem.hasClass("user_id")) {
+                    if (elem.hasClass("assembling_status")) {
 
                         error.appendTo(element.parent().after());
                         //error.insertAfter(element);
@@ -638,20 +679,11 @@
                 }
             });
 
-
-
-
-
-
-
-
-
-
-            var input = document.getElementById("addForm");
+            var input = document.getElementById("updateStatusAssemblingForm");
             input.addEventListener("keyup", function(event) {
                 if (event.keyCode === 13) {
                     event.preventDefault();
-                    document.getElementById("btn_save").click();
+                    document.getElementById("update_assemble_stauts_btn").click();
                 }
             });
 

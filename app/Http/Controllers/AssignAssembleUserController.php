@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Models\OrderFulfillmentAssignAssembleUser;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +15,7 @@ class AssignAssembleUserController extends Controller
     public function index()
     {
 
-        return view('tasks.list');
+        return view('assembled_orders.assign_list');
     }
 
     public function getList(Request $request)
@@ -28,31 +29,30 @@ class AssignAssembleUserController extends Controller
         $sortColumnName = $request->columns[$sortColumnIndex]['data']; // Column name
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
-        $sql = OrderFulfillmentAssignAssembleUser::select('orderfulfillment_assigned_tasks.*','orderfulfillment_users.name as assigned_to','ab.name as assigned_from');
-        $sql->join('orders','orders.id',' orderfulfillment_assigned_tasks.order_id');
-        $sql->join('orderfulfillment_users','orderfulfillment_assigned_tasks.user_id',' orderfulfillment_users.id');
-        $sql->join('orderfulfillment_users as ab','orderfulfillment_assigned_tasks.added_by',' ab.id');
+        $sql = OrderFulfillmentAssignAssembleUser::select('orderfulffillment_assign_assemble_users.*','orderfulfillment_users.name as assigned_to','ab.name as assigned_from');
+        $sql->join('orders','orders.id','orderfulffillment_assign_assemble_users.order_id');
+        $sql->join('orderfulfillment_users','orderfulffillment_assign_assemble_users.user_id','orderfulfillment_users.id');
+        $sql->join('orderfulfillment_users as ab','orderfulffillment_assign_assemble_users.added_by','ab.id');
         $sql->where('orderfulfillment_users.type','assembler');
+        $sql->where('orderfulfillment_users.assembler_head',1);
         $sql->whereNULL('orders.deleted_at');
-        $sql->whereNULL('orderfulfillment_assigned_tasks.deleted_at');
+        $sql->whereNULL('orderfulffillment_assign_assemble_users.deleted_at');
         $sql->whereNULL('orderfulfillment_users.deleted_at');
+        if(Auth::user()->assembler_head==1){
+            $sql->where('orderfulffillment_assign_assemble_users.user_id',Auth::user()->id);
+        }
 
         foreach ($columns as $field) {
             $col = $field['data'];
             $search = $field['search']['value'];
             if ($search != "") {
-                if ($col == 'date') {
-                    $col = "orderfulfillment_sale_logs.updated_at";
-                    $sql->Where($col, 'like', '%' . $search . '%');
+                if ($col == 'order_id') {
+                    $sql->where('orderfulffillment_assign_assemble_users.order_id', $search);
 
                     // $sql->where($col, $search);
                 }
-                if ($col == 'department_id') {
-                    $col = "orderfulfillment_sale_logs.department_id";
-                    $sql->where($col, $search);
-                }
-                if ($col == 'status') {
-                    $col = "orderfulfillment_sale_logs.status";
+               if ($col == 'status') {
+                    $col = "orderfulffillment_assign_assemble_users.status";
                     $sql->where($col, $search);
                 }
             }
@@ -61,7 +61,7 @@ class AssignAssembleUserController extends Controller
         if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
             $sql->orderBy($sortColumnName, $sortColumnSortOrder);
         } else {
-            $sql->orderBy("id", "desc");
+            $sql->orderBy("orderfulffillment_assign_assemble_users.id", "desc");
         }
         $iTotalRecords = $sql->count();
         $sql->skip($start);
@@ -71,34 +71,24 @@ class AssignAssembleUserController extends Controller
         $data = [];
         foreach ($orderData as $orderObj) {
             $action = "";
-            if($orderObj->status=='pending' || Auth::user()->type == 'production_manager' || Auth::user()->type == 'team_lead'){
-                $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 assign_task" data-id="' . $orderObj->id . '">
-                    <span class="svg-icon svg-icon-md svg-icon-primary">
-                        <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <rect x="0" y="0" width="24" height="24"></rect>
-                                <path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953)"></path>
-                                <path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
-                            </g>
-                        </svg>
-                        <!--end::Svg Icon-->
-                    </span>
-                </a>';
+            $action .= '<a href="' . url('assembled-order/detail') . '/' . $orderObj->order_id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview">
+            <i class="la la-eye"></i>
+        </a>';
+
+            if($orderObj->status=='completed' && Auth::user()->assembler_head==1){
+                $status='<span class="badge badge-success "  style="cursor:pointer">' . $orderObj->status . '</span>';
+            }else{
+                $status='<span class="badge badge-success assemble_update" data-id="'.$orderObj->id.'" style="cursor:pointer">' . $orderObj->status . '</span>';
             }
-
-
 
             $data[] = [
                 "id" => $orderObj->id,
-                "department_id" =>$orderObj->department_name,
-                "item_id" =>$orderObj->item_name,
-                "variant_id"=>$orderObj->variant_name,
-                "qty"=>$orderObj->qty,
-                "status"=>'<span class="badge badge-success badge-pill" style="cursor:pointer">' . $orderObj->status . '</span>',
-                "date"=>Carbon::create($orderObj->updated_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
-                "assigned"=>ucfirst($orderObj->assigned_user),
-                "action"=>$action
+                "order_id" =>$orderObj->order_id,
+                "assigned_from"=>ucfirst($orderObj->assigned_from),
+                "assigned_to"=>ucfirst($orderObj->assigned_to),
+                "date"=>Carbon::create($orderObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
+                "status"=>$status,
+                "action"=>$action,
             ];
         }
 
@@ -109,6 +99,122 @@ class AssignAssembleUserController extends Controller
         echo json_encode($records);
     }
 
+    public function getUserAssembleStatus(Request $request)
+    {
+        $assembler_id = $request->id;
+        $assemblerStatus=OrderFulfillmentAssignAssembleUser::where('id',$request->id)->first();
+
+        $return = [
+            'status' => 'success',
+            'assembler_status' => $assemblerStatus,
+        ];
+        return response()->json($return);
+    }
+
+    public function updateAssemblingStatus(Request $request)
+    {
+            $validate = true;
+            $validateInput = $request->all();
+            $rules = [
+                'assembling_id'=>'required',
+                'order_id'=>'required',
+                'assembling_status' => 'required|max:150',
+
+            ];
+            $messages = [
+                'assembling_id.required' => 'something wrong !',
+                'order_id.required' => 'something wrong !',
+                'assembling_status.required' => 'assembling status field is required',
+
+            ];
+            $validator = Validator::make($validateInput, $rules, $messages);
+            if ($validator->fails()) {
+                $errors = $validator->errors();
+                $allMsg = [];
+                foreach ($errors->all() as $message) {
+                    $allMsg[] = $message;
+                }
+                $return['status'] = 'error';
+                $return['message'] = collect($allMsg)->implode('<br />');
+                $validate = false;
+                return response()->json($return);
+            }
+            if($validate) {
+                $query = OrderFulfillmentAssignAssembleUser::where('id',$request->assembling_id)
+                    ->update([
+                        'status' =>$request->assembling_status,
+                        'updated_at' =>Carbon::Now()->format('Y-m-d H:i:s'),
+                    ]);
+
+
+                $return = [
+                    'status' => 'error',
+                    'message' => 'Status not updated please try again!'
+                ];
+                if ($query) {
+                    $return = [
+                        'status' => 'success',
+                        'message' => 'Status  updated successfully!'
+                    ];
+                }
+            }
+        return response()->json($return);
+    }
+
+    public function assemblerOrderCheck(Request $request)
+    {
+        $validate = true;
+        $validateInput = $request->all();
+        $rules = [
+
+            'order_id'=>'required',
+
+
+        ];
+        $messages = [
+
+            'order_id.required' => 'something wrong !',
+
+
+        ];
+        $validator = Validator::make($validateInput, $rules, $messages);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            $allMsg = [];
+            foreach ($errors->all() as $message) {
+                $allMsg[] = $message;
+            }
+            $return['status'] = 'error';
+            $return['message'] = collect($allMsg)->implode('<br />');
+            $validate = false;
+            return response()->json($return);
+        }
+        if($validate) {
+
+            $totalOrderTasks=orderAssignTaskStatuses($request->order_id,'');
+                $totalCompletedOrderTasks=orderAssignTaskStatuses($request->order_id,'completed');
+                if($totalOrderTasks==$totalCompletedOrderTasks)
+                {
+                    $query=Order::where('id',$request->order_id)->whereNull('deleted_at')->update(['status'=>'packing']);
+                }
+                if($query){
+
+                    $return = [
+                        'status' => 'success',
+                        'message' => 'Order ready for assign packing successfully!'
+                    ];
+                }
+                else
+                {
+                    $return = [
+                        'status' => 'error',
+                        'message' => 'still order pending from assembler assign users'
+                    ];
+                }
+
+        }
+        return response()->json($return);
+    }
 
 
 

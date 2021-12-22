@@ -191,7 +191,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/list', [Controllers\AssembledOrderController::class, 'getList'])->name('getAssembledOrderList');
         Route::get('/detail/{id}', [Controllers\AssembledOrderController::class, 'detail'])->name('getAssembledOrderDetail');
         Route::get('/assignlist', [Controllers\AssignAssembleUserController::class, 'index'])->name('assembledOrderAssigned');
-        Route::get('/getassignlist', [Controllers\AssignAssembleUserController::class, 'getList'])->name('getAssignAssembledList');
+        Route::post('/getassignlist', [Controllers\AssignAssembleUserController::class, 'getList'])->name('getAssignAssembledList');
+        Route::post('/getAssemblerStatus', [Controllers\AssignAssembleUserController::class, 'getUserAssembleStatus'])->name('getAssemblerStatus');
+        Route::post('/saveAssemblerStatus', [Controllers\AssignAssembleUserController::class, 'updateAssemblingStatus'])->name('updateAssemblingStatus');
 
 
     });
