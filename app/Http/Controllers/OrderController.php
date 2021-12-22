@@ -201,7 +201,8 @@ class OrderController extends Controller
 
             DB::beginTransaction();
             try {
-                $saleLog = new  OrderFulfillmentSaleLog();
+
+               // $saleLog = new  OrderFulfillmentSaleLog();
                 $product_id = $request->product_id;
                 $departments = $request->department;
                 $item_ids = $request->item_id;
@@ -213,16 +214,15 @@ class OrderController extends Controller
                 $inventoryData = array();
                 foreach ($departments as $key => $department) {
                     $inventoryData[] = array(
-                        'order_id' => $order_id,
-                        'product_id' => $product_id,
-                        'department_id' => $department[$key],
-                        'item_id' => $item_ids[$key],
-                        'variant_id' => $variants[$key],
-                        'qty' => $choose_qty[$key],
-                        'created_at' => Carbon::now()->format("Y-m-d H:i:s"),
+                        'order_id'=>$order_id,
+                        'product_id'=>$product_id,
+                        'department_id'=>$department,
+                        'item_id'=>$item_ids[$key],
+                        'variant_id'=> $variants[$key],
+                        'qty'=> $choose_qty[$key],
+                        'created_at'=> Carbon::now()->format("Y-m-d H:i:s"),
                     );
                 }
-
                 if (!empty($inventoryData)) {
                     $query = OrderFulfillmentSaleLog::insert($inventoryData);
                 }
