@@ -58,19 +58,19 @@
                                 </select>
                             </div>
                             <div class="col-lg-6 mb-lg-6 mb-2">
-                                <label>&nbsp;</label><br />
+                                <label>&nbsp;</label><br /><button class="btn btn-primary btn-primary--icon" id="kt_search">
+                                    <span>
+                                        <i class="la la-search"></i>
+                                        <span>Search</span>
+                                    </span>
+                                </button>&#160;&#160;
                                 <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
                                     <span>
                                         <i class="la la-close"></i>
                                         <span>Reset</span>
                                     </span>
                                 </button>
-                                <button class="btn btn-primary btn-primary--icon" id="kt_search">
-                                    <span>
-                                        <i class="la la-search"></i>
-                                        <span>Search</span>
-                                    </span>
-                                </button>&#160;&#160;
+                                
                             </div>
                         </div>
                     </form>
