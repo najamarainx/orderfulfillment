@@ -221,14 +221,10 @@ class RoleController extends Controller
                     $replace = '${1} ${2}';
                     $html .= '<div class="col-sm-3">
                                 <label class="checkbox-inline">
-                                
-                                
-
-                                        <input type="checkbox" checked="checked" ' . $checked . ' name="permission[]" value="' . $p['id'] . '" >
-                                        <span class="geekmark"></span> 
-                                        <label class="checkbox checkbox-square checkbox-danger">
+                                    <label class="checkbox checkbox-square checkbox-danger">
+                                        <input type="checkbox" ' . $checked . ' name="permission[]" value="' . $p['id'] . '" >
                                         ' . ucwords(preg_replace($pattern, $replace, $string)) . '
-                                        
+                                        <span></span>
                                     </label>
                                 </label>
                             </div>';
