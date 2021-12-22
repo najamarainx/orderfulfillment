@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Zip;
 use Carbon\Carbon;
 use Auth;
+use MongoDB\Driver\Session;
 
 class UserController extends Controller
 {
@@ -222,7 +223,12 @@ class UserController extends Controller
                         $userDepartment  = new OrderFulfillmentUserDepartment;
                     }
                     $userDepartment->user_id = $userID;
-                    $userDepartment->department_id = $request->user_department;
+                    if($type =='team_lead'){
+                        $userDepartment->department_id =Session()->get('department_id');
+                    }else{
+                        $userDepartment->department_id = $request->user_department;
+                    }
+
                     $userDepartment->added_by = Auth::user()->id;
                     $userDepartment->save();
                 }
