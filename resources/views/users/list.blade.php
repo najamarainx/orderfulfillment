@@ -84,25 +84,25 @@
                             <!--begin::Tap pane-->
                         <form class="kt-form kt-form--fit">
                             <div class="row">
-                                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                                    <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
                                             <label>Name:</label>
                                             <input type="text" class="form-control datatable-input" placeholder="Name" data-col-index="1">
                                         </div>
                                     </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                                    <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
                                             <label>Email:</label>
                                             <input type="email" class="form-control datatable-input" placeholder="Email" data-col-index="2">
                                         </div>
                                     </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                                    <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
                                             <label>Phone Number:</label>
                                             <input type="number" class="form-control datatable-input" placeholder="Phone.No" data-col-index="3">
                                         </div>
                                     </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                                    <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
                                             <label>Role:</label>
                                             <select class="form-control kt_select2_1 datatable-input " id="role_search" data-col-index="4" >
@@ -114,7 +114,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                                    <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
                                             <label>User Type:</label>
                                             <select class="form-control kt_select2_1 datatable-input "id="type_search" data-col-index="5">
@@ -125,20 +125,21 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                                    <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
                                         <label>&nbsp;</label><br />
+                                        <button class="btn btn-primary btn-primary--icon" id="kt_search">
+                                        <span>
+                                            <i class="la la-search"></i>
+                                            <span>Search</span>
+                                        </span>
+                                                </button>&#160;&#160;
                                         <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
                                         <span>
                                             <i class="la la-close"></i>
                                             <span>Reset</span>
                                         </span>
                                                 </button>
-                                                <button class="btn btn-primary btn-primary--icon" id="kt_search">
-                                        <span>
-                                            <i class="la la-search"></i>
-                                            <span>Search</span>
-                                        </span>
-                                                </button>&#160;&#160;
+                                               
                                     </div>
                                 </div>
                         </form>
@@ -201,21 +202,25 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
+                            <label class="control-label" for="name">Name</label>
                                 <input type="text" name="name" id="name" class="form-control" placeholder="Name"  data-col-index="1">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
+                            <label class="control-label" for="email">Email</label>
                                 <input type="email" name="email" id="email" class="form-control" placeholder="Email">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
+                            <label class="control-label" for="phone">Phone No.</label>
                                 <input type="number" name="phone" id="phone" class="form-control" placeholder="Phone.No">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
+                            <label class="control-label" for="user_type">User Type</label>
                                 <select class="form-control kt_select2_1 user_type" name="user_type" id="user_type" onchange="getUserType(this.value)" required >
                                     <option value="">Select User Type</option>
                                     @foreach($userTypes as $type)
@@ -227,6 +232,7 @@
 
                         <div class="col-6">
                             <div class="form-group">
+                            <label class="control-label" for="user_role">User Role</label>
                                 <select class="form-control kt_select2_1 user_role" id="user_role" name="user_role" required >
                                     <option value="">Select Role</option>
                                     @foreach($roles as $role)
@@ -251,6 +257,7 @@
                         @endif
                         <div class="col-12" id="show_type" style="display:none;">
                             <div class="form-group">
+                                <label class="control-label" for="zip_code">Zip Code</label>
                                 <select class="form-control select2 kt_select2_3 " multiple="multiple" name="zip_id[]" id="zip_id">
                                    @foreach($zipcodes as $zipcode)
                                         <option value="{{$zipcode->id}}">{{ucfirst($zipcode->name)}}</option>
