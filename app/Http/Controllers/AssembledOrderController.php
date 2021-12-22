@@ -3,14 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderFulfillmentDepartment;
+use App\Models\OrderFulfillmentVariant;
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 class AssembledOrderController extends Controller
 {
     //
 
     public function index(){
-        return view('assembled_orders.list');
+        $stores = $query = DB::table('stores')->whereNull('deleted_at')->get();
+        $dt = ['stores' => $stores];
+        return view('assembled_orders.list',$dt);
     }
     public function getList(Request $request)
     {
@@ -53,13 +58,12 @@ class AssembledOrderController extends Controller
         $sql->skip($start);
         $sql->take($length);
         $orderData = $sql->get();
-
         $data = [];
         foreach ($orderData as $orderObj) {
             $action = "";
             if (!empty($request->order_status) && $request->order_status == 'confirmed') {
 
-                $action .= '<a href="' . url('orders/detail') . '/' . $orderObj->id . '" target="_blank"  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 ">
+                $action .= '<a href="' . url('assembled-order/detail') . '/' . $orderObj->id . '" target="_blank"  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 ">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -104,5 +108,21 @@ class AssembledOrderController extends Controller
         $records["recordsTotal"] = $iTotalRecords;
         $records["recordsFiltered"] = $iTotalRecords;
         echo json_encode($records);
+    }
+
+    public function detail($id)
+    {
+        $departments = OrderFulfillmentDepartment::get();
+        $variants = OrderFulfillmentVariant::get();
+        $orderItems = Order::with(['orderdetail' => function ($query) {
+            $query->with('orderProducts');
+        }])->where('id', $id)->first();
+        $dt = [
+            'orderItems' => $orderItems,
+            'departments' => $departments,
+            'variants' => $variants,
+
+        ];
+        return view('orders.assign_detail', $dt);
     }
 }

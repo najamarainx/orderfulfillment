@@ -188,7 +188,9 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::prefix('assembled-order')->group(function () {
         Route::get('/', [Controllers\AssembledOrderController::class, 'index'])->name('assembledOrderList');
-        Route::post('/list', [Controllers\TaskController::class, 'getList'])->name('getTasksList')->middleware('haspermission:departmentTaskList');
+        Route::post('/list', [Controllers\AssembledOrderController::class, 'getList'])->name('getAssembledOrderList');
+        Route::get('/detail/{id}', [Controllers\AssembledOrderController::class, 'detail'])->name('getAssembledOrderDetail');
+        
         // Route::post('/taskInfo', [Controllers\TaskController::class, 'getTaskInfo'])->name('getTaskInfo')->middleware('haspermission:departmentTaskInfo');
         // Route::post('/taskAssign', [Controllers\TaskController::class, 'assignuserTask'])->name('assignuserTask')->middleware('haspermission:departmentAssignTask');
         // Route::get('completed-task', [Controllers\TaskController::class, 'completedTasksList'])->name('completedTasksList')->middleware('haspermission:departmentCompletedTask');
