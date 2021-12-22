@@ -105,7 +105,9 @@
                                                     (#{{$orderItems->id}})</span>
                                     <input type="hidden" name="order_id" id="order_id" value="{{$orderItems->id}}">
                                 </h3>
+                                @if(Auth::user()->type != 'assembler')
                                 <button type="button" id="proceed_inventory" data-id="{{$orderItems->id}}" class="btn btn-primary font-weight-bold">Proceed</button>
+                                @endif
                             </div>
                             <!--end::Header-->
                             <!--begin::Body-->
@@ -178,7 +180,7 @@
                                                                     </span>
                                                 </a>
 
-
+                                               @if(Auth::user()->type != 'assembler')
                                                 <a onclick="assignProductInventory({{$orderItem->product_id}})" class="btn btn-icon btn-light btn-hover-primary btn-sm" data-toggle="modal" data-target="#staticBackdrop1">
                                                                     <span class="svg-icon svg-icon-md svg-icon-primary">
                                                                         <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
@@ -191,6 +193,7 @@
                                                                         <!--end::Svg Icon-->
                                                                     </span>
                                                 </a>
+                                               @endif
                                             </td>
                                         </tr>
                                         @endforeach
@@ -511,7 +514,7 @@
         function getItemVariant(itemID,line)
         {
             var order_id=$('#order_id').val();
-            var product_id=$('#product_id').val();
+        var product_id=$('#product_id').val();
             var depID=$('#department_'+line).val();
             var itemID=$('#item_id_'+line).val();
             var form_data = new FormData();

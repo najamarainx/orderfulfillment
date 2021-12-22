@@ -23,7 +23,7 @@
                     <!--end::Page Title-->
                     <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
-                    <span class="text-muted font-weight-bold mr-4">Confirmed Order List</span>
+                    <span class="text-muted font-weight-bold mr-4">Order List</span>
                     <!--end::Actions-->
                 </div>
                 <!--end::Info-->
@@ -169,7 +169,7 @@
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "{{ route('getList') }}",
+                        url: "{{ route('getAssembledOrderList') }}",
                         type: 'POST',
                         data: {
                             'order_status':'confirmed',
