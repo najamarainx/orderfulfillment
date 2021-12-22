@@ -14,7 +14,7 @@
     </style>
 @endsection
 @php
-    $userTypes=array('measurement','installation','customer_support','accountant','production_manager');
+    $userTypes=array('measurement','installation','customer_support','accountant','production_manager','assembler','packaging');
     $type  = Auth::user()->type;
     if($type == 'production_manager'){
         $userTypes=array('team_lead','worker','screen');
@@ -139,7 +139,7 @@
                                             <span>Reset</span>
                                         </span>
                                                 </button>
-                                               
+
                                     </div>
                                 </div>
                         </form>

@@ -88560,38 +88560,6 @@ body {
     height: 40px;
 }
 
-<<<<<<< HEAD
-.aside-menu .menu-nav {
-  margin: 0;
-  list-style: none;
-  background-color: #e8e9f2;
-  padding: 0px 0!important; }
-  .aside-menu .menu-nav .menu-scroll {
-    position: relative;
-    overflow: hidden;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-flex: 1;
-    -ms-flex-positive: 1;
-    flex-grow: 1; }
-  .aside-menu .menu-nav .menu-subnav {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-flex: 1;
-    -ms-flex-positive: 1;
-    flex-grow: 1;
-    padding: 0;
-=======
 .aside-menu .menu-nav>.menu-section .menu-text {
     font-size: 0.9rem;
     font-weight: 500;
@@ -88604,7 +88572,6 @@ body {
 }
 
 .aside-menu .menu-nav>.menu-separator .menu-separator-marginless {
->>>>>>> d05c49acc3a30122c51e7533e8be6aa8a6f38e43
     margin: 0;
 }
 
@@ -89622,6 +89589,7 @@ div#kt_aside_menu_wrapper {
     background-color: #e8e9f2;
 }
 
-background-color: #e8e9f2;
 
-}
+
+
+
