@@ -58,6 +58,8 @@ class UserController extends Controller
         }else if($type == 'team_lead'){
             $user->join('orderfulfillment_user_departments as o_user_dpt', 'orderfulfillment_users.id', 'o_user_dpt.user_id');
             $user->where('o_user_dpt.department_id',$department_id);
+        }else if($type == 'assembler'){
+            $user->where('type','assembler');
         }
         foreach ($columns as $field) {
             $col = $field['data'];

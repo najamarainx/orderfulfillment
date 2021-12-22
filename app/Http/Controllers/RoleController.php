@@ -8,6 +8,7 @@ use App\Models\OrderFulfillmentRole;
 use App\Models\OrderFulfillmentUser;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
@@ -26,10 +27,14 @@ class RoleController extends Controller
         $sortColumnIndex = $request->order[0]['column']; // Column index
         $sortColumnName = $request->columns[$sortColumnIndex]['data']; // Column name
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
+        $sortColumnName = 'orderfulfillment_roles.id';
         $columns = $request->columns;
 
         $userType = auth()->user()->type;
-        $role = OrderFulfillmentRole::select('*');
+        $role = OrderFulfillmentRole::select('orderfulfillment_roles.*');
+        if($userType == 'assembler'){
+            $role->join('orderfulfillment_users as o_u','orderfulfillment_roles.added_by','o_u.id');
+        }
         // if($userType != 'super_admin') {
         //     $role->whereIn('id', $userRoleIds);
         // }
@@ -54,7 +59,7 @@ class RoleController extends Controller
         if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
             $role->orderBy($sortColumnName, $sortColumnSortOrder);
         } else {
-            $role->orderBy("id", "desc");
+            $role->orderBy("orderfulfillment_roles.id", "desc");
         }
         $iTotalRecords = $role->count();
         $role->skip($start);
@@ -62,7 +67,7 @@ class RoleController extends Controller
         $roleData = $role->get();
         $data = [];
         $userId = auth()->user()->id;
-        $checkuser=array('Super Admin','Developer','Measurement','Production Manager','Team Lead','Worker','Screen');
+        $checkuser=array('Super Admin','Developer','Measurement','Production Manager','Team Lead','Worker','Screen','assembler');
         foreach ($roleData as $roleObj) {
             $action = "";
             if (hasPermission('assignPermissionRole')) {
@@ -134,6 +139,7 @@ class RoleController extends Controller
             $role = OrderFulfillmentRole::findOrFail($id);
         }
         $role->name = $request->name;
+        $role->added_by = Auth::user()->id;
         $role->save();
         $return = [
             'status' => 'success',
