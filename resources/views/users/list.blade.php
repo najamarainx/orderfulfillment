@@ -23,7 +23,7 @@
 
     }
 
-    $usersTypeArray = ['assembler','packaging','installtion'];
+    $usersTypeArray = ['assembler','packaging','installation'];
 
 
 @endphp
@@ -263,7 +263,7 @@
                             </div>
                         </div>
                         @endif
-                        <div class="col-12" id="show_type" style="display:none;">
+                        <div class="col-12" id="show_type" style="{{Auth::user()->type == 'installation' ? 'display:block' : 'display:none'}}">
                             <div class="form-group">
                                 <label class="control-label" for="zip_code">Zip Code</label>
                                 <select class="form-control select2 kt_select2_3 " multiple="multiple" name="zip_id[]" id="zip_id">

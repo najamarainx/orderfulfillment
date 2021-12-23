@@ -2,7 +2,7 @@
 <tr class="explode hide container" id="remove_append_tr_{{$product_id}}">
     <td colspan="9" style="border-left:5px solid #b10303;background: rgb(236, 236, 236);">
         <div>
-            @php $usersTypeArray = ['assembler','packaging','installtion']; @endphp
+            @php $usersTypeArray = ['assembler','packaging','installation']; @endphp
 
             <table class="table table-condensed table-head-custom table-vertical-center" id="exist_append_items">
                 <thead>

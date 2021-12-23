@@ -20,7 +20,7 @@ class RoleController extends Controller
 
     public function getList(Request $request)
     {
-        $usersTypeArray = ['assembler','packaging','installtion'];
+        $usersTypeArray = ['assembler','packaging','installation'];
         $records = [];
         $draw = $request->draw;
         $start = $request->start;

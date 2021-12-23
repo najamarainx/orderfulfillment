@@ -4,7 +4,7 @@
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
-@php $usersTypeArray = ['assembler','packaging','installtion']; @endphp
+@php $usersTypeArray = ['assembler','packaging','installation']; @endphp
 @section('page_level_css')
     <style>
         .error {

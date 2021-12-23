@@ -21,8 +21,14 @@ class UserController extends Controller
     public function index()
     {
         $type = Auth::user()->type;
-         $usersTypeArray = ['assembler','packaging','installtion'];
-        $zipcodes = Zip::whereNULL('deleted_at')->get();
+        $usersTypeArray = ['assembler','packaging','installation'];
+        $zipcode = Zip::whereNULL('orderfulfillment_zip_codes.deleted_at')->select('orderfulfillment_zip_codes.*');
+        if($type == 'installation'){
+            $zipcode->join('orderfulfillment_user_zip_codes_mappings as u_zip_map','orderfulfillment_zip_codes.id','u_zip_map.zip_id');
+            $zipcode->join('orderfulfillment_users as user','u_zip_map.user_id','user.id');
+            $zipcode->where('u_zip_map.user_id',Auth::user()->id);
+        }
+        $zipcodes  = $zipcode->get();
         $departments = getDepartment(-1, true);
         $query = OrderFulfillmentRole::whereNULL('orderfulfillment_roles.deleted_at')->select('orderfulfillment_roles.*');
         if ($type == 'production_manager') {
@@ -45,7 +51,7 @@ class UserController extends Controller
     }
     public function getList(Request $request)
     {
-        $usersTypeArray = ['assembler','packaging','installtion'];
+        $usersTypeArray = ['assembler','packaging','installation'];
         $type = auth()->user()->type;
         $records = [];
         $draw = $request->draw;
@@ -154,7 +160,7 @@ class UserController extends Controller
     {
 
         $type = auth()->user()->type;
-        $usersTypeArray = ['assembler','packaging','installtion'];
+        $usersTypeArray = ['assembler','packaging','installation'];
         $validate = true;
         $id = $request->id;
         $useremail = $request->email;
@@ -252,7 +258,7 @@ class UserController extends Controller
                     $userDepartment->added_by = Auth::user()->id;
                     $userDepartment->save();
                 }
-                if ($request->user_type == 'installation' || $request->user_type == 'measurement') {
+                if ($request->user_type == 'installation' || $request->user_type == 'measurement' || Auth::user()->type == 'installation') {
                     DB::table('orderfulfillment_user_zip_codes_mappings')->where('user_id', $userID)->delete();
 
                     $zipIDS = $request->input('zip_id');
