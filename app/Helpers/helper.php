@@ -377,5 +377,16 @@ function totalOrderTaskStatus($orderID,$type='')
     return $totalProductSaleItems->count();
 }
 
+function orderAssignTaskStatuses($orderID,$type='')
+{
+    $totalProductSaleItems = DB::table('orderfulffillment_assign_assemble_users')->whereNULL('deleted_at')->where('order_id',$orderID);
+    if($type!=''){
+        $totalProductSaleItems->where('status','=','completed');
+    }
+
+    return $totalProductSaleItems->count();
+}
+
+
 
 
