@@ -217,7 +217,11 @@ class UserController extends Controller
 
             if(!in_array(Auth::user()->type,$usersTypeArray)){
                 $user->type = $request->user_type;
-                $user->is_head = '0';
+                if(!empty($request->is_head)){
+                    $user->is_head = $request->is_head;
+                }else{
+                    $user->is_head = '0';
+                }
             }else{
                 $user->type = Auth::user()->type;
             }

@@ -207,6 +207,7 @@
 
                     <div class="row">
                         <div class="col-12">
+                            <input type="hidden" name="is_head" id="is_head">
                             <div class="form-group">
                             <label class="control-label" for="name">Name</label>
                                 <input type="text" name="name" id="name" class="form-control" placeholder="Name"  data-col-index="1">
@@ -592,6 +593,7 @@
                         $('#id').val(id);
                         $('#name').val(name);
                         $('#phone').val(rec.phone_number);
+                        $('#is_head').val(rec.is_head);
                         $('#email').val(rec.email).prop("readonly", true);
                         if(department_id != null){
                           $('#user_department').val(department_id).trigger("change.select2");
