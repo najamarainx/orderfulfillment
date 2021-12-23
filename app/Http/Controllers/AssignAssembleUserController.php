@@ -101,7 +101,6 @@ class AssignAssembleUserController extends Controller
 
     public function getUserAssembleStatus(Request $request)
     {
-        $assembler_id = $request->id;
         $assemblerStatus=OrderFulfillmentAssignAssembleUser::where('id',$request->id)->first();
         $return = [
             'status' => 'success',
