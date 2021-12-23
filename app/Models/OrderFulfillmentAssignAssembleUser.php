@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class OrderFulfillmentAssignAssembleUser extends Model
 {
     use HasFactory;
+    protected $table = 'orderfulffillment_assign_assemble_users';
 }

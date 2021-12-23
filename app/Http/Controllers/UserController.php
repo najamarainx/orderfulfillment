@@ -23,11 +23,13 @@ class UserController extends Controller
         $type = Auth::user()->type;
         $zipcodes = Zip::whereNULL('deleted_at')->get();
         $departments = getDepartment(-1, true);
-        $query = OrderFulfillmentRole::whereNULL('deleted_at');
+        $query = OrderFulfillmentRole::whereNULL('orderfulfillment_roles.deleted_at')->select('orderfulfillment_roles.*');
         if ($type == 'production_manager') {
-            $query->whereIn('name', ['Team Lead', 'Worker','Screen']);
+            $query->whereIn('orderfulfillment_roles.name', ['Team Lead', 'Worker','Screen']);
         }else if($type == 'team_lead'){
-            $query->whereIn('name', ['Worker']);
+            $query->whereIn('orderfulfillment_roles.name', ['Worker']);
+        }else if($type == 'assembler'){
+            $query->join('orderfulfillment_users as o_u','orderfulfillment_roles.added_by','o_u.id');
         }
         $roles = $query->get();
         $dt = [
@@ -162,15 +164,22 @@ class UserController extends Controller
         $user = new OrderFulfillmentUser();
         // Get the value from the form
         $validateInput = $request->all();
-        $rules = [
-            'email' => 'required',
-            'phone' => 'required',
-            'name' => 'required',
-            'user_role' => 'required',
-            'user_type' => 'required',
-
-
-        ];
+        if(Auth::user()->type != 'assembler'){
+            $rules = [
+                'email' => 'required',
+                'phone' => 'required',
+                'name' => 'required',
+                'user_role' => 'required',
+                'user_type' => 'required',
+            ];
+        }else{
+            $rules = [
+                'email' => 'required',
+                'phone' => 'required',
+                'name' => 'required',
+                'user_role' => 'required',
+            ];
+        }
         if ($id > 0) {
             $user = OrderFulfillmentUser::findOrFail($id);
             if ($useremail != $user->email) {
@@ -206,7 +215,12 @@ class UserController extends Controller
                 $user->password = Hash::make($password);
             }
             $user->role_id = $request->user_role;
-            $user->type = $request->user_type;
+            if(Auth::user()->type != 'assembler'){
+                $user->type = $request->user_type;
+            }else{
+                $user->type = 'assembler';
+                $user->assembler_head = '0';
+            }
             if ($id == "") {
                 $user->email_verified_at = Carbon::now()->format("Y-m-d H:i:s");
             }

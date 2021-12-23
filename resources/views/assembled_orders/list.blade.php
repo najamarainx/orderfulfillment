@@ -50,12 +50,12 @@
                             </div>
                             <div class="col-lg-3 mb-lg-3 mb-2">
                                 <label>Stores Name:</label>
-                                {{-- <select class="form-control kt_select2_1 datatable-input " id="store_search" data-col-index="1" >
+                                <select class="form-control kt_select2_1 datatable-input " id="store_search" data-col-index="1" >
                                     <option value="">Select Store</option>
                                     @foreach($stores as $store)
                                         <option value="{{$store->id}}" >{{ucfirst($store->name)}}</option>
                                     @endforeach
-                                </select> --}}
+                                </select>
                             </div>
                             <div class="col-lg-6 mb-lg-6 mb-2">
                                 <label>&nbsp;</label><br /><button class="btn btn-primary btn-primary--icon" id="kt_search">
@@ -123,6 +123,49 @@
                                     id="btn_save">Save</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="orderAssignModal" data-backdrop="static" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Assign Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="BookingAssign">
+                        <input type="hidden" name="booking_id" id="booking_id">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 pl-lg-6 pl-md-6" id="set_ctg">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group mb-4">
+                                            <label class="mb-0">Select User</label>
+
+                                                <select class="form-control form-control-lg  kt_select2_1 w-100 booking_user_id"
+                                                        data-live-search="true" name="booking_user_id" id="booking_user_id">
+                                                    <option value="">Select User</option>
+
+                                                </select>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-primary font-weight-bold"
+                            data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary font-weight-bold" id="btn_save_booking">Save</button>
                 </div>
             </div>
         </div>
@@ -300,5 +343,6 @@
                 }
             });
         });
+       
     </script>
 @endsection
