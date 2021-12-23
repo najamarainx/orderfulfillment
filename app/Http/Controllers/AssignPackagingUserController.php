@@ -66,7 +66,7 @@ class AssignPackagingUserController extends Controller
         $data = [];
         foreach ($orderData as $orderObj) {
             $action = "";
-                $action .= '<a href="' . url('assembled-order/assign_user') . '/' . $orderObj->id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm assigned_order" data-id="' . $orderObj->id . '">
+                $action .= '<a href="' . url('packaging-order/assign_user') . '/' . $orderObj->id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm assigned_order" data-id="' . $orderObj->id . '">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -268,15 +268,9 @@ class AssignPackagingUserController extends Controller
         return response()->json($return);
     }
 
-    public function getAssemblerUsers(Request $request)
+    public function getPackagingUsers(Request $request)
     {
-        $assemblerUsers = OrderFulfillmentUser::where('is_head', '0')->get();
-        if (!($assemblerUsers->isEmpty())) {
-            $data['assemblerUsers'] = $assemblerUsers;
-        } else {
-            $response = ['status' => 'error'];
-        }
-        return view('assembled_orders.assigned_task', $data);
+        return view('assembled_orders.assigned_task');
     }
 
 

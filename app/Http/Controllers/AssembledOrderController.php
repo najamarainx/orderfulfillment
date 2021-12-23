@@ -145,11 +145,12 @@ class AssembledOrderController extends Controller
         $sortColumnName = $request->columns[$sortColumnIndex]['data']; // Column name
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
-        $sql = OrderFulfillmentUser::where('is_head', '0')->select('orderfulfillment_users.*', 'o_as_u.user_id as o_as_u_id','o_as_u.id as assigned_id','o_as_u.status');
+        $sql = OrderFulfillmentUser::where('is_head', '1')->select('orderfulfillment_users.*', 'o_as_u.user_id as o_as_u_id','o_as_u.id as assigned_id','o_as_u.status');
         $sql->leftJoin('orderfulffillment_assign_assemble_users as o_as_u',function($q){
                  $q->on('orderfulfillment_users.id', 'o_as_u.user_id');
                  $q->whereNULL('o_as_u.deleted_at');
         });
+        $sql->where('orderfulfillment_users.type',Auth::user()->type);
         $sql->whereNULL('orderfulfillment_users.deleted_at');
         foreach ($columns as $field) {
             $col = $field['data'];
