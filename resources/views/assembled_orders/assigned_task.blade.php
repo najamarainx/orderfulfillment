@@ -122,10 +122,10 @@
                         processing: true,
                         serverSide: true,
                         ajax: {
-                            url: "{{ route('getAssemblerUsersList') }}",
+                            url: "{{ route('getPackagingUsersList') }}",
                             type: 'POST',
                             data: {
-                                status: 'confirmed',
+                                user_type: 'packaging',
                                 // parameters for custom backend script demo
                                 columnsDef: [
                                     'id', 'name','status'

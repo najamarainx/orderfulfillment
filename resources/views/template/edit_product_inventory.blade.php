@@ -2,6 +2,7 @@
 <tr class="explode hide container" id="remove_append_tr_{{$product_id}}">
     <td colspan="9" style="border-left:5px solid #b10303;background: rgb(236, 236, 236);">
         <div>
+            @php $usersTypeArray = ['assembler','packaging','installtion']; @endphp
 
             <table class="table table-condensed table-head-custom table-vertical-center" id="exist_append_items">
                 <thead>
@@ -10,10 +11,10 @@
                     <th style="min-width: 120px">Item</th>
                     <th style="min-width: 120px">Variant</th>
                     <th style="min-width: 120px">Quantity</th>
-                    @if(Auth::user()->type != 'assembler')
+                    @if(!in_array(Auth::user()->type,$usersTypeArray))
                     <th style="min-width: 120px">Action</th>
                     @endif
-                </tr> 
+                </tr>
                 </thead>
                 <tbody data-repeater-list="">
                 @foreach($assignedInventory as $assigned)

@@ -20,6 +20,7 @@ class RoleController extends Controller
 
     public function getList(Request $request)
     {
+        $usersTypeArray = ['assembler','packaging','installtion'];
         $records = [];
         $draw = $request->draw;
         $start = $request->start;
@@ -32,8 +33,9 @@ class RoleController extends Controller
 
         $userType = auth()->user()->type;
         $role = OrderFulfillmentRole::select('orderfulfillment_roles.*');
-        if($userType == 'assembler'){
-            $role->join('orderfulfillment_users as o_u','orderfulfillment_roles.added_by','o_u.id');
+        if(in_array($userType , $usersTypeArray)){
+            $role->where('added_by',Auth::user()->id);
+            // $role->join('orderfulfillment_users as o_u','orderfulfillment_roles.added_by','o_u.id');
         }
         // if($userType != 'super_admin') {
         //     $role->whereIn('id', $userRoleIds);

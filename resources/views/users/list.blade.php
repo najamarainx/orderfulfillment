@@ -22,6 +22,10 @@
         $userTypes=array('worker');
 
     }
+
+    $usersTypeArray = ['assembler','packaging','installtion'];
+
+
 @endphp
 @section('content')
     <!--begin::Content-->
@@ -114,6 +118,7 @@
 
                                         </div>
                                     </div>
+                                    @if(!in_array(Auth::user()->type , $usersTypeArray))
                                     <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
                                             <label>User Type:</label>
@@ -125,6 +130,7 @@
                                             </select>
                                         </div>
                                     </div>
+                                    @endif
                                     <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
                                         <label>&nbsp;</label><br />
                                         <button class="btn btn-primary btn-primary--icon" id="kt_search">
@@ -201,6 +207,7 @@
 
                     <div class="row">
                         <div class="col-12">
+                            <input type="hidden" name="is_head" id="is_head">
                             <div class="form-group">
                             <label class="control-label" for="name">Name</label>
                                 <input type="text" name="name" id="name" class="form-control" placeholder="Name"  data-col-index="1">
@@ -218,7 +225,7 @@
                                 <input type="number" name="phone" id="phone" class="form-control" placeholder="Phone.No">
                             </div>
                         </div>
-                        @if(Auth::user()->type != 'assembler')
+                        @if(!in_array(Auth::user()->type,$usersTypeArray))
                         <div class="col-6">
                             <div class="form-group">
                             <label class="control-label" for="user_type">User Type</label>
@@ -586,6 +593,7 @@
                         $('#id').val(id);
                         $('#name').val(name);
                         $('#phone').val(rec.phone_number);
+                        $('#is_head').val(rec.is_head);
                         $('#email').val(rec.email).prop("readonly", true);
                         if(department_id != null){
                           $('#user_department').val(department_id).trigger("change.select2");
