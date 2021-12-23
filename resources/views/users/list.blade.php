@@ -118,7 +118,7 @@
 
                                         </div>
                                     </div>
-
+                                    @if(!in_array(Auth::user()->type , $usersTypeArray))
                                     <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
                                             <label>User Type:</label>
@@ -130,7 +130,7 @@
                                             </select>
                                         </div>
                                     </div>
-
+                                    @endif
                                     <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
                                         <label>&nbsp;</label><br />
                                         <button class="btn btn-primary btn-primary--icon" id="kt_search">
