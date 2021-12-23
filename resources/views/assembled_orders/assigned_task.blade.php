@@ -73,7 +73,8 @@
                                             <thead>
                                                 <tr class="text-left text-uppercase">
                                                     <th>Sr</th>
-                                                    <th>Name</th>
+                                                    <th>Assign To</th>
+                                                    <th>Assign From</th>
                                                     <th>Status</th>
                                                     <th class="" style="min-width: 160px">Action
                                                     </th>
@@ -128,7 +129,7 @@
                                 user_type: 'packaging',
                                 // parameters for custom backend script demo
                                 columnsDef: [
-                                    'id', 'name','status'
+                                    'id', 'name','added_by','status'
                                 ],
                             },
                             headers: {
@@ -140,6 +141,9 @@
                             },
                             {
                                 data: 'name'
+                            },
+                            {
+                                data: 'added_by'
                             },
                             {
                                 data: 'status'
