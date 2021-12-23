@@ -117,9 +117,25 @@ function getVariants()
     return $query = DB::table('orderfulfillment_variants')->whereNull('deleted_at')->get();
 }
 
-function getUsersByZip($zipID)
+function getUsersByZip($zipID='',$userID='',$type='')
 {
-    return $query = DB::table('orderfulfillment_user_zip_codes_mappings')->select('orderfulfillment_users.name', 'orderfulfillment_users.id')->join('orderfulfillment_users', 'orderfulfillment_users.id', '=', 'orderfulfillment_user_zip_codes_mappings.user_id')->whereNULL('orderfulfillment_user_zip_codes_mappings.deleted_at')->where('orderfulfillment_users.type', '=', 'measurement')->where('orderfulfillment_user_zip_codes_mappings.zip_id', $zipID)->get();
+    $query = DB::table('orderfulfillment_user_zip_codes_mappings')->select('orderfulfillment_users.name', 'orderfulfillment_users.id','orderfulfillment_user_zip_codes_mappings.zip_id');
+    $query->join('orderfulfillment_users', 'orderfulfillment_users.id', '=', 'orderfulfillment_user_zip_codes_mappings.user_id');
+    $query->whereNULL('orderfulfillment_user_zip_codes_mappings.deleted_at');
+    if($type){
+        $query->where('orderfulfillment_users.type', '=', $type);
+    }else{
+        $query->where('orderfulfillment_users.type', '=', 'measurement');
+    }
+    if($zipID){
+        $query->where('orderfulfillment_user_zip_codes_mappings.zip_id', $zipID);
+    }if($userID){
+        $query->where('orderfulfillment_user_zip_codes_mappings.user_id', $userID);
+    }
+
+    return $result=$query->get();
+
+
 }
 /*function getUserTimeSlots($zipID)
 {
