@@ -25,7 +25,7 @@ class UserController extends Controller
         $zipcode = Zip::whereNULL('orderfulfillment_zip_codes.deleted_at')->select('orderfulfillment_zip_codes.*');
         if($type == 'installation'){
             $zipcode->join('orderfulfillment_user_zip_codes_mappings as u_zip_map','orderfulfillment_zip_codes.id','u_zip_map.zip_id');
-            $zipcode->join('orderfulfillment_users as user','u_zip_map.user_id','user.id');
+            // $zipcode->join('orderfulfillment_users as user','u_zip_map.user_id','user.id');
             $zipcode->where('u_zip_map.user_id',Auth::user()->id);
         }
         $zipcodes  = $zipcode->get();
