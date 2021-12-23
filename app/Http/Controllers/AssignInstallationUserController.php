@@ -136,17 +136,22 @@ class AssignInstallationUserController extends Controller
         $sortColumnName = $request->columns[$sortColumnIndex]['data']; // Column name
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
-        $sql = OrderFulfillmentPackagingUser::select('orderfulfillment_packings.*','orderfulfillment_users.name as assigned_to','ab.name as assigned_from');
-        $sql->join('orders','orders.id','orderfulfillment_packings.order_id');
-        $sql->join('orderfulfillment_users','orderfulfillment_packings.user_id','orderfulfillment_users.id');
-        $sql->join('orderfulfillment_users as ab','orderfulfillment_packings.added_by','ab.id');
-        $sql->where('orderfulfillment_users.type','packaging');
-        $sql->where('orderfulfillment_users.is_head',1);
+        $userZipInfo=getUsersByZip($zipID='',Auth::user()->id,Auth::user()->type);
+        $zipIDS=$userZipInfo->pluck('zip_id')->toArray();
+        $sql = OrderFulfillmentInstallationUser::select('orderfulfillment_installations.*','orderfulfillment_users.name as assigned_to','ab.name as assigned_from');
+        $sql->join('orders','orders.id','orderfulfillment_installations.order_id');
+        $sql->join('orderfulfillment_bookings','orders.booking_id','orderfulfillment_bookings.id');
+        $sql->join('orderfulfillment_user_zip_codes_mappings','orderfulfillment_bookings.zip_code_id','orderfulfillment_user_zip_codes_mappings.zip_id');
+        $sql->join('orderfulfillment_users','orderfulfillment_installations.user_id','orderfulfillment_users.id');
+        $sql->join('orderfulfillment_users as ab','orderfulfillment_installations.added_by','ab.id');
+        $sql->where('orderfulfillment_users.type','installation');
+        $sql->where('orders.status','installation');
+        $sql->whereIn('orderfulfillment_bookings.zip_code_id',$zipIDS);
         $sql->whereNULL('orders.deleted_at');
-        $sql->whereNULL('orderfulfillment_packings.deleted_at');
-        $sql->whereNULL('orderfulfillment_users.deleted_at');
+        $sql->whereNULL('orderfulfillment_installations.deleted_at');
+        $sql->whereNULL('orderfulfillment_installations.deleted_at');
         if(Auth::user()->is_head==1){
-            $sql->where('orderfulfillment_packings.user_id',Auth::user()->id);
+            $sql->where('orderfulfillment_installations.user_id',Auth::user()->id);
         }
 
         foreach ($columns as $field) {
@@ -154,12 +159,12 @@ class AssignInstallationUserController extends Controller
             $search = $field['search']['value'];
             if ($search != "") {
                 if ($col == 'order_id') {
-                    $sql->where('orderfulfillment_packings.order_id', $search);
+                    $sql->where('orderfulfillment_installations.order_id', $search);
 
                     // $sql->where($col, $search);
                 }
-                if ($col == 'status') {
-                    $col = "orderfulfillment_packings.status";
+                if ($col =='status') {
+                    $col ="orderfulfillment_installations.status";
                     $sql->where($col, $search);
                 }
             }
@@ -168,7 +173,7 @@ class AssignInstallationUserController extends Controller
         if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
             $sql->orderBy($sortColumnName, $sortColumnSortOrder);
         } else {
-            $sql->orderBy("orderfulfillment_packings.id", "desc");
+            $sql->orderBy("orderfulfillment_installations.id", "desc");
         }
         $iTotalRecords = $sql->count();
         $sql->skip($start);
@@ -178,7 +183,7 @@ class AssignInstallationUserController extends Controller
         $data = [];
         foreach ($orderData as $orderObj) {
             $action = "";
-            $action .= '<a href="' . url('packaging-order/detail') . '/' . $orderObj->order_id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview">
+            $action .= '<a href="' . url('installation-order/detail') . '/' . $orderObj->order_id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview">
             <i class="la la-eye"></i>
         </a>';
 
@@ -206,9 +211,9 @@ class AssignInstallationUserController extends Controller
         echo json_encode($records);
     }
 
-    public function getUserPackagedStatus(Request $request)
+    public function getUserInstallationStatus(Request $request)
     {
-        $assemblerStatus=OrderFulfillmentPackagingUser::where('id',$request->id)->first();
+        $assemblerStatus=OrderFulfillmentInstallationUser::where('id',$request->id)->first();
         $return = [
             'status' => 'success',
             'assembler_status' => $assemblerStatus,
@@ -216,7 +221,7 @@ class AssignInstallationUserController extends Controller
         return response()->json($return);
     }
 
-    public function updatePackagedStatus(Request $request)
+    public function updateInstallationStatus(Request $request)
     {
         $validate = true;
         $validateInput = $request->all();
@@ -229,7 +234,7 @@ class AssignInstallationUserController extends Controller
         $messages = [
             'assembling_id.required' => 'something wrong !',
             'order_id.required' => 'something wrong !',
-            'assembling_status.required' => 'packaging status field is required',
+            'assembling_status.required' => 'installation status field is required',
 
         ];
         $validator = Validator::make($validateInput, $rules, $messages);
@@ -245,7 +250,7 @@ class AssignInstallationUserController extends Controller
             return response()->json($return);
         }
         if($validate) {
-            $query = OrderFulfillmentPackagingUser::where('id',$request->assembling_id)
+            $query = OrderFulfillmentInstallationUser::where('id',$request->assembling_id)
                 ->update([
                     'status' =>$request->assembling_status,
                     'updated_at' =>Carbon::Now()->format('Y-m-d H:i:s'),
