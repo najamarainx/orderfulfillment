@@ -4,6 +4,7 @@
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
+@php $usersTypeArray = ['assembler','packaging','installtion']; @endphp
 @section('page_level_css')
     <style>
         .error {
@@ -111,15 +112,21 @@
                                         (#{{ $orderItems->id }})</span>
                                     <input type="hidden" name="order_id" id="order_id" value="{{ $orderItems->id }}">
                                 </h3>
-                                @if (Auth::user()->type != 'assembler')
+
+
+                                @if(Auth::user()->type == 'assembler')
+                                    <button type="button" id="update_assemble_stauts_btn" data-status="packing"
+                                        data-id="{{ $orderItems->id }}"
+                                        class="btn btn-primary font-weight-bold update_assemble_stauts_btn">Proceed To
+                                        Packaging</button>
+                                @elseif(Auth::user()->type == 'packaging')
+                                    <button type="button" id="update_assemble_stauts_btn" data-status="installation"
+                                        data-id="{{ $orderItems->id }}"
+                                        class="btn btn-primary font-weight-bold update_assemble_stauts_btn">Proceed To
+                                        Inastallation</button>
+                                @else
                                     <button type="button" id="proceed_inventory" data-id="{{ $orderItems->id }}"
                                         class="btn btn-primary font-weight-bold">Proceed</button>
-                                @elseif(Auth::user()->type = 'assembler')
-                                    <button type="button" id="update_assemble_stauts_btn" data-status="packing" data-id="{{ $orderItems->id }}"
-                                        class="btn btn-primary font-weight-bold update_assemble_stauts_btn">Proceed To Packaging</button>
-                                    @else
-                                    <button type="button" id="update_assemble_stauts_btn" data-status="installation" data-id="{{ $orderItems->id }}"
-                                        class="btn btn-primary font-weight-bold update_assemble_stauts_btn">Proceed To Packaging</button>
                                 @endif
                             </div>
                             <!--end::Header-->
@@ -211,7 +218,7 @@
                                                             </span>
                                                         </a>
 
-                                                        @if (Auth::user()->type != 'assembler')
+                                                        @if (!in_array(Auth::user()->type,$usersTypeArray))
                                                             <a onclick="assignProductInventory({{ $orderItem->product_id }})"
                                                                 class="btn btn-icon btn-light btn-hover-primary btn-sm"
                                                                 data-toggle="modal" data-target="#staticBackdrop1">
@@ -920,7 +927,7 @@
 
 
         $(document).on('click', '.update_assemble_stauts_btn', function() {
-            var status =   $(this).attr('data-status');
+            var status = $(this).attr('data-status');
             var form_data = new FormData();
             var order_id = {{ last(request()->segments()) }};
             form_data.append('order_id', order_id);

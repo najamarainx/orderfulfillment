@@ -208,6 +208,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/getassignlist', [Controllers\AssignPackagingUserController::class, 'getassignList'])->name('getAssignPackagedList');
         Route::post('/getAssemblerStatus', [Controllers\AssignPackagingUserController::class, 'getUserPackagedStatus'])->name('getPackagedStatus');
         Route::post('/saveAssemblerStatus', [Controllers\AssignPackagingUserController::class, 'updatePackagedStatus'])->name('updatePackagedStatus');
+        Route::get('assign_user/{id}', [Controllers\AssignPackagingUserController::class, 'getPackagingUsers'])->name('getPackagingUsers');
 
 
 

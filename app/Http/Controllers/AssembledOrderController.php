@@ -149,7 +149,6 @@ class AssembledOrderController extends Controller
         $sql->leftJoin('orderfulffillment_assign_assemble_users as o_as_u',function($q){
                  $q->on('orderfulfillment_users.id', 'o_as_u.user_id');
                  $q->whereNULL('o_as_u.deleted_at');
-
         });
         $sql->whereNULL('orderfulfillment_users.deleted_at');
         foreach ($columns as $field) {

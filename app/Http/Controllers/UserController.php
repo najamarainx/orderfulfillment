@@ -21,6 +21,7 @@ class UserController extends Controller
     public function index()
     {
         $type = Auth::user()->type;
+         $usersTypeArray = ['assembler','packaging','installtion'];
         $zipcodes = Zip::whereNULL('deleted_at')->get();
         $departments = getDepartment(-1, true);
         $query = OrderFulfillmentRole::whereNULL('orderfulfillment_roles.deleted_at')->select('orderfulfillment_roles.*');
@@ -28,8 +29,9 @@ class UserController extends Controller
             $query->whereIn('orderfulfillment_roles.name', ['Team Lead', 'Worker','Screen']);
         }else if($type == 'team_lead'){
             $query->whereIn('orderfulfillment_roles.name', ['Worker']);
-        }else if($type == 'assembler'){
-            $query->join('orderfulfillment_users as o_u','orderfulfillment_roles.added_by','o_u.id');
+        }else if(in_array($type,$usersTypeArray)){
+            // $query->join('orderfulfillment_users as o_u','orderfulfillment_roles.added_by','o_u.id');
+            $query->where('orderfulfillment_roles.added_by',Auth::user()->id);
         }
         $roles = $query->get();
         $dt = [
@@ -43,6 +45,7 @@ class UserController extends Controller
     }
     public function getList(Request $request)
     {
+        $usersTypeArray = ['assembler','packaging','installtion'];
         $type = auth()->user()->type;
         $records = [];
         $draw = $request->draw;
@@ -60,8 +63,8 @@ class UserController extends Controller
         }else if($type == 'team_lead'){
             $user->join('orderfulfillment_user_departments as o_user_dpt', 'orderfulfillment_users.id', 'o_user_dpt.user_id');
             $user->where('o_user_dpt.department_id',$department_id);
-        }else if($type == 'assembler'){
-            $user->where('type','assembler');
+        }else if(in_array($type,$usersTypeArray)){
+            $user->where('type',$type);
         }
         foreach ($columns as $field) {
             $col = $field['data'];
@@ -121,10 +124,6 @@ class UserController extends Controller
                             <i class="la la-trash"></i>
                         </a>';
             }
-
-
-
-
             $name="";
             $name.='<p class="m-0 font-weight-bolder">'.$userObj->name.'</p>';
             if($userObj->type=='worker')

@@ -22,6 +22,10 @@
         $userTypes=array('worker');
 
     }
+
+    $usersTypeArray = ['assembler','packaging','installtion'];
+
+
 @endphp
 @section('content')
     <!--begin::Content-->
@@ -114,6 +118,7 @@
 
                                         </div>
                                     </div>
+
                                     <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
                                             <label>User Type:</label>
@@ -125,6 +130,7 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
                                         <label>&nbsp;</label><br />
                                         <button class="btn btn-primary btn-primary--icon" id="kt_search">
@@ -218,7 +224,7 @@
                                 <input type="number" name="phone" id="phone" class="form-control" placeholder="Phone.No">
                             </div>
                         </div>
-                        @if(Auth::user()->type != 'assembler')
+                        @if(!in_array(Auth::user()->type,$usersTypeArray))
                         <div class="col-6">
                             <div class="form-group">
                             <label class="control-label" for="user_type">User Type</label>
