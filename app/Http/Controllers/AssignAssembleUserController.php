@@ -34,11 +34,11 @@ class AssignAssembleUserController extends Controller
         $sql->join('orderfulfillment_users','orderfulffillment_assign_assemble_users.user_id','orderfulfillment_users.id');
         $sql->join('orderfulfillment_users as ab','orderfulffillment_assign_assemble_users.added_by','ab.id');
         $sql->where('orderfulfillment_users.type','assembler');
-        $sql->where('orderfulfillment_users.assembler_head',1);
+        $sql->where('orderfulfillment_users.is_head',1);
         $sql->whereNULL('orders.deleted_at');
         $sql->whereNULL('orderfulffillment_assign_assemble_users.deleted_at');
         $sql->whereNULL('orderfulfillment_users.deleted_at');
-        if(Auth::user()->assembler_head==1){
+        if(Auth::user()->is_head==1){
             $sql->where('orderfulffillment_assign_assemble_users.user_id',Auth::user()->id);
         }
 
@@ -75,7 +75,7 @@ class AssignAssembleUserController extends Controller
             <i class="la la-eye"></i>
         </a>';
 
-            if($orderObj->status=='completed' && Auth::user()->assembler_head==1){
+            if($orderObj->status=='completed' && Auth::user()->is_head==1){
                 $status='<span class="badge badge-success "  style="cursor:pointer">' . $orderObj->status . '</span>';
             }else{
                 $status='<span class="badge badge-success assemble_update" data-id="'.$orderObj->id.'" style="cursor:pointer">' . $orderObj->status . '</span>';

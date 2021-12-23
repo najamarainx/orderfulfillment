@@ -155,6 +155,7 @@ class UserController extends Controller
     {
 
         $type = auth()->user()->type;
+        $usersTypeArray = ['assembler','packaging','installtion'];
         $validate = true;
         $id = $request->id;
         $useremail = $request->email;
@@ -163,7 +164,7 @@ class UserController extends Controller
         $user = new OrderFulfillmentUser();
         // Get the value from the form
         $validateInput = $request->all();
-        if(Auth::user()->type != 'assembler'){
+        if(!in_array(Auth::user()->type,$usersTypeArray)){
             $rules = [
                 'email' => 'required',
                 'phone' => 'required',
@@ -214,11 +215,12 @@ class UserController extends Controller
                 $user->password = Hash::make($password);
             }
             $user->role_id = $request->user_role;
-            if(Auth::user()->type != 'assembler'){
+
+            if(!in_array(Auth::user()->type,$usersTypeArray)){
                 $user->type = $request->user_type;
+                $user->is_head = '0';
             }else{
-                $user->type = 'assembler';
-                $user->assembler_head = '0';
+                $user->type = Auth::user()->type;
             }
             if ($id == "") {
                 $user->email_verified_at = Carbon::now()->format("Y-m-d H:i:s");
