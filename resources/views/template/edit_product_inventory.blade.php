@@ -10,9 +10,10 @@
                     <th style="min-width: 120px">Item</th>
                     <th style="min-width: 120px">Variant</th>
                     <th style="min-width: 120px">Quantity</th>
+                    @if(Auth::user()->type != 'assembler')
                     <th style="min-width: 120px">Action</th>
-
-                </tr>
+                    @endif
+                </tr> 
                 </thead>
                 <tbody data-repeater-list="">
                 @foreach($assignedInventory as $assigned)
@@ -49,6 +50,7 @@
 
 
                     </td>
+                    @if(Auth::user()->type != 'assembler')
                     <td>
                         @if($assigned->is_verified==0)
                         <button type="button" class="btn btn-icon btn-light btn-hover-primary btn-sm remove_invenoty_product" data-id="{{$assigned->product_id.'~'.$assigned->id}}">
@@ -80,6 +82,7 @@
                         </button>
                         @endif
                     </td>
+                    @endif
                 </tr>
                 @endforeach
                 </tbody>

@@ -190,12 +190,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [Controllers\AssembledOrderController::class, 'index'])->name('assembledOrderList');
         Route::post('/list', [Controllers\AssembledOrderController::class, 'getList'])->name('getAssembledOrderList');
         Route::get('/detail/{id}', [Controllers\AssembledOrderController::class, 'detail'])->name('getAssembledOrderDetail');
+        Route::get('assign_user/{id}', [Controllers\AssembledOrderController::class, 'getAssemblerUsers'])->name('getAssemblerUsers');
+        Route::post('assembler_user_list', [Controllers\AssembledOrderController::class, 'getAssemblerUsersList'])->name('getAssemblerUsersList');
+        Route::post('assigned_assembler_task', [Controllers\AssembledOrderController::class, 'assignedAssmblerTask'])->name('assignedAssmblerTask');
+        Route::post('delete_assembler_user', [Controllers\AssembledOrderController::class, 'deleteAssemblerUser'])->name('deleteAssemblerUser');
         Route::get('/assignlist', [Controllers\AssignAssembleUserController::class, 'index'])->name('assembledOrderAssigned');
         Route::post('/getassignlist', [Controllers\AssignAssembleUserController::class, 'getList'])->name('getAssignAssembledList');
         Route::post('/getAssemblerStatus', [Controllers\AssignAssembleUserController::class, 'getUserAssembleStatus'])->name('getAssemblerStatus');
         Route::post('/saveAssemblerStatus', [Controllers\AssignAssembleUserController::class, 'updateAssemblingStatus'])->name('updateAssemblingStatus');
-
-
+        Route::post('/procced-to-packaging', [Controllers\AssignAssembleUserController::class, 'assemblerOrderCheck'])->name('proceedToPackaging');
     });
     Route::prefix('packaging-order')->group(function () {
         Route::get('/', [Controllers\AssignPackagingUserController::class, 'index'])->name('packagedOrderList');

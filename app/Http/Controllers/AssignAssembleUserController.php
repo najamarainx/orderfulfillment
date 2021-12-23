@@ -103,7 +103,6 @@ class AssignAssembleUserController extends Controller
     {
         $assembler_id = $request->id;
         $assemblerStatus=OrderFulfillmentAssignAssembleUser::where('id',$request->id)->first();
-
         $return = [
             'status' => 'success',
             'assembler_status' => $assemblerStatus,
@@ -174,8 +173,6 @@ class AssignAssembleUserController extends Controller
         $messages = [
 
             'order_id.required' => 'something wrong !',
-
-
         ];
         $validator = Validator::make($validateInput, $rules, $messages);
         if ($validator->fails()) {
@@ -190,14 +187,22 @@ class AssignAssembleUserController extends Controller
             return response()->json($return);
         }
         if($validate) {
-
-            $totalOrderTasks=orderAssignTaskStatuses($request->order_id,'');
-                $totalCompletedOrderTasks=orderAssignTaskStatuses($request->order_id,'completed');
+              if($request->status == 'packing'){
+                  $totalOrderTasks=orderAssignTaskStatuses($request->order_id,'','orderfulffillment_assign_assemble_users');
+                  $totalCompletedOrderTasks=orderAssignTaskStatuses($request->order_id,'completed','orderfulffillment_assign_assemble_users');
+                }elseif($request->status == 'installation'){
+                $totalOrderTasks=orderAssignTaskStatuses($request->order_id,'','orderfulffillment_assign_assemble_users');
+                $totalCompletedOrderTasks=orderAssignTaskStatuses($request->order_id,'completed','orderfulffillment_assign_assemble_users');
+              }else{
+                $totalOrderTasks=orderAssignTaskStatuses($request->order_id,'','orderfulffillment_assign_assemble_users');
+                $totalCompletedOrderTasks=orderAssignTaskStatuses($request->order_id,'completed','orderfulffillment_assign_assemble_users');
+              }
+            //   print_r($totalCompletedOrderTasks);exit;
                 if($totalOrderTasks==$totalCompletedOrderTasks)
                 {
                     $query=Order::where('id',$request->order_id)->whereNull('deleted_at')->update(['status'=>'packing']);
                 }
-                if($query){
+                if(isset($query)){
 
                     $return = [
                         'status' => 'success',

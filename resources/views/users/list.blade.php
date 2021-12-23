@@ -218,6 +218,7 @@
                                 <input type="number" name="phone" id="phone" class="form-control" placeholder="Phone.No">
                             </div>
                         </div>
+                        @if(Auth::user()->type != 'assembler')
                         <div class="col-6">
                             <div class="form-group">
                             <label class="control-label" for="user_type">User Type</label>
@@ -229,7 +230,7 @@
                                 </select>
                             </div>
                         </div>
-
+                        @endif
                         <div class="col-6">
                             <div class="form-group">
                             <label class="control-label" for="user_role">User Role</label>

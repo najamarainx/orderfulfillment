@@ -352,7 +352,6 @@ class BookingController extends Controller
         $UserIDS = $getUsers->pluck('id')->toArray();
         $bookedUsers = getBookedUsers(false, $UserIDS, $bookingInfo->time_slot_id, $bookingInfo->date,$booking_id);
         $getSelectedUser = assignBookingUser($booking_id);
-
         $return = [
             'status' => 'success',
             'getUsers' => $getUsers,
