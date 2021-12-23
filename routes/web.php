@@ -197,6 +197,18 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     });
+    Route::prefix('packaging-order')->group(function () {
+        Route::get('/', [Controllers\AssignPackagingUserController::class, 'index'])->name('packagedOrderList');
+        Route::post('/list', [Controllers\AssignPackagingUserController::class, 'getList'])->name('getPackagedOrderList');
+        Route::get('/detail/{id}', [Controllers\AssignPackagingUserController::class, 'detail'])->name('getAssembledOrderDetail');
+        Route::get('/assignlist', [Controllers\AssignPackagingUserController::class, 'assignList'])->name('packagedOrderAssigned');
+        Route::post('/getassignlist', [Controllers\AssignPackagingUserController::class, 'getassignList'])->name('getAssignPackagedList');
+        Route::post('/getAssemblerStatus', [Controllers\AssignPackagingUserController::class, 'getUserPackagedStatus'])->name('getPackagedStatus');
+        Route::post('/saveAssemblerStatus', [Controllers\AssignPackagingUserController::class, 'updatePackagedStatus'])->name('updatePackagedStatus');
+
+
+
+    });
     Route::get('worker-task-screen', [Controllers\WorkerTaskController::class, 'getWorkerTasksByDepartment'])->name('getWorkerTasksByDepartment')->middleware('haspermission:workerTask');
     Route::post('worker-tasks-list', [Controllers\WorkerTaskController::class, 'getWorkerTasksList'])->name('getWorkerTasksList')->middleware('haspermission:workerTask');
     Route::post('update-worker-tasks-status', [Controllers\WorkerTaskController::class, 'updateWorkertaskStatus'])->name('updateWorkertaskStatus')->middleware('haspermission:updateWorkerTask');
