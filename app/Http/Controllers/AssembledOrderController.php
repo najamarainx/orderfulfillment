@@ -94,23 +94,6 @@ class AssembledOrderController extends Controller
                     <!--end::Svg Icon-->
                 </span>
             </a>';
-
-
-
-            /*$action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm delete" data-id="' . $orderObj->id . '" title="Delete">
-                <span class="svg-icon svg-icon-md svg-icon-primary">
-                    <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <rect x="0" y="0" width="24" height="24"></rect>
-                            <path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#000000" fill-rule="nonzero"></path>
-                            <path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"></path>
-                        </g>
-                    </svg>
-                    <!--end::Svg Icon-->
-                </span>
-            </a>';*/
-
             $data[] = [
                 "id" => $orderObj->id,
                 "name" => $orderObj->store_name,
@@ -119,8 +102,6 @@ class AssembledOrderController extends Controller
                 "action" => $action
             ];
         }
-
-
         $records["data"] = $data;
         $records["draw"] = $draw;
         $records["recordsTotal"] = $iTotalRecords;
@@ -153,7 +134,6 @@ class AssembledOrderController extends Controller
             $response = ['status' => 'error'];
         }
         return view('assembled_orders.assigned_task', $data);
-        // return response()->json($assemblerUsers);
     }
     public function getAssemblerUsersList(Request $request)
     {
@@ -165,8 +145,12 @@ class AssembledOrderController extends Controller
         $sortColumnName = $request->columns[$sortColumnIndex]['data']; // Column name
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
-        $sql = OrderFulfillmentUser::where('assembler_head', '0')->select('orderfulfillment_users.*', 'o_as_u.user_id as o_as_u_id');
-        $sql->leftJoin('orderfulffillment_assign_assemble_users as o_as_u', 'orderfulfillment_users.id', 'o_as_u.user_id');
+        $sql = OrderFulfillmentUser::where('assembler_head', '0')->select('orderfulfillment_users.*', 'o_as_u.user_id as o_as_u_id','o_as_u.id as assigned_id','o_as_u.status');
+        $sql->leftJoin('orderfulffillment_assign_assemble_users as o_as_u',function($q){
+                 $q->on('orderfulfillment_users.id', 'o_as_u.user_id');
+                 $q->whereNULL('o_as_u.deleted_at');
+
+        });
         $sql->whereNULL('orderfulfillment_users.deleted_at');
         foreach ($columns as $field) {
             $col = $field['data'];
@@ -188,6 +172,7 @@ class AssembledOrderController extends Controller
         $sql->skip($start);
         $sql->take($length);
         $userData = $sql->get();
+        // print_r($userData);exit;
         $data = [];
         foreach ($userData as $userObj) {
             $action = "";
@@ -197,35 +182,16 @@ class AssembledOrderController extends Controller
             Save</button>';
             }
             if (!empty($userObj->o_as_u_id)) {
-                $action .= '<button class="btn btn-primary btn-sm delete_assemled_user" data-user-id="' . $userObj->id . '">x</button>';
+                $action .= '<button class="btn btn-primary btn-sm delete_assemled_user" data-assmbler-id = "' . $userObj->assigned_id . '" data-user-id="' . $userObj->id . '">x</button>';
             }
             $action .= '</div>';
-
-
-
-
-            /*$action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm delete" data-id="' . $userObj->id . '" title="Delete">
-                <span class="svg-icon svg-icon-md svg-icon-primary">
-                    <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <rect x="0" y="0" width="24" height="24"></rect>
-                            <path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#000000" fill-rule="nonzero"></path>
-                            <path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"></path>
-                        </g>
-                    </svg>
-                    <!--end::Svg Icon-->
-                </span>
-            </a>';*/
-
             $data[] = [
                 "id" => $userObj->id,
                 "name" => $userObj->name,
+                "status"=> '<span class="badge badge-success badge-pill worker_assign_status" style="cursor:pointer" >' .  $userObj->status  . '</span>',
                 "action" => $action
             ];
         }
-
-
         $records["data"] = $data;
         $records["draw"] = $draw;
         $records["recordsTotal"] = $iTotalRecords;
@@ -257,11 +223,13 @@ class AssembledOrderController extends Controller
 
     public function deleteAssemblerUser(Request $request)
     {
-
-        $query = OrderFulfillmentAssignAssembleUser::where(['user_id' => $request->user_id, 'order_id' => $request->order_id])->update(['deleted_at' => Carbon::now()->format('Y-m-d')]);
-        $response = ['status' => 'error', 'message' => 'Your record cannot deleted!'];
-        if ($query) {
+        $assembler_id = $request->id;
+        $assemblerStatus=OrderFulfillmentAssignAssembleUser::where('id',$request->id)->first();
+        if($assemblerStatus->status == 'pending'){
+            OrderFulfillmentAssignAssembleUser::where(['id' => $assembler_id])->update(['deleted_at' => Carbon::now()->format('Y-m-d')]);
             $response = ['status' => 'success', 'message' => 'Deleted Successfully'];
+        }else{
+            $response = ['status' => 'error', 'message' => 'You cannot deleted this record!'];
         }
         return response()->json($response);
     }

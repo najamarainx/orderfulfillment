@@ -67,7 +67,6 @@ class UserController extends Controller
             $col = $field['data'];
             $search = $field['search']['value'];
             if ($search != "") {
-
                 if ($col == 'name') {
                     $user->where('orderfulfillment_users.' . $col, 'like', '%' . $search . '%');
                 }

@@ -48,8 +48,8 @@
                                             <div class="row mb-6">
                                                 <div class="col-lg-3 mb-lg-2 mb-2">
                                                     <label>Name:</label>
-                                                    <input type="text" class="form-control datatable-input" placeholder="E.g: test"
-                                                        data-col-index="1" />
+                                                    <input type="text" class="form-control datatable-input"
+                                                        placeholder="E.g: test" data-col-index="1" />
                                                 </div>
                                                 <div class="col-lg-9 mb-lg-2 mb-2">
                                                     <label>&nbsp;</label><br />
@@ -74,7 +74,8 @@
                                                 <tr class="text-left text-uppercase">
                                                     <th>Sr</th>
                                                     <th>Name</th>
-                                                    <th class="pr-0 text-right" style="min-width: 160px">action
+                                                    <th>Status</th>
+                                                    <th class="" style="min-width: 160px">Action
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -96,8 +97,8 @@
     @endsection
     @section('page_level_js')
         <script>
-             jQuery(document).ready(function() {
-            datatable.init();
+            jQuery(document).ready(function() {
+                datatable.init();
             });
             var table = "";
             var datatable = function() {
@@ -127,7 +128,7 @@
                                 status: 'confirmed',
                                 // parameters for custom backend script demo
                                 columnsDef: [
-                                    'id', 'name'
+                                    'id', 'name','status'
                                 ],
                             },
                             headers: {
@@ -139,6 +140,9 @@
                             },
                             {
                                 data: 'name'
+                            },
+                            {
+                                data: 'status'
                             },
 
                             {
@@ -209,36 +213,67 @@
             }();
 
 
-            $(document).on('click','.save_assemled_user',function(){
-               user_id  =  $(this).attr('data-user-id');
-               var form = new FormData();
-               var order_id  = {{ last(request()->segments()) }};
-               form.append('user_id',user_id);
-               form.append('order_id',order_id);
-               $.ajax({
-                        type: "POST",
-                        url: "{{ route('assignedAssmblerTask') }}", // your php file name
-                        data: form,
-                        dataType: "json",
-                        processData: false,
-                        contentType: false,
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(data) {
-                            if (data.status == 'success') {
-                                Swal.fire("Success!", data.message, "success");
-                                bookingListTable.ajax.reload();
-                            } else {
-                                Swal.fire("Sorry!", data.message, "error");
-                            }
-                        },
-                        error: function(errorString) {
-                            Swal.fire("Sorry!", "Something went wrong please contact to admin",
-                                "error");
+            $(document).on('click', '.save_assemled_user', function() {
+                user_id = $(this).attr('data-user-id');
+                var form = new FormData();
+                var order_id = {{ last(request()->segments()) }};
+                form.append('user_id', user_id);
+                form.append('order_id', order_id);
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('assignedAssmblerTask') }}", // your php file name
+                    data: form,
+                    dataType: "json",
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.status == 'success') {
+                            Swal.fire("Success!", data.message, "success");
+                            bookingListTable.ajax.reload();
+                        } else {
+                            Swal.fire("Sorry!", data.message, "error");
                         }
-                    });
+                    },
+                    error: function(errorString) {
+                        Swal.fire("Sorry!", "Something went wrong please contact to admin",
+                            "error");
+                    }
+                });
 
             });
+            $(document).on('click', '.delete_assemled_user', function() {
+                id = $(this).attr('data-assmbler-id');
+                var form = new FormData();
+                form.append('id', id);
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('deleteAssemblerUser') }}", // your php file name
+                    data: form,
+                    dataType: "json",
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.status == 'success') {
+                            Swal.fire("Success!", data.message, "success");
+                            bookingListTable.ajax.reload();
+                        } else {
+                            Swal.fire("Sorry!", data.message, "error");
+                        }
+                    },
+                    error: function(errorString) {
+                        Swal.fire("Sorry!", "Something went wrong please contact to admin",
+                            "error");
+                    }
+                });
+
+            });
+
+
         </script>
     @endsection

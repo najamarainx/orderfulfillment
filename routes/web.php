@@ -198,6 +198,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/getassignlist', [Controllers\AssignAssembleUserController::class, 'getList'])->name('getAssignAssembledList');
         Route::post('/getAssemblerStatus', [Controllers\AssignAssembleUserController::class, 'getUserAssembleStatus'])->name('getAssemblerStatus');
         Route::post('/saveAssemblerStatus', [Controllers\AssignAssembleUserController::class, 'updateAssemblingStatus'])->name('updateAssemblingStatus');
+        Route::post('/procced-to-packaging', [Controllers\AssignAssembleUserController::class, 'assemblerOrderCheck'])->name('proceedToPackaging');
     });
     Route::get('worker-task-screen', [Controllers\WorkerTaskController::class, 'getWorkerTasksByDepartment'])->name('getWorkerTasksByDepartment')->middleware('haspermission:workerTask');
     Route::post('worker-tasks-list', [Controllers\WorkerTaskController::class, 'getWorkerTasksList'])->name('getWorkerTasksList')->middleware('haspermission:workerTask');
