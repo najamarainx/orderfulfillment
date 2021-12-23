@@ -482,7 +482,7 @@
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "{{ route('getAssignPackagedList') }}",
+                        url: "{{ route('getAssignInstalltionList') }}",
                         type: 'POST',
                         data: {
                             // parameters for custom backend script demo
@@ -587,7 +587,7 @@
             form_data.append('id', id);
             $.ajax({
                 type: "POST",
-                url: "{{ route('getPackagedStatus') }}", // your php file name
+                url: "{{ route('getInstallationStatus') }}", // your php file name
                 data: form_data,
                 dataType: "json",
                 processData: false,
@@ -630,7 +630,7 @@
             var form_data = new FormData(form);
             $.ajax({
                 type: "POST",
-                url: "{{ route('updatePackagedStatus') }}", // your php file name
+                url: "{{ route('updateInstallationStatus') }}", // your php file name
                 data: form_data,
                 dataType: "json",
                 processData: false,

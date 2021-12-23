@@ -143,8 +143,8 @@ class AssignPackagingUserController extends Controller
         $sql->join('orderfulfillment_users','orderfulfillment_packings.user_id','orderfulfillment_users.id');
         $sql->join('orderfulfillment_users as ab','orderfulfillment_packings.added_by','ab.id');
         $sql->where('orderfulfillment_users.type','packaging');
-        $sql->where('orderfulfillment_users.is_head',1);
         $sql->whereNULL('orders.deleted_at');
+        $sql->where('orders.status','packing');
         $sql->whereNULL('orderfulfillment_packings.deleted_at');
         $sql->whereNULL('orderfulfillment_users.deleted_at');
         if(Auth::user()->is_head==1){
