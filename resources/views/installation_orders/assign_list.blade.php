@@ -3,16 +3,18 @@
 
 @section('page_level_css_plugin')
     <link rel="stylesheet" href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css">
-    <link href="{{asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('page_level_css')
     <style>
         .error {
             color: red !important;
         }
+
         span.select2.select2-container.select2-container--default {
-            width:100% !important;
+            width: 100% !important;
         }
+
         #msform {
             text-align: center;
             position: relative;
@@ -201,7 +203,7 @@
             display: none;
         }
 
-        .slot_radio input.radio:empty ~ label {
+        .slot_radio input.radio:empty~label {
             position: relative;
             float: left;
             line-height: 1.5em;
@@ -218,7 +220,7 @@
             padding-top: 15px;
         }
 
-        .slot_radio input.radio:empty ~ label:before {
+        .slot_radio input.radio:empty~label:before {
             position: absolute;
             display: block;
             top: 0;
@@ -230,40 +232,41 @@
             border-radius: 3px 0 0 3px;
         }
 
-        .slot_radio input.radio:hover:not(:checked) ~ label:before {
-            content:'\2714';
+        .slot_radio input.radio:hover:not(:checked)~label:before {
+            content: '\2714';
             text-indent: .9em;
             line-height: 2.5em;
             color: #C2C2C2;
         }
 
-        .slot_radio input.radio:hover:not(:checked) ~ label {
+        .slot_radio input.radio:hover:not(:checked)~label {
             color: #888;
         }
 
-        .slot_radio input.radio:checked ~ label:before {
-            content:'\2714';
+        .slot_radio input.radio:checked~label:before {
+            content: '\2714';
             text-indent: .9em;
             color: #fff;
             background-color: #B21F24;
             padding-top: 14px;
         }
 
-        .slot_radio input.radio:checked ~ label {
+        .slot_radio input.radio:checked~label {
             color: #fff;
             background-color: #B21F24;
         }
 
-        .slot_radio input.radio:focus ~ label:before {
+        .slot_radio input.radio:focus~label:before {
             box-shadow: 0 0 0 3px #999;
         }
 
-        .disabled input.radio:empty ~ label, .disabled input.radio:empty ~ label:before {
+        .disabled input.radio:empty~label,
+        .disabled input.radio:empty~label:before {
             background-color: lightgray !important;
         }
 
-        .disabled input.radio:hover:not(:checked) ~ label:before {
-            content:'';
+        .disabled input.radio:hover:not(:checked)~label:before {
+            content: '';
             text-indent: .9em;
             color: #fff !important;
         }
@@ -287,7 +290,12 @@
             letter-spacing: 0px;
         }
 
-        .confirmation_table td, .confirmation_table th, .confirmation_table, th, tr, td{
+        .confirmation_table td,
+        .confirmation_table th,
+        .confirmation_table,
+        th,
+        tr,
+        td {
             border: none;
         }
 
@@ -302,8 +310,8 @@
             border-style: hidden;
             box-shadow: 0 0 0 1px #ddd;
         }
-        @media only screen
-        and (device-width : 375px){
+
+        @media only screen and (device-width : 375px) {
 
             .flatpickr-calendar {
                 width: 307.875px;
@@ -327,7 +335,7 @@
                         </h3>
                     </div>
                     @php
-                        $statusarray=array('pending','in progress','completed');
+                        $statusarray = ['pending', 'in progress', 'completed'];
                     @endphp
 
                 </div>
@@ -338,15 +346,16 @@
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                 <div class="form-group">
                                     <label>Order No:</label>
-                                    <input type="text" class="form-control datatable-input" placeholder="order no" data-col-index="1">
+                                    <input type="text" class="form-control datatable-input" placeholder="order no"
+                                        data-col-index="1">
                                 </div>
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Status:</label>
-                                <select  class="form-control datatable-input" data-col-index="5">
+                                <select class="form-control datatable-input" data-col-index="5">
                                     <option value="">Select a status</option>
-                                    @foreach($statusarray as $sta)
-                                        <option value="{{$sta}}">{{ucfirst($sta)}}</option>
+                                    @foreach ($statusarray as $sta)
+                                        <option value="{{ $sta }}">{{ ucfirst($sta) }}</option>
                                     @endforeach
 
                                 </select>
@@ -373,15 +382,15 @@
                     <!--begin: Datatable-->
                     <table class="table table-bordered table-checkable" id="itemTableList">
                         <thead>
-                        <tr>
-                            <th>Sr</th>
-                            <th>Order ID</th>
-                            <th>Assigned From</th>
-                            <th>Assigned To</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
+                            <tr>
+                                <th>Sr</th>
+                                <th>Order ID</th>
+                                <th>Assigned From</th>
+                                <th>Assigned To</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
                         </thead>
                         <tbody>
                         </tbody>
@@ -393,7 +402,7 @@
     </div>
 
     <div class="modal fade show" id="assemblingstatusModal" data-backdrop="static" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalLabel" aria-modal="true">
+        aria-labelledby="exampleModalLabel" aria-modal="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -421,15 +430,31 @@
                                             <option value="{{ $stat }}">{{ ucfirst($stat) }}</option>
                                         @endforeach
                                     </select>
+
+                                    <div class="rest_amount_html mt-3" style="display:none">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p><b>Total Amount:</b> <span class="total_amount"></span></p>
+                                                <p><b>Paid Amount:</b> <span class="paid_amount"></span></p>
+                                                <p><b>Remaining Amount:</b> <span class="remain_amount"></span></p>
+                                                <input type="hidden" name="hidden_remain_amount" id="hidden_remain_amount">
+                                                <div class="form-group">
+                                                    {{-- <label for="">Rest Amount</label> --}}
+                                                    <input type="number" name="amount" value="" class="form-control"
+                                                        placeholder="Enter Amount" id="remaning_amount" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
                         <div class="text-right">
                             <button type="button" class="btn btn-light-primary font-weight-bold"
-                                    data-dismiss="modal">Close</button>
+                                data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary font-weight-bold btn_save"
-                                    id="update_assemble_stauts_btn">Save</button>
+                                id="update_assemble_stauts_btn">Save</button>
                         </div>
                     </form>
                 </div>
@@ -449,6 +474,22 @@
     <script type="text/javascript">
         jQuery(document).ready(function() {
             datatable.init();
+            var validator = $("#updateStatusAssemblingForm").validate({
+                rules: {
+                    amount: {
+                        required: true
+                    }
+                },
+                errorPlacement: function(error, element) {
+                    var elem = $(element);
+                    if (elem.hasClass("selectpicker")) {
+                        element = elem.parent();
+                        error.insertAfter(element);
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
         });
         $(document).ajaxStart(function() {
             KTApp.blockPage({
@@ -487,7 +528,7 @@
                         data: {
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id','order_id' ,'assigned_from','assigned_to','date','status',
+                                'id', 'order_id', 'assigned_from', 'assigned_to', 'date', 'status',
                             ],
                         },
                         headers: {
@@ -495,8 +536,8 @@
                         },
                     },
                     columns: [{
-                        data: 'id'
-                    },
+                            data: 'id'
+                        },
                         {
                             data: 'order_id'
                         },
@@ -579,12 +620,43 @@
 
 
 
-
+        $(document).on('keyup', '#remaning_amount', function() {
+            var typeAmount = $(this).val();
+            remain_amount = $('#hidden_remain_amount').val();
+            var total = $('.total_amount').text();
+            var paid = $('.paid_amount').text();
+            if (typeAmount == remain_amount) {} else {
+                new_amount = (total - paid);
+                $(this).val(new_amount);
+            }
+        })
 
         $(document).on('click', '.assemble_update', function() {
+            status = $(this).text();
+            if (status == 'pending' || status == 'in progress') {
+                $('.rest_amount_html').hide();
+            } else {
+                $('.rest_amount_html').show();
+            }
             var id = $(this).data('id');
             var form_data = new FormData();
             form_data.append('id', id);
+            order_id = $(this).attr('data-order-id');
+            paid_amount = $(this).attr('data-paid-amount');
+            paid_label = $(this).attr('data-paid-label');
+            var myArray = paid_amount.split("_");
+            console.log(myArray);
+            $('.paid_amount').text(myArray[0]);
+            $('.total_amount').text(myArray[1]);
+            $('.remain_amount').text(myArray[1] - myArray[0]);
+            $('#hidden_remain_amount').val(myArray[1] - myArray[0]);
+            if (myArray[0] == myArray[1]) {
+                $('#remaning_amount').attr('disabled', true);
+            }
+
+            // }
+            $('#paid_amount').val(paid_amount);
+            $('#order_id').val(order_id);
             $.ajax({
                 type: "POST",
                 url: "{{ route('getInstallationStatus') }}", // your php file name
@@ -628,29 +700,39 @@
 
             var form = $('#updateStatusAssemblingForm')[0];
             var form_data = new FormData(form);
-            $.ajax({
-                type: "POST",
-                url: "{{ route('updateInstallationStatus') }}", // your php file name
-                data: form_data,
-                dataType: "json",
-                processData: false,
-                contentType: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(data) {
-                    if (data.status == 'success') {
-                        $('#assemblingstatusModal').modal('hide');
-                        Swal.fire("Success!", data.message, "success");
-                        table.ajax.reload();
-                    } else {
-                        Swal.fire("Sorry!", data.message, "error");
+            var total = $('.total_amount').text();
+            var paid = $('.paid_amount').text();
+            if (total != paid) {
+                var validate = $("#updateStatusAssemblingForm").valid();
+
+            } else {
+                validate = true;
+            }
+            if (validate) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('updateInstallationStatus') }}", // your php file name
+                    data: form_data,
+                    dataType: "json",
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.status == 'success') {
+                            $('#assemblingstatusModal').modal('hide');
+                            Swal.fire("Success!", data.message, "success");
+                            table.ajax.reload();
+                        } else {
+                            Swal.fire("Sorry!", data.message, "error");
+                        }
+                    },
+                    error: function(errorString) {
+                        Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                     }
-                },
-                error: function(errorString) {
-                    Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
-                }
-            });
+                });
+            }
 
         })
 
@@ -672,8 +754,7 @@
 
                         error.appendTo(element.parent().after());
                         //error.insertAfter(element);
-                    }
-                    else {
+                    } else {
                         error.insertAfter(element);
                     }
                 }
@@ -690,6 +771,11 @@
 
 
         });
-
+        $(document).on('change', '#assembling_status', function() {
+            order_status = $(this).val();
+            if (order_status == 'completed') {
+                $('.rest_amount_html').show();
+            }
+        });
     </script>
 @endsection

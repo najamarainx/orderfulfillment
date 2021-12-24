@@ -121,7 +121,6 @@ class AssembledOrderController extends Controller
             'orderItems' => $orderItems,
             'departments' => $departments,
             'variants' => $variants,
-
         ];
         return view('orders.assign_detail', $dt);
     }
@@ -162,7 +161,6 @@ class AssembledOrderController extends Controller
             $zip_ids   = $query->get()->toArray();
             $sql->join('orderfulfillment_user_zip_codes_mappings as code_map','orderfulfillment_users.id','code_map.user_id');
             $sql->whereIn('code_map.zip_id',$zip_ids);
-
         }
         $sql->where('orderfulfillment_users.type',Auth::user()->type);
         $sql->whereNULL('orderfulfillment_users.deleted_at');
