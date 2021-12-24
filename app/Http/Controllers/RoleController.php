@@ -231,9 +231,9 @@ class RoleController extends Controller
                     $html .= '<div class="col-sm-3">
                                 <label class="checkbox-inline">
                                     <label class="checkbox checkbox-square checkbox-danger">
-                                        <input type="checkbox" ' . $checked . ' name="permission[]" value="' . $p['id'] . '" >
+                                        <input type="checkbox" ' . $checked . ' name="permission[]" value="' . $p['id'] . '" ><span></span>
                                         ' . ucwords(preg_replace($pattern, $replace, $string)) . '
-                                        <span></span>
+                                        
                                     </label>
                                 </label>
                             </div>';
