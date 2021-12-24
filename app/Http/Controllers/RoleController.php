@@ -199,6 +199,7 @@ class RoleController extends Controller
                 'name' => $permissionObj->name,
             ];
         }
+
         $userType = auth()->user()->type;
         if (count($perArr)) {
             foreach ($perArr as $categoryName => $permission) {
