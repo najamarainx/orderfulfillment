@@ -752,7 +752,7 @@ input::-webkit-inner-spin-button {
             } else {
                 $("#length").attr("placeholder", " ");
                 $("#width").attr("placeholder", " ");
-             console.log(min_width);
+            // console.log(min_width);
                 var mmwidth = min_width * 25.4;
                 var mmheight = min_height * 25.4;
                 mmwidth = mmwidth.toFixed(2);
@@ -864,7 +864,7 @@ input::-webkit-inner-spin-button {
             var qty_key = $(this).attr('data-key');
             var qty = $(this).val();
             var price = $('#hidden_price_' + qty_key).val();
-            console.log(price);
+            //console.log(price);
             totalPrice = qty * price;
             $('#price_' + qty_key).val(totalPrice);
             var paid_amount = 0;
@@ -877,20 +877,21 @@ input::-webkit-inner-spin-button {
 
         $(document).on('keyup', '#order_paid_price', function() {
             paid_price = $(this).val();
-            console.log(paid_price);
+            //console.log(paid_price);
         });
 
         $(document).on('click', '#save_order', function() {
             var verified_id = $(this).attr('data-id');
             var totalPrice = $('#order_total_price').val();
             var paidPrice = $('#order_paid_price').val();
-            // console.log(paidPrice);
+             console.log(totalPrice);
+             console.log(paidPrice);
             if (paidPrice == '') {
                 $('.payment_error').text('');
                 $('.payment_error').text('Please add paid amount');
                 return;
             }
-            if (paidPrice > totalPrice) {
+            if (Number(paidPrice) > Number(totalPrice)) {
                 $('.payment_error').text('');
                 $('.payment_error').text('Please add paid amount less than total amount');
                 return;

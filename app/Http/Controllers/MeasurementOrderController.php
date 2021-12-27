@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\OrderFulfillmentBooking;
 use App\Models\OrderFulfillmentBookingOrderLog;
 use App\Models\OrderFulfillmentBookingOrderItemLog;
+use App\Models\OrderFulfillmentPaymentLog;
 use App\Models\OrderFulfillmentUser;
 use App\Models\Order;
 use App\Models\OrderFulfillmentBookingAssign;
@@ -224,6 +225,12 @@ class MeasurementOrderController extends Controller
                         } else {
                             $orderItemId = OrderFulfillmentBookingOrderItemLog::insert($LogOrderArr);
                             $orderItemId = OrderItem::insert($mainOrderArr);
+                            $orderItemPaymentLog=new OrderFulfillmentPaymentLog();
+                            $orderItemPaymentLog->order_id=$main_order_id;
+                            $orderItemPaymentLog->paid_amount=$request->paid_price;
+                            $orderItemPaymentLog->added_by =Auth::user()->id;
+                            $orderItemPaymentLog->created_at =Carbon::Now()->format('Y-m-d H:i:s');
+                            $orderItemPaymentLog->save();
                             OrderFulfillmentBookingAssign::where(['booking_id'=>$bookingData->id])->whereNull('deleted_at')->update(['assign_status'=>'completed']);
                         }
                     } else {

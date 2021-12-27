@@ -230,6 +230,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('installer_user_list', [Controllers\AssignInstallationUserController::class, 'getInstallationUsersList'])->name('getInstallationUsersList');
 
     });
+    Route::prefix('accountant-order')->group(function () {
+        Route::get('/', [Controllers\AccountantController::class, 'index'])->name('accountantOrderList');
+        Route::post('/list', [Controllers\AccountantController::class, 'getList'])->name('getAccountantOrderList');
+        Route::post('/previewPayment', [Controllers\AccountantController::class, 'previewPaymentLog'])->name('previewPayment');
+        Route::post('/approvePayment', [Controllers\AccountantController::class, 'approvePaymentLog'])->name('paymentLogSubmit');
+
+
+    });
 
     Route::get('worker-task-screen', [Controllers\WorkerTaskController::class, 'getWorkerTasksByDepartment'])->name('getWorkerTasksByDepartment')->middleware('haspermission:workerTask');
     Route::post('worker-tasks-list', [Controllers\WorkerTaskController::class, 'getWorkerTasksList'])->name('getWorkerTasksList')->middleware('haspermission:workerTask');

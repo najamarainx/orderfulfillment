@@ -207,7 +207,8 @@ class AssignInstallationUserController extends Controller
             if($orderObj->status=='completed' && Auth::user()->is_head==1){
                 $status='<span class="badge badge-success "  style="cursor:pointer">' . $orderObj->status . '</span>';
             }else{
-                $status='<button class="badge badge-success assemble_update " data-paid-label = "'.$orderObj->payment_type.'" data-paid-amount="'.$orderObj->paid_amount.'_'.$orderObj->total_price.'" '.((isset($orderObj->updated_by) && Auth::user()->id != $orderObj->updated_by)   ? 'disabled' : '').' data-id="'.$orderObj->id.'" data-order-id = "' . $orderObj->order_id . '" data-user-id="' . $orderObj->id . '" style="cursor:pointer">' . $orderObj->status . '</button>';
+
+                $status='<button class="badge badge-success assemble_update " data-paid-label = "'.$orderObj->payment_type.'" data-paid-amount="'.$orderObj->paid_amount.'_'.$orderObj->total_price.'" '.((isset($orderObj->updated_by) && Auth::user()->is_head==1 && Auth::user()->id != $orderObj->updated_by)   ? 'disabled' : '').' data-id="'.$orderObj->id.'" data-order-id = "' . $orderObj->order_id . '" data-user-id="' . $orderObj->id . '" style="cursor:pointer">' . $orderObj->status . '</button>';
             }
 
             $data[] = [
