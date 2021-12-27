@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\OrderFulfillmentInstallationUser;
+use App\Models\OrderFulfillmentUser;
+use App\Models\OrderFulfillmentPaymentLog;
+use App\Models\OrderFulfillmentAssignInstallation;
 use App\Models\Order;
 use App\Models\OrderFulfillmentVariant;
 use App\Models\OrderFulfillmentDepartment;
@@ -72,7 +75,19 @@ class AssignInstallationUserController extends Controller
         foreach ($orderData as $orderObj) {
             $action = "";
             if (!empty($request->order_status) && $request->order_status == 'confirmed') {
-
+                $action .= '<a href="' . url('installation-order/assign_user') . '/' . $orderObj->id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm assigned_order" data-id="' . $orderObj->id . '">
+                <span class="svg-icon svg-icon-md svg-icon-primary">
+                    <!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                            <rect fill="#000000" opacity="0.3" transform="translate(8.500000, 12.000000) rotate(-90.000000) translate(-8.500000, -12.000000) " x="7.5" y="7.5" width="2" height="9" rx="1"></rect>
+                            <path d="M9.70710318,15.7071045 C9.31657888,16.0976288 8.68341391,16.0976288 8.29288961,15.7071045 C7.90236532,15.3165802 7.90236532,14.6834152 8.29288961,14.2928909 L14.2928896,8.29289093 C14.6714686,7.914312 15.281055,7.90106637 15.675721,8.26284357 L21.675721,13.7628436 C22.08284,14.136036 22.1103429,14.7686034 21.7371505,15.1757223 C21.3639581,15.5828413 20.7313908,15.6103443 20.3242718,15.2371519 L15.0300721,10.3841355 L9.70710318,15.7071045 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.999999, 11.999997) scale(1, -1) rotate(90.000000) translate(-14.999999, -11.999997) "></path>
+                        </g>
+                    </svg>
+                    <!--end::Svg Icon-->
+                </span>
+            </a>';
                 $action .= '<a href="' . url('installation-order/detail') . '/' . $orderObj->id . '" target="_blank"  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 ">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
@@ -138,7 +153,7 @@ class AssignInstallationUserController extends Controller
         $columns = $request->columns;
         $userZipInfo=getUsersByZip($zipID='',Auth::user()->id,Auth::user()->type);
         $zipIDS=$userZipInfo->pluck('zip_id')->toArray();
-        $sql = OrderFulfillmentInstallationUser::select('orderfulfillment_installations.*','orderfulfillment_users.name as assigned_to','ab.name as assigned_from');
+        $sql = OrderFulfillmentInstallationUser::select('orderfulfillment_installations.*','orderfulfillment_users.name as assigned_to','ab.name as assigned_from','orders.paid_amount','orders.total_price','orders.payment_type');
         $sql->join('orders','orders.id','orderfulfillment_installations.order_id');
         $sql->join('orderfulfillment_bookings','orders.booking_id','orderfulfillment_bookings.id');
         $sql->join('orderfulfillment_user_zip_codes_mappings','orderfulfillment_bookings.zip_code_id','orderfulfillment_user_zip_codes_mappings.zip_id');
@@ -150,6 +165,7 @@ class AssignInstallationUserController extends Controller
         $sql->whereNULL('orders.deleted_at');
         $sql->whereNULL('orderfulfillment_installations.deleted_at');
         $sql->whereNULL('orderfulfillment_installations.deleted_at');
+        $sql->groupBy('orderfulfillment_installations.user_id');
         if(Auth::user()->is_head==1){
             $sql->where('orderfulfillment_installations.user_id',Auth::user()->id);
         }
@@ -171,7 +187,7 @@ class AssignInstallationUserController extends Controller
         }
 
         if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
-            $sql->orderBy("orderfulfillment_installations.id", $sortColumnSortOrder);
+            $sql->orderBy('orderfulfillment_installations.id', $sortColumnSortOrder);
         } else {
             $sql->orderBy("orderfulfillment_installations.id", "desc");
         }
@@ -184,14 +200,14 @@ class AssignInstallationUserController extends Controller
         $data = [];
         foreach ($orderData as $orderObj) {
             $action = "";
-            $action .= '<a href="' . url('installation-order/detail') . '/' . $orderObj->order_id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview">
+            $action .= '<a href="' . url('installation-order/detail') . '/' . $orderObj->order_id . '"  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview  ">
             <i class="la la-eye"></i>
         </a>';
 
             if($orderObj->status=='completed' && Auth::user()->is_head==1){
                 $status='<span class="badge badge-success "  style="cursor:pointer">' . $orderObj->status . '</span>';
             }else{
-                $status='<span class="badge badge-success assemble_update" data-id="'.$orderObj->id.'" style="cursor:pointer">' . $orderObj->status . '</span>';
+                $status='<button class="badge badge-success assemble_update " data-paid-label = "'.$orderObj->payment_type.'" data-paid-amount="'.$orderObj->paid_amount.'_'.$orderObj->total_price.'" '.((isset($orderObj->updated_by) && Auth::user()->id != $orderObj->updated_by)   ? 'disabled' : '').' data-id="'.$orderObj->id.'" data-order-id = "' . $orderObj->order_id . '" data-user-id="' . $orderObj->id . '" style="cursor:pointer">' . $orderObj->status . '</button>';
             }
 
             $data[] = [
@@ -251,12 +267,29 @@ class AssignInstallationUserController extends Controller
             return response()->json($return);
         }
         if($validate) {
-            $query = OrderFulfillmentInstallationUser::where('id',$request->assembling_id)
-                ->update([
+            $q = OrderFulfillmentInstallationUser::where('order_id',$request->order_id)->whereNull('deleted_at');
+            if($request->assembling_status == 'pending'){
+                $query = $q->update([
                     'status' =>$request->assembling_status,
+                    'updated_by' => NULL,
                     'updated_at' =>Carbon::Now()->format('Y-m-d H:i:s'),
                 ]);
-
+            }else{
+                $query = $q->update([
+                        'status' =>$request->assembling_status,
+                        'updated_by' => Auth::user()->id,
+                        'updated_at' =>Carbon::Now()->format('Y-m-d H:i:s'),
+                    ]);
+            }
+             if($request->assembling_status == 'completed'){
+                 $paymentLog = new OrderFulfillmentPaymentLog;
+                 $paymentLog->order_id = $request->order_id;
+                 $paymentLog->paid_amount = $request->amount;
+                 $paymentLog->added_by = Auth::user()->id;
+                 $payment  = $paymentLog->save();
+                 $total_paid_amount = OrderFulfillmentPaymentLog::where('order_id',$request->order_id)->sum('paid_amount');
+                 Order::where('id',$request->order_id)->whereNull('deleted_at')->update(['paid_amount'=>$total_paid_amount,'payment_type'=>'full']);
+             }
 
             $return = [
                 'status' => 'error',
@@ -271,6 +304,119 @@ class AssignInstallationUserController extends Controller
         }
         return response()->json($return);
     }
+    public function getInstallationUsers(Request $request)
+    {
+        return view('installation_orders.assigned_task');
+    }
+    public function getInstallationUsersList(Request $request)
+    {
+        $records = [];
+        $draw = $request->draw;
+        $start = $request->start;
+        $length = $request->length;
+        $sortColumnIndex = $request->order[0]['column']; // Column index
+        $sortColumnName = $request->columns[$sortColumnIndex]['data']; // Column name
+        $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
+        $columns = $request->columns;
+        $sql = OrderFulfillmentUser::where('orderfulfillment_users.is_head', '1')->select('orderfulfillment_users.*', 'o_as_u.user_id as o_as_u_id','o_as_u.id as assigned_id','o_as_u.status','from_user.name as from_name');
+        $sql->leftJoin('orderfulfillment_installations as o_as_u',function($q){
+                 $q->on('orderfulfillment_users.id', 'o_as_u.user_id');
+                 $q->whereNULL('o_as_u.deleted_at');
+        });
+        $sql->leftJoin('orderfulfillment_users as from_user','o_as_u.added_by', 'from_user.id');
 
+        if(Auth::user()->type == 'installation'){
+           $query  = Order::where('orders.payment', 'verified')->select('orderfulfillment_zip_codes.id');
+            $query->join('stores', 'orders.store_id','stores.id');
+            $query->join('orderfulfillment_bookings','orderfulfillment_bookings.id', 'orders.booking_id');
+            $query->join('orderfulfillment_zip_codes','orderfulfillment_bookings.zip_code_id', 'orderfulfillment_zip_codes.id');
+            $query->where('orders.id',$request->order_id);
+            $zip_ids   = $query->get()->toArray();
+            $sql->join('orderfulfillment_user_zip_codes_mappings as code_map','orderfulfillment_users.id','code_map.user_id');
+            $sql->whereIn('code_map.zip_id',$zip_ids);
+
+        }
+        $sql->where('orderfulfillment_users.type',Auth::user()->type);
+        $sql->whereNULL('orderfulfillment_users.deleted_at');
+        foreach ($columns as $field) {
+            $col = $field['data'];
+            $search = $field['search']['value'];
+            if ($search != "") {
+                if ($col == 'name') {
+                    $colp = 'orderfulfillment_users.name';
+                    $sql->where($colp, $search);
+                }
+            }
+        }
+
+        if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
+            $sql->orderBy($sortColumnName, $sortColumnSortOrder);
+        } else {
+            $sql->orderBy("id", "desc");
+        }
+        $iTotalRecords = $sql->count();
+        $sql->skip($start);
+        $sql->take($length);
+        $userData = $sql->get();
+        $data = [];
+        foreach ($userData as $userObj) {
+            $action = "";
+            $action .= '<div class="text-right">';
+            if (empty($userObj->o_as_u_id)) {
+                $action .= ' <button class="btn btn-primary btn-sm mr-2 save_assemled_user"  data-user-id="' . $userObj->id . '">
+            Save</button>';
+            }
+            if (!empty($userObj->o_as_u_id)) {
+                $action .= '<button class="btn btn-primary btn-sm delete_assemled_user" data-assmbler-id = "' . $userObj->assigned_id . '" data-user-id="' . $userObj->id . '">x</button>';
+            }
+            $action .= '</div>';
+            $data[] = [
+                "id" => $userObj->id,
+                "name" => $userObj->name,
+                "added_by" =>$userObj->from_name,
+                "status"=> '<span class="badge badge-success badge-pill worker_assign_status" style="cursor:pointer" >' .  $userObj->status  . '</span>',
+                "action" => $action
+            ];
+        }
+        $records["data"] = $data;
+        $records["draw"] = $draw;
+        $records["recordsTotal"] = $iTotalRecords;
+        $records["recordsFiltered"] = $iTotalRecords;
+        echo json_encode($records);
+    }
+    public function assignedInstallationTask(Request $request)
+    {
+        if (!empty($request->user_id) && !empty($request->order_id)) {
+            $assemblerUsers = OrderFulfillmentAssignInstallation::where(['user_id' => $request->user_id, 'order_id' => $request->order_id])->whereNull('deleted_at')->first();
+            if (empty($assemblerUsers)) {
+                $assemblerUsers = new OrderFulfillmentAssignInstallation();
+                $assemblerUsers->order_id = $request->order_id;
+                $assemblerUsers->user_id = $request->user_id;
+                $assemblerUsers->added_by = Auth::user()->id;
+                $query = $assemblerUsers->save();
+                if ($query) {
+                    $response = ['status' => 'success', 'message' => 'Saved Successfully'];
+                }
+            } else {
+                $response = ['status' => 'success', 'message' => 'This user is already Assigned'];
+            }
+
+
+            return response()->json($response);
+        }
+    }
+
+    public function deleteInstallationUser(Request $request)
+    {
+        $assembler_id = $request->id;
+        $assemblerStatus=OrderFulfillmentAssignInstallation::where('id',$request->id)->first();
+        if($assemblerStatus->status == 'pending'){
+            OrderFulfillmentAssignInstallation::where(['id' => $assembler_id])->update(['deleted_at' => Carbon::now()->format('Y-m-d')]);
+            $response = ['status' => 'success', 'message' => 'Deleted Successfully'];
+        }else{
+            $response = ['status' => 'error', 'message' => 'You cannot deleted this record!'];
+        }
+        return response()->json($response);
+    }
 
 }

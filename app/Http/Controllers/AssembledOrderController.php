@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderFulfillmentAssignAssembleUser;
 use App\Models\OrderFulfillmentDepartment;
+use App\Models\OrderFulfillmentItem;
 use App\Models\OrderFulfillmentStockOrderItem;
 use App\Models\OrderFulfillmentUser;
 use App\Models\OrderFulfillmentVariant;
@@ -120,7 +121,6 @@ class AssembledOrderController extends Controller
             'orderItems' => $orderItems,
             'departments' => $departments,
             'variants' => $variants,
-
         ];
         return view('orders.assign_detail', $dt);
     }
@@ -151,6 +151,17 @@ class AssembledOrderController extends Controller
                  $q->whereNULL('o_as_u.deleted_at');
         });
         $sql->leftJoin('orderfulfillment_users as from_user','o_as_u.added_by', 'from_user.id');
+
+        if(Auth::user()->type == 'installation'){
+           $query  = Order::where('orders.payment', 'verified')->select('orderfulfillment_zip_codes.id');
+            $query->join('stores', 'orders.store_id','stores.id');
+            $query->join('orderfulfillment_bookings','orderfulfillment_bookings.id', 'orders.booking_id');
+            $query->join('orderfulfillment_zip_codes','orderfulfillment_bookings.zip_code_id', 'orderfulfillment_zip_codes.id');
+            $query->where('orders.id',$request->order_id);
+            $zip_ids   = $query->get()->toArray();
+            $sql->join('orderfulfillment_user_zip_codes_mappings as code_map','orderfulfillment_users.id','code_map.user_id');
+            $sql->whereIn('code_map.zip_id',$zip_ids);
+        }
         $sql->where('orderfulfillment_users.type',Auth::user()->type);
         $sql->whereNULL('orderfulfillment_users.deleted_at');
         foreach ($columns as $field) {
@@ -201,38 +212,5 @@ class AssembledOrderController extends Controller
         echo json_encode($records);
     }
 
-    public function assignedAssmblerTask(Request $request)
-    {
-        if (!empty($request->user_id) && !empty($request->order_id)) {
-            $assemblerUsers = OrderFulfillmentAssignAssembleUser::where(['user_id' => $request->user_id, 'order_id' => $request->order_id])->whereNull('deleted_at')->first();
-            if (empty($assemblerUsers)) {
-                $assemblerUsers = new OrderFulfillmentAssignAssembleUser();
-                $assemblerUsers->order_id = $request->order_id;
-                $assemblerUsers->user_id = $request->user_id;
-                $assemblerUsers->added_by = Auth::user()->id;
-                $query = $assemblerUsers->save();
-                if ($query) {
-                    $response = ['status' => 'success', 'message' => 'Saved Successfully'];
-                }
-            } else {
-                $response = ['status' => 'success', 'message' => 'This user is already Assigned'];
-            }
 
-
-            return response()->json($response);
-        }
-    }
-
-    public function deleteAssemblerUser(Request $request)
-    {
-        $assembler_id = $request->id;
-        $assemblerStatus=OrderFulfillmentAssignAssembleUser::where('id',$request->id)->first();
-        if($assemblerStatus->status == 'pending'){
-            OrderFulfillmentAssignAssembleUser::where(['id' => $assembler_id])->update(['deleted_at' => Carbon::now()->format('Y-m-d')]);
-            $response = ['status' => 'success', 'message' => 'Deleted Successfully'];
-        }else{
-            $response = ['status' => 'error', 'message' => 'You cannot deleted this record!'];
-        }
-        return response()->json($response);
-    }
 }

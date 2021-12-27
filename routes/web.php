@@ -212,6 +212,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/saveAssemblerStatus', [Controllers\AssignPackagingUserController::class, 'updatePackagedStatus'])->name('updatePackagedStatus');
         Route::get('assign_user/{id}', [Controllers\AssignPackagingUserController::class, 'getPackagingUsers'])->name('getPackagingUsers');
         Route::post('packaging_user_list', [Controllers\AssembledOrderController::class, 'getAssemblerUsersList'])->name('getPackagingUsersList');
+
     });
 
 
@@ -223,6 +224,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/getassignlist', [Controllers\AssignInstallationUserController::class, 'getassignList'])->name('getAssignInstalltionList');
         Route::post('/getInstallerStatus', [Controllers\AssignInstallationUserController::class, 'getUserInstallationStatus'])->name('getInstallationStatus');
         Route::post('/saveInstallerStatus', [Controllers\AssignInstallationUserController::class, 'updateInstallationStatus'])->name('updateInstallationStatus');
+        Route::get('assign_user/{id}', [Controllers\AssignInstallationUserController::class, 'getInstallationUsers']);
+        Route::post('assigned_installer_task', [Controllers\AssignInstallationUserController::class, 'assignedInstallationTask'])->name('assignedInstallationTask');
+        Route::post('delete_installer_user', [Controllers\AssignInstallationUserController::class, 'deleteInstallationUser'])->name('deleteInstallationUser');
+        Route::post('installer_user_list', [Controllers\AssignInstallationUserController::class, 'getInstallationUsersList'])->name('getInstallationUsersList');
 
     });
 

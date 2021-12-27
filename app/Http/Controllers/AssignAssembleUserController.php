@@ -190,8 +190,8 @@ class AssignAssembleUserController extends Controller
                   $totalOrderTasks=orderAssignTaskStatuses($request->order_id,'','orderfulffillment_assign_assemble_users');
                   $totalCompletedOrderTasks=orderAssignTaskStatuses($request->order_id,'completed','orderfulffillment_assign_assemble_users');
                 }elseif($request->status == 'installation'){
-                $totalOrderTasks=orderAssignTaskStatuses($request->order_id,'','orderfulffillment_assign_assemble_users');
-                $totalCompletedOrderTasks=orderAssignTaskStatuses($request->order_id,'completed','orderfulffillment_assign_assemble_users');
+                $totalOrderTasks=orderAssignTaskStatuses($request->order_id,'','orderfulfillment_installations');
+                $totalCompletedOrderTasks=orderAssignTaskStatuses($request->order_id,'completed','orderfulfillment_installations');
               }else{
                 $totalOrderTasks=orderAssignTaskStatuses($request->order_id,'','orderfulffillment_assign_assemble_users');
                 $totalCompletedOrderTasks=orderAssignTaskStatuses($request->order_id,'completed','orderfulffillment_assign_assemble_users');

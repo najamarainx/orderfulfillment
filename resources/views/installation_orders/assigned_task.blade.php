@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Order List')
+@section('title', 'Task List')
 
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -23,7 +23,7 @@
                     <!--end::Page Title-->
                     <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
-                    <span class="text-muted font-weight-bold mr-4">Order List</span>
+                    <span class="text-muted font-weight-bold mr-4">Task List</span>
                     <!--end::Actions-->
                 </div>
                 <!--end::Info-->
@@ -123,7 +123,7 @@
                         processing: true,
                         serverSide: true,
                         ajax: {
-                            url: "{{ route('getPackagingUsersList') }}",
+                            url: "{{ route('getInstallationUsersList') }}",
                             type: 'POST',
                             data: {
                                 order_id: {{ last(request()->segments()) }},
@@ -227,7 +227,7 @@
                 form.append('order_id', order_id);
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('assignedAssmblerTask') }}", // your php file name
+                    url: "{{ route('assignedInstallationTask') }}", // your php file name
                     data: form,
                     dataType: "json",
                     processData: false,
@@ -256,7 +256,7 @@
                 form.append('id', id);
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('deleteAssemblerUser') }}", // your php file name
+                    url: "{{ route('deleteInstallationUser') }}", // your php file name
                     data: form,
                     dataType: "json",
                     processData: false,
