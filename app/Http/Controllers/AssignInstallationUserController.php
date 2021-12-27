@@ -171,10 +171,11 @@ class AssignInstallationUserController extends Controller
         }
 
         if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
-            $sql->orderBy($sortColumnName, $sortColumnSortOrder);
+            $sql->orderBy("orderfulfillment_installations.id", $sortColumnSortOrder);
         } else {
             $sql->orderBy("orderfulfillment_installations.id", "desc");
         }
+        $sql->groupBy("orderfulfillment_installations.id");
         $iTotalRecords = $sql->count();
         $sql->skip($start);
         $sql->take($length);
