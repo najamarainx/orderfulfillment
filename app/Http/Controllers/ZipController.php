@@ -19,7 +19,6 @@ class ZipController extends Controller
     }
 
      public function getZipcodesDropdownList(){
-         echo "yes";exit;
         $zipcodes = getZipCode();
         if(!($zipcodes->isEmpty())){
             $response['status'] = 'success';
