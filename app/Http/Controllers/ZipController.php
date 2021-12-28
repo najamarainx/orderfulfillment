@@ -206,6 +206,9 @@ class ZipController extends Controller
         }
     }
 
+    public function getZipCodeTimeSlots(){
+
+    }
 
 
 

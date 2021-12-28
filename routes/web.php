@@ -14,7 +14,9 @@ use App\Http\Controllers;
 |
 */
 Route::prefix('api/zip-code')->group(function () {
-    Route::get('list', [App\Http\Controllers\ZipController::class, 'getZipcodesDropdownList'])->name('home');
+    Route::get('list', [App\Http\Controllers\ZipController::class, 'getZipcodesDropdownList']);
+    Route::get('get-zip-code-time-slots', [App\Http\Controllers\ZipController::class, 'getZipCodeTimeSlots']);
+
 });
 Route::group(['middleware' => 'auth'], function () {
 
