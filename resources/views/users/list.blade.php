@@ -232,7 +232,7 @@
                                 <select class="form-control kt_select2_1 user_type" name="user_type" id="user_type" onchange="getUserType(this.value)" required >
                                     <option value="">Select User Type</option>
                                     @foreach($userTypes as $type)
-                                    <option value="{{$type}}">{{ucfirst($type)}}</option>
+                                    <option value="{{$type}}">{{str_replace('_',' ',ucfirst($type))}}</option>
                                     @endforeach
                                 </select>
                             </div>
