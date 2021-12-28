@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 use App\Models\OrderFulfillmentCategory;
 use App\Models\OrderFulfillmentPackagingUser;
+use App\Models\OrderFulfillmentTimeSlot;
+use App\Models\OrderFulfillmentUserZipCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Zip;
 use Carbon\Carbon;
-// use Auth;
+use Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ZipController extends Controller
@@ -19,17 +21,17 @@ class ZipController extends Controller
     }
 
      public function getZipcodesDropdownList(){
-        $zipcodes = getZipCode();
+        $zipcodes = getZipCode(true);
         if(!($zipcodes->isEmpty())){
-            $response['status'] = 'success';
-            $respnse['statusCode'] = '200';
-            $respnse['zipcodes'] = $zipcodes;
+            $response['Status'] = 'success';
+            $response['key'] = '200';
+            $response['zipcodes'] = $zipcodes;
         }else{
-            $response['status'] = 'error';
-            $respnse['statusCode'] = '400';
-            $respnse['message'] = 'No Zip code found';
+            $response['Status'] = 'error';
+            $response['key'] = '400';
+            $response['message'] = 'No Zip code found';
         }
-        return response()->json($response,$response['statusCode']);
+        return response()->json($response,$response['key']);
      }
 
     public function getList(Request $request)
@@ -206,8 +208,30 @@ class ZipController extends Controller
         }
     }
 
-    public function getZipCodeTimeSlots(){
+    public function getZipCodeTimeSlots(Request $request){
+        $userId   = OrderFulfillmentUserZipCode::where('zip_id', $request->zipCode)->whereNull('deleted_at')->pluck('user_id')->toArray();
+        $timeSlotId = DB::table('orderfulfillment_user_time_slot_assigns')->whereIn('user_id', $userId)->whereNull('deleted_at')->pluck('time_slot_id')->toArray();
+        $timeSlotDetail = OrderFulfillmentTimeSlot::whereIn('id', $timeSlotId)->get();
+        if (!($timeSlotDetail->isEmpty())) {
+            $date = Carbon::now()->format('Y-m-d');
+            $respnse['status'] = 'success';
+            $respnse['date'] =  $date;
+            $respnse['timeSlotDetail'] = $timeSlotDetail;
+            $respnse['zipCode'] = $request->zipCode;
+            $dt = [
+                'date' => $date,
+                'timeSlotDetail' => $timeSlotDetail,
+                'userId' => $userId,
+                'zipCode' => $request->zipCode,
+                'date' => $request->date
+            ];
+            $data['timeSlotHtml'] = $timeSlotHtml;
 
+            $result = ['status' => 'success', 'timeSlotHtml' => $timeSlotHtml,'zipCode'=>$request->zipCode];
+        } else {
+            $result = ['status' => 'error', 'message' => 'Something went wrong'];
+        }
+        return response()->json($result);
     }
 
 

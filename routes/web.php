@@ -13,11 +13,7 @@ use App\Http\Controllers;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::prefix('api/zip-code')->group(function () {
-    Route::get('list', [App\Http\Controllers\ZipController::class, 'getZipcodesDropdownList']);
-    Route::get('get-zip-code-time-slots', [App\Http\Controllers\ZipController::class, 'getZipCodeTimeSlots']);
 
-});
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/login', function () {
@@ -250,3 +246,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Auth::routes();
 
+Route::prefix('api/zip-code')->group(function () {
+    Route::get('/list', [App\Http\Controllers\ZipController::class, 'getZipcodesDropdownList']);
+    // Route::get('get-zip-code-time-slots', [App\Http\Controllers\ZipController::class, 'getZipCodeTimeSlots']);
+});
