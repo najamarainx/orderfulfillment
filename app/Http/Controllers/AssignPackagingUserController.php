@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\OrderFulfillmentPackagingUser;
 use App\Models\Order;
+use App\Models\OrderFulfillmentAssignAssembleUser;
 use App\Models\OrderFulfillmentVariant;
 use App\Models\OrderFulfillmentDepartment;
 use App\Models\OrderFulfillmentUser;
@@ -18,10 +19,7 @@ class AssignPackagingUserController extends Controller
         $dt = ['stores' => $stores];
         return view('packaging_orders.list',$dt);
     }
-    public function assignList()
-    {
-         return view('packaging_orders.assign_list');
-    }
+
     public function getList(Request $request)
     {
 
@@ -176,7 +174,7 @@ class AssignPackagingUserController extends Controller
         $sql->skip($start);
         $sql->take($length);
         $orderData = $sql->get();
-
+        print_r($orderData);exit;
         $data = [];
         foreach ($orderData as $orderObj) {
             $action = "";
@@ -270,8 +268,89 @@ class AssignPackagingUserController extends Controller
 
     public function getPackagingUsers(Request $request)
     {
-        return view('assembled_orders.assigned_task');
+        return view('packaging_orders.assigned_task');
     }
+    public function getPackagingUsersList(Request $request)
+    {
+        $records = [];
+        $draw = $request->draw;
+        $start = $request->start;
+        $length = $request->length;
+        $sortColumnIndex = $request->order[0]['column']; // Column index
+        $sortColumnName = $request->columns[$sortColumnIndex]['data']; // Column name
+        $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
+        $columns = $request->columns;
+        $sql = OrderFulfillmentUser::where('orderfulfillment_users.is_head', '1')->select('orderfulfillment_users.*', 'o_as_u.user_id as o_as_u_id','o_as_u.id as assigned_id','o_as_u.status','from_user.name as from_name');
+        $sql->leftJoin('orderfulffillment_assign_assemble_users as o_as_u',function($q){
+                 $q->on('orderfulfillment_users.id', 'o_as_u.user_id');
+                 $q->whereNULL('o_as_u.deleted_at');
+        });
+        $sql->leftJoin('orderfulfillment_users as from_user','o_as_u.added_by', 'from_user.id');
 
 
+        $sql->where('orderfulfillment_users.type',Auth::user()->type);
+        $sql->whereNULL('orderfulfillment_users.deleted_at');
+        foreach ($columns as $field) {
+            $col = $field['data'];
+            $search = $field['search']['value'];
+            if ($search != "") {
+                if ($col == 'name') {
+                    $colp = 'orderfulfillment_users.name';
+                    $sql->where($colp, $search);
+                }
+            }
+        }
+
+        if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
+            $sql->orderBy($sortColumnName, $sortColumnSortOrder);
+        } else {
+            $sql->orderBy("id", "desc");
+        }
+        $iTotalRecords = $sql->count();
+        $sql->skip($start);
+        $sql->take($length);
+        $userData = $sql->get();
+        // print_r($userData);exit;
+        $data = [];
+        foreach ($userData as $userObj) {
+            $action = "";
+            $action .= '<div class="text-right">';
+            if (empty($userObj->o_as_u_id)) {
+                $action .= ' <button class="btn btn-primary btn-sm mr-2 save_assemled_user"  data-user-id="' . $userObj->id . '">
+            Save</button>';
+            }
+            if (!empty($userObj->o_as_u_id)) {
+                $action .= '<button class="btn btn-primary btn-sm delete_assemled_user" data-assmbler-id = "' . $userObj->assigned_id . '" data-user-id="' . $userObj->id . '">x</button>';
+            }
+            $action .= '</div>';
+            $data[] = [
+                "id" => $userObj->id,
+                "name" => $userObj->name,
+                "added_by" =>$userObj->from_name,
+                "status"=> '<span class="badge badge-success badge-pill worker_assign_status" style="cursor:pointer" >' .  $userObj->status  . '</span>',
+                "action" => $action
+            ];
+        }
+        $records["data"] = $data;
+        $records["draw"] = $draw;
+        $records["recordsTotal"] = $iTotalRecords;
+        $records["recordsFiltered"] = $iTotalRecords;
+        echo json_encode($records);
+    }
+    public function deletePackagingUser(Request $request)
+    {
+        $assembler_id = $request->id;
+        $assemblerStatus=OrderFulfillmentPackagingUser::where('id',$request->id)->first();
+        if($assemblerStatus->status == 'pending'){
+            OrderFulfillmentPackagingUser::where(['id' => $assembler_id])->update(['deleted_at' => Carbon::now()->format('Y-m-d')]);
+            $response = ['status' => 'success', 'message' => 'Deleted Successfully'];
+        }else{
+            $response = ['status' => 'error', 'message' => 'You cannot deleted this record!'];
+        }
+        return response()->json($response);
+    }
+    public function assignList()
+    {
+        return view('packaging_orders.assign_list');
+    }
 }

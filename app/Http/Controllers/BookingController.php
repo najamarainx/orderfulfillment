@@ -147,7 +147,7 @@ class BookingController extends Controller
                 "category_id" => $categoryName,
                 "first_name" => $bookingObj->first_name . ' ' . $bookingObj->last_name,
                 "phone_number" => $bookingObj->phone_number,
-                "booking_status" =>  '<span class="badge badge-success badge-pill booking_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->booking_status . '</span>',
+                "booking_status" =>  '<button class="badge badge-success badge-pill booking_status" '.((isset($bookingObj->assign_status) && $bookingObj->assign_status  == 'completed' || $bookingObj->assign_status  == 'in progress')   ? 'disabled' : '').' style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->booking_status . '</button>',
                 "assign_status"=>'<span class="badge badge-success badge-pill assign_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->assign_status . '</span>',
                 "action" => $action
             ];

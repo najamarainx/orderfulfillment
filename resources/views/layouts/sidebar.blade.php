@@ -631,7 +631,7 @@
 
 
 
-
+                @if(hasPermission('assemblerOrderList'))
                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
                         <span class="svg-icon menu-icon">
@@ -661,6 +661,7 @@
                                     <span class="menu-text">Assembeld Order</span>
                                 </span>
                             </li>
+                            @if(hasPermission('assemblerOrderList'))
                             <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                 <a href="{{route('assembledOrderList')}}" class="menu-link menu-toggle">
                                     <i class="menu-bullet menu-bullet-line">
@@ -669,6 +670,8 @@
                                     <span class="menu-text">Order List</span>
                                 </a>
                             </li>
+                            @endif
+                            @if(hasPermission('assemblerUsers'))
                             <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                 <a href="{{route('assembledOrderAssigned')}}" class="menu-link menu-toggle">
                                     <i class="menu-bullet menu-bullet-line">
@@ -677,9 +680,13 @@
                                     <span class="menu-text">Assigned User List</span>
                                 </a>
                             </li>
+                            @endif
                         </ul>
                     </div>
                 </li>
+                @endif
+                @if(hasPermission('packagingOrderList'))
+
                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
                         <span class="svg-icon menu-icon">
@@ -704,11 +711,13 @@
                     <div class="menu-submenu">
                         <i class="menu-arrow"></i>
                         <ul class="menu-subnav">
+
                             <li class="menu-item menu-item-parent" aria-haspopup="true">
                                 <span class="menu-link">
                                     <span class="menu-text">Packaged Order</span>
                                 </span>
                             </li>
+                           @if(hasPermission('packagingOrderList'))
                             <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                 <a href="{{route('packagedOrderList')}}" class="menu-link menu-toggle">
                                     <i class="menu-bullet menu-bullet-line">
@@ -717,6 +726,8 @@
                                     <span class="menu-text">Order List</span>
                                 </a>
                             </li>
+                           @endif
+                           @if(hasPermission('packagingUsers'))
                             <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                 <a href="{{route('packagedOrderAssigned')}}" class="menu-link menu-toggle">
                                     <i class="menu-bullet menu-bullet-line">
@@ -725,9 +736,12 @@
                                     <span class="menu-text">Assigned User List</span>
                                 </a>
                             </li>
+                           @endif
                         </ul>
                     </div>
                 </li>
+                @endif
+                @if(hasPermission('installationOrderList'))
                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
                         <span class="svg-icon menu-icon">
@@ -757,6 +771,8 @@
                                     <span class="menu-text">Installation Order</span>
                                 </span>
                             </li>
+                @if(hasPermission('installationOrderList'))
+
                             <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                 <a href="{{route('installationOrderList')}}" class="menu-link menu-toggle">
                                     <i class="menu-bullet menu-bullet-line">
@@ -765,6 +781,9 @@
                                     <span class="menu-text">Order List</span>
                                 </a>
                             </li>
+                @endif
+                @if(hasPermission('installationUsers'))
+
                             <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                 <a href="{{route('installationOrderAssigned')}}" class="menu-link menu-toggle">
                                     <i class="menu-bullet menu-bullet-line">
@@ -773,9 +792,13 @@
                                     <span class="menu-text">Assigned User List</span>
                                 </a>
                             </li>
+                @endif
                         </ul>
                     </div>
                 </li>
+                @endif
+                @if(hasPermission('accountantOrderList'))
+
                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
                         <span class="svg-icon menu-icon">
@@ -805,6 +828,7 @@
                                     <span class="menu-text">Accountant Order</span>
                                 </span>
                             </li>
+                            @if(hasPermission('accountantOrderList'))
                             <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                 <a href="{{route('accountantOrderList')}}" class="menu-link menu-toggle">
                                     <i class="menu-bullet menu-bullet-line">
@@ -813,10 +837,11 @@
                                     <span class="menu-text">Order List</span>
                                 </a>
                             </li>
-
+                            @endif
                         </ul>
                     </div>
                 </li>
+                @endif
                 {{--
                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">

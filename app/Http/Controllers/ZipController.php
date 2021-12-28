@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 use App\Models\OrderFulfillmentCategory;
+use App\Models\OrderFulfillmentPackagingUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Zip;
 use Carbon\Carbon;
-use Auth;
+// use Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ZipController extends Controller
@@ -16,6 +17,21 @@ class ZipController extends Controller
 
         return view('zips.list');
     }
+
+     public function getZipcodesDropdownList(){
+         echo "yes";exit;
+        $zipcodes = getZipCode();
+        if(!($zipcodes->isEmpty())){
+            $response['status'] = 'success';
+            $respnse['statusCode'] = '200';
+            $respnse['zipcodes'] = $zipcodes;
+        }else{
+            $response['status'] = 'error';
+            $respnse['statusCode'] = '400';
+            $respnse['message'] = 'No Zip code found';
+        }
+        return response()->json($response,$response['statusCode']);
+     }
 
     public function getList(Request $request)
     {

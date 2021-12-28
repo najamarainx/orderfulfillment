@@ -13,7 +13,9 @@ use App\Http\Controllers;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::prefix('api/zip-code')->group(function () {
+    Route::get('list', [App\Http\Controllers\ZipController::class, 'getZipcodesDropdownList'])->name('home');
+});
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/login', function () {
@@ -188,60 +190,61 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::prefix('assembled-order')->group(function () {
-        Route::get('/', [Controllers\AssembledOrderController::class, 'index'])->name('assembledOrderList');
-        Route::post('/list', [Controllers\AssembledOrderController::class, 'getList'])->name('getAssembledOrderList');
-        Route::get('/detail/{id}', [Controllers\AssembledOrderController::class, 'detail'])->name('getAssembledOrderDetail');
-        Route::get('assign_user/{id}', [Controllers\AssembledOrderController::class, 'getAssemblerUsers'])->name('getAssemblerUsers');
-        Route::post('assembler_user_list', [Controllers\AssembledOrderController::class, 'getAssemblerUsersList'])->name('getAssemblerUsersList');
-        Route::post('assigned_assembler_task', [Controllers\AssembledOrderController::class, 'assignedAssmblerTask'])->name('assignedAssmblerTask');
-        Route::post('delete_assembler_user', [Controllers\AssembledOrderController::class, 'deleteAssemblerUser'])->name('deleteAssemblerUser');
-        Route::get('/assignlist', [Controllers\AssignAssembleUserController::class, 'index'])->name('assembledOrderAssigned');
-        Route::post('/getassignlist', [Controllers\AssignAssembleUserController::class, 'getList'])->name('getAssignAssembledList');
-        Route::post('/getAssemblerStatus', [Controllers\AssignAssembleUserController::class, 'getUserAssembleStatus'])->name('getAssemblerStatus');
-        Route::post('/saveAssemblerStatus', [Controllers\AssignAssembleUserController::class, 'updateAssemblingStatus'])->name('updateAssemblingStatus');
+        Route::get('/', [Controllers\AssembledOrderController::class, 'index'])->name('assembledOrderList')->middleware('haspermission:assemblerOrderList');
+        Route::post('/list', [Controllers\AssembledOrderController::class, 'getList'])->name('getAssembledOrderList')->middleware('haspermission:assemblerOrderList');
+        Route::get('/detail/{id}', [Controllers\AssembledOrderController::class, 'detail'])->name('getAssembledOrderDetail')->middleware('haspermission:assemblerOrderDetail');
+        Route::get('assign_user/{id}', [Controllers\AssembledOrderController::class, 'getAssemblerUsers'])->name('getAssemblerUsers')->middleware('haspermission:assemblerUsers');
+        Route::post('assembler_user_list', [Controllers\AssembledOrderController::class, 'getAssemblerUsersList'])->name('getAssemblerUsersList')->middleware('haspermission:assemblerUsersList');
+        Route::post('assigned_assembler_task', [Controllers\AssembledOrderController::class, 'assignedAssemblerTask'])->name('assignedAssmblerTask')->middleware('haspermission:assemblerAssignedTask');
+        Route::post('delete_assembler_user', [Controllers\AssignAssembleUserController::class, 'deleteAssemblerUser'])->name('deleteAssemblerUser')->middleware('haspermission:deleteAssemblerTask');
+        Route::get('/assignlist', [Controllers\AssignAssembleUserController::class, 'index'])->name('assembledOrderAssigned')->middleware('haspermission:assemblerOrderDetail');
+        Route::post('/getassignlist', [Controllers\AssignAssembleUserController::class, 'getList'])->name('getAssignAssembledList')->middleware('haspermission:assemblerOrderList');
+        Route::post('/getAssemblerStatus', [Controllers\AssignAssembleUserController::class, 'getUserAssembleStatus'])->name('getAssemblerStatus')->middleware('haspermission:assemblerStatus');
+        Route::post('/saveAssemblerStatus', [Controllers\AssignAssembleUserController::class, 'updateAssemblingStatus'])->name('updateAssemblingStatus')->middleware('haspermission:updateAssemblerStatus');
         Route::post('/procced-to-packaging', [Controllers\AssignAssembleUserController::class, 'assemblerOrderCheck'])->name('proceedToPackaging');
     });
 
     Route::prefix('packaging-order')->group(function () {
-        Route::get('/', [Controllers\AssignPackagingUserController::class, 'index'])->name('packagedOrderList');
-        Route::post('/list', [Controllers\AssignPackagingUserController::class, 'getList'])->name('getPackagedOrderList');
-        Route::get('/detail/{id}', [Controllers\AssignPackagingUserController::class, 'detail'])->name('getAssembledOrderDetail');
-        Route::get('/assignlist', [Controllers\AssignPackagingUserController::class, 'assignList'])->name('packagedOrderAssigned');
-        Route::post('/getassignlist', [Controllers\AssignPackagingUserController::class, 'getassignList'])->name('getAssignPackagedList');
-        Route::post('/getAssemblerStatus', [Controllers\AssignPackagingUserController::class, 'getUserPackagedStatus'])->name('getPackagedStatus');
-        Route::post('/saveAssemblerStatus', [Controllers\AssignPackagingUserController::class, 'updatePackagedStatus'])->name('updatePackagedStatus');
-        Route::get('assign_user/{id}', [Controllers\AssignPackagingUserController::class, 'getPackagingUsers'])->name('getPackagingUsers');
-        Route::post('packaging_user_list', [Controllers\AssembledOrderController::class, 'getAssemblerUsersList'])->name('getPackagingUsersList');
-
+        Route::get('/', [Controllers\AssignPackagingUserController::class, 'index'])->name('packagedOrderList')->middleware('haspermission:packagingOrderList');
+        Route::post('/list', [Controllers\AssignPackagingUserController::class, 'getList'])->name('getPackagedOrderList')->middleware('haspermission:packagingOrderList');
+        Route::get('/detail/{id}', [Controllers\AssignPackagingUserController::class, 'detail'])->name('getPackagingOrderDetail')->middleware('haspermission:PackagingOrdeDetail');
+        Route::get('/assignlist', [Controllers\AssignPackagingUserController::class, 'assignList'])->name('packagedOrderAssigned')->middleware('haspermission:PackagingOrdeDetail');
+        Route::post('/get-task-asign-list', [Controllers\AssignPackagingUserController::class, 'getassignList'])->name('getAssignPackagedList')->middleware('haspermission:packagingAssignList');
+        Route::post('/getPackagingStatus', [Controllers\AssignPackagingUserController::class, 'getUserPackagedStatus'])->name('getPackagedStatus')->middleware('haspermission:packagingStatus');
+        Route::post('/savepackagingStatus', [Controllers\AssignPackagingUserController::class, 'updatePackagedStatus'])->name('updatePackagedStatus')->middleware('haspermission:updatePackagingStatus');
+        Route::get('assign_user/{id}', [Controllers\AssignPackagingUserController::class, 'getPackagingUsers'])->name('getPackagingUsers')->middleware('haspermission:installationUserLists');
+        Route::post('packaging_user_list', [Controllers\AssignPackagingUserController::class, 'getPackagingUsersList'])->name('getPackagingUsersList')->middleware('haspermission:packagingUsers');
+        Route::post('assigned_packaging_task', [Controllers\AssignPackagingUserController::class, 'assignedPackagingTask'])->name('assignedPackagingTask')->middleware('haspermission:packagingAssignedTask');
+        Route::post('delete_packaging_user', [Controllers\AssignPackagingUserController::class, 'deletePackagingUser'])->name('deletePackagingUser')->middleware('haspermission:deletePackagingUsers');
     });
 
 
     Route::prefix('installation-order')->group(function () {
-        Route::get('/', [Controllers\AssignInstallationUserController::class, 'index'])->name('installationOrderList')->middleware('installationOrderList');
-        Route::post('/list', [Controllers\AssignInstallationUserController::class, 'getList'])->name('getInstallationOrderList')->middleware('installationOrderList');
-        Route::get('/detail/{id}', [Controllers\AssignInstallationUserController::class, 'detail'])->name('getInstallationOrderDetail')->middleware('installationOrderDetail');
-        Route::get('/assignlist', [Controllers\AssignInstallationUserController::class, 'assignList'])->name('installationOrderAssigned')->middleware('installationOrderAssigned');
-        Route::post('/getassignlist', [Controllers\AssignInstallationUserController::class, 'getassignList'])->name('getAssignInstalltionList')->middleware('installationAssignList');
-        Route::post('/getInstallerStatus', [Controllers\AssignInstallationUserController::class, 'getUserInstallationStatus'])->name('getInstallationStatus')->middleware('installationStatus');
-        Route::post('/saveInstallerStatus', [Controllers\AssignInstallationUserController::class, 'updateInstallationStatus'])->name('updateInstallationStatus')->middleware('updateInsallationStatus');
-        Route::get('assign_user/{id}', [Controllers\AssignInstallationUserController::class, 'getInstallationUsers'])->middleware('installationUsers');
-        Route::post('assigned_installer_task', [Controllers\AssignInstallationUserController::class, 'assignedInstallationTask'])->name('assignedInstallationTask')->middleware('installationTasks');
-        Route::post('delete_installer_user', [Controllers\AssignInstallationUserController::class, 'deleteInstallationUser'])->name('deleteInstallationUser')->middleware('deleteInstallationUsers');
-        Route::post('installer_user_list', [Controllers\AssignInstallationUserController::class, 'getInstallationUsersList'])->name('getInstallationUsersList')->middleware('installationUserLists');
+        Route::get('/', [Controllers\AssignInstallationUserController::class, 'index'])->name('installationOrderList')->middleware('haspermission:installationOrderList');
+        Route::post('/list', [Controllers\AssignInstallationUserController::class, 'getList'])->name('getInstallationOrderList')->middleware('haspermission:installationOrderList');
+        Route::get('/detail/{id}', [Controllers\AssignInstallationUserController::class, 'detail'])->name('getInstallationOrderDetail')->middleware('haspermission:installationOrderDetail');
+        Route::get('/assignlist', [Controllers\AssignInstallationUserController::class, 'assignList'])->name('installationOrderAssigned')->middleware('haspermission:installationOrderAssigned');
+        Route::post('/getassignlist', [Controllers\AssignInstallationUserController::class, 'getassignList'])->name('getAssignInstalltionList')->middleware('haspermission:installationAssignList');
+        Route::post('/getInstallerStatus', [Controllers\AssignInstallationUserController::class, 'getUserInstallationStatus'])->name('getInstallationStatus')->middleware('haspermission:installationStatus');
+        Route::post('/saveInstallerStatus', [Controllers\AssignInstallationUserController::class, 'updateInstallationStatus'])->name('updateInstallationStatus')->middleware('haspermission:updateInsallationStatus');
+        Route::get('assign_user/{id}', [Controllers\AssignInstallationUserController::class, 'getInstallationUsers'])->middleware('haspermission:installationUsers');
+        Route::post('assigned_installer_task', [Controllers\AssignInstallationUserController::class, 'assignedInstallationTask'])->name('assignedInstallationTask')->middleware('haspermission:installationTasks');
+        Route::post('delete_installer_user', [Controllers\AssignInstallationUserController::class, 'deleteInstallationUser'])->name('deleteInstallationUser')->middleware('haspermission:deleteInstallationUsers');
+        Route::post('installer_user_list', [Controllers\AssignInstallationUserController::class, 'getInstallationUsersList'])->name('getInstallationUsersList')->middleware('haspermission:installationUserLists');
 
     });
     Route::prefix('accountant-order')->group(function () {
-        Route::get('/', [Controllers\AccountantController::class, 'index'])->name('accountantOrderList');
-        Route::post('/list', [Controllers\AccountantController::class, 'getList'])->name('getAccountantOrderList');
-        Route::post('/previewPayment', [Controllers\AccountantController::class, 'previewPaymentLog'])->name('previewPayment');
-        Route::post('/approvePayment', [Controllers\AccountantController::class, 'approvePaymentLog'])->name('paymentLogSubmit');
+        Route::get('/', [Controllers\AccountantController::class, 'index'])->name('accountantOrderList')->middleware('haspermission:accountantOrderList');
+        Route::post('/list', [Controllers\AccountantController::class, 'getList'])->name('getAccountantOrderList')->middleware('haspermission:accountantOrderList');
+        Route::post('/previewPayment', [Controllers\AccountantController::class, 'previewPaymentLog'])->name('previewPayment')->middleware('haspermission:previewPayment');
+        Route::post('/approvePayment', [Controllers\AccountantController::class, 'approvePaymentLog'])->name('paymentLogSubmit')->middleware('haspermission:submitPaymentLog');
 
 
     });
-
     Route::get('worker-task-screen', [Controllers\WorkerTaskController::class, 'getWorkerTasksByDepartment'])->name('getWorkerTasksByDepartment')->middleware('haspermission:workerTask');
     Route::post('worker-tasks-list', [Controllers\WorkerTaskController::class, 'getWorkerTasksList'])->name('getWorkerTasksList')->middleware('haspermission:workerTask');
     Route::post('update-worker-tasks-status', [Controllers\WorkerTaskController::class, 'updateWorkertaskStatus'])->name('updateWorkertaskStatus')->middleware('haspermission:updateWorkerTask');
-
 });
+
 Auth::routes();
+
