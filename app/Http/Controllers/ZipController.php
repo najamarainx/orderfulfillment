@@ -214,7 +214,6 @@ class ZipController extends Controller
             $userIDs= $userId->pluck('id')->toArray();
             $timeSlotId = DB::table('orderfulfillment_user_time_slot_assigns')->whereIn('user_id', $userIDs)->whereNull('deleted_at')->pluck('time_slot_id')->toArray();
             $timeSlotDetail = OrderFulfillmentTimeSlot::whereIn('id', $timeSlotId)->get();
-
             $timeSlots = [];
             foreach($timeSlotDetail as $key => $timeSlotObj){
                 $booking = OrderFulfillmentBooking::whereDate('date', $date)->where(['time_slot_id'=> $timeSlotObj->id,'zip_code_id'=>$request->zip_code_id]);
