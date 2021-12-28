@@ -21,7 +21,7 @@ class ZipController extends Controller
     }
 
      public function getZipcodesDropdownList(){
-        $zipcodes = getZipCode(true);
+        $zipcodes = getZipCode(-1);
         if(!($zipcodes->isEmpty())){
             $response['Status'] = 'success';
             $response['key'] = '200';

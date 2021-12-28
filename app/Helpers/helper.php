@@ -146,11 +146,11 @@ function getUsersByZip($zipID='',$userID='',$type='')
         ->get();
 }*/
 
-function getZipCode($zipId = "")
+function getZipCode($zipId = -1)
 {
     $query = DB::table('orderfulfillment_zip_codes')->whereNull('deleted_at');
 
-    if (!empty($zipId)) {
+    if ($zipId > 0) {
         $query->where('id', $zipId);
     }
     $result = $query->get();
