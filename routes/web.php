@@ -248,5 +248,5 @@ Auth::routes();
 
 Route::prefix('api/zip-code')->group(function () {
     Route::get('/list', [App\Http\Controllers\ZipController::class, 'getZipcodesDropdownList']);
-    Route::post('get-zip-code-time-slots', [App\Http\Controllers\ZipController::class, 'getZipCodeTimeSlots']);
+    Route::get('get-zip-code-time-slots', [App\Http\Controllers\ZipController::class, 'getZipCodeTimeSlots']);
 });
