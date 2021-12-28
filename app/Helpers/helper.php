@@ -133,7 +133,10 @@ function getUsersByZip($zipID='',$userID='',$type='')
         $query->where('orderfulfillment_user_zip_codes_mappings.user_id', $userID);
     }
 
-    return $result=$query->get();
+     $result=$query->get();
+
+
+    return $result;
 
 
 }

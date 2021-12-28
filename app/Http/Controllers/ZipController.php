@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\OrderFulfillmentCategory;
 use App\Models\OrderFulfillmentPackagingUser;
+use App\Models\OrderFulfillmentBooking;
 use App\Models\OrderFulfillmentTimeSlot;
 use App\Models\OrderFulfillmentUserZipCode;
 use Illuminate\Http\Request;
@@ -208,19 +209,32 @@ class ZipController extends Controller
     public function getZipCodeTimeSlots(Request $request)
     {
         if (!empty($request->zip_code_id)) {
-            $userId   = OrderFulfillmentUserZipCode::where('zip_id', $request->zip_code_id)->whereNull('deleted_at')->pluck('user_id')->toArray();
-            $timeSlotId = DB::table('orderfulfillment_user_time_slot_assigns')->whereIn('user_id', $userId)->whereNull('deleted_at')->pluck('time_slot_id')->toArray();
+            $date = Carbon::parse($request->date)->format('Y-m-d');
+            $userId   = getUsersByZip($request->zip_code_id);
+            $userIDs= $userId->pluck('id')->toArray();
+            $timeSlotId = DB::table('orderfulfillment_user_time_slot_assigns')->whereIn('user_id', $userIDs)->whereNull('deleted_at')->pluck('time_slot_id')->toArray();
             $timeSlotDetail = OrderFulfillmentTimeSlot::whereIn('id', $timeSlotId)->get();
+
+            $timeSlots = [];
+            foreach($timeSlotDetail as $key => $timeSlotObj){
+                $booking = OrderFulfillmentBooking::whereDate('date', $date)->where(['time_slot_id'=> $timeSlotObj->id,'zip_code_id'=>$request->zip_code_id]);
+                $totalBooking = $booking->count();
+                $timeSlots[]=array(
+                    'slot_id'=> $timeSlotObj->id,
+                    'booking_from_time' => date('g:i a',strtotime($timeSlotObj->booking_from_time)),
+                    'booking_to_time' => date('g:i a',strtotime($timeSlotObj->booking_to_time)),
+                );
+                if(count($userId) <= $totalBooking) {
+                    $timeSlots[$key]['booked'] = 'disabled';
+                }else{
+                    $timeSlots[$key]['booked'] = '';
+                }
+            }
             if (!($timeSlotDetail->isEmpty())) {
-                $date = Carbon::parse($request->date)->format('Y-m-d');
                 $response['status'] = 'success';
-                $response['date'] =  $date;
-                $response['timeSlotDetail'] = $timeSlotDetail;
-                $response['zipCode'] = $request->zip_code_id;
+                $response['timeSlotDetail'] = $timeSlots;
             } else {
-                $response['status'] = 'error';
-                $response['statusCode'] = 'error';
-                $response['message'] = 'No detail found against your record';
+                $response['timeSlotDetail'] = '';
             }
             return response()->json($response);
         }
