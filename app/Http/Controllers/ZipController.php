@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\OrderFulfillmentCategory;
 use App\Models\OrderFulfillmentPackagingUser;
 use App\Models\OrderFulfillmentTimeSlot;
@@ -20,19 +21,20 @@ class ZipController extends Controller
         return view('zips.list');
     }
 
-     public function getZipcodesDropdownList(){
+    public function getZipcodesDropdownList()
+    {
         $zipcodes = getZipCode(-1);
-        if(!($zipcodes->isEmpty())){
+        if (!($zipcodes->isEmpty())) {
             $response['Status'] = 'success';
             $response['key'] = '200';
             $response['zipcodes'] = $zipcodes;
-        }else{
+        } else {
             $response['Status'] = 'error';
             $response['key'] = '400';
             $response['message'] = 'No Zip code found';
         }
-        return response()->json($response,$response['key']);
-     }
+        return response()->json($response, $response['key']);
+    }
 
     public function getList(Request $request)
     {
@@ -49,26 +51,24 @@ class ZipController extends Controller
         $charges = DB::table('orderfulfillment_zip_codes');
         $charges->where('deleted_at', NULL);
 
-        foreach($columns as $field) {
+        foreach ($columns as $field) {
             $col = $field['data'];
             $search = $field['search']['value'];
-            if($search != "") {
+            if ($search != "") {
 
                 if ($col == 'Name') {
-                    $col1='name';
-                    $charges->where($col1, 'like','%' . $search . '%');
+                    $col1 = 'name';
+                    $charges->where($col1, 'like', '%' . $search . '%');
                 }
-
             }
         }
         if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
-            if($sortColumnName=='Sr'){
+            if ($sortColumnName == 'Sr') {
                 $charges->orderBy("id", "desc");
             }
-            if($sortColumnName=='created_at'){
+            if ($sortColumnName == 'created_at') {
                 $charges->orderBy("created_at", "desc");
             }
-
         } else {
             $charges->orderBy("name", "desc");
         }
@@ -77,7 +77,7 @@ class ZipController extends Controller
         $charges->take($length);
         $chargesData = $charges->get();
         $data = [];
-        $i=1;
+        $i = 1;
         foreach ($chargesData as $chargesObj) {
             $action = "";
             $action .= '<a href="' . url('user-time-slot/detail') . '/' . $chargesObj->id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview" data-id="' . $chargesObj->id . '">
@@ -123,9 +123,6 @@ class ZipController extends Controller
         $records["recordsTotal"] = $iTotalRecords;
         $records["recordsFiltered"] = $iTotalRecords;
         echo json_encode($records);
-
-
-
     }
 
     public function store(Request $request)
@@ -159,7 +156,7 @@ class ZipController extends Controller
             }
 
             $zip->name = $request->name;
-            $zip->created_by= Auth::user()->id;
+            $zip->created_by = Auth::user()->id;
             $query = $zip->save();
             $return = [
                 'status' => 'error',
@@ -208,32 +205,24 @@ class ZipController extends Controller
         }
     }
 
-    public function getZipCodeTimeSlots(Request $request){
-        $userId   = OrderFulfillmentUserZipCode::where('zip_id', $request->zipCode)->whereNull('deleted_at')->pluck('user_id')->toArray();
-        $timeSlotId = DB::table('orderfulfillment_user_time_slot_assigns')->whereIn('user_id', $userId)->whereNull('deleted_at')->pluck('time_slot_id')->toArray();
-        $timeSlotDetail = OrderFulfillmentTimeSlot::whereIn('id', $timeSlotId)->get();
-        if (!($timeSlotDetail->isEmpty())) {
-            $date = Carbon::now()->format('Y-m-d');
-            $respnse['status'] = 'success';
-            $respnse['date'] =  $date;
-            $respnse['timeSlotDetail'] = $timeSlotDetail;
-            $respnse['zipCode'] = $request->zipCode;
-            $dt = [
-                'date' => $date,
-                'timeSlotDetail' => $timeSlotDetail,
-                'userId' => $userId,
-                'zipCode' => $request->zipCode,
-                'date' => $request->date
-            ];
-            $data['timeSlotHtml'] = $timeSlotHtml;
-
-            $result = ['status' => 'success', 'timeSlotHtml' => $timeSlotHtml,'zipCode'=>$request->zipCode];
-        } else {
-            $result = ['status' => 'error', 'message' => 'Something went wrong'];
+    public function getZipCodeTimeSlots(Request $request)
+    {
+        if (!empty($request->zip_code_id)) {
+            $userId   = OrderFulfillmentUserZipCode::where('zip_id', $request->zip_code_id)->whereNull('deleted_at')->pluck('user_id')->toArray();
+            $timeSlotId = DB::table('orderfulfillment_user_time_slot_assigns')->whereIn('user_id', $userId)->whereNull('deleted_at')->pluck('time_slot_id')->toArray();
+            $timeSlotDetail = OrderFulfillmentTimeSlot::whereIn('id', $timeSlotId)->get();
+            if (!($timeSlotDetail->isEmpty())) {
+                $date = Carbon::parse($request->date)->format('Y-m-d');
+                $response['status'] = 'success';
+                $response['date'] =  $date;
+                $response['timeSlotDetail'] = $timeSlotDetail;
+                $response['zipCode'] = $request->zip_code_id;
+            } else {
+                $response['status'] = 'error';
+                $response['statusCode'] = 'error';
+                $response['message'] = 'No detail found against your record';
+            }
+            return response()->json($response);
         }
-        return response()->json($result);
     }
-
-
-
 }
