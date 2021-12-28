@@ -217,17 +217,17 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::prefix('installation-order')->group(function () {
-        Route::get('/', [Controllers\AssignInstallationUserController::class, 'index'])->name('installationOrderList');
-        Route::post('/list', [Controllers\AssignInstallationUserController::class, 'getList'])->name('getInstallationOrderList');
-        Route::get('/detail/{id}', [Controllers\AssignInstallationUserController::class, 'detail'])->name('getInstallationOrderDetail');
-        Route::get('/assignlist', [Controllers\AssignInstallationUserController::class, 'assignList'])->name('installationOrderAssigned');
-        Route::post('/getassignlist', [Controllers\AssignInstallationUserController::class, 'getassignList'])->name('getAssignInstalltionList');
-        Route::post('/getInstallerStatus', [Controllers\AssignInstallationUserController::class, 'getUserInstallationStatus'])->name('getInstallationStatus');
-        Route::post('/saveInstallerStatus', [Controllers\AssignInstallationUserController::class, 'updateInstallationStatus'])->name('updateInstallationStatus');
-        Route::get('assign_user/{id}', [Controllers\AssignInstallationUserController::class, 'getInstallationUsers']);
-        Route::post('assigned_installer_task', [Controllers\AssignInstallationUserController::class, 'assignedInstallationTask'])->name('assignedInstallationTask');
-        Route::post('delete_installer_user', [Controllers\AssignInstallationUserController::class, 'deleteInstallationUser'])->name('deleteInstallationUser');
-        Route::post('installer_user_list', [Controllers\AssignInstallationUserController::class, 'getInstallationUsersList'])->name('getInstallationUsersList');
+        Route::get('/', [Controllers\AssignInstallationUserController::class, 'index'])->name('installationOrderList')->middleware('installationOrderList');
+        Route::post('/list', [Controllers\AssignInstallationUserController::class, 'getList'])->name('getInstallationOrderList')->middleware('installationOrderList');
+        Route::get('/detail/{id}', [Controllers\AssignInstallationUserController::class, 'detail'])->name('getInstallationOrderDetail')->middleware('installationOrderDetail');
+        Route::get('/assignlist', [Controllers\AssignInstallationUserController::class, 'assignList'])->name('installationOrderAssigned')->middleware('installationOrderAssigned');
+        Route::post('/getassignlist', [Controllers\AssignInstallationUserController::class, 'getassignList'])->name('getAssignInstalltionList')->middleware('installationAssignList');
+        Route::post('/getInstallerStatus', [Controllers\AssignInstallationUserController::class, 'getUserInstallationStatus'])->name('getInstallationStatus')->middleware('installationStatus');
+        Route::post('/saveInstallerStatus', [Controllers\AssignInstallationUserController::class, 'updateInstallationStatus'])->name('updateInstallationStatus')->middleware('updateInsallationStatus');
+        Route::get('assign_user/{id}', [Controllers\AssignInstallationUserController::class, 'getInstallationUsers'])->middleware('installationUsers');
+        Route::post('assigned_installer_task', [Controllers\AssignInstallationUserController::class, 'assignedInstallationTask'])->name('assignedInstallationTask')->middleware('installationTasks');
+        Route::post('delete_installer_user', [Controllers\AssignInstallationUserController::class, 'deleteInstallationUser'])->name('deleteInstallationUser')->middleware('deleteInstallationUsers');
+        Route::post('installer_user_list', [Controllers\AssignInstallationUserController::class, 'getInstallationUsersList'])->name('getInstallationUsersList')->middleware('installationUserLists');
 
     });
     Route::prefix('accountant-order')->group(function () {
