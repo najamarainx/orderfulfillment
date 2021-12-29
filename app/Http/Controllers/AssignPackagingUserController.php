@@ -108,21 +108,21 @@ class AssignPackagingUserController extends Controller
         echo json_encode($records);
     }
 
-    // public function detail($id)
-    // {
-    //     $departments = OrderFulfillmentDepartment::get();
-    //     $variants = OrderFulfillmentVariant::get();
-    //     $orderItems = Order::with(['orderdetail' => function ($query) {
-    //         $query->with('orderProducts');
-    //     }])->where('id', $id)->first();
-    //     $dt = [
-    //         'orderItems' => $orderItems,
-    //         'departments' => $departments,
-    //         'variants' => $variants,
+    public function detail($id)
+    {
+        $departments = OrderFulfillmentDepartment::get();
+        $variants = OrderFulfillmentVariant::get();
+        $orderItems = Order::with(['orderdetail' => function ($query) {
+            $query->with('orderProducts');
+        }])->where('id', $id)->first();
+        $dt = [
+            'orderItems' => $orderItems,
+            'departments' => $departments,
+            'variants' => $variants,
 
-    //     ];
-    //     return view('orders.assign_detail', $dt);
-    // }
+        ];
+        return view('orders.assign_detail', $dt);
+    }
 
 
     public function getAssignList(Request $request)
@@ -174,6 +174,7 @@ class AssignPackagingUserController extends Controller
         $sql->skip($start);
         $sql->take($length);
         $orderData = $sql->get();
+        print_r($orderData);exit;
         $data = [];
         foreach ($orderData as $orderObj) {
             $action = "";

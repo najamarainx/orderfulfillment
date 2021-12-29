@@ -587,7 +587,7 @@
             form_data.append('id', id);
             $.ajax({
                 type: "POST",
-                url: "{{ route('getPackagingStatus') }}", // your php file name
+                url: "{{ route('getPackagedStatus') }}", // your php file name
                 data: form_data,
                 dataType: "json",
                 processData: false,
@@ -630,7 +630,7 @@
             var form_data = new FormData(form);
             $.ajax({
                 type: "POST",
-                url: "{{ route('updatePackagingStatus') }}", // your php file name
+                url: "{{ route('updatePackagedStatus') }}", // your php file name
                 data: form_data,
                 dataType: "json",
                 processData: false,

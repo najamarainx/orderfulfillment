@@ -210,7 +210,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/get-user-task-asign-list', [Controllers\AssignPackagingUserController::class, 'getAssignList'])->name('getAssignPackagedList');
         Route::post('/getPackagingStatus', [Controllers\AssignPackagingUserController::class, 'getUserPackagedStatus'])->name('getPackagedStatus')->middleware('haspermission:packagingStatus');
         Route::post('/save-packaging-Status', [Controllers\AssignPackagingUserController::class, 'updatePackagedStatus'])->name('updatePackagedStatus')->middleware('haspermission:updatePackagingStatus');
-        Route::get('assign_user/{id}', [Controllers\AssignPackagingUserController::class, 'getPackagingUsers'])->name('getPackagingUsers')->middleware('haspermission:packagingUserLists');
+        Route::get('assign_user/{id}', [Controllers\AssignPackagingUserController::class, 'getPackagingUsers'])->name('getPackagingUsers')->middleware('haspermission:packagingUsers');
         Route::post('packaging_user_list', [Controllers\AssignPackagingUserController::class, 'getPackagingUsersList'])->name('getPackagingUsersList')->middleware('haspermission:packagingUsersList');
         Route::post('assigned_packaging_task', [Controllers\AssignPackagingUserController::class, 'assignedPackagingTask'])->name('assignedPackagingTask')->middleware('haspermission:packagingAssignedTask');
         Route::post('delete_packaging_user', [Controllers\AssignPackagingUserController::class, 'deletePackagingUser'])->name('deletePackagingUser')->middleware('haspermission:deletePackagingUsers');
@@ -245,8 +245,8 @@ Route::group(['middleware' => 'auth'], function () {
 Auth::routes();
 
 Route::prefix('api/zip-code')->group(function () {
-    Route::post('get-zip-code-time-slots',function(){
-        return true;
+    Route::GET('get-zip-code-time-slots/{id}',function($id){
+        return $id;
     })->middleware('cors');
     Route::get('/list', [App\Http\Controllers\ZipController::class, 'getZipcodesDropdownList']);
 });
