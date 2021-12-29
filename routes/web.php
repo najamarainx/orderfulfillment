@@ -244,7 +244,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Auth::routes();
 
-Route::prefix('api/zip-code')->group(function () {
+Route::prefix('zip-code')->group(function () {
     Route::get('get-zip-code-time-slots/{id}',function($id){
         return $id;
     })->middleware('cors');
