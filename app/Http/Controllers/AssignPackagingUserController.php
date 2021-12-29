@@ -174,7 +174,6 @@ class AssignPackagingUserController extends Controller
         $sql->skip($start);
         $sql->take($length);
         $orderData = $sql->get();
-        print_r($orderData);exit;
         $data = [];
         foreach ($orderData as $orderObj) {
             $action = "";
@@ -281,7 +280,7 @@ class AssignPackagingUserController extends Controller
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
         $sql = OrderFulfillmentUser::where('orderfulfillment_users.is_head', '1')->select('orderfulfillment_users.*', 'o_as_u.user_id as o_as_u_id','o_as_u.id as assigned_id','o_as_u.status','from_user.name as from_name');
-        $sql->leftJoin('orderfulffillment_assign_assemble_users as o_as_u',function($q){
+        $sql->leftJoin('orderfulfillment_packings as o_as_u',function($q){
                  $q->on('orderfulfillment_users.id', 'o_as_u.user_id');
                  $q->whereNULL('o_as_u.deleted_at');
         });

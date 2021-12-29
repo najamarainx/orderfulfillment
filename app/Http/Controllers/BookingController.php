@@ -160,6 +160,7 @@ class BookingController extends Controller
     }
     public function store(Request $request)
     {
+        print_r($request->all());exit;
         $id = $request->id;
         $validate = true;
         $validateInput = $request->all();
