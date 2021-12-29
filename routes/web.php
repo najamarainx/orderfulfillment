@@ -244,9 +244,4 @@ Route::group(['middleware' => 'auth'], function () {
 
 Auth::routes();
 
-Route::prefix('api/zip-code')->group(function () {
-    Route::post('get-zip-code-time-slots',
-        [App\Http\Controllers\ZipController::class, 'getZipCodeTimeSlots']
-    );
-    Route::get('/list',  [App\Http\Controllers\ZipController::class, 'getZipcodesDropdownList']);
-});
+

@@ -12,6 +12,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'http://localhost/primiunbilndmain'
+        'api/zip-code/time-slots'
     ];
 }
