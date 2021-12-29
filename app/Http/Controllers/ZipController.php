@@ -206,36 +206,37 @@ class ZipController extends Controller
         }
     }
 
-    public function getZipCodeTimeSlots(Request $request)
+    public function getZipCodeTimeSlots()
     {
-        if (!empty($request->zip_code_id)) {
-            $date = Carbon::parse($request->date)->format('Y-m-d');
-            $userId   = getUsersByZip($request->zip_code_id);
-            $userIDs= $userId->pluck('id')->toArray();
-            $timeSlotId = DB::table('orderfulfillment_user_time_slot_assigns')->whereIn('user_id', $userIDs)->whereNull('deleted_at')->pluck('time_slot_id')->toArray();
-            $timeSlotDetail = OrderFulfillmentTimeSlot::whereIn('id', $timeSlotId)->get();
-            $timeSlots = [];
-            foreach($timeSlotDetail as $key => $timeSlotObj){
-                $booking = OrderFulfillmentBooking::whereDate('date', $date)->where(['time_slot_id'=> $timeSlotObj->id,'zip_code_id'=>$request->zip_code_id]);
-                $totalBooking = $booking->count();
-                $timeSlots[]=array(
-                    'slot_id'=> $timeSlotObj->id,
-                    'booking_from_time' => date('g:i a',strtotime($timeSlotObj->booking_from_time)),
-                    'booking_to_time' => date('g:i a',strtotime($timeSlotObj->booking_to_time)),
-                );
-                if(count($userId) <= $totalBooking) {
-                    $timeSlots[$key]['booked'] = 'disabled';
-                }else{
-                    $timeSlots[$key]['booked'] = '';
-                }
-            }
-            if (!($timeSlotDetail->isEmpty())) {
-                $response['status'] = 'success';
-                $response['timeSlotDetail'] = $timeSlots;
-            } else {
-                $response['timeSlotDetail'] = '';
-            }
-            return response()->json($response);
-        }
+        echo "yes";exit;
+        // if (!empty($request->zip_code_id)) {
+        //     $date = Carbon::parse($request->date)->format('Y-m-d');
+        //     $userId   = getUsersByZip($request->zip_code_id);
+        //     $userIDs= $userId->pluck('id')->toArray();
+        //     $timeSlotId = DB::table('orderfulfillment_user_time_slot_assigns')->whereIn('user_id', $userIDs)->whereNull('deleted_at')->pluck('time_slot_id')->toArray();
+        //     $timeSlotDetail = OrderFulfillmentTimeSlot::whereIn('id', $timeSlotId)->get();
+        //     $timeSlots = [];
+        //     foreach($timeSlotDetail as $key => $timeSlotObj){
+        //         $booking = OrderFulfillmentBooking::whereDate('date', $date)->where(['time_slot_id'=> $timeSlotObj->id,'zip_code_id'=>$request->zip_code_id]);
+        //         $totalBooking = $booking->count();
+        //         $timeSlots[]=array(
+        //             'slot_id'=> $timeSlotObj->id,
+        //             'booking_from_time' => date('g:i a',strtotime($timeSlotObj->booking_from_time)),
+        //             'booking_to_time' => date('g:i a',strtotime($timeSlotObj->booking_to_time)),
+        //         );
+        //         if(count($userId) <= $totalBooking) {
+        //             $timeSlots[$key]['booked'] = 'disabled';
+        //         }else{
+        //             $timeSlots[$key]['booked'] = '';
+        //         }
+        //     }
+        //     if (!($timeSlotDetail->isEmpty())) {
+        //         $response['status'] = 'success';
+        //         $response['timeSlotDetail'] = $timeSlots;
+        //     } else {
+        //         $response['timeSlotDetail'] = '';
+        //     }
+        //     return response()->json($response);
+        // }
     }
 }

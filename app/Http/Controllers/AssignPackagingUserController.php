@@ -127,6 +127,7 @@ class AssignPackagingUserController extends Controller
 
     public function getassignList(Request $request)
     {
+        echo "yes";exit;
 
         $records = [];
         $draw = $request->draw;

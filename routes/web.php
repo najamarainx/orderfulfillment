@@ -236,8 +236,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/list', [Controllers\AccountantController::class, 'getList'])->name('getAccountantOrderList')->middleware('haspermission:accountantOrderList');
         Route::post('/previewPayment', [Controllers\AccountantController::class, 'previewPaymentLog'])->name('previewPayment')->middleware('haspermission:previewPayment');
         Route::post('/approvePayment', [Controllers\AccountantController::class, 'approvePaymentLog'])->name('paymentLogSubmit')->middleware('haspermission:submitPaymentLog');
-
-
     });
     Route::get('worker-task-screen', [Controllers\WorkerTaskController::class, 'getWorkerTasksByDepartment'])->name('getWorkerTasksByDepartment')->middleware('haspermission:workerTask');
     Route::post('worker-tasks-list', [Controllers\WorkerTaskController::class, 'getWorkerTasksList'])->name('getWorkerTasksList')->middleware('haspermission:workerTask');
@@ -248,5 +246,5 @@ Auth::routes();
 
 Route::prefix('api/zip-code')->group(function () {
     Route::get('/list', [App\Http\Controllers\ZipController::class, 'getZipcodesDropdownList']);
-    Route::post('get-zip-code-time-slots', [App\Http\Controllers\ZipController::class, 'getZipCodeTimeSlots']);
+    Route::get('get-zip-code-time-slots', [App\Http\Controllers\ZipController::class, 'getZipCodeTimeSlots']);
 });
