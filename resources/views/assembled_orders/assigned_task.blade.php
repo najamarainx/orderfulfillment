@@ -123,7 +123,7 @@
                         processing: true,
                         serverSide: true,
                         ajax: {
-                            url: "{{ route('getAssignAssembledList') }}",
+                            url: "{{ route('getAssemblerUsersList') }}",
                             type: 'POST',
                             data: {
                                 order_id: {{ last(request()->segments()) }},
@@ -227,7 +227,7 @@
                 form.append('order_id', order_id);
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('assignedPackagingTask') }}", // your php file name
+                    url: "{{ route('assignedAssmblerTask') }}", // your php file name
                     data: form,
                     dataType: "json",
                     processData: false,
@@ -256,7 +256,7 @@
                 form.append('id', id);
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('deletePackagingUser') }}", // your php file name
+                    url: "{{ route('deleteAssemblerUser') }}", // your php file name
                     data: form,
                     dataType: "json",
                     processData: false,

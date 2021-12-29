@@ -661,7 +661,7 @@
                                     <span class="menu-text">Assembeld Order</span>
                                 </span>
                             </li>
-                            @if(hasPermission('assemblerOrderList'))
+                            @if(hasPermission('assemblerOrderDetail'))
                             <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                 <a href="{{route('assembledOrderList')}}" class="menu-link menu-toggle">
                                     <i class="menu-bullet menu-bullet-line">
@@ -717,7 +717,7 @@
                                     <span class="menu-text">Packaged Order</span>
                                 </span>
                             </li>
-                           @if(hasPermission('packagingOrderList'))
+                           @if(hasPermission('packagingOrderDetail'))
                             <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                 <a href="{{route('packagedOrderList')}}" class="menu-link menu-toggle">
                                     <i class="menu-bullet menu-bullet-line">
