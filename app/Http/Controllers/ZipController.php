@@ -206,7 +206,7 @@ class ZipController extends Controller
         }
     }
 
-    public function getZipCodeTimeSlots(Request $request)
+    public function getZipCodeTimeSlots()
     {
         echo "yes";exit;
         if (!empty($request->zip_code_id)) {
