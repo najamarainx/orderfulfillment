@@ -18,11 +18,11 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 Route::get('/unauthenticate', [App\Http\Controllers\ApiAuthenticateController::class, 'invalidTocken'])->name('apiUnAuthenticatedUser');
-Route::group(['middleware' => 'APIToken'], function ()  {
+// Route::group(['middleware' => 'APIToken'], function ()  {
     Route::prefix('zip-code')->group(function () {
         Route::post('time-slots',
             [App\Http\Controllers\ZipController::class, 'getZipCodeTimeSlots']
-        );
+        )->middleware('APIToken');
         Route::get('/list',  [App\Http\Controllers\ZipController::class, 'getZipcodesDropdownList']);
     });
-});
+// });
