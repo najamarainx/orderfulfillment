@@ -208,6 +208,7 @@ class ZipController extends Controller
 
     public function getZipCodeTimeSlots(Request $request)
     {
+        echo "yes";exit;
         if (!empty($request->zip_code_id)) {
             $date = Carbon::parse($request->date)->format('Y-m-d');
             $userId   = getUsersByZip($request->zip_code_id);
