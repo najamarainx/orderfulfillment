@@ -238,21 +238,25 @@ class BookingController extends Controller
                 $booking->zip_code_id = $request->zip_code;
             }
             $customerName = explode(" ", $request->customer_name);
-            $booking->first_name = $customerName[0];
-            $booking->last_name = isset($customerName[1]) && !empty($customerName[1]) ? $customerName[1] : '';
+            $first_name = $request->first_name;
+            $last_name = $request->last_name;
+            $booking->first_name = !empty($customerName[0]) ? $customerName[0] : $first_name;
+            $booking->last_name = isset($customerName[1]) && !empty($customerName[1]) ? $customerName[1] : $last_name;
             $booking->email = $request->customer_email;
             $booking->phone_number = $request->customer_no;
             $booking->post_code = $request->customer_post_code;
             $booking->address = $request->customer_address;
-            $booking->created_by = Auth::user()->id;
+            $booking->created_by = !empty(Auth::user()->id) ? Auth::user()->id : NULL;
             // $booking->message = $request->message;
             $booking->save();
-            $return = [
-                'status' => 'success',
-                'message' => 'Booking is added successfully',
-            ];
+            if(empty(Auth::user()->id)){
+                $response['message'] = 'Your booking created successfully! we will contact you soon';
+            }else{
+                $response['message'] = 'Booking is added successfully';
+            }
+            $response['status'] = 'success';
         }
-        return response()->json($return);
+        return response()->json($response);
     }
 
     public function getTimeSlotByZipCode(Request $request)
@@ -401,7 +405,7 @@ class BookingController extends Controller
             $bookingassign->slot_id =$bookingInfo->time_slot_id;
             $bookingassign->user_id = $request->booking_user_id;
             $bookingassign->date = $bookingInfo->date;
-            $bookingassign->created_by =Auth::user()->id;
+            $bookingassign->created_by = !empty(Auth::user()->id) ? Auth::user()->id : NULL;
             $qry=$bookingassign->save();
             if($qry){
                 $return = [
@@ -472,4 +476,96 @@ class BookingController extends Controller
         }
         return response()->json($return);
     }
+
+
+    // public function storeBookingByMainSite(Request $request){
+
+
+    //         $validate = true;
+    //         $validateInput = $request->all();
+    //         if ($request->id == '') {
+    //             $rules = [
+    //                 'customer_name' => 'required|max:150',
+    //                 'customer_no' => 'required|max:150',
+    //                 'customer_email' => 'required|max:150',
+    //                 'customer_address' => 'required|max:150',
+    //                 'customer_post_code' => 'required|max:150',
+    //                 'category_id' => 'required|max:150',
+    //                 'date' => 'required|max:150',
+    //                 'zip_code' => 'required|max:150',
+    //                 'time_slot' => 'required|max:150',
+
+    //             ];
+
+    //             $messages = [
+
+    //                 'customer_name.required' => 'customer name is required!',
+    //                 'customer_no.required' => 'customer number is required!',
+    //                 'customer_email.required' => 'customer email is required!',
+    //                 'customer_address.required' => 'customer address is required!',
+    //                 'customer_post_code.required' => 'customer post code is required!',
+    //                 'category_id.required' => 'category field is required!',
+    //                 'date.required' => 'date is required!',
+    //                 'time_slot.required' => 'time slot is required!',
+
+
+    //             ];
+    //         } else {
+
+    //             $rules = [
+    //                 'customer_name' => 'required|max:150',
+    //                 'customer_no' => 'required|max:150',
+    //                 'customer_email' => 'required|max:150',
+    //                 'customer_address' => 'required|max:150',
+    //                 'customer_post_code' => 'required|max:150',
+    //             ];
+    //             $messages = [
+
+
+    //                 'customer_name.required' => 'customer name is required!',
+    //                 'customer_no.required' => 'customer number is required!',
+    //                 'customer_email.required' => 'customer email is required!',
+    //                 'customer_address.required' => 'customer address is required!',
+    //                 'customer_post_code.required' => 'customer post code is required!',
+
+
+    //             ];
+    //         }
+
+
+    //         $validator = Validator::make($validateInput, $rules, $messages);
+    //         if ($validator->fails()) {
+    //             $errors = $validator->errors();
+    //             $allMsg = [];
+    //             foreach ($errors->all() as $message) {
+    //                 $allMsg[] = $message;
+    //             }
+    //             $return['status'] = 'error';
+    //             $return['message'] = collect($allMsg)->implode('<br />');
+    //             $validate = false;
+    //             return response()->json($return);
+    //         }
+    //         if ($validate) {
+    //             $id = $request->id;
+    //             $booking = new OrderFulfillmentBooking();
+    //             $booking->first_name = $request->first_name;
+    //             $booking->last_name = $request->last_name;
+    //             $booking->email = $request->email;
+    //             $booking->phone_number = $request->phone_no;
+    //             $booking->post_code = $request->post_code;
+    //             $booking->address = $request->address;
+    //             $booking->category_id = $request->category_id;
+    //             $booking->date = $request->date;
+    //             $booking->time_slot_id = $request->time_slot;
+    //             $booking->zip_code_id = $request->zip_code;
+    //             // $booking->message = $request->message;
+    //             $booking->save();
+    //             $return = [
+    //                 'status' => 'success',
+    //                 'message' => 'Booking is added successfully',
+    //             ];
+    //         }
+    //         return response()->json($return);
+
+    // }
 }
