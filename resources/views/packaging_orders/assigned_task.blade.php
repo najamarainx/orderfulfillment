@@ -482,7 +482,7 @@
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "{{ route('getAssignAssembledList') }}",
+                        url: "{{ route('getAssignPackagedList') }}",
                         type: 'POST',
                         data: {
                             // parameters for custom backend script demo

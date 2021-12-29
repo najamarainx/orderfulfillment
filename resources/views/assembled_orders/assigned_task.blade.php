@@ -123,7 +123,7 @@
                         processing: true,
                         serverSide: true,
                         ajax: {
-                            url: "{{ route('getPackagingUsersList') }}",
+                            url: "{{ route('getAssignAssembledList') }}",
                             type: 'POST',
                             data: {
                                 order_id: {{ last(request()->segments()) }},

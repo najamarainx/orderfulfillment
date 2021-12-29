@@ -108,104 +108,107 @@ class AssignPackagingUserController extends Controller
         echo json_encode($records);
     }
 
-    public function detail($id)
-    {
-        $departments = OrderFulfillmentDepartment::get();
-        $variants = OrderFulfillmentVariant::get();
-        $orderItems = Order::with(['orderdetail' => function ($query) {
-            $query->with('orderProducts');
-        }])->where('id', $id)->first();
-        $dt = [
-            'orderItems' => $orderItems,
-            'departments' => $departments,
-            'variants' => $variants,
+    // public function detail($id)
+    // {
+    //     $departments = OrderFulfillmentDepartment::get();
+    //     $variants = OrderFulfillmentVariant::get();
+    //     $orderItems = Order::with(['orderdetail' => function ($query) {
+    //         $query->with('orderProducts');
+    //     }])->where('id', $id)->first();
+    //     $dt = [
+    //         'orderItems' => $orderItems,
+    //         'departments' => $departments,
+    //         'variants' => $variants,
 
-        ];
-        return view('orders.assign_detail', $dt);
-    }
+    //     ];
+    //     return view('orders.assign_detail', $dt);
+    // }
 
-
-    public function getassignList(Request $request)
+    public function getAssignList(Request $request)
     {
         echo "yes";exit;
-
-        $records = [];
-        $draw = $request->draw;
-        $start = $request->start;
-        $length = $request->length;
-        $sortColumnIndex = $request->order[0]['column']; // Column index
-        $sortColumnName = $request->columns[$sortColumnIndex]['data']; // Column name
-        $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
-        $columns = $request->columns;
-        $sql = OrderFulfillmentPackagingUser::select('orderfulfillment_packings.*','orderfulfillment_users.name as assigned_to','ab.name as assigned_from');
-        $sql->join('orders','orders.id','orderfulfillment_packings.order_id');
-        $sql->join('orderfulfillment_users','orderfulfillment_packings.user_id','orderfulfillment_users.id');
-        $sql->join('orderfulfillment_users as ab','orderfulfillment_packings.added_by','ab.id');
-        $sql->where('orderfulfillment_users.type','packaging');
-        $sql->whereNULL('orders.deleted_at');
-        $sql->where('orders.status','packing');
-        $sql->whereNULL('orderfulfillment_packings.deleted_at');
-        $sql->whereNULL('orderfulfillment_users.deleted_at');
-        if(Auth::user()->is_head==1){
-            $sql->where('orderfulfillment_packings.user_id',Auth::user()->id);
-        }
-
-        foreach ($columns as $field) {
-            $col = $field['data'];
-            $search = $field['search']['value'];
-            if ($search != "") {
-                if ($col == 'order_id') {
-                    $sql->where('orderfulfillment_packings.order_id', $search);
-
-                    // $sql->where($col, $search);
-                }
-                if ($col == 'status') {
-                    $col = "orderfulfillment_packings.status";
-                    $sql->where($col, $search);
-                }
-            }
-        }
-
-        if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
-            $sql->orderBy($sortColumnName, $sortColumnSortOrder);
-        } else {
-            $sql->orderBy("orderfulfillment_packings.id", "desc");
-        }
-        $iTotalRecords = $sql->count();
-        $sql->skip($start);
-        $sql->take($length);
-        $orderData = $sql->get();
-        print_r($orderData);exit;
-        $data = [];
-        foreach ($orderData as $orderObj) {
-            $action = "";
-            $action .= '<a href="' . url('packaging-order/detail') . '/' . $orderObj->order_id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview">
-            <i class="la la-eye"></i>
-        </a>';
-
-            if($orderObj->status=='completed' && Auth::user()->is_head==1){
-                $status='<span class="badge badge-success "  style="cursor:pointer">' . $orderObj->status . '</span>';
-            }else{
-                $status='<span class="badge badge-success assemble_update" data-id="'.$orderObj->id.'" style="cursor:pointer">' . $orderObj->status . '</span>';
-            }
-
-            $data[] = [
-                "id" => $orderObj->id,
-                "order_id" =>$orderObj->order_id,
-                "assigned_from"=>ucfirst($orderObj->assigned_from),
-                "assigned_to"=>ucfirst($orderObj->assigned_to),
-                "date"=>Carbon::create($orderObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
-                "status"=>$status,
-                "action"=>$action,
-            ];
-        }
-
-        $records["data"] = $data;
-        $records["draw"] = $draw;
-        $records["recordsTotal"] = $iTotalRecords;
-        $records["recordsFiltered"] = $iTotalRecords;
-        echo json_encode($records);
     }
+    // public function getassignList(Request $request)
+    // {
+    //     echo "yes";exit;
+
+    //     $records = [];
+    //     $draw = $request->draw;
+    //     $start = $request->start;
+    //     $length = $request->length;
+    //     $sortColumnIndex = $request->order[0]['column']; // Column index
+    //     $sortColumnName = $request->columns[$sortColumnIndex]['data']; // Column name
+    //     $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
+    //     $columns = $request->columns;
+    //     $sql = OrderFulfillmentPackagingUser::select('orderfulfillment_packings.*','orderfulfillment_users.name as assigned_to','ab.name as assigned_from');
+    //     $sql->join('orders','orders.id','orderfulfillment_packings.order_id');
+    //     $sql->join('orderfulfillment_users','orderfulfillment_packings.user_id','orderfulfillment_users.id');
+    //     $sql->join('orderfulfillment_users as ab','orderfulfillment_packings.added_by','ab.id');
+    //     $sql->where('orderfulfillment_users.type','packaging');
+    //     $sql->whereNULL('orders.deleted_at');
+    //     $sql->where('orders.status','packing');
+    //     $sql->whereNULL('orderfulfillment_packings.deleted_at');
+    //     $sql->whereNULL('orderfulfillment_users.deleted_at');
+    //     if(Auth::user()->is_head==1){
+    //         $sql->where('orderfulfillment_packings.user_id',Auth::user()->id);
+    //     }
+
+    //     foreach ($columns as $field) {
+    //         $col = $field['data'];
+    //         $search = $field['search']['value'];
+    //         if ($search != "") {
+    //             if ($col == 'order_id') {
+    //                 $sql->where('orderfulfillment_packings.order_id', $search);
+
+    //                 // $sql->where($col, $search);
+    //             }
+    //             if ($col == 'status') {
+    //                 $col = "orderfulfillment_packings.status";
+    //                 $sql->where($col, $search);
+    //             }
+    //         }
+    //     }
+
+    //     if ((isset($sortColumnName) && !empty($sortColumnName)) && (isset($sortColumnSortOrder) && !empty($sortColumnSortOrder))) {
+    //         $sql->orderBy($sortColumnName, $sortColumnSortOrder);
+    //     } else {
+    //         $sql->orderBy("orderfulfillment_packings.id", "desc");
+    //     }
+    //     $iTotalRecords = $sql->count();
+    //     $sql->skip($start);
+    //     $sql->take($length);
+    //     $orderData = $sql->get();
+    //     print_r($orderData);exit;
+    //     $data = [];
+    //     foreach ($orderData as $orderObj) {
+    //         $action = "";
+    //         $action .= '<a href="' . url('packaging-order/detail') . '/' . $orderObj->order_id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview">
+    //         <i class="la la-eye"></i>
+    //     </a>';
+
+    //         if($orderObj->status=='completed' && Auth::user()->is_head==1){
+    //             $status='<span class="badge badge-success "  style="cursor:pointer">' . $orderObj->status . '</span>';
+    //         }else{
+    //             $status='<span class="badge badge-success assemble_update" data-id="'.$orderObj->id.'" style="cursor:pointer">' . $orderObj->status . '</span>';
+    //         }
+
+    //         $data[] = [
+    //             "id" => $orderObj->id,
+    //             "order_id" =>$orderObj->order_id,
+    //             "assigned_from"=>ucfirst($orderObj->assigned_from),
+    //             "assigned_to"=>ucfirst($orderObj->assigned_to),
+    //             "date"=>Carbon::create($orderObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
+    //             "status"=>$status,
+    //             "action"=>$action,
+    //         ];
+    //     }
+
+    //     $records["data"] = $data;
+    //     $records["draw"] = $draw;
+    //     $records["recordsTotal"] = $iTotalRecords;
+    //     $records["recordsFiltered"] = $iTotalRecords;
+    //     echo json_encode($records);
+    // }
 
     public function getUserPackagedStatus(Request $request)
     {
