@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::prefix('api/zip-code')->group(function () {
-    Route::post('get-zip-code-time-slots/{id}',
+    Route::post('get-zip-code-time-slots',
         [App\Http\Controllers\ZipController::class, 'getZipCodeTimeSlots']
     )->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
     Route::get('/list', [App\Http\Controllers\ZipController::class, 'getZipcodesDropdownList']);
