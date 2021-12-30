@@ -252,6 +252,7 @@
                         @if(Auth::user()->type == 'production_manager')
                         <div class="col-6">
                             <div class="form-group">
+                            <label class="control-label" for="user_role">Departments</label>
                                 <select class="form-control kt_select2_1 user_department" id="user_department" name="user_department" required >
                                     <option value="">Select Department</option>
                                     @if(!($departments->isEmpty()))

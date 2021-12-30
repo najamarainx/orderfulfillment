@@ -88,7 +88,7 @@ class TaskController extends Controller
         $data = [];
         foreach ($orderData as $orderObj) {
             $action = "";
-            if($orderObj->status=='pending' || Auth::user()->type == 'production_manager' || Auth::user()->type == 'team_lead'){
+            if($orderObj->status=='pending' && (Auth::user()->type == 'production_manager' || Auth::user()->type == 'team_lead')){
                         $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 assign_task" data-id="' . $orderObj->id . '">
                     <span class="svg-icon svg-icon-md svg-icon-primary">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->

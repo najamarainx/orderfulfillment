@@ -234,9 +234,7 @@ class UserController extends Controller
             if ($id == "") {
                 $user->email_verified_at = Carbon::now()->format("Y-m-d H:i:s");
             }
-
             $query = $user->save();
-
             $return = [
                 'status' => 'error',
                 'message' => 'Data is not save successfully',
@@ -280,12 +278,7 @@ class UserController extends Controller
                     $affected = DB::table('orderfulfillment_users')
                         ->where('id', $userID)
                         ->update(['security_code' =>$securityCode]);
-
-
-
                 }
-
-
                 $return = [
                     'status' => 'success',
                     'message' => 'User is save successfully',
