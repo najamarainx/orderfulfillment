@@ -164,13 +164,9 @@ class AssignAssembleUserController extends Controller
         $validate = true;
         $validateInput = $request->all();
         $rules = [
-
             'order_id'=>'required',
-
-
         ];
         $messages = [
-
             'order_id.required' => 'something wrong !',
         ];
         $validator = Validator::make($validateInput, $rules, $messages);

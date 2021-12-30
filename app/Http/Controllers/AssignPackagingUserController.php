@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\OrderFulfillmentPackagingUser;
 use App\Models\Order;
 use App\Models\OrderFulfillmentAssignAssembleUser;
+use App\Models\OrderFulfillmentAssignPackaging;
 use App\Models\OrderFulfillmentVariant;
 use App\Models\OrderFulfillmentDepartment;
 use App\Models\OrderFulfillmentUser;
@@ -285,8 +286,6 @@ class AssignPackagingUserController extends Controller
                  $q->whereNULL('o_as_u.deleted_at');
         });
         $sql->leftJoin('orderfulfillment_users as from_user','o_as_u.added_by', 'from_user.id');
-
-
         $sql->where('orderfulfillment_users.type',Auth::user()->type);
         $sql->whereNULL('orderfulfillment_users.deleted_at');
         foreach ($columns as $field) {
@@ -351,5 +350,26 @@ class AssignPackagingUserController extends Controller
     public function assignList()
     {
         return view('packaging_orders.assign_list');
+    }
+    public function assignedPackagingTask(Request $request)
+    {
+        if (!empty($request->user_id) && !empty($request->order_id)) {
+            $packagingUsers = OrderFulfillmentAssignPackaging::where(['user_id' => $request->user_id, 'order_id' => $request->order_id])->whereNull('deleted_at')->first();
+            if (empty($packagingUsers)) {
+                $packagingUsers = new OrderFulfillmentAssignPackaging();
+                $packagingUsers->order_id = $request->order_id;
+                $packagingUsers->user_id = $request->user_id;
+                $packagingUsers->added_by = Auth::user()->id;
+                $query = $packagingUsers->save();
+                if ($query) {
+                    $response = ['status' => 'success', 'message' => 'Saved Successfully'];
+                }
+            } else {
+                $response = ['status' => 'success', 'message' => 'This user is already Assigned'];
+            }
+
+
+            return response()->json($response);
+        }
     }
 }
