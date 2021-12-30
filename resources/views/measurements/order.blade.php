@@ -618,7 +618,7 @@ input::-webkit-inner-spin-button {
                 });
                 $('#order_total_price').val('');
                 $('#order_total_price').val(paid_amount);
-                console.log(paid_amount);
+
                 $('.footer_wrapper_html').show()
                 var form = $("#addItem");
                 form[0].reset();
@@ -872,7 +872,8 @@ input::-webkit-inner-spin-button {
                 paid_amount += parseFloat($(this).val());
             });
             $('#order_total_price').val('');
-            $('#order_total_price').val(paid_amount);
+            total_paid_amount  = parseFloat(paid_amount).toFixed(2)
+            $('#order_total_price').val(parseFloat(total_paid_amount).toFixed(2));
         });
 
         $(document).on('keyup', '#order_paid_price', function() {

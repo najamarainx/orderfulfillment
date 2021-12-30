@@ -71,9 +71,10 @@
         </div>
         <div class=" form-group col-lg-2 col-5 mr-auto">
             <label>Actual Qty</label>
-            <select class="form-control kt_select2_1" name="qty[]" id="qty_id_0">
+            <input type="number" class="form-control kt_select2_1" name="qty[]" id="qty_id_0" readonly>
+            {{-- <select class="form-control kt_select2_1" name="qty[]" id="qty_id_0">
                 <option value="">Select Quantity</option>
-            </select>
+            </select> --}}
             <span class="text-danger" id="actual_qty_0"></span>
         </div>
         <div class="col-lg-3 col-10 ml-auto mr-auto">

@@ -204,7 +204,7 @@ class ItemController extends Controller
         $depID = $request->depID;
         $itemID = $request->itemID;
         $variantID = $request->variantID;
-        $availableQty = OrderFulfillmentInventoryItem::where('item_id', $itemID)->where('department_id', $depID)->where('variant_id', $variantID)->get();
+        $availableQty = OrderFulfillmentInventoryItem::where('item_id', $itemID)->where('department_id', $depID)->where('variant_id', $variantID)->first();
         return response()->json($availableQty);
     }
 }

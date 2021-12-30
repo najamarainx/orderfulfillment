@@ -234,7 +234,8 @@
                                     "hideMethod": "fadeOut"
                                 };
                                 toastr.success(data.message);
-                                location.reload();
+                                setTimeout(function(){location.href="{{url('zip/')}}"} , 3000);
+                                // window.location = "{{route('zipList')}}";
                             } else {
                                 Swal.fire("Sorry!", data.message, "error");
                             }
