@@ -129,7 +129,7 @@
                                         data-id="{{ $orderItems->id }}"
                                         class="btn btn-primary font-weight-bold update_assemble_stauts_btn">Proceed To
                                         Inastallation</button>
-                                @else
+                                @elseif(Auth::user()->type == 'super_admin' || Auth::user()->type == 'production_manager')
                                     <button type="button" id="proceed_inventory" data-id="{{ $orderItems->id }}"
                                         class="btn btn-primary font-weight-bold">Proceed</button>
                                 @endif
