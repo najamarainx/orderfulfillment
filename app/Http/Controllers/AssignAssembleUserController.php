@@ -199,7 +199,7 @@ class AssignAssembleUserController extends Controller
             //   print_r($totalCompletedOrderTasks);exit;
                 if($totalOrderTasks==$totalCompletedOrderTasks)
                 {
-                    $query=Order::where('id',$request->order_id)->whereNull('deleted_at')->update(['status'=>'packing']);
+                    $query=Order::where('id',$request->order_id)->whereNull('deleted_at')->update(['status'=>$request->status]);
                 }
                 if(isset($query)){
 
