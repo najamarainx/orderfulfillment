@@ -186,6 +186,7 @@ class AssignAssembleUserController extends Controller
                   $totalOrderTasks=orderAssignTaskStatuses($request->order_id,'','orderfulffillment_assign_assemble_users');
                   $totalCompletedOrderTasks=orderAssignTaskStatuses($request->order_id,'completed','orderfulffillment_assign_assemble_users');
                 }elseif($request->status == 'installation'){
+                    echo $request->status;exit;
                 $totalOrderTasks=orderAssignTaskStatuses($request->order_id,'','orderfulfillment_installations');
                 $totalCompletedOrderTasks=orderAssignTaskStatuses($request->order_id,'completed','orderfulfillment_installations');
               }else{
@@ -201,7 +202,7 @@ class AssignAssembleUserController extends Controller
 
                     $return = [
                         'status' => 'success',
-                        'message' => 'Order ready for assign packing successfully!'
+                        'message' => 'Order ready for assign '.$request->status.' successfully!'
                     ];
                 }
                 else

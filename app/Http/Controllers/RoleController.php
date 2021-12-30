@@ -233,7 +233,6 @@ class RoleController extends Controller
                                     <label class="checkbox checkbox-square checkbox-danger">
                                         <input type="checkbox" ' . $checked . ' name="permission[]" value="' . $p['id'] . '" ><span></span>
                                         ' . ucwords(preg_replace($pattern, $replace, $string)) . '
-
                                     </label>
                                 </label>
                             </div>';
