@@ -69,7 +69,7 @@ class RoleController extends Controller
         $roleData = $role->get();
         $data = [];
         $userId = auth()->user()->id;
-        $checkuser=array('Super Admin','Developer','Measurement','Production Manager','Team Lead','Worker','Screen','assembler');
+        $checkuser=array('Super Admin','Developer','Measurement','Production Manager','Team Lead','Worker','Screen','assembler','packaging');
         foreach ($roleData as $roleObj) {
             $action = "";
             if (hasPermission('assignPermissionRole')) {
@@ -233,7 +233,7 @@ class RoleController extends Controller
                                     <label class="checkbox checkbox-square checkbox-danger">
                                         <input type="checkbox" ' . $checked . ' name="permission[]" value="' . $p['id'] . '" ><span></span>
                                         ' . ucwords(preg_replace($pattern, $replace, $string)) . '
-                                        
+
                                     </label>
                                 </label>
                             </div>';
