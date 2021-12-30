@@ -114,17 +114,17 @@
                                 </h3>
 
 
-                                @if(Auth::user()->type == 'assembler' && Auth::user()->is_head = 0)
+                                @if(Auth::user()->type == 'assembler' && Auth::user()->is_head = '0')
                                     <button type="button" id="update_assemble_stauts_btn" data-status="packing"
                                         data-id="{{ $orderItems->id }}"
                                         class="btn btn-primary font-weight-bold update_assemble_stauts_btn">Proceed To
                                         Packaging</button>
-                                @elseif(Auth::user()->type == 'packaging' && Auth::user()->is_head = 0)
+                                @elseif(Auth::user()->type == 'packaging' && Auth::user()->is_head = '0')
                                     <button type="button" id="update_assemble_stauts_btn" data-status="installation"
                                         data-id="{{ $orderItems->id }}"
                                         class="btn btn-primary font-weight-bold update_assemble_stauts_btn">Proceed To
                                         Inastallation</button>
-                                @elseif(Auth::user()->type == 'installation' && Auth::user()->is_head = 0)
+                                @elseif(Auth::user()->type == 'installation' && Auth::user()->is_head = '0')
                                     <button type="button" id="update_assemble_stauts_btn" data-status="order_completed"
                                         data-id="{{ $orderItems->id }}"
                                         class="btn btn-primary font-weight-bold update_assemble_stauts_btn">Proceed To
