@@ -152,6 +152,7 @@ class AssignInstallationUserController extends Controller
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
         $userZipInfo=getUsersByZip($zipID='',Auth::user()->id,Auth::user()->type);
+
         $zipIDS=$userZipInfo->pluck('zip_id')->toArray();
         $sql = OrderFulfillmentInstallationUser::select('orderfulfillment_installations.*','orderfulfillment_users.name as assigned_to','ab.name as assigned_from','orders.paid_amount','orders.total_price','orders.payment_type');
         $sql->join('orders','orders.id','orderfulfillment_installations.order_id');
