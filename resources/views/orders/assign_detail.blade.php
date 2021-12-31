@@ -125,10 +125,9 @@
                                         class="btn btn-primary font-weight-bold update_assemble_stauts_btn">Proceed To
                                         Inastallation</button>
                                 @elseif(Auth::user()->type == 'installation' && Auth::user()->is_head == 0)
-                                    <button type="button" id="update_assemble_stauts_btn" data-status="order_completed"
+                                    <button type="button" id="update_assemble_stauts_btn" data-status="completed"
                                         data-id="{{ $orderItems->id }}"
-                                        class="btn btn-primary font-weight-bold update_assemble_stauts_btn">Proceed To
-                                        Inastallation</button>
+                                        class="btn btn-primary font-weight-bold update_assemble_stauts_btn">Proceed</button>
                                 @elseif(Auth::user()->type == 'super_admin' || Auth::user()->type == '')
                                     <button type="button" id="proceed_inventory" data-id="{{ $orderItems->id }}"
                                         class="btn btn-primary font-weight-bold">Proceed</button>
@@ -516,11 +515,7 @@
             html += '<option value="">Variant</option>';
             html += '</select>';
             html += '</select></div>';
-            html += '<div class="form-group col-lg-2 col-5"><select class="form-control"   name="qty[]" id="qty_id_' +
-                numbervar + '">';
-
-            html += '<option value="">Actual Qty</option>';
-            html += '</select>';
+            html += '<div class="form-group col-lg-2 col-5"><input type="number" class="form-control kt_select2_1" name="qty[]" id="qty_id_' + numbervar + '" readonly>';
             html += '</select><span class="text-danger" id="actual_qty_' + numbervar + '"></span></div>';
             html += '<div class="row col-lg-3 col-10">';
             html += '<div class="col-3 inc_dec">';
@@ -639,14 +634,14 @@
                 success: function(datas) {
 
                     $('#qty_id_' + line).empty();
-                    $('#qty_id_' + line).append(new Option("Select Quantity", " ")).trigger("updated");
-                    $.each(datas, function(i, data) {
-                        // console.log(data.id);
-                        $('#qty_id_' + line).append($('<option>', {
-                            value: data.id,
-                            text: data.qty
-                        })).trigger("updated");
-                    });
+                    $('#qty_id_' + line).val(datas.qty);
+                    // $.each(datas, function(i, data) {
+                    //     // console.log(data.id);
+                    //     $('#qty_id_' + line).append($('<option>', {
+                    //         value: data.id,
+                    //         text: data.qty
+                    //     })).trigger("updated");
+                    // });
                 },
                 error: function(errorString) {
                     Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");

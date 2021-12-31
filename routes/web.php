@@ -224,7 +224,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/assign-list', [Controllers\AssignInstallationUserController::class, 'assignList'])->name('installationOrderAssigned')->middleware('haspermission:installationOrderAssigned');
         Route::post('/get-assign-list', [Controllers\AssignInstallationUserController::class, 'getassignList'])->name('getAssignInstalltionList');
         Route::post('/get-Installer-Status', [Controllers\AssignInstallationUserController::class, 'getUserInstallationStatus'])->name('getInstallationStatus')->middleware('haspermission:installationStatus');
-        Route::post('/save-Installer-Status', [Controllers\AssignInstallationUserController::class, 'updateInstallationStatus'])->name('updateInstallationStatus')->middleware('haspermission:updateInsallationStatus');
+        Route::post('/save-Installer-Status', [Controllers\AssignInstallationUserController::class, 'updateInstallationStatus'])->name('updateInstallationStatus')->middleware('haspermission:updateInstallationStatus');
         Route::get('assign_user/{id}', [Controllers\AssignInstallationUserController::class, 'getInstallationUsers'])->middleware('haspermission:installationUsers');
         Route::post('assigned_installer_task', [Controllers\AssignInstallationUserController::class, 'assignedInstallationTask'])->name('assignedInstallationTask')->middleware('haspermission:installationTasks');
         Route::post('delete_installer_user', [Controllers\AssignInstallationUserController::class, 'deleteInstallationUser'])->name('deleteInstallationUser')->middleware('haspermission:installationAssignedTask');
