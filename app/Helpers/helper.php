@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\OrderFulfillmentPermission;
 use App\Models\OrderFulfillmentTimeSlot;
 use App\Models\OrderFulfillmentUserZipCode;
+use App\Models\OrderItem;
 
 
 function hasPermission($name)
@@ -403,6 +404,60 @@ function orderAssignTaskStatuses($orderID,$type='',$table)
     }
 
     return $totalProductSaleItems->count();
+}
+
+function orderBookingInfo($bookingID)
+{
+    $query = DB::table('orderfulfillment_bookings')->select('orderfulfillment_bookings.*','categories.name as category Name','orderfulfillment_time_slots.name as time_slot','orderfulfillment_zip_codes.name as zip_name')->whereNULL('orderfulfillment_bookings.deleted_at')->where('id',$bookingID);
+    $query->join('categories','orderfulfillment_bookings.category_id','=','categories.id');
+    $query->join('orderfulfillment_time_slots','orderfulfillment_bookings.time_slot_id','=','orderfulfillment_time_slots.id');
+    $query->join('orderfulfillment_zip_codes','orderfulfillment_bookings.zip_code_id','=','orderfulfillment_zip_codes.id');
+    return $result = $query->get();
+
+}
+function orderProductInventory($orderID)
+{
+    $products =OrderItem::selectRaw("products.name,OrderItem.*,orderfulfillment_sale_logs.*,orderfulfillment_departments.name as department_name,orderfulfillment_items.name as item_name,orderfulfillment_variants.name as varaint_name,orderfulfillment_users.name as created_by")->where('order_id',$orderID)->whereNULL('order_items.deleted_at');
+    $products->join('products', function($join) use ($orderID) {
+            $join->on('orderfulfillment_sale_logs.product_id', '=', 'products.id');
+            $join->on('orderfulfillment_departments.id', '=', 'orderfulfillment_sale_logs.department_id');
+            $join->on('orderfulfillment_items.id', '=', 'orderfulfillment_sale_logs.item_id');
+            $join->on('orderfulfillment_variants.id', '=', 'orderfulfillment_sale_logs.variant_id');
+            $join->on('orderfulfillment_users.id', '=', 'orderfulfillment_sale_logs.created_by');
+            $join->where('orderfulfillment_sale_logs.order_id',$orderID);
+        });
+    return $result = $products->get();
+
+}
+function orderAssemble($orderID)
+{
+    $query = DB::table('orderfulffillment_assign_assemble_users')->select('orderfulfillment_users.name as assigned_from','touser.name as assigned_to','orderfulffillment_assign_assemble_users.*')->where('orderfulffillment_assign_assemble_users.order_id',$orderID)->whereNULL('orderfulfillment_packings.deleted_at');
+    $query->join('orderfulfillment_users','orderfulffillment_assign_assemble_users.added_by','=','orderfulfillment_users.id');
+    $query->join('orderfulfillment_users as touser','orderfulffillment_assign_assemble_users.user_id','=','touser.id');
+    return $result = $query->get();
+
+}
+function orderInstallation($orderID)
+{
+    $query = DB::table('orderfulfillment_installations')->select('orderfulfillment_users.name as assigned_from','touser.name as assigned_to','orderfulfillment_installations.*')->where('order_id',$orderID);
+    $query->join('orderfulfillment_users','orderfulfillment_installations.added_by','=','orderfulfillment_users.id');
+    $query->join('orderfulfillment_users as touser','orderfulfillment_installations.user_id','=','touser.id');
+    return $result = $query->get();
+
+}
+function orderPackings($orderID)
+{
+    $query = DB::table('orderfulfillment_packings')->select('orderfulfillment_users.name as assigned_from','touser.name as assigned_to','orderfulfillment_packings.*')->where('orderfulfillment_packings.order_id',$orderID)->whereNULL('orderfulfillment_packings.deleted_at');
+    $query->join('orderfulfillment_users','orderfulfillment_packings.added_by','=','orderfulfillment_users.id');
+    $query->join('orderfulfillment_users as touser','orderfulfillment_packings.user_id','=','touser.id');
+    return $result = $query->get();
+
+}
+function paymentLog($orderID)
+{
+    $query = DB::table('orderfulfillment_payment_logs')->select('orderfulfillment_users.name','orderfulfillment_payment_logs.*')->where('order_id',$orderID)->whereNULL('orderfulfillment_payment_logs.deleted_at');
+    $query->join('orderfulfillment_users','orderfulfillment_payment_logs.added_by','=','orderfulfillment_users.id');
+    return $result = $query->get();
 }
 
 
