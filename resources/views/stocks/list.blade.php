@@ -140,7 +140,7 @@
                                         <div class="row">
                                             <div class="form-group col-lg-3 col-6">
                                                 <label for="department">Department<span class="text-danger">*</span></label>
-                                                <select class="form-control kt_select2_1" onchange="getDeptItems(this.value,'0','0')" name="dept_stock[]"  id="dept_stock_id_0_0">
+                                                <select class="form-control kt_select2_1 departments" onchange="getDeptItems(this.value,'0','0')" name="dept_stock[]"  id="dept_stock_id_0_0">
                                                     <option value="">Depatement</option>
                                                     @foreach($departments as $department)
                                                         <option value="{{$department->id}}">{{ucfirst($department->name)}}</option>
@@ -149,7 +149,7 @@
                                             </div>
                                             <div class=" form-group col-lg-3 col-6">
                                                 <label for="name">Item<span class="text-danger">*</span></label>
-                                                <select class="form-control kt_select2_1" onchange="getItemUnit(this.value,'0','0')" name="item_stock[]" id="item_stock_id_0_0">
+                                                <select class="form-control kt_select2_1 items" onchange="getItemUnit(this.value,'0','0')" name="item_stock[]" id="item_stock_id_0_0">
                                                     <option value="">Items</option>
                                                  </select>
                                             </div>
@@ -163,7 +163,7 @@
                                                 <div class="row">
                                                     <div class="form-group col-lg-3 col-6">
                                                         <label for="department">Variant<span class="text-danger">*</span></label>
-                                                        <select class="form-control kt_select2_1" name="variant_stock[0][]" id="variant_stock_id_0_0">
+                                                        <select class="form-control kt_select2_1 variants" name="variant_stock[0][]" id="variant_stock_id_0_0">
                                                             <option value="">Variants</option>
                                                             @foreach($variants as $variant)
                                                                 <option value="{{$variant->id}}">{{ucfirst($variant->name)}}</option>
@@ -367,6 +367,10 @@
                         });
                         var form = $("#addForm");
                         form[0].reset();
+                        $('#supplier_stock_id').val('').trigger('change.select2');
+                        $('.items').val('').trigger('change.select2');
+                        $('#variants').val('').trigger('change.select2');
+                        $('#departments').val('').trigger('change.select2');
                     });
                     $(document).on('click', '#btn_save', function() {
                         var validate = $("#addForm").valid();

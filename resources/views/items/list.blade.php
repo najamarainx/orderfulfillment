@@ -362,6 +362,7 @@ $(document).on('click', '#btn_add_new', function() {
             var form = $("#addForm");
             form[0].reset();
             $('#id').val('');
+            $('#department_id').val('').trigger('change.select2')
 
         });
 

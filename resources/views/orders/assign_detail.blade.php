@@ -128,7 +128,7 @@
                                     <button type="button" id="update_assemble_stauts_btn" data-status="completed"
                                         data-id="{{ $orderItems->id }}"
                                         class="btn btn-primary font-weight-bold update_assemble_stauts_btn">Proceed</button>
-                                @elseif(Auth::user()->type == 'super_admin' || Auth::user()->type == '')
+                                @elseif(Auth::user()->type == 'super_admin' || Auth::user()->type == 'production_manager' || Auth::user()->type == 'developer')
                                     <button type="button" id="proceed_inventory" data-id="{{ $orderItems->id }}"
                                         class="btn btn-primary font-weight-bold">Proceed</button>
                                 @endif

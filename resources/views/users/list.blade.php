@@ -496,6 +496,7 @@
             $('#user_type').val('').trigger('change');
             $('#user_role').val('').trigger('change');
             $('#email').val('').prop("readonly", false);
+            $('#user_department').val('').trigger('change.select2')
 
         });
 

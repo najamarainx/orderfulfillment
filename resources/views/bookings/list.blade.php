@@ -414,7 +414,7 @@
                                         <span>Reset</span>
                                     </span>
                                 </button>
-                                
+
                             </div>
                         </div>
                     </form>
@@ -757,6 +757,9 @@
             form[0].reset();
             $('#id').val('');
             $('.slot_error').text('');
+            $('#category_id').val('').trigger('change.select2');
+            $('#zip_code').val('').trigger('change.select2');
+            $('.time_slot_html').html('');
 
         });
 

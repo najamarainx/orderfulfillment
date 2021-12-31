@@ -23,7 +23,7 @@
                     <!--end::Page Title-->
                     <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
-                    <span class="text-muted font-weight-bold mr-4">Pending Order List</span>
+                    <span class="text-muted font-weight-bold mr-4">Order List</span>
                     <!--end::Actions-->
                 </div>
                 <!--end::Info-->
@@ -34,7 +34,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">Pending Orders List
+                        <h3 class="card-label">Orders List
                         </h3>
                     </div>
 
@@ -58,8 +58,7 @@
                                 </select>
                             </div>
                             <div class="col-lg-6 mb-lg-6 mb-2">
-                                <label>&nbsp;</label><br />
-                                <button class="btn btn-primary btn-primary--icon" id="kt_search">
+                                <label>&nbsp;</label><br /><button class="btn btn-primary btn-primary--icon" id="kt_search">
                                     <span>
                                         <i class="la la-search"></i>
                                         <span>Search</span>
@@ -83,7 +82,6 @@
                                 <th>Store Name</th>
                                 <th>Created</th>
                                 <th>Status</th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -173,7 +171,7 @@
                         url: "{{ route('getList') }}",
                         type: 'POST',
                         data: {
-                            'order_status':'pending',
+                            'order_status':'admin_order',
                             // parameters for custom backend script demo
                             columnsDef: [
                                 'id', 'name', 'created_at','status'
@@ -195,11 +193,7 @@
                         {
                             data: 'status'
                         },
-                        {
-                            data: 'action',
-                            responsivePriority: -1,
-                            bSortable: false
-                        },
+
                     ],
                     order: [
                         [0, "desc"]

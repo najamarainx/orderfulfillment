@@ -39,9 +39,11 @@ class OrderController extends Controller
         $sql->join('stores', 'orders.store_id', 'stores.id');
         if (!empty($request->order_status) && $request->order_status == 'confirmed') {
             $sql->where('orders.paid_percentage', '>=', '40');
-        } else {
+            $sql->whereIn('orders.status', ['assigned inventory', 'production']);
+        } elseif (!empty($request->order_status) && $request->order_status == 'pending') {
             $sql->where('orders.paid_percentage', '<=', '40');
         }
+
         $sql->whereNULL('stores.deleted_at');
         $sql->whereNULL('orders.deleted_at');
         foreach ($columns as $field) {
@@ -73,7 +75,6 @@ class OrderController extends Controller
         foreach ($orderData as $orderObj) {
             $action = "";
             if (!empty($request->order_status) && $request->order_status == 'confirmed') {
-
                 $action .= '<a href="' . url('orders/detail') . '/' . $orderObj->id . '" target="_blank"  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 ">
                 <span class="svg-icon svg-icon-md svg-icon-primary">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
@@ -203,7 +204,7 @@ class OrderController extends Controller
             DB::beginTransaction();
             try {
 
-               // $saleLog = new  OrderFulfillmentSaleLog();
+                // $saleLog = new  OrderFulfillmentSaleLog();
                 $product_id = $request->product_id;
                 $departments = $request->department;
                 $item_ids = $request->item_id;
@@ -215,13 +216,14 @@ class OrderController extends Controller
                 $inventoryData = array();
                 foreach ($departments as $key => $department) {
                     $inventoryData[] = array(
-                        'order_id'=>$order_id,
-                        'product_id'=>$product_id,
-                        'department_id'=>$department,
-                        'item_id'=>$item_ids[$key],
-                        'variant_id'=> $variants[$key],
-                        'qty'=> $choose_qty[$key],
-                        'created_at'=> Carbon::now()->format("Y-m-d H:i:s"),
+                        'order_id' => $order_id,
+                        'product_id' => $product_id,
+                        'department_id' => $department,
+                        'item_id' => $item_ids[$key],
+                        'variant_id' => $variants[$key],
+                        'qty' => $choose_qty[$key],
+                        'created_by' => Auth::user()->id,
+                        'created_at' => Carbon::now()->format("Y-m-d H:i:s"),
                     );
                 }
                 if (!empty($inventoryData)) {
@@ -272,7 +274,7 @@ class OrderController extends Controller
                 }
 
                 DB::commit();
-                Order::where('id',$orderID)->update(['status' =>'assigned inventory']);
+                Order::where('id', $orderID)->update(['status' => 'assigned inventory']);
                 $return = [
                     'status' => 'success',
                     'message' => 'Inventory assigned against order',
@@ -329,17 +331,17 @@ class OrderController extends Controller
 
     public function getItemVariant(Request $request)
     {
-        $varinats_id  =  OrderFulfillmentInventoryItem::where(['department_id'=> $request->depID , 'item_id'=> $request->itemID])->whereNull('deleted_at')->pluck('variant_id')->toArray();
+        $varinats_id  =  OrderFulfillmentInventoryItem::where(['department_id' => $request->depID, 'item_id' => $request->itemID])->whereNull('deleted_at')->pluck('variant_id')->toArray();
         $variant_ids = getProductSaleLogVariant($request->orderID, $request->productID, $request->depID, $request->itemID);
         $variants = OrderFulfillmentVariant::whereNull('deleted_at');
 
         if (!empty($variant_ids)) {
             $variants->whereNotIn('id', $variant_ids);
         }
-        if(!empty($varinats_id)){
+        if (!empty($varinats_id)) {
             $variants->whereIn('id', $varinats_id);
             $result = $variants->get();
-        }else{
+        } else {
             $result = '';
         }
 
@@ -393,5 +395,12 @@ class OrderController extends Controller
         $stores = $query = DB::table('stores')->whereNull('deleted_at')->get();
         $dt = ['stores' => $stores];
         return view('orders.confirmed_order_list', $dt);
+    }
+
+    public function adminOrderList()
+    {
+        $stores = $query = DB::table('stores')->whereNull('deleted_at')->get();
+        $dt = ['stores' => $stores];
+        return view('orders.admin_order_list', $dt);
     }
 }
