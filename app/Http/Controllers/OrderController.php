@@ -403,4 +403,15 @@ class OrderController extends Controller
         $dt = ['stores' => $stores];
         return view('orders.admin_order_list', $dt);
     }
+
+    public function getOrderDetailHistory($id){
+        $bookingId  =  Order::where('id',$id)->whereNull('deleted_at')->select('booking_id')->first();
+        if(!empty($bookingId)){
+           $orderBookingInfo  = orderBookingInfo($bookingId);
+           $orderAssembleInfo  = orderAssemble($id);
+           $orderInstallationInfo  = orderInstallation($id);
+           $orderPackingInfo = orderPackings($id);
+           $orderPamentLogsInfo = paymentLog($id);
+        }
+    }
 }

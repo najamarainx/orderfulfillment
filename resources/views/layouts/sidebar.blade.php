@@ -479,7 +479,7 @@
 
                 @endif
 
-                @if (hasPermission('orderList'))
+                @if (hasPermission('adminOrderList'))
 
                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
@@ -510,7 +510,7 @@
                                     <span class="menu-text">Orders</span>
                                 </span>
                             </li>
-                            @if(hasPermission('pendingOrder'))
+                            @if(hasPermission('adminOrderList'))
                             <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                                 <a href="{{ route('adminOrderList') }}" class="menu-link menu-toggle">
                                     <i class="menu-bullet menu-bullet-line">

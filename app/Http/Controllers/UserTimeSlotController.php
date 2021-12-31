@@ -44,15 +44,17 @@ class UserTimeSlotController extends Controller
        if(!empty($time_slots)){
            foreach($time_slots as $key=>$time_slot) {
                if (!empty($time_slots[$key]) ) {
-                   foreach ($user_zips[$key] as $v => $check) {
-                       if(!empty($check)) {
-                           $userzipCodes[] = array(
-                               'time_slot_id' => $time_slot,
-                               'zip_code_id' => $request->id,
-                               'user_id' => $check,
-                               'created_by' => Auth::user()->id,
-                               'created_at' => Carbon::now()->format("Y-m-d H:i:s"),
-                           );
+                   if(!empty($user_zips[$key])){
+                       foreach ($user_zips[$key] as $v => $check) {
+                           if(!empty($check)) {
+                               $userzipCodes[] = array(
+                                   'time_slot_id' => $time_slot,
+                                   'zip_code_id' => $request->id,
+                                   'user_id' => $check,
+                                   'created_by' => Auth::user()->id,
+                                   'created_at' => Carbon::now()->format("Y-m-d H:i:s"),
+                               );
+                           }
                        }
                    }
                }
@@ -76,7 +78,7 @@ class UserTimeSlotController extends Controller
        }else {
            $return = [
                'status' => 'error',
-               'message' => 'something wrong please try again!',
+               'message' => 'Please select any user',
            ];
        }
        return response()->json($return);

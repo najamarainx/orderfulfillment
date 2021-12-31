@@ -165,7 +165,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('orders')->group(function () {
         Route::get('pending-order-list', [Controllers\OrderController::class, 'index'])->name('orderList')->middleware('haspermission:pendingOrder');
         Route::get('confirmed-order-list', [Controllers\OrderController::class, 'confirmedOrderList'])->name('confirmedOrderList')->middleware('haspermission:confirmedOrder');
-        Route::get('/', [Controllers\OrderController::class, 'adminOrderList'])->name('adminOrderList');
+        Route::get('/', [Controllers\OrderController::class, 'adminOrderList'])->name('adminOrderList')->middleware('haspermission:adminOrderList');
         Route::post('/list', [Controllers\OrderController::class, 'getList'])->name('getList')->middleware('haspermission:orderList');
         Route::get('/detail/{id}', [Controllers\OrderController::class, 'detail'])->name('orderListDetail')->middleware('haspermission:orderDetail');
         Route::post('/assignedInventory', [Controllers\OrderController::class, 'getAssignedProductInventory'])->name('getAssignedProductInventory')->middleware('haspermission:AssignedProductInventory');

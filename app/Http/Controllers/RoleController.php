@@ -185,11 +185,13 @@ class RoleController extends Controller
     public function rolePermissions(Request $request)
     {
         $roleId = $request->role_id;
-        $permission = DB::table('orderfulfillment_permissions as permissions');
+        $permission = DB::table('orderfulfillment_permissions as permissions','orderfulfillment_role_has_permissions.role_id');
         $permission->select('permissions.*', 'categories.name as category_name');
         $permission->Join('orderfulfillment_categories as categories', 'categories.id', '=', 'permissions.category_id');
+        if(Auth::user()->type == 'assembler' || Auth::user()->type == 'installation' || Auth::user()->type == 'packaging' || Auth::user()->type == 'accountant' ){
+            $permission->Join('orderfulfillment_role_has_permissions', 'permissions.id', '=', 'orderfulfillment_role_has_permissions.permission_id')->where('role_id', $roleId);
+        }
         $permissions = $permission->get();
-
         $assignPermissionTORole = DB::table('orderfulfillment_role_has_permissions')->where('role_id', $roleId)->pluck('permission_id')->toArray();
         $html = '<input type="hidden" name="role_id" value="' . $roleId . '" >';
         $perArr = [];
