@@ -372,7 +372,7 @@ input::-webkit-inner-spin-button {
                                                 <td>
                                                     <input type="text" name="order_price[]"
                                                         class="form-control single_price" id="price_{{ $i }}"
-                                                        value="{{ $orderObj->price }}"><input type="hidden"
+                                                        value="{{ $orderObj->price }}" min="1"><input type="hidden"
                                                         class="form-control single_hidden_price"
                                                         id="hidden_price_{{ $i }}"
                                                         value="{{ $orderObj->price }}">
@@ -415,7 +415,7 @@ input::-webkit-inner-spin-button {
                             <p class="text-danger payment_error"></p>
                             <div class="footer_wrapper_html" style=" {{ !empty($orderDetail) }} ? 'display:block' : 'display:none'">
                                 <div class="row" >
-                                    <div class="col-5"></div>
+                                    <div class="col-3"></div>
                                     <div class="col-2 ">
                                         <label for="">Total Price</label>
                                         <div class="form-goup text-right">
@@ -430,6 +430,17 @@ input::-webkit-inner-spin-button {
                                             <input type="number" placeholder="Paid Amount" class="form-control border"
                                                 name="paid_price" id="order_paid_price"
                                                 value="{{ !empty($orderDetail->paid_amount) ? $orderDetail->paid_amount : '' }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <label for="">Payment Type</label>
+                                        <div class="form-group">
+                                          <select name="payment_type" id="payment_type" class="form-control">
+                                            <option value="">Select Type</option>
+                                            <option value="cash">Cash</option>
+                                            <option value="company_account">Company Account</option>
+                                            <option value="personal_account">Personal Account</option>
+                                          </select>
                                         </div>
                                     </div>
                                     <div class="col-3  text-right mt-4">
@@ -481,6 +492,38 @@ input::-webkit-inner-spin-button {
                         required: true
                     },
                     chain_color: {
+                        required: true
+                    },
+
+                },
+                errorPlacement: function(error, element) {
+                    var elem = $(element);
+                    if (elem.hasClass("category_id") || elem.hasClass("category_products")) {
+
+                        error.appendTo(element.parent().after());
+                        //error.insertAfter(element);
+                    } else if (elem.hasClass("length") || elem.hasClass("width")) {
+                        error.appendTo(element.parent().parent().after());
+
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+
+            var input = document.getElementById("addItem");
+            input.addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    document.getElementById("btn_save").click();
+                }
+            });
+
+        })
+        jQuery(document).ready(function() {
+            var validator = $("#addOrderForm").validate({
+                rules: {
+                    paid_price: {
                         required: true
                     },
 
@@ -601,7 +644,7 @@ input::-webkit-inner-spin-button {
                             '<input type="text" readonly name="customer_note[]"  class="form-control" value="' +
                             customer_note + '"  >' +
                             '</td><td>' +
-                            '<input type="text" name="order_price[]"  class="form-control single_price" id="price_' +
+                            '<input type="text" name="order_price[]"  class="form-control single_price" min="1" id="price_' +
                             row +
                             '" value="' + price +
                             '"  ><input type="hidden"  class="form-control single_hidden_price" id="hidden_price_' +
@@ -768,11 +811,8 @@ input::-webkit-inner-spin-button {
 
 
             if ($('#width').val() == '') {
-
                 $('#width_measure_error').html('Please do not leave the width input field empty');
                 return false;
-
-
             }
             if ($('#length').val() == '') {
                 $('#height_measure_error').html('Please do not leave the height input field empty');
@@ -885,12 +925,14 @@ input::-webkit-inner-spin-button {
             var verified_id = $(this).attr('data-id');
             var totalPrice = $('#order_total_price').val();
             var paidPrice = $('#order_paid_price').val();
-             console.log(totalPrice);
-             console.log(paidPrice);
-            if (paidPrice == '') {
-                $('.payment_error').text('');
-                $('.payment_error').text('Please add paid amount');
-                return;
+            if (verified_id == 1) {
+                $('#payment_type').rules('add', {
+                        required: true
+                });
+            }else{
+                $('#payment_type').rules('add', {
+                        required: false
+                });
             }
             if (Number(paidPrice) > Number(totalPrice)) {
                 $('.payment_error').text('');
@@ -898,7 +940,7 @@ input::-webkit-inner-spin-button {
                 return;
             }
             $('.payment_error').text('');
-
+            var validate = $('#addOrderForm').valid();
             var form_data = $("#addOrderForm").serializeArray();
             var booking_id = {{ last(request()->segments()) }};
             form_data.push({
@@ -908,8 +950,8 @@ input::-webkit-inner-spin-button {
             form_data.push({
                 name: "verified_id",
                 value: verified_id
-            })
-
+            });
+            if(validate){
             $.ajax({
                 type: "POST",
                 url: "{{ route('storeMeasurementOrder') }}", // your php file name
@@ -951,6 +993,7 @@ input::-webkit-inner-spin-button {
                     Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                 }
             });
+            }
         });
 
         $(document).on('click', '.edit', function() {
