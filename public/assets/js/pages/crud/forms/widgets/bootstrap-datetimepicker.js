@@ -22,7 +22,9 @@ var KTBootstrapDatetimepicker = function () {
         });
 
         // Demo 5
-        $('#kt_datetimepicker_5').datetimepicker();
+        $('#kt_datetimepicker_5').datetimepicker({
+            format: 'LT'
+        });
 
         // Demo 6
         $('#kt_datetimepicker_6').datetimepicker({

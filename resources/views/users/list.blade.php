@@ -266,7 +266,7 @@
                         @endif
                         <div class="col-12" id="show_type" style="{{Auth::user()->type == 'installation' ? 'display:block' : 'display:none'}}">
                             <div class="form-group">
-                                <label class="control-label" for="zip_code">Zip Code</label>
+                                <label class="control-label" for="zip_code">Post Code</label>
                                 <select class="form-control select2 kt_select2_3 " multiple="multiple" name="zip_id[]" id="zip_id">
                                    @foreach($zipcodes as $zipcode)
                                         <option value="{{$zipcode->id}}">{{ucfirst($zipcode->name)}}</option>

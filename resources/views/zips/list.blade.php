@@ -25,7 +25,7 @@
                 <!--end::Page Title-->
                 <!--begin::Actions-->
                 <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
-                <span class="text-muted font-weight-bold mr-4">Zip Code</span>
+                <span class="text-muted font-weight-bold mr-4">Post Code</span>
                 <!--end::Actions-->
             </div>
             <!--end::Info-->
@@ -44,7 +44,7 @@
                 <!--begin::Header-->
                 <div class="card-header border-0 pt-5">
                     <h3 class="card-title align-items-center">
-                        <span class="card-label font-weight-bolder text-dark">Zip List</span>
+                        <span class="card-label font-weight-bolder text-dark">Post Code List</span>
                     </h3>
                     <div class="card-toolbar">
 
@@ -63,7 +63,7 @@
                                     </g>
                                 </svg>
                                 <!--end::Svg Icon-->
-                            </span>Add Zip</a>
+                            </span>Add Post Code</a>
                     </div>
                 </div>
                 <!--end::Header-->
@@ -74,7 +74,7 @@
                     <form class="kt-form kt-form--fit">
                         <div class="row mb-6">
                             <div class="col-lg-3 mb-lg-2 mb-2">
-                                <label>Zip Code:</label>
+                                <label>Post Code:</label>
                                 <input type="text" class="form-control datatable-input" placeholder="E.g: Code"
                                     data-col-index="1" />
                             </div>
@@ -138,13 +138,13 @@
         <form onsubmit="return false" id="addForm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Zip Code</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Post Code</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <label class="control-label" for="Zip_Code">Zip Code</label>
+                    <label class="control-label" for="Zip_Code">Post Code</label>
                     <input type="hidden" class="form-control" name="id" id="id" value="" />
                     <div class="row">
                         <div class="col-12">

@@ -446,7 +446,7 @@
                                                 <div class="payment_type_html">
                                                     <div class="form-group">
                                                         <label for="">Payment Type</label>
-                                                      <select name="payment_type" id="">
+                                                      <select name="payment_type" id="payment_type" class="form-control">
                                                         <option value="">Select Type</option>
                                                         <option value="cash">Cash</option>
                                                         <option value="company_account">Company Account</option>
@@ -489,7 +489,10 @@
                 rules: {
                     amount: {
                         required: true
-                    }
+                    },
+                    payment_type: {
+                        required: true
+                    },
                 },
                 errorPlacement: function(error, element) {
                     var elem = $(element);
