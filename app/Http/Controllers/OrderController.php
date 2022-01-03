@@ -39,7 +39,7 @@ class OrderController extends Controller
         $sql->join('stores', 'orders.store_id', 'stores.id');
         if (!empty($request->order_status) && $request->order_status == 'confirmed') {
             $sql->where('orders.paid_percentage', '>=', '40');
-            $sql->whereIn('orders.status', ['assigned inventory', 'production']);
+            $sql->whereNotIn('orders.status', ['assembling','packing','installation','completed']);
         } elseif (!empty($request->order_status) && $request->order_status == 'pending') {
             $sql->where('orders.paid_percentage', '<=', '40');
         }

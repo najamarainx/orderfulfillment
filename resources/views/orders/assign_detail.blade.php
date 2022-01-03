@@ -711,8 +711,7 @@
             var id = $(this).data('id');
             var availableQty = $('#qty_id_' + id).val();
             if (availableQty != '') {
-                $('#actual_qty_' + id).text('');
-                var totalQty = Math.floor($('#qty_id_' + id + ' option:selected').text());
+                var totalQty = Math.floor($('#qty_id_' + id).val());
                 var getval = $('#check_qty_' + id).val();
                 if (getval == '') {
                     getval = 0;

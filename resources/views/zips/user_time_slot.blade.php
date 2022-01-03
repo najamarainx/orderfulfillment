@@ -90,7 +90,7 @@
                     <!--end::Page Title-->
                     <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
-                    <span class="text-muted font-weight-bold mr-4">Users Zip Slot</span>
+                    <span class="text-muted font-weight-bold mr-4">Users Slot</span>
                     <!--end::Actions-->
                 </div>
                 <!--end::Info-->
@@ -105,7 +105,7 @@
                     <!--begin::Header-->
                     <div class="card-header border-0 py-5">
                         <h3 class="card-title align-items-center">
-                            <span class="card-label font-weight-bolder text-dark">Users Zip Slot</span>
+                            <span class="card-label font-weight-bolder text-dark">Post Code Slots</span>
                         </h3>
                         <div class="card-toolbar">
 

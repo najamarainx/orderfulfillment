@@ -287,6 +287,7 @@ class AssignInstallationUserController extends Controller
                  $paymentLog = new OrderFulfillmentPaymentLog;
                  $paymentLog->order_id = $request->order_id;
                  $paymentLog->paid_amount = $request->amount;
+                 $paymentLog->payment_type = $request->payment_type;
                  $paymentLog->added_by = Auth::user()->id;
                  $payment  = $paymentLog->save();
                  $total_paid_amount = OrderFulfillmentPaymentLog::where('order_id',$request->order_id)->sum('paid_amount');

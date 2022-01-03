@@ -443,6 +443,17 @@
                                                     <input type="number" name="amount" value="" class="form-control"
                                                         placeholder="Enter Amount" id="remaning_amount" required>
                                                 </div>
+                                                <div class="payment_type_html">
+                                                    <div class="form-group">
+                                                        <label for="">Payment Type</label>
+                                                      <select name="payment_type" id="payment_type" class="form-control">
+                                                        <option value="">Select Type</option>
+                                                        <option value="cash">Cash</option>
+                                                        <option value="company_account">Company Account</option>
+                                                        <option value="personal_account">Personal Account</option>
+                                                      </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -478,7 +489,10 @@
                 rules: {
                     amount: {
                         required: true
-                    }
+                    },
+                    payment_type: {
+                        required: true
+                    },
                 },
                 errorPlacement: function(error, element) {
                     var elem = $(element);
@@ -625,7 +639,9 @@
             remain_amount = $('#hidden_remain_amount').val();
             var total = $('.total_amount').text();
             var paid = $('.paid_amount').text();
-            if (typeAmount == remain_amount) {} else {
+            if (typeAmount == remain_amount) {
+                $('.payment_type_html').hide();
+            } else {
                 new_amount = (total - paid);
                 $(this).val(new_amount);
             }
@@ -743,6 +759,9 @@
                 ignore: ":hidden:not(.selectpicker)",
                 rules: {
                     assembling_status: {
+                        required: true
+                    },
+                    payment_type: {
                         required: true
                     },
 

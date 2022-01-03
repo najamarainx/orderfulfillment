@@ -133,7 +133,19 @@
                                 <div class="form-group mb-4">
                                     <label class="mb-0">Start Time Slot<span
                                             class="text-primary">*</span></label>
-                                    <div class="input-group timepicker">
+                                    <div class="input-group input-group-solid date" id="kt_datetimepicker_4"
+                                        data-target-input="nearest">
+                                        <input type="text" name="start_time"
+                                            class="form-control form-control-solid datetimepicker-input start_time"
+                                            placeholder="Select start time"  data-target="#kt_datetimepicker_4" />
+                                        <div class="input-group-append" data-target="#kt_datetimepicker_4"
+                                            data-toggle="datetimepicker">
+                                            <span class="input-group-text">
+                                                <i class="ki ki-clock"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    {{-- <div class="input-group timepicker">
                                         <input class="form-control start_time" name="start_time" id="kt_timepicker_3"
                                             readonly="readonly" placeholder="Select start time" type="text" />
                                         <div class="input-group-append">
@@ -141,14 +153,26 @@
                                                 <i class="la la-clock-o"></i>
                                             </span>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <div class="form-group mb-4">
                                     <label class="mb-0">End Time Slot<span class="text-primary">*</span></label>
-                                    <div class="input-group timepicker">
+                                    <div class="input-group input-group-solid date"  id="kt_datetimepicker_5"
+                                        data-target-input="nearest">
+                                        <input type="text" name="end_time"
+                                            class="form-control form-control-solid datetimepicker-input end_time"
+                                            placeholder="Select end time"   data-target="#kt_datetimepicker_5" />
+                                        <div class="input-group-append" data-target="#kt_datetimepicker_5"
+                                            data-toggle="datetimepicker">
+                                            <span class="input-group-text">
+                                                <i class="ki ki-clock"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    {{-- <div class="input-group timepicker">
                                         <input class="form-control end_time" name="end_time" id="kt_timepicker_4"
                                             readonly="readonly" placeholder="Select end time" type="text" />
                                         <div class="input-group-append">
@@ -156,7 +180,7 @@
                                                 <i class="la la-clock-o"></i>
                                             </span>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -180,7 +204,8 @@
 @section('page_level_js_plugin')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/jqvalidation/jquery.validate.min.js?v=7.0.4') }}"></script>
-	<script src="{{asset('assets/js/pages/crud/forms/widgets/bootstrap-timepicker.js')}}"></script>
+    {{-- <script src="{{ asset('assets/js/pages/crud/forms/widgets/bootstrap-timepicker.js') }}"></script> --}}
+    <script src="{{asset('assets/js/pages/crud/forms/widgets/bootstrap-datetimepicker.js')}}"></script>
 @endsection
 
 @section('page_level_js')
@@ -483,5 +508,6 @@
                 }
             });
         });
+        $("#kt_datetimepicker_5").attr('readonly', true);
     </script>
 @endsection
