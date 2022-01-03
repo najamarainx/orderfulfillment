@@ -35,5 +35,9 @@ class Product extends Model
         return $this->hasMany(BandPriceMapping::class, 'band_id', 'id');
     }
 
+    public function saleLogProduct()
+    {
+        return $this->hasMany(OrderFulfillmentSaleLog::class, 'product_id', 'id');
+    }
 
 }
