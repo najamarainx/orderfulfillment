@@ -69,7 +69,7 @@ class RoleController extends Controller
         $roleData = $role->get();
         $data = [];
         $userId = auth()->user()->id;
-        $checkuser=array('Super Admin','Developer','Measurement','Production Manager','Team Lead','Worker','Screen','assembler','packaging');
+        $checkuser=array('Super Admin','Developer','Measurement','Production Manager','Team Lead','Worker','Screen','Assembler','Packaging','Accountant','Installation');
         foreach ($roleData as $roleObj) {
             $action = "";
             if (hasPermission('assignPermissionRole')) {
@@ -189,7 +189,7 @@ class RoleController extends Controller
         $permission->select('permissions.*', 'categories.name as category_name');
         $permission->Join('orderfulfillment_categories as categories', 'categories.id', '=', 'permissions.category_id');
         if(Auth::user()->type == 'assembler' || Auth::user()->type == 'installation' || Auth::user()->type == 'packaging' || Auth::user()->type == 'accountant' ){
-            $permission->Join('orderfulfillment_role_has_permissions', 'permissions.id', '=', 'orderfulfillment_role_has_permissions.permission_id')->where('role_id', $roleId);
+            $permission->Join('orderfulfillment_role_has_permissions', 'permissions.id', '=', 'orderfulfillment_role_has_permissions.permission_id')->where('role_id', Auth::user()->role_id);
         }
         $permissions = $permission->get();
         $assignPermissionTORole = DB::table('orderfulfillment_role_has_permissions')->where('role_id', $roleId)->pluck('permission_id')->toArray();
@@ -255,16 +255,23 @@ class RoleController extends Controller
         $roleId = $request->role_id;
         $permissions = $request->permission;
         DB::table('orderfulfillment_role_has_permissions')->where('role_id', $roleId)->delete();
-        $permissionArr = [];
-        foreach ($permissions as $permission) {
-            $permissionArr[] = [
-                'permission_id' => $permission,
-                'role_id' => $roleId
-            ];
+        if(!empty($permissions)){
+            $permissionArr = [];
+            foreach ($permissions as $permission) {
+                $permissionArr[] = [
+                    'permission_id' => $permission,
+                    'role_id' => $roleId
+                ];
+            }
+            if (!empty($permissionArr)) {
+                DB::table('orderfulfillment_role_has_permissions')->insert($permissionArr);
+            }
+            $response =  ['status' => 'success', 'message' => 'Role permissions updated successfully'];
+        }else{
+            $response =  ['status' => 'error', 'message' => 'Please select atleast one permission'];
+
         }
-        if (!empty($permissionArr)) {
-            DB::table('orderfulfillment_role_has_permissions')->insert($permissionArr);
-        }
-        return response()->json(['status' => 'success', 'message' => 'Role permissions updated successfully']);
+
+        return response()->json($response);
     }
 }

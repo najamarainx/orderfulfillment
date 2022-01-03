@@ -95,7 +95,7 @@
                                     <span>Reset</span>
                                 </span>
                                 </button>
-                                
+
                             </div>
                         </div>
                     </form>
@@ -342,7 +342,7 @@
 
 
         $(document).on('click', '#btn_save', function() {
-           validate  = additionalValidtion();
+            additionalValidtion();
             var validate = $("#addForm").valid();
 
             if (validate) {
