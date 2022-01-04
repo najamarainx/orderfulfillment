@@ -32,7 +32,7 @@ class ZipController extends Controller
         } else {
             $response['Status'] = 'error';
             $response['key'] = '400';
-            $response['message'] = 'No Zip code found';
+            $response['message'] = 'No Post code found';
         }
         return response()->json($response, $response['key']);
     }
@@ -161,12 +161,12 @@ class ZipController extends Controller
             $query = $zip->save();
             $return = [
                 'status' => 'error',
-                'message' => 'Zip is not save successfully',
+                'message' => 'Post code is not save successfully',
             ];
             if ($query) {
                 $return = [
                     'status' => 'success',
-                    'message' => 'Zip is save successfully',
+                    'message' => 'Post code is save successfully',
                     'zipId' => $zip->id,
                 ];
             }
@@ -200,9 +200,9 @@ class ZipController extends Controller
         $res = Zip::find($id);
         if ($res) {
             $res->delete();
-            return response()->json(['status' => 'success', 'message' => 'Zip is deleted successfully']);
+            return response()->json(['status' => 'success', 'message' => 'Post code is deleted successfully']);
         } else {
-            return response()->json(['status' => 'error', 'message' => 'Zip not deleted ']);
+            return response()->json(['status' => 'error', 'message' => 'Post code not deleted ']);
         }
     }
 

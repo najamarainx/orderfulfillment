@@ -58,7 +58,7 @@ class OrderFulfillmentUser extends Authenticatable
     public function checkRoleAssigned($id)
     {
         $check = true;
-        $checkRolesnCount = DB::table('orderfulfillment_users')->where('role_id', $id)->count();
+        $checkRolesnCount = DB::table('orderfulfillment_users')->where('role_id', $id)->whereNull('deleted_at')->count();
         if ($checkRolesnCount) {
             $check = false;
         }
