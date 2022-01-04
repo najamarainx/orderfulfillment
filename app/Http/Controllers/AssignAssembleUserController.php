@@ -221,7 +221,18 @@ class AssignAssembleUserController extends Controller
     }
 
 
-
+    public function deleteAssemblerUser(Request $request)
+    {
+        $assembler_id = $request->id;
+        $assemblerStatus=OrderFulfillmentAssignAssembleUser::where('id',$request->id)->first();
+        if($assemblerStatus->status == 'pending'){
+            OrderFulfillmentAssignAssembleUser::where(['id' => $assembler_id])->update(['deleted_at' => Carbon::now()->format('Y-m-d')]);
+            $response = ['status' => 'success', 'message' => 'Deleted Successfully'];
+        }else{
+            $response = ['status' => 'error', 'message' => 'You cannot deleted this record!'];
+        }
+        return response()->json($response);
+    }
 
 
 }
