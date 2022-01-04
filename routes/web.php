@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 
-    Route::prefix('zip')->group(function () {
+    Route::prefix('postcode')->group(function () {
         Route::get('/', [Controllers\ZipController::class, 'index'])->name('zipList')->middleware('haspermission:viewZip');
         Route::post('/list', [Controllers\ZipController::class, 'getList'])->name('getZipList')->middleware('haspermission:viewZip');
         Route::post('/submit', [Controllers\ZipController::class, 'store'])->name('zipSubmit')->middleware('haspermission:addZip');
