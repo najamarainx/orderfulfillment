@@ -518,7 +518,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group mb-4">
-                                        <label>Zip Code: </label>
+                                        <label>Post Code: </label>
                                         <select class="form-control form-control-lg  kt_select2_1 w-100 zip_code"   data-live-search="true" name="zip_code" id="zip_code">
                                         @if(!empty($zipCode))
                                         <option value=""></option>
