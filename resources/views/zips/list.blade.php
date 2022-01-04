@@ -149,7 +149,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Zip Code">
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Post Code">
                             </div>
                         </div>
                     </div>
