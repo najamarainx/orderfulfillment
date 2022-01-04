@@ -196,7 +196,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('assign_user/{id}', [Controllers\AssembledOrderController::class, 'getAssemblerUsers'])->name('getAssemblerUsers')->middleware('haspermission:assemblerUsers');
             Route::post('assembler_user_list', [Controllers\AssembledOrderController::class, 'getAssemblerUsersList'])->name('getAssemblerUsersList')->middleware('haspermission:assemblerUsersList');
             Route::post('assigned_assembler_task', [Controllers\AssembledOrderController::class, 'assignedAssemblerTask'])->name('assignedAssmblerTask')->middleware('haspermission:assemblerAssignedTask');
-            Route::post('delete_assembler_user', [Controllers\AssignAssembleUserController::class, 'deleteAssemblerUser'])->name('deleteAssemblerUser')->middleware('haspermission:deleteAssemblerTask');
+            Route::post('delete_assembler_user', [Controllers\AssignAssembleUserController::class, 'deleteAssemblerUser'])->name('deleteAssemblerUser');
             Route::get('/assign-list', [Controllers\AssignAssembleUserController::class, 'index'])->name('assembledOrderAssigned')->middleware('haspermission:assemblerOrderAssigned');
             Route::post('/get-assign-list', [Controllers\AssignAssembleUserController::class, 'getList'])->name('getAssignAssembledList')->middleware('haspermission:assemblerOrderAssignedList');
             Route::post('/get-Assembler-Status', [Controllers\AssignAssembleUserController::class, 'getUserAssembleStatus'])->name('getAssemblerStatus')->middleware('haspermission:assemblerStatus');
