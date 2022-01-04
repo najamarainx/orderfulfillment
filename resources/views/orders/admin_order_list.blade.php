@@ -82,6 +82,7 @@
                                 <th>Store Name</th>
                                 <th>Created</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -192,6 +193,9 @@
                         },
                         {
                             data: 'status'
+                        },
+                        {
+                            data: 'action'
                         },
 
                     ],

@@ -176,6 +176,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/productInventoryList', [Controllers\OrderController::class, 'productInventoryList'])->name('getProductInventoryList')->middleware('haspermission:ProductInventoryList');
         Route::post('/logItemDelete', [Controllers\OrderController::class, 'logItemDelete'])->name('logItemDelete')->middleware('haspermission:logItemDelete');
         Route::post('/logItemUpdate', [Controllers\OrderController::class, 'logItemUpdate'])->name('logItemUpdate')->middleware('haspermission:logItemUpdate');
+        Route::get('/getOrderDetailHistory/{id}', [Controllers\OrderController::class, 'getOrderDetailHistory'])->name('orderHistory');
 
     });
 
