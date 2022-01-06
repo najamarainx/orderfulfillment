@@ -164,4 +164,34 @@ class PermissionController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Permission not deleted beacuse it is assigned']);
         }
     }
+
+    public function getPermissionByRoleId(Request $request) {
+        $roleId = $request->role_id;
+        $permisionIds = DB::table('orderfulfillment_role_has_permissions')->where('role_id', $roleId)->pluck('permission_id')->toArray();
+        $permissionsArr = [];
+        if(!empty($permisionIds)) {
+            $permission = DB::table('orderfulfillment_permissions as p');
+            $permission->select('p.*','c.name as category_name');
+            $permission->Join('orderfulfillment_categories as c', 'c.id', '=', 'p.category_id');
+            $permission->whereIn('p.id',$permisionIds);
+            $permissions = $permission->get();
+            foreach ($permissions as $permissionObj) {
+                $permissionsArr[$permissionObj->category_name][] = [
+                    'id' => $permissionObj->id,
+                    'name' => $permissionObj->name,
+                ];
+            }
+        }
+        $viewData = [
+            'permissions' => $permissionsArr
+        ];
+        $html = view('users.permission_modal', $viewData)->render();
+        $return = [
+            'status' => 'success',
+            'html' => $html
+        ];
+        return response()->json($return);
+    }
+
+
 }
