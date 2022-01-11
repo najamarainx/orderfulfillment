@@ -153,7 +153,6 @@ class MeasurementBookingController extends Controller
         }, 'bookingCategory', 'bookingSlot','bookingOrder'=>function($order) use($id){
                $order->where('payment','verified');
                $order->where('paid_percentage','>=','40');
-               $order->where('booking_id',$id);
                $order->whereNull('deleted_at');
                $order->with(['orderdetail'=>function($orderItem){
                    $orderItem->with(['orderProducts']);

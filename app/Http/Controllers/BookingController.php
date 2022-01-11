@@ -19,7 +19,6 @@ class BookingController extends Controller
     public function index()
     {
         $category  = getCategory('product', -1, true);
-        $timeSlotDetail = OrderFulfillmentTimeSlot::where('status', 'active')->get();
         $zipCode  = getZipCode();
         $statusArray = getBookingStatus();
         $date = Carbon::now()->format('Y-m-d');

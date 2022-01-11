@@ -940,13 +940,10 @@
                 },
                 success: function(data) {
                     if (data.status == 'success') {
-                        //  if(data.zipCode != ''){
-                        //  $('.selected_zip_code_time_slot_html').html('');
-                        //  $('.selected_zip_code_time_slot_html').html(data.timeSlotHtml);
-                        //  }else{
+                       
                             $('.time_slot_html').html();
                             $('.time_slot_html').html(data.timeSlotHtml);
-                        //  }
+                        
 
                     } else {
                         Swal.fire("Sorry!", data.message, "error");

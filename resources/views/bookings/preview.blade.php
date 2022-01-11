@@ -16,7 +16,7 @@
                     <div class="card card-custom gutter-b">
                         <div class="card-header border-0 py-5">
                             <h3 class="card-title align-items-center">
-                                <span class="card-label font-weight-bolder text-dark">Customer Booking (#1023)</span>
+                                <span class="card-label font-weight-bolder text-dark">Customer Booking</span>
                             </h3>
                         </div>
                         <div class="card-body pt-0 pb-3">
@@ -161,9 +161,7 @@
                                     <p>Date: {{\Carbon\carbon::parse($bookingDetail->bookingOrder->created_at)->format('m/d/Y') }}</p>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 text-right">
-                                    <p>Status: <span
-                                            class="badge badge-success badge-pill booking_assign_status">{{$bookingDetail->bookingOrder->status}}</span>
-                                    </p>
+                                   
                                     <p>Total Amount: 	£{{$bookingDetail->bookingOrder->total_price}}</p>
                                     <p>Paid Amount: 	£{{$bookingDetail->bookingOrder->paid_amount}}</p>
                                 </div>
@@ -185,8 +183,7 @@
                                                 </th>
                                                 <th>Fittings Option
                                                 </th>
-                                                <th>Status
-                                                </th>
+                                               
                                                <th>Price</th>
                                             </tr>
                                         </thead>
@@ -219,10 +216,7 @@
                                                 <td>
                                                     <span class="text-dark-75 font-weight-normal d-block ">{{!empty($orderDetailObj->fitting_option) ? $orderDetailObj->fitting_option : '' }}</span>
                                                 </td>
-                                                <td>
-                                                    <span
-                                                        class="label label-lg label-light-success label-inline">{{$orderDetailObj->status}}</span>
-                                                </td>
+                                               
                                                 <td>
                                                     <span class="text-dark-75 font-weight-normal d-block ">{{$orderDetailObj->price}}</span>
 

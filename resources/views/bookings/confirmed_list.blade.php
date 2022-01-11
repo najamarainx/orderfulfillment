@@ -534,7 +534,6 @@
                                     <div class="col-12">
                                         <p class="text-danger slot_error"></p>
                                         <div class="time_slot_html">
-                                            {!!$timeSlotHtml!!}
                                         </div>
                                     </div>
                                 </div>

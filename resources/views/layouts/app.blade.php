@@ -317,8 +317,9 @@
                 },
                 success: function(data) {
                     if (data.status == 'success') {
-                        $('.time_slot_html').html(data.timeSlotHtml);
-                        $('.selected_zip_code_time_slot_html').html();
+                        $('.time_slot_html').html('');
+                        // $('.time_slot_html').html(data.timeSlotHtml);
+                        $('.selected_zip_code_time_slot_html').html('');
                          $('.selected_zip_code_time_slot_html').html(data.timeSlotHtml);
                         var rec = data.data;
                         var id = rec.id;
