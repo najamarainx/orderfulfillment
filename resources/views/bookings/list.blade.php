@@ -423,11 +423,11 @@
                         <thead>
                             <tr>
                                 <th>Sr</th>
+                                <th>Name</th>
+                                <th>Phone No</th>
                                 <th>Date</th>
                                 <th>Time Slot</th>
                                 <th>Category</th>
-                                <th>Name</th>
-                                <th>Phone No</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -479,6 +479,32 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group mb-4">
+                                        <label class="mb-0">State</label>
+                                        <input type="text" class="form-control" name="state" id="state" placeholder="State">
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-0">Country</label>
+                                        <input type="text" class="form-control" name="country" id="country" placeholder="Country">
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-0">City</label>
+                                        <input type="text" class="form-control" name="city" id="city" placeholder="City">
+                                    </div>
+                                </div>
+                              
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12 pl-lg-6 pl-md-6" id="classes_wrapper">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group mb-4">
                                         <label class="mb-0">Customer Address</label>
                                         <textarea type="text" class="form-control"
                                             placeholder="Customer Address" name="customer_address" id="customer_address"></textarea>
@@ -491,10 +517,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-6 col-sm-12 pl-lg-6 pl-md-6" id="set_ctg">
-                            <div class="row">
+                            <div class="row" id="set_ctg">
                                 <div class="col-12">
                                     <div class="form-group mb-4">
                                         <label class="mb-0">Select Category</label>
@@ -607,6 +630,12 @@
                             data: 'id'
                         },
                         {
+                            data: 'first_name'
+                        },
+                        {
+                            data: 'phone_number'
+                        },
+                        {
                             data: 'date'
                         },
                         {
@@ -614,12 +643,6 @@
                         },
                         {
                             data: 'category_id'
-                        },
-                        {
-                            data: 'first_name'
-                        },
-                        {
-                            data: 'phone_number'
                         },
                         {
                             data: 'booking_status'
@@ -709,6 +732,15 @@
                     customer_email: {
                         required: true
                     },
+                    city: {
+                        required: true
+                    },
+                    state: {
+                        required: true
+                    },
+                    country: {
+                        required: true
+                    },
                     customer_address: {
                         required: true
                     },
@@ -741,9 +773,10 @@
         $(document).on('click', '#btn_add_new', function() {
 
             var element = document.getElementById('test');
-            element.classList.add('col-lg-6');
-            element.classList.remove('col-lg-12');
+            // element.classList.add('col-lg-6');
+            // element.classList.remove('col-lg-12');
             $('#set_ctg').show();
+           
 
             $('#addBookingModal').modal({
                 backdrop: 'static',
@@ -824,9 +857,10 @@
             var form_data = new FormData();
             form_data.append('id', id);
             var element = document.getElementById('test');
-            element.classList.add('col-lg-12');
-            element.classList.remove('col-lg-6');
+            // element.classList.add('col-lg-12');
+            // element.classList.remove('col-lg-6');
             $('#set_ctg').hide();
+           
             $.ajax({
                 type: "POST",
                 url: "{{ route('getBookingById') }}", // your php file name
@@ -849,7 +883,7 @@
                         var id = rec.id;
                         var first_name = rec.first_name;
                         var last_name = rec.last_name;
-                        name = first_name+' '+ last_name;
+                        name = first_name+' '+ (last_name ? last_name  : '');
                         var date = rec.date;
                         var category_id  = rec.category_id ;
                         var time_slot_id = rec.time_slot_id;
@@ -857,12 +891,18 @@
                         var phone_number = rec.phone_number;
                         var post_code = rec.post_code;
                         var address = rec.address;
+                        var city = rec.city;
+                        var state = rec.state;
+                        var country = rec.country;
                         $('#id').val(id);
                         $('#customer_name').val(name);
                         $('#customer_no').val(phone_number);
                         $('#customer_email').val(email);
                         $('#customer_address').text(address);
                         $('#customer_post_code').val(post_code);
+                        $('#city').val(city ? city : '');
+                        $('#state').val(state ? state : '');
+                        $('#country').val(country ? country : '');
                         $('.selected_date').val(date);
                         // $('#category_id').val(category_id).trigger('change.select2');
                         // $('#zip_code').val(time_slot_id).trigger('change.select2');
@@ -940,11 +980,8 @@
                 },
                 success: function(data) {
                     if (data.status == 'success') {
-                       
                             $('.time_slot_html').html();
                             $('.time_slot_html').html(data.timeSlotHtml);
-                        
-
                     } else {
                         Swal.fire("Sorry!", data.message, "error");
                     }

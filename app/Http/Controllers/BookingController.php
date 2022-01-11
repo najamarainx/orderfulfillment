@@ -168,6 +168,9 @@ class BookingController extends Controller
                 'customer_no' => 'required|max:150',
                 'customer_email' => 'required|max:150',
                 'customer_address' => 'required|max:150',
+                'city' => 'required|max:150',
+                'state' => 'required|max:150',
+                'country' => 'required|max:150',
                 'customer_post_code' => 'required|max:150',
                 'category_id' => 'required|max:150',
                 'date' => 'required|max:150',
@@ -197,6 +200,9 @@ class BookingController extends Controller
                 'customer_email' => 'required|max:150',
                 'customer_address' => 'required|max:150',
                 'customer_post_code' => 'required|max:150',
+                'city' => 'required|max:150',
+                'state' => 'required|max:150',
+                'country' => 'required|max:150'
             ];
             $messages = [
 
@@ -245,6 +251,9 @@ class BookingController extends Controller
             $booking->phone_number = $request->customer_no;
             $booking->post_code = $request->customer_post_code;
             $booking->address = $request->customer_address;
+            $booking->state = $request->state;
+            $booking->city = $request->city;
+            $booking->country = $request->country;
             $booking->created_by = !empty(Auth::user()->id) ? Auth::user()->id : NULL;
             // $booking->message = $request->message;
             $booking->save();

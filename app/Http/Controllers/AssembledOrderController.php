@@ -98,7 +98,9 @@ class AssembledOrderController extends Controller
             </a>';
             $data[] = [
                 "id" => $orderObj->id,
-                "name" => $orderObj->store_name,
+                "store_id" => $orderObj->store_name,
+                "name" => $orderObj->name,
+                "phone" => $orderObj->phone,
                 "created_at" => Carbon::create($orderObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
                 "status" => $orderObj->status,
                 "action" => $action

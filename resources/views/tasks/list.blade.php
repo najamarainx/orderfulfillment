@@ -384,6 +384,7 @@
                         <tr>
                             <th>Sr</th>
                             <th>Department</th>
+                            <th>Dimension</th>
                             <th>Item</th>
                             <th>Variant</th>
                             <th>Quantity</th>
@@ -493,7 +494,7 @@
                         data: {
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id','department_id' ,'item_id', 'variant_id','qty','status','date','assigned'
+                                'id','department_id' , 'dimension' , 'item_id', 'variant_id','qty','status','date','assigned'
                             ],
                         },
                         headers: {
@@ -505,6 +506,9 @@
                     },
                         {
                             data: 'department_id'
+                        },
+                        {
+                            data: 'dimension'
                         },
                         {
                             data: 'item_id'

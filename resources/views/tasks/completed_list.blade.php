@@ -84,6 +84,7 @@
                         <tr>
                             <th>Sr</th>
                             <th>Department</th>
+                            <th>Dimension</th>
                             <th>Item</th>
                             <th>Variant</th>
                             <th>Qty</th>
@@ -162,6 +163,9 @@
                     },
                         {
                             data: 'department_id'
+                        },
+                        {
+                            data: 'dimension'
                         },
                         {
                             data: 'item_id'

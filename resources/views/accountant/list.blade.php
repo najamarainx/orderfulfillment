@@ -44,7 +44,7 @@
                         <div class="row mb-6">
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                 <div class="form-group">
-                                    <label>Bill No:</label>
+                                    <label>Order No:</label>
                                     <input type="text" class="form-control datatable-input" placeholder="Name" data-col-index="0">
                                 </div>
                             </div>

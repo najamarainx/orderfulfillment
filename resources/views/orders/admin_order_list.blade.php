@@ -44,7 +44,7 @@
                         <div class="row mb-6">
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                 <div class="form-group">
-                                    <label>Bill No:</label>
+                                    <label>Order No:</label>
                                     <input type="text" class="form-control datatable-input" placeholder="Name" data-col-index="0">
                                 </div>
                             </div>
@@ -80,6 +80,8 @@
                             <tr>
                                 <th>Order ID</th>
                                 <th>Store Name</th>
+                                <th>Customer Name</th>
+                                <th>Phone No</th>
                                 <th>Created</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -175,7 +177,7 @@
                             'order_status':'admin_order',
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id', 'name', 'created_at','status'
+                                'id', 'store_id','name','phone', 'created_at','status'
                             ],
                         },
                         headers: {
@@ -186,7 +188,13 @@
                         data: 'id'
                     },
                         {
+                            data: 'store_id'
+                        },
+                        {
                             data: 'name'
+                        },
+                        {
+                            data: 'phone'
                         },
                         {
                             data: 'created_at'

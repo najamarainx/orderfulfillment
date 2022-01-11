@@ -11,9 +11,11 @@
         .error {
             color: red !important;
         }
+
         span.select2.select2-container.select2-container--default {
-            width:100% !important;
+            width: 100% !important;
         }
+
         #msform {
             text-align: center;
             position: relative;
@@ -202,7 +204,7 @@
             display: none;
         }
 
-        .slot_radio input.radio:empty ~ label {
+        .slot_radio input.radio:empty~label {
             position: relative;
             float: left;
             line-height: 1.5em;
@@ -219,7 +221,7 @@
             padding-top: 15px;
         }
 
-        .slot_radio input.radio:empty ~ label:before {
+        .slot_radio input.radio:empty~label:before {
             position: absolute;
             display: block;
             top: 0;
@@ -231,40 +233,41 @@
             border-radius: 3px 0 0 3px;
         }
 
-        .slot_radio input.radio:hover:not(:checked) ~ label:before {
-            content:'\2714';
+        .slot_radio input.radio:hover:not(:checked)~label:before {
+            content: '\2714';
             text-indent: .9em;
             line-height: 2.5em;
             color: #C2C2C2;
         }
 
-        .slot_radio input.radio:hover:not(:checked) ~ label {
+        .slot_radio input.radio:hover:not(:checked)~label {
             color: #888;
         }
 
-        .slot_radio input.radio:checked ~ label:before {
-            content:'\2714';
+        .slot_radio input.radio:checked~label:before {
+            content: '\2714';
             text-indent: .9em;
             color: #fff;
             background-color: #B21F24;
             padding-top: 14px;
         }
 
-        .slot_radio input.radio:checked ~ label {
+        .slot_radio input.radio:checked~label {
             color: #fff;
             background-color: #B21F24;
         }
 
-        .slot_radio input.radio:focus ~ label:before {
+        .slot_radio input.radio:focus~label:before {
             box-shadow: 0 0 0 3px #999;
         }
 
-        .disabled input.radio:empty ~ label, .disabled input.radio:empty ~ label:before {
+        .disabled input.radio:empty~label,
+        .disabled input.radio:empty~label:before {
             background-color: lightgray !important;
         }
 
-        .disabled input.radio:hover:not(:checked) ~ label:before {
-            content:'';
+        .disabled input.radio:hover:not(:checked)~label:before {
+            content: '';
             text-indent: .9em;
             color: #fff !important;
         }
@@ -288,7 +291,12 @@
             letter-spacing: 0px;
         }
 
-        .confirmation_table td, .confirmation_table th, .confirmation_table, th, tr, td{
+        .confirmation_table td,
+        .confirmation_table th,
+        .confirmation_table,
+        th,
+        tr,
+        td {
             border: none;
         }
 
@@ -303,8 +311,8 @@
             border-style: hidden;
             box-shadow: 0 0 0 1px #ddd;
         }
-        @media only screen
-        and (device-width : 375px){
+
+        @media only screen and (device-width : 375px) {
 
             .flatpickr-calendar {
                 width: 307.875px;
@@ -318,7 +326,7 @@
 @endsection
 @section('content')
     <div class="d-flex flex-column-fluid">
-    <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+        <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
                 <!--begin::Info-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
@@ -346,11 +354,11 @@
                         <!--end::Dropdown-->
                         <!--begin::Button-->
                         <a class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#addBookingModal"
-                           id="btn_add_new">
+                            id="btn_add_new">
                             <span class="svg-icon svg-icon-md">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <rect x="0" y="0" width="24" height="24" />
                                         <circle fill="#000000" cx="9" cy="15" r="6" />
@@ -369,19 +377,20 @@
                         <div class="row mb-6">
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Date:</label>
-                                   <input type="text"  class="form-control datatable-input "  id="kt_datepicker" autocomplete="off" data-col-index="1">
+                                <input type="text" class="form-control datatable-input " id="kt_datepicker"
+                                    autocomplete="off" data-col-index="1">
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Cateogry:</label>
                                 @if (!$categories->isEmpty())
-                                            <select class="form-control form-control-lg  kt_select2_1 w-100 category_id"
-                                                data-live-search="true" data-col-index="3">
-                                                <option value=""></option>
-                                                @foreach ($categories as $catObj)
-                                                    <option value="{{ $catObj->id }}">{{ $catObj->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        @endif
+                                    <select class="form-control form-control-lg  kt_select2_1 w-100 category_id"
+                                        data-live-search="true" data-col-index="3">
+                                        <option value=""></option>
+                                        @foreach ($categories as $catObj)
+                                            <option value="{{ $catObj->id }}">{{ $catObj->name }}</option>
+                                        @endforeach
+                                    </select>
+                                @endif
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Name:</label>
@@ -397,9 +406,9 @@
                                 <label>Status:</label>
                                 <select name="" id="" class="form-control datatable-input" data-col-index="6">
                                     <option value=""></option>
-                                   @foreach ($statusArray as $status)
-                                       <option value="{{$status}}">{{ucfirst($status)}}</option>
-                                   @endforeach
+                                    @foreach ($statusArray as $status)
+                                        <option value="{{ $status }}">{{ ucfirst($status) }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
@@ -422,17 +431,17 @@
                     <!--begin: Datatable-->
                     <table class="table table-bordered table-checkable" id="itemTableList">
                         <thead>
-                        <tr>
-                            <th>Sr</th>
-                            <th>Date</th>
-                            <th>Time Slot</th>
-                            <th>Category</th>
-                            <th>Name</th>
-                            <th>Phone No</th>
-                            <th>Status</th>
-                            <th>Assign Status</th>
-                            <th>Actions</th>
-                        </tr>
+                            <tr>
+                                <th>Sr</th>
+                                <th>Name</th>
+                                <th>Phone No</th>
+                                <th>Date</th>
+                                <th>Time Slot</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Assign Status</th>
+                                <th>Actions</th>
+                            </tr>
                         </thead>
                         <tbody>
                         </tbody>
@@ -444,150 +453,192 @@
     </div>
 
     <div class="modal fade" id="addBookingModal" data-backdrop="static" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Booking</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i aria-hidden="true" class="ki ki-close"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="addForm">
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Booking</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+             <form id="addForm">
 
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 pr-lg-6 pr-md-6 border-right-lg border-right-md " id="test">
                         <div class="row">
-
-                            <div class="col-lg-6 col-md-6 col-sm-12 pr-lg-6 pr-md-6 border-right-lg border-right-md" id="test">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <input type="hidden" name="id" id="id">
-                                        <div class="form-group mb-4">
-                                            <label class="mb-0">Customer Name</label>
-                                            <input type="text" class="form-control" name="customer_name" id="customer_name" placeholder="Customer Name">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group mb-4">
-                                            <label class="mb-0">Customer Phone.No</label>
-                                            <input type="number" class="form-control" name="customer_no" id="customer_no" placeholder="Customer Phone.No">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group mb-4">
-                                            <label class="mb-0">Customer Email</label>
-                                            <input type="email" class="form-control" name="customer_email" id="customer_email" placeholder="Customer Email">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group mb-4">
-                                            <label class="mb-0">Customer Address</label>
-                                            <textarea type="text" class="form-control"
-                                                      placeholder="Customer Address" name="customer_address" id="customer_address"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group mb-4">
-                                            <label class="mb-0">Customer postal Code</label>
-                                            <input type="number" class="form-control" name="customer_post_code" id="customer_post_code" placeholder="Customer postal Code">
-                                        </div>
-                                    </div>
+                            <div class="col-12">
+                                <input type="hidden" name="id" id="id">
+                                <div class="form-group mb-4">
+                                    <label class="mb-0">Customer Name</label>
+                                    <input type="text" class="form-control" name="customer_name" id="customer_name" placeholder="Customer Name">
                                 </div>
                             </div>
-
-                            <div class="col-lg-6 col-md-6 col-sm-12 pl-lg-6 pl-md-6" id="set_ctg">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group mb-4">
-                                            <label class="mb-0">Select Category</label>
-                                            @if (!$categories->isEmpty())
-                                                <select class="form-control form-control-lg  kt_select2_1 w-100 category_id"
-                                                        data-live-search="true" name="category_id" id="category_id">
-                                                    <option value=""></option>
-                                                    @foreach ($categories as $catObj)
-                                                        <option value="{{ $catObj->id }}">{{ $catObj->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <div class="form-group mb-4">
-                                            <label>Select Date: </label>
-                                            <input class="form-group mb-4 date selected_date" id="datepicker" name="date" autocomplete="off" />
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-group mb-4">
-                                            <label>Zip Code: </label>
-                                            <select class="form-control form-control-lg  kt_select2_1 w-100 zip_code"   data-live-search="true" name="zip_code" id="zip_code">
-                                                @if(!empty($zipCode))
-                                                    <option value=""></option>
-                                                    @foreach ($zipCode as $zipObj)
-                                                        <option value="{{$zipObj->id}}">{{$zipObj->name}}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <p class="text-danger slot_error"></p>
-                                        <div class="time_slot_html">
-                                        </div>
-                                    </div>
+                            <div class="col-12">
+                                <div class="form-group mb-4">
+                                    <label class="mb-0">Customer Phone.No</label>
+                                    <input type="number" class="form-control" name="customer_no" id="customer_no" placeholder="Customer Phone.No">
                                 </div>
                             </div>
-
+                            <div class="col-12">
+                                <div class="form-group mb-4">
+                                    <label class="mb-0">Customer Email</label>
+                                    <input type="email" class="form-control" name="customer_email" id="customer_email" placeholder="Customer Email">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-4">
+                                    <label class="mb-0">State</label>
+                                    <input type="text" class="form-control" name="state" id="state" placeholder="State">
+                                    
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-4">
+                                    <label class="mb-0">Country</label>
+                                    <input type="text" class="form-control" name="country" id="country" placeholder="Country">
+                                    
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-4">
+                                    <label class="mb-0">City</label>
+                                    <input type="text" class="form-control" name="city" id="city" placeholder="City">
+                                </div>
+                            </div>
+                          
                         </div>
-                    </form>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 pl-lg-6 pl-md-6" id="classes_wrapper">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group mb-4">
+                                    <label class="mb-0">Customer Address</label>
+                                    <textarea type="text" class="form-control"
+                                        placeholder="Customer Address" name="customer_address" id="customer_address"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-4">
+                                    <label class="mb-0">Customer postal Code</label>
+                                    <input type="number" class="form-control" name="customer_post_code" id="customer_post_code" placeholder="Customer postal Code">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="set_ctg">
+                            <div class="col-12">
+                                <div class="form-group mb-4">
+                                    <label class="mb-0">Select Category</label>
+                                    @if (!$categories->isEmpty())
+                                        <select class="form-control form-control-lg  kt_select2_1 w-100 category_id"
+                                            data-live-search="true" name="category_id" id="category_id">
+                                            <option value=""></option>
+                                            @foreach ($categories as $catObj)
+                                                <option value="{{ $catObj->id }}">{{ $catObj->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group mb-4">
+                                    <label>Select Date: </label>
+                                    <input class="form-group mb-4 date selected_date" id="datepicker" name="date" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-4">
+                                    <label>Post Code: </label>
+                                    <select class="form-control form-control-lg  kt_select2_1 w-100 zip_code"   data-live-search="true" name="zip_code" id="zip_code">
+                                    @if(!empty($zipCode))
+                                    <option value=""></option>
+                                     @foreach ($zipCode as $zipObj)
+                                             <option value="{{$zipObj->id}}">{{$zipObj->name}}</option>
+                                     @endforeach
+                                    @endif
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <p class="text-danger slot_error"></p>
+                                <div class="time_slot_html">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light-primary font-weight-bold"
-                            data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary font-weight-bold" id="btn_save">Save</button>
-                </div>
+             </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-primary font-weight-bold"
+                    data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary font-weight-bold" id="btn_save">Save</button>
             </div>
         </div>
     </div>
+</div>
     <div class="modal fade" id="BookingAssignModal" data-backdrop="static" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Assign Booking</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Booking Assigned</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="BookingAssign">
-                        <input type="hidden" name="booking_id" id="booking_id">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-12 pl-lg-6 pl-md-6" id="set_ctg">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group mb-4">
-                                            <label class="mb-0">Select User</label>
+                    <div class="row assign_taks_to_wrapper" style="display: none">
+                        <div class="col-lg-6 col-md-6 col-sm-12 pl-lg-6 pl-md-6" id="set_ctg">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-0"><b>Assgn Task To:</b> <span
+                                                class="assign_taks_to_txt"></span></label>
 
-                                                <select class="form-control form-control-lg  kt_select2_1 w-100 booking_user_id"
-                                                        data-live-search="true" name="booking_user_id" id="booking_user_id">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="assign_task_body_wrapper">
+                        <form id="BookingAssign">
+                            <input type="hidden" name="booking_id" id="booking_id">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12 pl-lg-6 pl-md-6" id="set_ctg">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group mb-4">
+                                                <label class="mb-0">Select User</label>
+
+                                                <select
+                                                    class="form-control form-control-lg  kt_select2_1 w-100 booking_user_id"
+                                                    data-live-search="true" name="booking_user_id" id="booking_user_id">
                                                     <option value="">Select User</option>
 
                                                 </select>
 
+                                            </div>
                                         </div>
+
                                     </div>
-
                                 </div>
-                            </div>
 
-                        </div>
-                    </form>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" id="modal-footer">
                     <button type="button" class="btn btn-light-primary font-weight-bold"
-                            data-dismiss="modal">Cancel</button>
+                        data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary font-weight-bold" id="btn_save_booking">Save</button>
                 </div>
             </div>
@@ -636,10 +687,11 @@
                         url: "{{ route('getBookingList') }}",
                         type: 'POST',
                         data: {
-                            status:'confirmed',
+                            status: 'confirmed',
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id', 'date', 'time_slot', 'category_id', 'first_name','phone_number', 'booking_status','assign_status'
+                                'id', 'date', 'time_slot', 'category_id', 'first_name', 'phone_number',
+                                'booking_status', 'assign_status'
                             ],
                         },
                         headers: {
@@ -647,8 +699,14 @@
                         },
                     },
                     columns: [{
-                        data: 'id'
-                    },
+                            data: 'id'
+                        },
+                        {
+                            data: 'first_name'
+                        },
+                        {
+                            data: 'phone_number'
+                        },
                         {
                             data: 'date'
                         },
@@ -657,12 +715,6 @@
                         },
                         {
                             data: 'category_id'
-                        },
-                        {
-                            data: 'first_name'
-                        },
-                        {
-                            data: 'phone_number'
                         },
                         {
                             data: 'booking_status'
@@ -684,7 +736,8 @@
 
                 var filter = function() {
                     var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                    bookingListTable.column($(this).data('col-index')).search(val ? val : '', false, false).draw();
+                    bookingListTable.column($(this).data('col-index')).search(val ? val : '', false, false)
+                        .draw();
                 };
 
                 $('#kt_search').on('click', function(e) {
@@ -760,7 +813,16 @@
                     },
                     customer_post_code: {
                         required: true
-                    }
+                    }, 
+                    city: {
+                        required: true
+                    },
+                    state: {
+                        required: true
+                    },
+                    country: {
+                        required: true
+                    },
 
 
                 },
@@ -836,9 +898,9 @@
 
         $(document).on('click', '#btn_save', function() {
             var validate = $("#addForm").valid();
-            var upid=$('#id').val();
-            if(upid==''){
-                if(!$("input:radio[name='time_slot']").is(":checked")) {
+            var upid = $('#id').val();
+            if (upid == '') {
+                if (!$("input:radio[name='time_slot']").is(":checked")) {
                     $('.slot_error').text('Please select a slot');
                     validate = false;
                 }
@@ -894,10 +956,10 @@
             var form_data = new FormData();
             form_data.append('id', id);
             var element = document.getElementById('test');
-            element.classList.add('col-lg-12');
-            element.classList.remove('col-lg-6');
+            // element.classList.add('col-lg-12');
+            // element.classList.remove('col-lg-6');
             $('#set_ctg').hide();
-
+           
             $.ajax({
                 type: "POST",
                 url: "{{ route('getBookingById') }}", // your php file name
@@ -920,7 +982,7 @@
                         var id = rec.id;
                         var first_name = rec.first_name;
                         var last_name = rec.last_name;
-                        name = first_name+' '+ last_name;
+                        name = first_name+' '+ (last_name ? last_name  : '');
                         var date = rec.date;
                         var category_id  = rec.category_id ;
                         var time_slot_id = rec.time_slot_id;
@@ -928,15 +990,21 @@
                         var phone_number = rec.phone_number;
                         var post_code = rec.post_code;
                         var address = rec.address;
+                        var city = rec.city;
+                        var state = rec.state;
+                        var country = rec.country;
                         $('#id').val(id);
                         $('#customer_name').val(name);
                         $('#customer_no').val(phone_number);
                         $('#customer_email').val(email);
                         $('#customer_address').text(address);
                         $('#customer_post_code').val(post_code);
+                        $('#city').val(city ? city : '');
+                        $('#state').val(state ? state : '');
+                        $('#country').val(country ? country : '');
                         $('.selected_date').val(date);
-                        $('#category_id').val(category_id).trigger('change.select2');
-                        $('#zip_code').val(time_slot_id).trigger('change.select2');
+                        // $('#category_id').val(category_id).trigger('change.select2');
+                        // $('#zip_code').val(time_slot_id).trigger('change.select2');
                         window.scrollTo({
                             top: 0,
                             behavior: 'smooth'
@@ -1006,7 +1074,7 @@
                 },
                 success: function(data) {
                     if (data.status == 'success') {
-
+                        console.log(data);
                         $('#BookingAssignModal').modal({
                             backdrop: 'static',
                             keyboard: false
@@ -1014,31 +1082,40 @@
                             $("#BookingAssign").validate().resetForm();
                         });
 
-                        var allUsers=data.getUsers;
-                        var booking_id=data.booking_id;
+                        var allUsers = data.getUsers;
+                        var booking_id = data.booking_id;
                         $('#booking_id').val(booking_id);
                         $("#booking_user_id").empty();
                         $("#booking_user_id").append(new Option("Select User", "")).trigger("change");
-                        $.each(allUsers, function (i, allUser) {
-                                $('#booking_user_id').append($('<option>', {
-                                    value: allUser.id,
-                                    text : allUser.name
-                                })).trigger("change");
+                        $.each(allUsers, function(i, allUser) {
+                            $('#booking_user_id').append($('<option>', {
+                                value: allUser.id,
+                                text: allUser.name
+                            })).trigger("change");
                         });
 
                         var bookedUser = data.bookedUsers;
-                        if(bookedUser!='' || bookedUser!=null){
-                           $.each(bookedUser, function (i, booked) {
-                               $("#booking_user_id option[value="+booked+"]").prop('disabled',true);
+                        if (bookedUser != '' || bookedUser != null) {
+                            $.each(bookedUser, function(i, booked) {
+                                $("#booking_user_id option[value=" + booked + "]").prop(
+                                    'disabled', true);
                             });
                         }
                         var selectedUser = data.getSelectedUser;
                         //console.log(selectedUser);
-                        if(selectedUser!=null){
-                           $("#booking_user_id").val(selectedUser.user_id);
-                           if(selectedUser.assign_status !='pending'){
-                               $('.modal-footer').hide();
-                           }
+                        if (selectedUser != null) {
+                            $("#booking_user_id").val(selectedUser.user_id);
+                            if (selectedUser.assign_status != 'pending') {
+                                $('.assign_task_body_wrapper').hide();
+                                $('#modal-footer').hide();
+                                $('.assign_taks_to_wrapper').show();
+                                $.each(allUsers, function(i, allUser) {
+                                    if (allUser.id == selectedUser.user_id) {
+                                        $('.assign_taks_to_txt').text(allUser.name
+                                        .toUpperCase());
+                                    }
+                                });
+                            }
 
 
                         }
@@ -1099,12 +1176,12 @@
                 });
             }
         });
-        $(document).on('click','.selected_date',function(){
+        $(document).on('click', '.selected_date', function() {
             console.log('yes');
             //    $('.zip_code').selectpicker("refresh");
         });
-        $(document).on('change','.zip_code',function(){
-            zipCode  =  $(this).val();
+        $(document).on('change', '.zip_code', function() {
+            zipCode = $(this).val();
             date = $('.date').val();
             var form_data = new FormData();
             form_data.append('zipCode', zipCode);
@@ -1121,13 +1198,13 @@
                 },
                 success: function(data) {
                     if (data.status == 'success') {
-                        if(data.zipCode != ''){
-                         $('.selected_zip_code_time_slot_html').html('');
-                         $('.selected_zip_code_time_slot_html').html(data.timeSlotHtml);
-                         }else{
+                        if (data.zipCode != '') {
+                            $('.selected_zip_code_time_slot_html').html('');
+                            $('.selected_zip_code_time_slot_html').html(data.timeSlotHtml);
+                        } else {
                             $('.time_slot_html').html();
                             $('.time_slot_html').html(data.timeSlotHtml);
-                         }
+                        }
                     } else {
                         Swal.fire("Sorry!", data.message, "error");
                     }

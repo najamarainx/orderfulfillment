@@ -36,15 +36,17 @@ class TaskController extends Controller
         $sortColumnName = $request->columns[$sortColumnIndex]['data']; // Column name
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
-        $sql = OrderFulfillmentSaleLog::select('orderfulfillment_sale_logs.*','orderfulfillment_items.name as item_name','orderfulfillment_variants.name as variant_name','orderfulfillment_departments.name as department_name','orderfulfillment_users.name as assigned_user')->where('orderfulfillment_sale_logs.is_verified','1');
+        $sql = OrderFulfillmentSaleLog::select('orderfulfillment_sale_logs.*','orderfulfillment_items.name as item_name','orderfulfillment_variants.name as variant_name','order_items.dimension','orderfulfillment_departments.name as department_name','orderfulfillment_users.name as assigned_user')->where('orderfulfillment_sale_logs.is_verified','1');
         $sql->leftJoin('orderfulfillment_assigned_tasks','orderfulfillment_assigned_tasks.task_id','orderfulfillment_sale_logs.id');
         $sql->leftJoin('orderfulfillment_users','orderfulfillment_users.id','orderfulfillment_assigned_tasks.user_id');
         $sql->join('orders','orders.id','orderfulfillment_sale_logs.order_id');
+        $sql->join('order_items','orders.id','order_items.order_id');
         $sql->join('orderfulfillment_items','orderfulfillment_items.id','orderfulfillment_sale_logs.item_id');
         $sql->join('orderfulfillment_variants','orderfulfillment_variants.id','orderfulfillment_sale_logs.variant_id');
         $sql->join('orderfulfillment_departments','orderfulfillment_departments.id','orderfulfillment_sale_logs.department_id');
         $sql->where('orders.paid_percentage','>=','40');
         $sql->whereNULL('orderfulfillment_items.deleted_at');
+        $sql->whereNULL('order_items.deleted_at');
         $sql->whereNULL('orderfulfillment_variants.deleted_at');
         $sql->whereNULL('orderfulfillment_assigned_tasks.deleted_at');
         $sql->whereNULL('orders.deleted_at');
@@ -109,6 +111,7 @@ class TaskController extends Controller
             $data[] = [
                 "id" => $orderObj->id,
                 "department_id" =>$orderObj->department_name,
+                "dimension" =>$orderObj->dimension,
                 "item_id" =>$orderObj->item_name,
                 "variant_id"=>$orderObj->variant_name,
                 "qty"=>$orderObj->qty,

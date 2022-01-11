@@ -364,16 +364,16 @@
                                                             <td>
                                                                 <div class="d-flex align-items-center justify-content-start w-100">
                                                                     <div>
-                                                                        <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{$saleLogItem->assignedTask->assignedUser->name}}</a>
-                                                                        <span class="text-muted font-weight-bold d-block">{{$saleLogItem->assignedTask->assignedUser->email}}</span>
+                                                                        <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{isset($saleLogItem->assignedTask->assignedUser->name) && !empty($saleLogItem->assignedTask->assignedUser->name) ? $saleLogItem->assignedTask->assignedUser->name : '' }}</a>
+                                                                        <span class="text-muted font-weight-bold d-block">{{isset($saleLogItem->assignedTask->assignedUser->email) && !empty($saleLogItem->assignedTask->assignedUser->email) ? $saleLogItem->assignedTask->assignedUser->email :''}}</span>
                                                                     </div>
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex align-items-center justify-content-start w-100">
                                                                     <div class="row">
-                                                                        <span class="col-md-12 col-xs-12 text-md-right text-sm-left text-xs-right">{{date('d/m/Y',strtotime($saleLogItem->assignedTask->created_at))}}</span>
-                                                                        <span class="col-md-12 col-xs-12 text-md-right text-sm-left text-xs-right">{{date('h:i A',strtotime($saleLogItem->assignedTask->created_at))}}</span>
+                                                                        <span class="col-md-12 col-xs-12 text-md-right text-sm-left text-xs-right">{{date('d/m/Y',strtotime(isset($saleLogItem->assignedTask->created_at) && !empty($saleLogItem->assignedTask->created_at) ? $saleLogItem->assignedTask->created_at : ''))}}</span>
+                                                                        <span class="col-md-12 col-xs-12 text-md-right text-sm-left text-xs-right">{{date('h:i A',strtotime(isset($saleLogItem->assignedTask->created_at) && !empty($saleLogItem->assignedTask->created_at) ? $saleLogItem->assignedTask->created_at : ''))}}</span>
                                                                     </div>
                                                                 </div>
                                                             </td>

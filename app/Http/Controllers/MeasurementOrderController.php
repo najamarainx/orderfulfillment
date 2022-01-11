@@ -151,7 +151,7 @@ class MeasurementOrderController extends Controller
                             'store_id' => $store_id,
                             'name' => $bookingData->first_name . ' ' . $bookingData->last_name,
                             'email' => $bookingData->email,
-                            'phone' => $bookingData->phone_numbe,
+                            'phone' => $bookingData->phone_number,
                             'total_price' => $request->order_total_price,
                             'paid_amount' => $request->paid_price,
                             'address' => $bookingData->address,

@@ -407,11 +407,11 @@
                         <thead>
                         <tr>
                             <th>Sr</th>
+                            <th>Name</th>
+                            <th>Phone No</th>
                             <th>Date</th>
                             <th>Time Slot</th>
                             <th>Category</th>
-                            <th>Name</th>
-                            <th>Phone No</th>
                             <th>Assign Status</th>
                             <th>Actions</th>
                         </tr>
@@ -569,6 +569,12 @@
                         data: 'id'
                     },
                         {
+                            data: 'first_name'
+                        },
+                        {
+                            data: 'phone_number'
+                        },
+                        {
                             data: 'date'
                         },
                         {
@@ -576,12 +582,6 @@
                         },
                         {
                             data: 'category_id'
-                        },
-                        {
-                            data: 'first_name'
-                        },
-                        {
-                            data: 'phone_number'
                         },
 
                         {
