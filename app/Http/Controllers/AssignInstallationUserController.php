@@ -111,14 +111,18 @@ class AssignInstallationUserController extends Controller
                 </span>
             </a>';
             }
-
+          
+            if($orderObj->status == 'installation'){
+                $order_status = 'label-light-warning';
+             }
+           
             $data[] = [
                 "id" => $orderObj->id,
                 "store_id" => $orderObj->store_name,
                 "name" => $orderObj->name,
                 "phone" => $orderObj->phone,
                 "created_at" => Carbon::create($orderObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
-                "status" => $orderObj->status,
+                "status" => '<span class="label label-lg label-light-warning label-inline ">' .$orderObj->status.'</span>',
                 "action" => $action
             ];
         }
@@ -215,12 +219,21 @@ class AssignInstallationUserController extends Controller
             $action .= '<a href="' . url('installation-order/detail') . '/' . $orderObj->order_id . '"  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview  ">
             <i class="la la-eye"></i>
         </a>';
-
+        $assign_status_class = '';
+        if($orderObj->status == 'pending'){
+            $assign_status_class = 'label-light-danger';
+         }
+        if($orderObj->status == 'in progress'){
+            $assign_status_class = 'label-light-warning';
+         }
+        if($orderObj->status == 'completed'){
+            $assign_status_class = 'label-light-success';
+         }
             if($orderObj->status=='completed' && Auth::user()->is_head==1){
-                $status='<span class="badge badge-success "  style="cursor:pointer">' . $orderObj->status . '</span>';
+                $status='<span class="label label-lg label-light-success label-inline"  style="cursor:pointer">' . $orderObj->status . '</span>';
             }else{
 
-                $status='<button class="badge badge-success assemble_update " data-paid-label = "'.$orderObj->payment_type.'" data-paid-amount="'.$orderObj->paid_amount.'_'.$orderObj->total_price.'" '.((isset($orderObj->updated_by) && Auth::user()->is_head==1 && Auth::user()->id != $orderObj->updated_by)   ? 'disabled' : '').' data-id="'.$orderObj->id.'" data-order-id = "' . $orderObj->order_id . '" data-user-id="' . $orderObj->id . '" style="cursor:pointer">' . $orderObj->status . '</button>';
+                $status='<button class="label label-lg '.$assign_status_class.' label-inline assemble_update " data-paid-label = "'.$orderObj->payment_type.'" data-paid-amount="'.$orderObj->paid_amount.'_'.$orderObj->total_price.'" '.((isset($orderObj->updated_by) && Auth::user()->is_head==1 && Auth::user()->id != $orderObj->updated_by)   ? 'disabled' : '').' data-id="'.$orderObj->id.'" data-order-id = "' . $orderObj->order_id . '" data-user-id="' . $orderObj->id . '" style="cursor:pointer">' . $orderObj->status . '</button>';
             }
 
             $data[] = [

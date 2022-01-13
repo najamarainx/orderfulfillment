@@ -125,14 +125,41 @@ class OrderController extends Controller
                     <!--end::Svg Icon-->
                 </span>
             </a>';*/
-
+            $order_status = null;
+            if($orderObj->status == 'pending'){
+                $order_status = 'label-light-danger';
+             }
+            if($orderObj->status == 'in progress'){
+                $order_status = 'label-light-warning';
+             }
+            if($orderObj->status == 'completed'){
+                $order_status = 'label-light-success';
+             }
+            if($orderObj->status == 'assigned'){
+                $order_status = 'label-light-warning';
+             }
+            if($orderObj->status == 'inventory'){
+                $order_status = 'label-light-warning';
+             }
+            if($orderObj->status == 'production'){
+                $order_status = 'label-light-warning';
+             }
+            if($orderObj->status == 'assembling'){
+                $order_status = 'label-light-warning';
+             }
+            if($orderObj->status == 'packing'){
+                $order_status = 'label-light-warning';
+             }
+            if($orderObj->status == 'installation'){
+                $order_status = 'label-light-warning';
+             }
             $data[] = [
                 "id" => $orderObj->id,
                 "store_id" => $orderObj->store_name,
                 "name" => $orderObj->name,
                 "phone" => $orderObj->phone,
                 "created_at" => Carbon::create($orderObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
-                "status" => $orderObj->status,
+                "status" => '<span class="'.(isset($order_status) && !empty($order_status) ? 'label label-lg ' .$order_status : '').' label-inline">' .$orderObj->status.'</span>',
                 "action" => $action
             ];
         }

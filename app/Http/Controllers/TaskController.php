@@ -122,7 +122,15 @@ class TaskController extends Controller
             }
 
 
-
+            if($orderObj->status == 'pending'){
+                $order_status = 'label-light-danger';
+             }
+            if($orderObj->status == 'in progress'){
+                $order_status = 'label-light-warning';
+             }
+            if($orderObj->status == 'completed'){
+                $order_status = 'label-light-success';
+             }
             $data[] = [
                 "id" => $orderObj->id,
                 "department_id" =>$orderObj->department_name,
@@ -130,7 +138,7 @@ class TaskController extends Controller
                 "item_id" =>$orderObj->item_name,
                 "variant_id"=>$orderObj->variant_name,
                 "qty"=>$orderObj->qty,
-                "status"=>'<span class="badge badge-success badge-pill" style="cursor:pointer">' . $orderObj->status . '</span>',
+                "status" => '<span class="'.(isset($order_status) && !empty($order_status) ? 'label label-lg ' .$order_status : '').' label-inline  assign_status">' .$orderObj->status.'</span>',
                 "date"=>Carbon::create($orderObj->updated_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
                 "assigned"=>ucfirst($orderObj->assigned_user),
                 "action"=>$action

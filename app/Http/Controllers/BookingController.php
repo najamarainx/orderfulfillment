@@ -141,6 +141,35 @@ class BookingController extends Controller
         </span>
     </a>';
             }
+            $booking_status_class = null;
+            $assign_status_class = null;
+            if($bookingObj->booking_status == 'not called'){
+               $booking_status_class = 'label-light-warning';
+            }
+            if($bookingObj->booking_status == 'not respond'){
+               $booking_status_class = 'label-light-info';
+            }
+            if($bookingObj->booking_status == 'cancelled'){
+               $booking_status_class = 'label-light-primary';
+            }
+            if($bookingObj->booking_status == 'confirmed'){
+                $booking_status_class = 'label-light-success';
+            }
+            if($bookingObj->booking_status == 'rescheduled'){
+                $booking_status_class = 'label-light-dark';
+             }
+            if($bookingObj->booking_status == 'rescheduled'){
+                $booking_status_class = 'label-light-dark';
+             }
+            if($bookingObj->assign_status == 'pending'){
+                $assign_status_class = 'label-light-danger';
+             }
+            if($bookingObj->assign_status == 'in progress'){
+                $assign_status_class = 'label-light-warning';
+             }
+            if($bookingObj->assign_status == 'completed'){
+                $assign_status_class = 'label-light-success';
+             }
 
             $data[] = [
                 "id" => $bookingObj->id,
@@ -149,8 +178,8 @@ class BookingController extends Controller
                 "category_id" => $categoryName,
                 "first_name" => $bookingObj->first_name . ' ' . $bookingObj->last_name,
                 "phone_number" => $bookingObj->phone_number,
-                "booking_status" =>  '<button class="badge badge-success badge-pill booking_status" '.((isset($bookingObj->assign_status) && $bookingObj->assign_status  == 'completed' || $bookingObj->assign_status  == 'in progress')   ? 'disabled' : '').' style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->booking_status . '</button>',
-                "assign_status"=>'<span class="badge badge-success badge-pill assign_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->assign_status . '</span>',
+                "booking_status" =>  '<button style="border:none" class="label label-lg '.$booking_status_class.' label-inline booking_status" '.((isset($bookingObj->assign_status) && $bookingObj->assign_status  == 'completed' || $bookingObj->assign_status  == 'in progress')   ? 'disabled' : '').' style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->booking_status . '</button>',
+                "assign_status"=>'<span class="'.(isset($assign_status_class) && !empty($assign_status_class) ? 'label label-lg ' .$assign_status_class : '').' label-inline  assign_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->assign_status . '</span>',
                 "action" => $action
             ];
             }

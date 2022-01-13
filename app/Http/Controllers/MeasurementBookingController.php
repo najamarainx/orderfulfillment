@@ -115,6 +115,16 @@ class MeasurementBookingController extends Controller
                 <i class="la la-eye"></i>
             </a>';
             }
+            $assign_status_class = null;
+            if($bookingObj->assign_status == 'pending'){
+                $assign_status_class = 'label-light-danger';
+             }
+            if($bookingObj->assign_status == 'in progress'){
+                $assign_status_class = 'label-light-warning';
+             }
+            if($bookingObj->assign_status == 'completed'){
+                $assign_status_class = 'label-light-success';
+             }
             $data[] = [
                 "id" => $bookingObj->id,
                 "date" => Carbon::parse($bookingObj->assign_date)->format('Y-m-d'),
@@ -123,7 +133,7 @@ class MeasurementBookingController extends Controller
                 "first_name" => $bookingObj->first_name . ' ' . $bookingObj->last_name,
                 "phone_number" => $bookingObj->phone_number,
                 "booking_status" =>  '<span class="badge badge-success badge-pill booking_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->booking_status . '</span>',
-                "assign_status" => '<span class="badge badge-success badge-pill booking_assign_status" style="cursor:pointer" data-id="' . $bookingObj->assign_id . '">' . $bookingObj->assign_status . '</span>',
+                "assign_status" => '<span class="label label-lg '.$assign_status_class.' label-inline booking_assign_status" style="cursor:pointer" data-id="' . $bookingObj->assign_id . '">' . $bookingObj->assign_status . '</span>',
                 "action" => $action
             ];
         }
