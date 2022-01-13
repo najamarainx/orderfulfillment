@@ -55,7 +55,7 @@
         <div class="card card-custom gutter-b">
             <div class="card-header flex-wrap py-3">
                 <div class="card-title">
-                    <h3 class="card-label">Inventory Item List
+                    <h3 class="card-label">Inventory Item List {{ isset($totalItems) && !empty($totalItems) ? '('.$totalItems.')'  :' '  }}
                     </h3>
                 </div>
                 {{-- <div class="card-toolbar">

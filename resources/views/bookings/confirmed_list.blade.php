@@ -367,14 +367,36 @@ td {
             </div>
             <!--end::Info-->
         </div>
-    </div>
-    <!--begin::Container-->
-    <div class="">
-        <div class="card card-custom gutter-b">
-            <div class="card-header flex-wrap py-3">
-                <div class="card-title">
-                    <h3 class="card-label">Booking List
-                    </h3>
+        <!--begin::Container-->
+        <div class="container">
+            <div class="card card-custom gutter-b">
+                <div class="card-header flex-wrap py-3">
+                    <div class="card-title">
+                        <h3 class="card-label">Booking List {{ isset($totalBookings) && !empty($totalBookings) ? '('.$totalBookings.')'  : '' }}
+                        </h3>
+                    </div>
+                    <div class="card-toolbar">
+                        <!--begin::Dropdown-->
+                        <!--end::Dropdown-->
+                        <!--begin::Button-->
+                        <a class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#addBookingModal"
+                            id="btn_add_new">
+                            <span class="svg-icon svg-icon-md">
+                                <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24" />
+                                        <circle fill="#000000" cx="9" cy="15" r="6" />
+                                        <path
+                                            d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z"
+                                            fill="#000000" opacity="0.3" />
+                                    </g>
+                                </svg>
+                                <!--end::Svg Icon-->
+                            </span>Add Booking</a>
+                        <!--end::Button-->
+                    </div>
                 </div>
                 <div class="card-toolbar">
                     <!--begin::Dropdown-->
@@ -731,8 +753,50 @@ var datatable = function() {
                         'booking_status', 'assign_status'
                     ],
                 },
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+            };
+
+    }();
+        jQuery.validator.addMethod('check_phone_no', function(phone_number, element) {
+        return phone_number.length > 9 &&
+            phone_number.match(/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/);
+    }, 'Please enter a correct UK number.');
+        jQuery(document).ready(function() {
+            var today, datepicker;
+            today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+            datepicker = $('#datepicker').datepicker({
+                minDate: today,
+                format: 'yyyy-mm-dd'
+            });
+            datatable.init();
+            var validator = $("#addForm").validate({
+                rules: {
+                    customer_name: {
+                        required: true
+                    },
+                    customer_no: {
+                        required: true,
+                        'check_phone_no':true
+                    },
+                    customer_email: {
+                        required: true
+                    },
+                    customer_address: {
+                        required: true
+                    },
+                    customer_post_code: {
+                        required: true
+                    }, 
+                    city: {
+                        required: true
+                    },
+                    state: {
+                        required: true
+                    },
+                    country: {
+                        required: true
+                    },
+
                 },
             },
             columns: [{

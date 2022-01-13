@@ -22,7 +22,13 @@ class AssembledOrderController extends Controller
     public function index()
     {
         $stores = $query = DB::table('stores')->whereNull('deleted_at')->get();
-        $dt = ['stores' => $stores];
+        $sql = Order::select('orders.*', 'stores.name as store_name')->where('orders.payment', 'verified');
+        $sql->join('stores', 'orders.store_id', 'stores.id');
+        $sql->where('orders.paid_percentage', '>=', '40');
+        $sql->where('orders.status', 'assembling');
+        $sql->whereNULL('stores.deleted_at');
+        $sql->whereNULL('orders.deleted_at');
+        $dt = ['stores' => $stores,'totalAssembledOrder'=>$sql->count()];
         return view('assembled_orders.list', $dt);
     }
     public function getList(Request $request)
@@ -96,13 +102,22 @@ class AssembledOrderController extends Controller
                     <!--end::Svg Icon-->
                 </span>
             </a>';
+            if($orderObj->status == 'pending'){
+                $order_status = 'label-light-danger';
+             }
+            if($orderObj->status == 'in progress'){
+                $order_status = 'label-light-warning';
+             }
+            if($orderObj->status == 'completed'){
+                $order_status = 'label-light-success';
+             }
             $data[] = [
                 "id" => $orderObj->id,
                 "store_id" => $orderObj->store_name,
                 "name" => $orderObj->name,
                 "phone" => $orderObj->phone,
                 "created_at" => Carbon::create($orderObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
-                "status" => $orderObj->status,
+                "status" => '<span class="'.(isset($order_status) && !empty($order_status) ? 'label label-lg ' .$order_status : '').' label-inline  assign_status">' .$orderObj->status.'</span>',
                 "action" => $action
             ];
         }
@@ -181,6 +196,16 @@ class AssembledOrderController extends Controller
         // print_r($userData);exit;
         $data = [];
         foreach ($userData as $userObj) {
+            $assign_status_class = null;
+            if($userObj->status  == 'pending'){
+                $assign_status_class = 'label-light-danger';
+             }
+            if($userObj->status  == 'in progress'){
+                $assign_status_class = 'label-light-warning';
+             }
+            if($userObj->status  == 'completed'){
+                $assign_status_class = 'label-light-success';
+             }
             $action = "";
             $action .= '<div class="text-right">';
             if (empty($userObj->o_as_u_id)) {
@@ -195,7 +220,7 @@ class AssembledOrderController extends Controller
                 "id" => $userObj->id,
                 "name" => $userObj->name,
                 "added_by" =>$userObj->from_name,
-                "status"=> '<span class="badge badge-success badge-pill worker_assign_status" style="cursor:pointer" >' .  $userObj->status  . '</span>',
+                "status"=> '<span class="label label-lg '.$assign_status_class.' label-inline worker_assign_status" style="cursor:pointer" >' .  $userObj->status  . '</span>',
                 "action" => $action
             ];
         }

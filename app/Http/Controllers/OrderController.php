@@ -19,8 +19,13 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $stores = $query = DB::table('stores')->whereNull('deleted_at')->get();
-        $dt = ['stores' => $stores];
+        $stores = DB::table('stores')->whereNull('deleted_at')->get();
+        $sql = Order::select('orders.*', 'stores.name as store_name')->where('orders.payment', 'verified');
+        $sql->join('stores', 'orders.store_id', 'stores.id');
+        $sql->where('orders.paid_percentage', '<=', '40');
+        $sql->whereNULL('stores.deleted_at');
+        $sql->whereNULL('orders.deleted_at');
+        $dt = ['stores' => $stores,'totalPendingOrders'=>$sql->count()];
         return view('orders.list', $dt);
     }
 
@@ -120,14 +125,39 @@ class OrderController extends Controller
                     <!--end::Svg Icon-->
                 </span>
             </a>';*/
-
+            $order_status = null;
+            if($orderObj->status == 'pending'){
+                $order_status = 'label-light-danger';
+             }
+            if($orderObj->status == 'in progress'){
+                $order_status = 'label-light-warning';
+             }
+            if($orderObj->status == 'completed'){
+                $order_status = 'label-light-success';
+             }
+            if($orderObj->status == 'assigned inventory'){
+                $order_status = 'label-light-warning';
+             }
+            
+            if($orderObj->status == 'production'){
+                $order_status = 'label-light-warning';
+             }
+            if($orderObj->status == 'assembling'){
+                $order_status = 'label-light-warning';
+             }
+            if($orderObj->status == 'packing'){
+                $order_status = 'label-light-warning';
+             }
+            if($orderObj->status == 'installation'){
+                $order_status = 'label-light-warning';
+             }
             $data[] = [
                 "id" => $orderObj->id,
                 "store_id" => $orderObj->store_name,
                 "name" => $orderObj->name,
                 "phone" => $orderObj->phone,
                 "created_at" => Carbon::create($orderObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
-                "status" => $orderObj->status,
+                "status" => '<span class="'.(isset($order_status) && !empty($order_status) ? 'label label-lg ' .$order_status : '').' label-inline">' .$orderObj->status.'</span>',
                 "action" => $action
             ];
         }
@@ -411,14 +441,25 @@ class OrderController extends Controller
     public function confirmedOrderList()
     {
         $stores = $query = DB::table('stores')->whereNull('deleted_at')->get();
-        $dt = ['stores' => $stores];
+        $sql = Order::select('orders.*', 'stores.name as store_name')->where('orders.payment', 'verified');
+        $sql->join('stores', 'orders.store_id', 'stores.id');
+        $sql->where('orders.paid_percentage', '>=', '40');
+        $sql->whereNotIn('orders.status', ['assembling','packing','installation','completed']);
+        $sql->whereNULL('stores.deleted_at');
+        $sql->whereNULL('orders.deleted_at');
+
+        $dt = ['stores' => $stores,'totalConfirmedOrder'=>$sql->count()];
         return view('orders.confirmed_order_list', $dt);
     }
 
     public function adminOrderList()
     {
         $stores = $query = DB::table('stores')->whereNull('deleted_at')->get();
-        $dt = ['stores' => $stores];
+        $sql = Order::select('orders.*', 'stores.name as store_name')->where('orders.payment', 'verified');
+        $sql->join('stores', 'orders.store_id', 'stores.id');
+        $sql->whereNULL('stores.deleted_at');
+        $sql->whereNULL('orders.deleted_at');
+        $dt = ['stores' => $stores,'totalOrders'=>$sql->count()];
         return view('orders.admin_order_list', $dt);
     }
 

@@ -6,6 +6,7 @@ use App\Models\OrderFulfillmentDepartment;
 use App\Models\OrderFulfillmentInventoryItem;
 use Illuminate\Http\Request;
 use App\Models\OrderFulfillmentItem;
+use App\Models\OrderFulfillmentPermission;
 use Illuminate\Support\Facades\Validator;
 use DB;
 use Carbon\Carbon;
@@ -15,7 +16,8 @@ class ItemController extends Controller
     public function index()
     {
         $departments = getDepartment(-1, true);
-        $dt = ['departments' => $departments];
+        $totalItems = OrderFulfillmentItem::whereNull('deleted_at')->count();
+        $dt = ['departments' => $departments,'totalItems'=>$totalItems];
         return view('items.list', $dt);
     }
     public function getList(Request $request)

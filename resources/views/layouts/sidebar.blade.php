@@ -96,7 +96,7 @@
                                 </li>
                                 @if (hasPermission('viewTimeSlot'))
 
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item {{ Route::currentRouteName() == 'slotList'  ? 'menu-item-active' : '' }} menu-item-submenu" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('slotList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -108,7 +108,7 @@
                                 @endif
                                 @if (hasPermission('viewBooking'))
 
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'bookingList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('bookingList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -128,7 +128,7 @@
                             </li> --}}
                                 @if (hasPermission('confirmedBooking'))
 
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'confirmedList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('confirmedList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -145,7 +145,7 @@
                 @if (hasPermission('bookingtaskList'))
 
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'bookingTaskList'  ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="javascript:;" class="menu-link menu-toggle">
+                        <a href="{{ route('bookingTaskList') }}" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <span class="svg-icon svg-icon-primary svg-icon-2x">
@@ -161,9 +161,9 @@
                                 <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Measurement</span>
-                            <i class="menu-arrow"></i>
+                            {{-- <i class="menu-arrow"></i> --}}
                         </a>
-                        <div class="menu-submenu">
+                        {{-- <div class="menu-submenu">
                             <i class="menu-arrow"></i>
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-parent" aria-haspopup="true">
@@ -172,7 +172,7 @@
                                     </span>
                                 </li>
 
-                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'bookingTaskList'  ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                                     <a href="{{ route('bookingTaskList') }}" class="menu-link menu-toggle">
                                         <i class="menu-bullet menu-bullet-line">
                                             <span></span>
@@ -182,15 +182,15 @@
                                 </li>
 
                             </ul>
-                        </div>
+                        </div> --}}
                     </li>
 
                 @endif
 
-                @if (hasPermission('adminOrderList'))
+                @if (hasPermission('adminOrderList') || hasPermission('adminOrderList'))
 
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'adminOrderList'  ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="javascript:;" class="menu-link menu-toggle">
+                        <a href="{{ route('adminOrderList') }}" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -208,9 +208,9 @@
                                 <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Orders</span>
-                            <i class="menu-arrow"></i>
+                            {{-- <i class="menu-arrow"></i> --}}
                         </a>
-                        <div class="menu-submenu">
+                        {{-- <div class="menu-submenu">
                             <i class="menu-arrow"></i>
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-parent" aria-haspopup="true">
@@ -219,7 +219,7 @@
                                     </span>
                                 </li>
                                 @if (hasPermission('adminOrderList'))
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'adminOrderList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('adminOrderList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -230,7 +230,7 @@
                                     </li>
                                 @endif
                             </ul>
-                        </div>
+                        </div> --}}
                     </li>
                 @endif
                 @if (hasPermission('orderList'))
@@ -261,7 +261,7 @@
                                     </span>
                                 </li>
                                 @if (hasPermission('pendingOrder'))
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'orderList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('orderList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -272,7 +272,7 @@
                                     </li>
                                 @endif
                                 @if (hasPermission('confirmedOrder'))
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'confirmedOrderList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('confirmedOrderList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -312,7 +312,7 @@
                                     </span>
                                 </li>
                                 @if (hasPermission('assemblerOrderDetail'))
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'assembledOrderList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('assembledOrderList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -323,7 +323,7 @@
                                     </li>
                                 @endif
                                 @if (hasPermission('assemblerUsers'))
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'assembledOrderAssigned'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('assembledOrderAssigned') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -365,7 +365,7 @@
                                     </span>
                                 </li>
                                 @if (hasPermission('packagingOrderDetail'))
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'packagedOrderList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('packagedOrderList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -417,7 +417,7 @@
                                 </li>
                                 @if (hasPermission('installationOrderList'))
 
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'installationOrderList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('installationOrderList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -429,7 +429,7 @@
                                 @endif
                                 @if (hasPermission('installationUsers'))
 
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'installationOrderAssigned'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('installationOrderAssigned') }}"
                                             class="menu-link menu-toggle">
@@ -444,10 +444,10 @@
                         </div>
                     </li>
                 @endif
-                @if (hasPermission('accountantOrderList'))
+                @if (hasPermission('accountantOrderList') || hasPermission('accountantOrderList'))
 
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'accountantOrderList' ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="javascript:;" class="menu-link menu-toggle">
+                        <a href="{{ route('accountantOrderList') }}" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -465,9 +465,9 @@
                                 <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Accountant Order</span>
-                            <i class="menu-arrow"></i>
+                            {{-- <i class="menu-arrow"></i> --}}
                         </a>
-                        <div class="menu-submenu">
+                        {{-- <div class="menu-submenu">
                             <i class="menu-arrow"></i>
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-parent" aria-haspopup="true">
@@ -476,7 +476,7 @@
                                     </span>
                                 </li>
                                 @if (hasPermission('accountantOrderList'))
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'accountantOrderList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('accountantOrderList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -487,13 +487,13 @@
                                     </li>
                                 @endif
                             </ul>
-                        </div>
+                        </div> --}}
                     </li>
                 @endif
                 @if (hasPermission('viewZip'))
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'zipList' ? 'menu-item-open' : '' }}"
                         aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="javascript:;" class="menu-link menu-toggle">
+                        <a href="{{ route('zipList') }}" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -505,17 +505,17 @@
                                 <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Post Code</span>
-                            <i class="menu-arrow"></i>
+                            {{-- <i class="menu-arrow"></i> --}}
                         </a>
-                        <div class="menu-submenu">
+                        {{-- <div class="menu-submenu">
                             <i class="menu-arrow"></i>
                             <ul class="menu-subnav">
-                                <li class="menu-item menu-item-parent" aria-haspopup="true">
+                                <li class="menu-item menu-item-parent " aria-haspopup="true">
                                     <span class="menu-link">
                                         <span class="menu-text">List</span>
                                     </span>
                                 </li>
-                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'zipList'  ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                                     <a href="{{ route('zipList') }}" class="menu-link menu-toggle">
                                         <i class="menu-bullet menu-bullet-line">
                                             <span></span>
@@ -525,7 +525,7 @@
                                 </li>
 
                             </ul>
-                        </div>
+                        </div> --}}
                     </li>
                 @endif
                 @if (hasPermission('viewUser') || hasPermission('viewCategory') || hasPermission('viewPermission') || hasPermission('viewRole'))
@@ -556,7 +556,7 @@
                                         <span class="menu-text">Users Role & Permission</span>
                                     </span>
                                 </li>
-                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'userList'  ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                                     <a href="{{ route('userList') }}" class="menu-link menu-toggle">
                                         <i class="menu-bullet menu-bullet-line">
                                             <span></span>
@@ -565,7 +565,7 @@
                                     </a>
                                 </li>
                                 @if (haspermission('viewCategory'))
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'categoryList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('categoryList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -576,7 +576,7 @@
                                     </li>
                                 @endif
                                 @if (haspermission('viewPermission'))
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'permissionList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('permissionList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -645,7 +645,7 @@
                                 </li>
                                 @if (hasPermission('viewDepartment'))
 
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'departmentList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('departmentList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -694,7 +694,7 @@
                         <div class="menu-submenu">
                             <i class="menu-arrow"></i>
                             <ul class="menu-subnav">
-                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'itemList'  ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                                     <a href="{{ route('itemList') }}" class="menu-link menu-toggle">
                                         <i class="menu-bullet menu-bullet-line">
                                             <span></span>
@@ -702,16 +702,16 @@
                                         <span class="menu-text">Item List</span>
                                     </a>
                                 </li>
-                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'variantList'  ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
 
-                                    <a href="{{ route('variantList') }}" class="menu-link menu-toggle">
+                                    <a href="{{ route('variantList') }} " class="menu-link menu-toggle">
                                         <i class="menu-bullet menu-bullet-line">
                                             <span></span>
                                         </i>
                                         <span class="menu-text">Variant List</span>
                                     </a>
                                 </li>
-                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'supplierList'  ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                                     <a href="{{ route('supplierList') }}" class="menu-link menu-toggle">
                                         <i class="menu-bullet menu-bullet-line">
                                             <span></span>
@@ -720,12 +720,12 @@
 
                                     </a>
                                 </li>
-                                <li class="menu-item menu-item-parent" aria-haspopup="true">
+                                <li class="menu-item menu-item-parent " aria-haspopup="true">
                                     <span class="menu-link">
                                         <span class="menu-text">Stock</span>
                                     </span>
                                 </li>
-                                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                                <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'stockList'  ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                                     <a href="{{ route('stockList') }}" class="menu-link menu-toggle">
                                         <i class="menu-bullet menu-bullet-line">
                                             <span></span>
@@ -737,9 +737,9 @@
                         </div>
                     </li>
                 @endif
-                @if (hasPermission('inventoryList'))
+                @if (hasPermission('inventoryList') || hasPermission('ProductInventoryList'))
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'inventoryList'  ? 'menu-item-open' : '' }}"  aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="javascript:;" class="menu-link menu-toggle">
+                        <a href="{{ route('inventoryList') }}" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <span class="svg-icon svg-icon-primary svg-icon-2x">
@@ -763,9 +763,9 @@
                                 <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Inventory</span>
-                            <i class="menu-arrow"></i>
+                            {{-- <i class="menu-arrow"></i> --}}
                         </a>
-                        <div class="menu-submenu">
+                        {{-- <div class="menu-submenu">
                             <i class="menu-arrow"></i>
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-parent" aria-haspopup="true">
@@ -774,7 +774,7 @@
                                     </span>
                                 </li>
                                 @if (hasPermission('ProductInventoryList'))
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'inventoryList'  ? 'menu-item-open' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('inventoryList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -785,7 +785,7 @@
                                     </li>
                                 @endif
                             </ul>
-                        </div>
+                        </div> --}}
                     </li>
                 @endif
             </ul>

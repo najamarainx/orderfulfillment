@@ -23,11 +23,14 @@ class SupplierStockController extends Controller
         $departments=OrderFulfillmentDepartment::whereNULL('deleted_at')->get();
         $suppliers=OrderFulfillmentSupplier::whereNULL('deleted_at')->get();
         $variants=getVariants();
+        $bills = OrderFulfillmentSupplierStock::select('orderfulfillment_stock_orders.*', 'orderfulfillment_suppliers.name as supplier_name', 'orderfulfillment_suppliers.company_name')->whereNULL('orderfulfillment_stock_orders.deleted_at');
+        $bills->join('orderfulfillment_suppliers', 'orderfulfillment_stock_orders.supplier_id', '=', 'orderfulfillment_suppliers.id');
 
         $dt = [
             'departments' => $departments,
             'suppliers' => $suppliers,
             'variants' => $variants,
+            'totalItems' => $bills->count(),
 
         ];
         return view('timeslots.stocks.list', $dt);

@@ -365,7 +365,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">Task List
+                        <h3 class="card-label">Task List  {{ isset($totalAssignBookings) && !empty($totalAssignBookings) ? '('.$totalAssignBookings.')'  :' '  }}
                         </h3>
                     </div>
 

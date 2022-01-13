@@ -17,6 +17,11 @@ class MeasurementBookingController extends Controller
     {
         $category  = getCategory('product', -1, true);
         $data['categories'] = $category;
+          $booking = DB::table('orderfulfillment_bookings')->select('orderfulfillment_bookings.*', 'booking_assign.date as assign_date', 'booking_assign.assign_status', 'booking_assign.booking_id', 'booking_assign.id as assign_id', 'ots.booking_from_time', 'ots.booking_to_time')->whereNull('orderfulfillment_bookings.deleted_at')->leftJoin('orderfulfillment_time_slots as ots', 'orderfulfillment_bookings.time_slot_id', 'ots.id')->whereNull('ots.deleted_at');
+        $booking->join('orderfulfillment_booking_assigns as booking_assign', 'orderfulfillment_bookings.id', 'booking_assign.booking_id')
+        ->whereNULL('booking_assign.deleted_at');
+        $booking->whereIn('orderfulfillment_bookings.booking_status', ['confirmed', 'rescheduled']);
+        $data['totalAssignBookings'] =   $booking->count();
         return view('bookings.task', $data);
     }
 
@@ -110,6 +115,16 @@ class MeasurementBookingController extends Controller
                 <i class="la la-eye"></i>
             </a>';
             }
+            $assign_status_class = null;
+            if($bookingObj->assign_status == 'pending'){
+                $assign_status_class = 'label-light-danger';
+             }
+            if($bookingObj->assign_status == 'in progress'){
+                $assign_status_class = 'label-light-warning';
+             }
+            if($bookingObj->assign_status == 'completed'){
+                $assign_status_class = 'label-light-success';
+             }
             $data[] = [
                 "id" => $bookingObj->id,
                 "date" => Carbon::parse($bookingObj->assign_date)->format('Y-m-d'),
@@ -118,7 +133,7 @@ class MeasurementBookingController extends Controller
                 "first_name" => $bookingObj->first_name . ' ' . $bookingObj->last_name,
                 "phone_number" => $bookingObj->phone_number,
                 "booking_status" =>  '<span class="badge badge-success badge-pill booking_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->booking_status . '</span>',
-                "assign_status" => '<span class="badge badge-success badge-pill booking_assign_status" style="cursor:pointer" data-id="' . $bookingObj->assign_id . '">' . $bookingObj->assign_status . '</span>',
+                "assign_status" => '<span class="label label-lg '.$assign_status_class.' label-inline booking_assign_status" style="cursor:pointer" data-id="' . $bookingObj->assign_id . '">' . $bookingObj->assign_status . '</span>',
                 "action" => $action
             ];
         }

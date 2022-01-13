@@ -15,7 +15,15 @@ class RoleController extends Controller
     //
     public function index()
     {
-        return view('roles.list');
+        $usersTypeArray = ['assembler','packaging','installation'];
+        $userType = auth()->user()->type;
+        $role = OrderFulfillmentRole::select('orderfulfillment_roles.*');
+        if(in_array($userType , $usersTypeArray)){
+            $role->where('added_by',Auth::user()->id);
+            // $role->join('orderfulfillment_users as o_u','orderfulfillment_roles.added_by','o_u.id');
+        }
+        $dt['totalItems'] = $role->count();
+        return view('roles.list',$dt);
     }
 
     public function getList(Request $request)

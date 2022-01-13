@@ -17,7 +17,22 @@ class TaskController extends Controller
     {
         $assignTaskArray = assignTaskStatus();
         $departments = getDepartment(-1, true);
-        $dt = ['AssignTaskArray' => $assignTaskArray, 'departments' => $departments];
+        $sql = OrderFulfillmentSaleLog::select('orderfulfillment_sale_logs.*','orderfulfillment_items.name as item_name','orderfulfillment_variants.name as variant_name','order_items.dimension','orderfulfillment_departments.name as department_name','orderfulfillment_users.name as assigned_user')->where('orderfulfillment_sale_logs.is_verified','1');
+        $sql->leftJoin('orderfulfillment_assigned_tasks','orderfulfillment_assigned_tasks.task_id','orderfulfillment_sale_logs.id');
+        $sql->leftJoin('orderfulfillment_users','orderfulfillment_users.id','orderfulfillment_assigned_tasks.user_id');
+        $sql->join('orders','orders.id','orderfulfillment_sale_logs.order_id');
+        $sql->join('order_items','orders.id','order_items.order_id');
+        $sql->join('orderfulfillment_items','orderfulfillment_items.id','orderfulfillment_sale_logs.item_id');
+        $sql->join('orderfulfillment_variants','orderfulfillment_variants.id','orderfulfillment_sale_logs.variant_id');
+        $sql->join('orderfulfillment_departments','orderfulfillment_departments.id','orderfulfillment_sale_logs.department_id');
+        $sql->where('orders.paid_percentage','>=','40');
+        $sql->whereNULL('orderfulfillment_items.deleted_at');
+        $sql->whereNULL('order_items.deleted_at');
+        $sql->whereNULL('orderfulfillment_variants.deleted_at');
+        $sql->whereNULL('orderfulfillment_assigned_tasks.deleted_at');
+        $sql->whereNULL('orders.deleted_at');
+        $dt = ['AssignTaskArray' => $assignTaskArray, 'departments' => $departments,'totalItems'=>$sql->count()];
+
         return view('tasks.list',$dt);
     }
 
@@ -107,7 +122,15 @@ class TaskController extends Controller
             }
 
 
-
+            if($orderObj->status == 'pending'){
+                $order_status = 'label-light-danger';
+             }
+            if($orderObj->status == 'in progress'){
+                $order_status = 'label-light-warning';
+             }
+            if($orderObj->status == 'completed'){
+                $order_status = 'label-light-success';
+             }
             $data[] = [
                 "id" => $orderObj->id,
                 "department_id" =>$orderObj->department_name,
@@ -115,7 +138,7 @@ class TaskController extends Controller
                 "item_id" =>$orderObj->item_name,
                 "variant_id"=>$orderObj->variant_name,
                 "qty"=>$orderObj->qty,
-                "status"=>'<span class="badge badge-success badge-pill" style="cursor:pointer">' . $orderObj->status . '</span>',
+                "status" => '<span class="'.(isset($order_status) && !empty($order_status) ? 'label label-lg ' .$order_status : '').' label-inline  assign_status">' .$orderObj->status.'</span>',
                 "date"=>Carbon::create($orderObj->updated_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
                 "assigned"=>ucfirst($orderObj->assigned_user),
                 "action"=>$action

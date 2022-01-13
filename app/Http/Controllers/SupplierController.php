@@ -10,7 +10,8 @@ use DB;
 class SupplierController extends Controller
 {
     public function index(){
-        return View('suppliers.list');
+        $totalItems = OrderFulfillmentSupplier::whereNull('deleted_at')->count();
+        return View('suppliers.list',compact('totalItems'));
     }
     public function getList(Request $request)
     {

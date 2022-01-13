@@ -55,7 +55,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">Supplier List
+                        <h3 class="card-label">Supplier List {{ isset($totalItems) && !empty($totalItems) ? '('.$totalItems.')'  :' '  }}
 
                         </h3>
                     </div>
@@ -342,10 +342,12 @@
                         required: true
                     },
                     phone_no: {
-                        required: true
+                        required: true,
+                        'check_phone_no':true
                     },
                     company_phone_no: {
-                        required: true
+                        required: true,
+                        'check_phone_no':true
                     },
                     address: {
                         required: true
@@ -370,7 +372,10 @@
                 }
             });
         })
-
+        jQuery.validator.addMethod('check_phone_no', function(phone_number, element) {
+        return phone_number.length > 9 &&
+            phone_number.match(/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/);
+    }, 'Please enter a correct UK number.');
         $(document).on('click', '#btn_add_new', function() {
             $('#addSupplierModal').modal({
                 backdrop: 'static',

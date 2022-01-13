@@ -100,7 +100,7 @@
                     <!--begin::Header-->
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-center">
-                            <span class="card-label font-weight-bolder text-dark">User List</span>
+                            <span class="card-label font-weight-bolder text-dark">User List {{ isset($totalItems) && !empty($totalItems) ? '('.$totalItems.')'  :' '  }}</span>
                         </h3>
                         <div class="card-toolbar">
 
@@ -262,7 +262,7 @@
                         <div class="col-6">
                             <div class="form-group">
                             <label class="control-label" for="phone">Phone No.</label>
-                                <input type="number" name="phone" id="phone" class="form-control" placeholder="Phone.No">
+                                <input type="number" name="phone" id="phone" class="form-control" placeholder="Phone.No (UK)">
                             </div>
                         </div>
                         @if(!in_array(Auth::user()->type,$usersTypeArray))
@@ -534,7 +534,9 @@
                     required: true
                 },
                 phone: {
-                    required: true
+                    required: true,
+                'check_phone_no': true
+
                 },
                 user_type: {
                     required: true
@@ -758,7 +760,10 @@
 
 
     });
-
+    jQuery.validator.addMethod('check_phone_no', function(phone_number, element) {
+        return phone_number.length > 9 &&
+            phone_number.match(/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/);
+    }, 'Please enter a correct UK number.');
     function getUserType(userType){
        if(userType=='installation' || userType=='measurement'){
 

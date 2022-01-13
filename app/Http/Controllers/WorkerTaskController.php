@@ -85,10 +85,21 @@ class WorkerTaskController extends Controller
         $orderSaleLogDetailData = $orderSaleLogDetail->get();
 
         $data = [];
+       
         foreach ($orderSaleLogDetailData as $key=> $orderObj) {
            if(!empty($orderObj->saleLogs)){
                $status = '';
-               $status .= '<span class="badge badge-success badge-pill worker_assign_status" data-user-id="'.(!empty($orderObj->assignedUser) ? $orderObj->assignedUser->id : '').'"   data-id="'.(!empty($orderObj->saleLogs->id) ? $orderObj->saleLogs->id : '').'" style="cursor:pointer" >' .  $orderObj->saleLogs->status  . '</span>';
+               $task_status= '';
+               if($orderObj->saleLogs->status == 'pending'){
+                $task_status = 'label-light-danger';
+             }
+            if($orderObj->saleLogs->status == 'in progress'){
+                $task_status = 'label-light-warning';
+             }
+            if($orderObj->saleLogs->status == 'completed'){
+                $task_status = 'label-light-success';
+             }
+               $status .= '<span class="label label-lg '.$task_status.' label-inline worker_assign_status" data-user-id="'.(!empty($orderObj->assignedUser) ? $orderObj->assignedUser->id : '').'"   data-id="'.(!empty($orderObj->saleLogs->id) ? $orderObj->saleLogs->id : '').'" style="cursor:pointer" >' .  $orderObj->saleLogs->status  . '</span>';
                $data[] = [
                    "id" => !empty($orderObj->id) ? $orderObj->id : '',
                    "department_id" => !empty($orderObj->saleLogs) && !empty($orderObj->saleLogs->departmentDetails) ? $orderObj->saleLogs->departmentDetails->name : '',

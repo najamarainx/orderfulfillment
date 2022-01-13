@@ -9,7 +9,8 @@ use DB;
 class DepartmentController extends Controller
 {
     public function index(){
-        return view('departments.list');
+        $totalItems = OrderFulfillmentDepartment::whereNull('deleted_at')->count();
+        return view('departments.list',compact('totalItems'));
     }
     public function getList(Request $request)
     {

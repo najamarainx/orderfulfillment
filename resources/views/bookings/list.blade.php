@@ -350,29 +350,54 @@ td {
 @endsection
 @section('content')
 
-<div class="d-flex flex-column-fluid">
-    <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
-        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
-            <div class="d-flex align-items-center flex-wrap mr-2">
-                <!--begin::Page Title-->
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Booking</h5>
-                <!--end::Page Title-->
-                <!--begin::Actions-->
-                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
-                <span class="text-muted font-weight-bold mr-4">Booking List</span>
-                <!--end::Actions-->
+
+    <div class="d-flex flex-column-fluid">
+        <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+            <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+                <!--begin::Info-->
+                <div class="d-flex align-items-center flex-wrap mr-2">
+                    <!--begin::Page Title-->
+                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Booking</h5>
+                    <!--end::Page Title-->
+                    <!--begin::Actions-->
+                    <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
+                    <span class="text-muted font-weight-bold mr-4">Booking List </span>
+                    <!--end::Actions-->
+                </div>
+                <!--end::Info-->
             </div>
             <!--end::Info-->
         </div>
-    </div>
-    <!--begin::Container-->
-    <div class="">
-        <div class="card card-custom gutter-b">
-            <div class="card-header flex-wrap py-3">
-                <div class="card-title">
-                    <h3 class="card-label">Booking List
-                    </h3>
+        <!--begin::Container-->
+        <div class="container">
+            <div class="card card-custom gutter-b">
+                <div class="card-header flex-wrap py-3">
+                    <div class="card-title">
+                        <h3 class="card-label">Booking List {{ isset($totalBookings) && !empty($totalBookings) ? '('.$totalBookings.')' : '' }}
+                        </h3>
+                    </div>
+                    <div class="card-toolbar">
+                        <!--begin::Dropdown-->
+                        <!--end::Dropdown-->
+                        <!--begin::Button-->
+                        <a class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#addBookingModal"
+                            id="btn_add_new">
+                            <span class="svg-icon svg-icon-md">
+                                <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24" />
+                                        <circle fill="#000000" cx="9" cy="15" r="6" />
+                                        <path
+                                            d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z"
+                                            fill="#000000" opacity="0.3" />
+                                    </g>
+                                </svg>
+                                <!--end::Svg Icon-->
+                            </span>Add Booking</a>
+                        <!--end::Button-->
+                    </div>
                 </div>
                 <div class="card-toolbar">
                     <!--begin::Dropdown-->
@@ -473,7 +498,6 @@ td {
             </div>
         </div>
     </div>
-</div>
 
 <div class="modal fade" id="addBookingModal" data-backdrop="static" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -698,11 +722,45 @@ var datatable = function() {
                     bSortable: false
                 },
 
-            ],
-            order: [
-                [0, "desc"]
-            ]
-        });
+            };
+
+        }();
+
+        jQuery(document).ready(function() {
+            var today, datepicker;
+            today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+            datepicker = $('#datepicker').datepicker({
+                minDate: today,
+                format: 'yyyy-mm-dd'
+            });
+            datatable.init();
+            var validator = $("#addForm").validate({
+                rules: {
+                    customer_name: {
+                        required: true
+                    },
+                    customer_no: {
+                        required: true,
+                        'check_phone_no':true
+                    },
+                    customer_email: {
+                        required: true
+                    },
+                    city: {
+                        required: true
+                    },
+                    state: {
+                        required: true
+                    },
+                    country: {
+                        required: true
+                    },
+                    customer_address: {
+                        required: true
+                    },
+                    customer_post_code: {
+                        required: true
+                    }
 
         var filter = function() {
             var val = $.fn.dataTable.util.escapeRegex($(this).val());
@@ -793,6 +851,55 @@ jQuery(document).ready(function() {
                 required: true
             }
 
+            if (validate) {
+                var form_data = $("#addForm").serializeArray();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('bookingSubmit') }}", // your php file name
+                    data: form_data,
+                    dataType: "json",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        if (data.status == 'success') {
+                            toastr.options = {
+                                "closeButton": true,
+                                "debug": false,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-top-right",
+                                "preventDuplicates": true,
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "5000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            };
+                            toastr.success(data.message);
+                            var form = $("#addForm");
+                            form[0].reset();
+                            $('#addBookingModal').modal('hide');
+                            bookingListTable.ajax.reload();
+                        } else {
+                            Swal.fire("Sorry!", data.message, "error");
+                        }
+                    },
+                    error: function(errorString) {
+                        Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
+                    }
+                });
+            }
+        });
+        
+        jQuery.validator.addMethod('check_phone_no', function(phone_number, element) {
+        return phone_number.length > 9 &&
+            phone_number.match(/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/);
+    }, 'Please enter a correct UK number.');
 
         },
         errorPlacement: function(error, element) {

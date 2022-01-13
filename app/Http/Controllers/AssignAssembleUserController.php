@@ -74,11 +74,20 @@ class AssignAssembleUserController extends Controller
             $action .= '<a href="' . url('assembled-order/detail') . '/' . $orderObj->order_id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview">
             <i class="la la-eye"></i>
         </a>';
-
+        $assign_status_class = null;
+        if($orderObj->status == 'pending'){
+            $assign_status_class = 'label-light-danger';
+         }
+        if($orderObj->status == 'in progress'){
+            $assign_status_class = 'label-light-warning';
+         }
+        if($orderObj->status == 'completed'){
+            $assign_status_class = 'label-light-success';
+         }
             if($orderObj->status=='completed' && Auth::user()->is_head==1){
-                $status='<span class="badge badge-success "  style="cursor:pointer">' . $orderObj->status . '</span>';
+                $status='<span class="label label-lg label-light-success label-inline"  style="cursor:pointer">' . $orderObj->status . '</span>';
             }else{
-                $status='<span class="badge badge-success assemble_update" data-id="'.$orderObj->id.'" style="cursor:pointer">' . $orderObj->status . '</span>';
+                $status='<span class="label label-lg '.$assign_status_class.' label-inline assemble_update" data-id="'.$orderObj->id.'" style="cursor:pointer">' . $orderObj->status . '</span>';
             }
 
             $data[] = [

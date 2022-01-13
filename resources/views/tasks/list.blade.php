@@ -347,6 +347,7 @@ td {
 @endsection
 @section('content')
 
+<<<<<<< HEAD
 <div class="d-flex flex-column-fluid">
 <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
@@ -370,6 +371,18 @@ td {
                 <div class="card-title">
                     <h3 class="card-label">Tasks List
                     </h3>
+=======
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class="container">
+            <div class="card card-custom gutter-b">
+                <div class="card-header flex-wrap py-3">
+                    <div class="card-title">
+                        <h3 class="card-label">Tasks List {{ isset($totalItems) && !empty($totalItems) ? '('.$totalItems.')'  :' '  }}
+                        </h3>
+                    </div>
+
+>>>>>>> 5746add8f3c7ffdcb7d8104248303d35be720e25
                 </div>
 
             </div>

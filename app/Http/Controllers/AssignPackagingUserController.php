@@ -17,7 +17,16 @@ class AssignPackagingUserController extends Controller
 {
     public function index(){
         $stores = $query = DB::table('stores')->whereNull('deleted_at')->get();
-        $dt = ['stores' => $stores];
+        $sql = OrderFulfillmentPackagingUser::select('orderfulfillment_packings.*','orderfulfillment_users.name as assigned_to','ab.name as assigned_from');
+        $sql->join('orders','orders.id','orderfulfillment_packings.order_id');
+        $sql->join('orderfulfillment_users','orderfulfillment_packings.user_id','orderfulfillment_users.id');
+        $sql->join('orderfulfillment_users as ab','orderfulfillment_packings.added_by','ab.id');
+        $sql->where('orderfulfillment_users.type','packaging');
+        $sql->whereNULL('orders.deleted_at');
+        $sql->where('orders.status','packing');
+        $sql->whereNULL('orderfulfillment_packings.deleted_at');
+        $sql->whereNULL('orderfulfillment_users.deleted_at');
+        $dt = ['stores' => $stores,'totalPackagingOrder'=>$sql->count()];
         return view('packaging_orders.list',$dt);
     }
 
@@ -91,14 +100,14 @@ class AssignPackagingUserController extends Controller
                     <!--end::Svg Icon-->
                 </span>
             </a>';
-
+           
             $data[] = [
                 "id" => $orderObj->id,
                 "store_id" => $orderObj->store_name,
                 "name" => $orderObj->name,
                 "phone" => $orderObj->phone,
                 "created_at" => Carbon::create($orderObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
-                "status" => $orderObj->status,
+                "status" => '<span class="label label-lg label-light-warning label-inline">' .$orderObj->status.'</span>',
                 "action" => $action
             ];
         }
@@ -183,11 +192,20 @@ class AssignPackagingUserController extends Controller
             $action .= '<a href="' . url('packaging-order/detail') . '/' . $orderObj->order_id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview">
             <i class="la la-eye"></i>
         </a>';
-
+        $assign_status_class = null;
+        if($orderObj->status == 'pending'){
+            $assign_status_class = 'label-light-danger';
+         }
+        if($orderObj->status == 'in progress'){
+            $assign_status_class = 'label-light-warning';
+         }
+        if($orderObj->status == 'completed'){
+            $assign_status_class = 'label-light-success';
+         }
             if($orderObj->status=='completed' && Auth::user()->is_head==1){
-                $status='<span class="badge badge-success "  style="cursor:pointer">' . $orderObj->status . '</span>';
+                $status='<span class="label label-lg label-light-success label-inline "  style="cursor:pointer">' . $orderObj->status . '</span>';
             }else{
-                $status='<span class="badge badge-success assemble_update" data-id="'.$orderObj->id.'" style="cursor:pointer">' . $orderObj->status . '</span>';
+                $status='<span class="label label-lg '.$assign_status_class.' label-inline assemble_update" data-id="'.$orderObj->id.'" style="cursor:pointer">' . $orderObj->status . '</span>';
             }
 
             $data[] = [
@@ -313,6 +331,16 @@ class AssignPackagingUserController extends Controller
         // print_r($userData);exit;
         $data = [];
         foreach ($userData as $userObj) {
+            $assign_status_class = null;
+            if($userObj->status  == 'pending'){
+                $assign_status_class = 'label-light-danger';
+             }
+            if($userObj->status  == 'in progress'){
+                $assign_status_class = 'label-light-warning';
+             }
+            if($userObj->status  == 'completed'){
+                $assign_status_class = 'label-light-success';
+             }
             $action = "";
             $action .= '<div class="text-right">';
             if (empty($userObj->o_as_u_id)) {
@@ -327,7 +355,7 @@ class AssignPackagingUserController extends Controller
                 "id" => $userObj->id,
                 "name" => $userObj->name,
                 "added_by" =>$userObj->from_name,
-                "status"=> '<span class="badge badge-success badge-pill worker_assign_status" style="cursor:pointer" >' .  $userObj->status  . '</span>',
+                "status"=> '<span class="label label-lg '.$assign_status_class.' label-inline worker_assign_status" style="cursor:pointer" >' .  $userObj->status  . '</span>',
                 "action" => $action
             ];
         }
