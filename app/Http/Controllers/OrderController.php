@@ -135,12 +135,10 @@ class OrderController extends Controller
             if($orderObj->status == 'completed'){
                 $order_status = 'label-light-success';
              }
-            if($orderObj->status == 'assigned'){
+            if($orderObj->status == 'assigned inventory'){
                 $order_status = 'label-light-warning';
              }
-            if($orderObj->status == 'inventory'){
-                $order_status = 'label-light-warning';
-             }
+            
             if($orderObj->status == 'production'){
                 $order_status = 'label-light-warning';
              }
