@@ -18,8 +18,17 @@ use Illuminate\Support\Facades\Validator;
 class AssignInstallationUserController extends Controller
 {
     public function index(){
-
-        return view('installation_orders.list');
+        $sql = Order::select('orders.*', 'stores.name as store_name')->where('orders.payment', 'verified');
+        $sql->join('stores', 'orders.store_id','stores.id');
+        $sql->join('orderfulfillment_bookings','orderfulfillment_bookings.id', 'orders.booking_id');
+        $sql->join('orderfulfillment_user_zip_codes_mappings','orderfulfillment_bookings.id', 'orders.booking_id');
+        $sql->where('orders.paid_percentage', '>=', '40');
+        $sql->where('orders.status','installation');
+        $sql->where('orders.store_id',1);
+        $sql->whereNULL('stores.deleted_at');
+        $sql->whereNULL('orders.deleted_at');
+        $totalInstallationOrder = $sql->count();
+        return view('installation_orders.list',compact('totalInstallationOrder'));
     }
 
     public function getList(Request $request)

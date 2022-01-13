@@ -34,7 +34,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">Orders List
+                        <h3 class="card-label">Orders List {{ isset($totalOrders) && !empty($totalOrders) ? '('. $totalOrders.')' :' '  }}
                         </h3>
                     </div>
 

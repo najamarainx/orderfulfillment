@@ -15,7 +15,17 @@ class InventoryItemController extends Controller
         $departments = getDepartment(-1, true);
         $items  = OrderFulfillmentItem::whereNull('deleted_at')->get();
         $variants  = OrderFulfillmentVariant::whereNull('deleted_at')->get();
-        $dt = ['departments' => $departments,'items'=>$items,'variants'=>$variants];
+        $inventoryItem = DB::table('orderfulfillment_inventory_items as oiitem')
+        ->leftJoin('orderfulfillment_departments as d','oiitem.department_id','d.id')
+        ->leftJoin('orderfulfillment_items as i','oiitem.item_id','i.id')
+        ->leftJoin('orderfulfillment_variants as ov','oiitem.variant_id','ov.id')
+        ->select('i.name as item_name','d.name as department_name','ov.name as variant_name','oiitem.qty as orderItem_qty','oiitem.id as orderInventory_id')
+        ->whereNull('d.deleted_at')
+        ->whereNull('i.deleted_at')
+        ->whereNull('ov.deleted_at')
+        ->whereNull('oiitem.deleted_at');
+        $dt = ['departments' => $departments,'items'=>$items,'variants'=>$variants,'totalItems'=>$inventoryItem->count()];
+
         return View('inventory.list',$dt);
     }
 

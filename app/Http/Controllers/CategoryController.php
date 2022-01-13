@@ -14,8 +14,9 @@ class CategoryController extends Controller
     public function index()
     {
 
-        $categories = OrderFulfillmentCategory::whereNull('deleted_at')->get();
-        return view('categories.list', $categories);
+        $data['categories'] = OrderFulfillmentCategory::whereNull('deleted_at')->get();
+        $data['totalItems'] = OrderFulfillmentCategory::whereNull('deleted_at')->count();
+        return view('categories.list', $data);
     }
     public function getList(Request $request)
     {

@@ -17,7 +17,16 @@ class AssignPackagingUserController extends Controller
 {
     public function index(){
         $stores = $query = DB::table('stores')->whereNull('deleted_at')->get();
-        $dt = ['stores' => $stores];
+        $sql = OrderFulfillmentPackagingUser::select('orderfulfillment_packings.*','orderfulfillment_users.name as assigned_to','ab.name as assigned_from');
+        $sql->join('orders','orders.id','orderfulfillment_packings.order_id');
+        $sql->join('orderfulfillment_users','orderfulfillment_packings.user_id','orderfulfillment_users.id');
+        $sql->join('orderfulfillment_users as ab','orderfulfillment_packings.added_by','ab.id');
+        $sql->where('orderfulfillment_users.type','packaging');
+        $sql->whereNULL('orders.deleted_at');
+        $sql->where('orders.status','packing');
+        $sql->whereNULL('orderfulfillment_packings.deleted_at');
+        $sql->whereNULL('orderfulfillment_users.deleted_at');
+        $dt = ['stores' => $stores,'totalPackagingOrder'=>$sql->count()];
         return view('packaging_orders.list',$dt);
     }
 

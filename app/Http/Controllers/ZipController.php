@@ -18,8 +18,9 @@ class ZipController extends Controller
 {
     public function index()
     {
-
-        return view('zips.list');
+        $totalItems = DB::table('orderfulfillment_zip_codes')->whereNull('deleted_at')->count();
+        
+        return view('zips.list',compact('totalItems'));
     }
 
     public function getZipcodesDropdownList()

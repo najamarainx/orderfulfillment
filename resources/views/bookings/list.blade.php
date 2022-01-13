@@ -327,7 +327,7 @@
                     <!--end::Page Title-->
                     <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
-                    <span class="text-muted font-weight-bold mr-4">Booking List</span>
+                    <span class="text-muted font-weight-bold mr-4">Booking List </span>
                     <!--end::Actions-->
                 </div>
                 <!--end::Info-->
@@ -338,7 +338,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">Booking List
+                        <h3 class="card-label">Booking List {{ isset($totalBookings) && !empty($totalBookings) ? '('.$totalBookings.')' : '' }}
                         </h3>
                     </div>
                     <div class="card-toolbar">

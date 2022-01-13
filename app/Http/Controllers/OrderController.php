@@ -19,8 +19,13 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $stores = $query = DB::table('stores')->whereNull('deleted_at')->get();
-        $dt = ['stores' => $stores];
+        $stores = DB::table('stores')->whereNull('deleted_at')->get();
+        $sql = Order::select('orders.*', 'stores.name as store_name')->where('orders.payment', 'verified');
+        $sql->join('stores', 'orders.store_id', 'stores.id');
+        $sql->where('orders.paid_percentage', '<=', '40');
+        $sql->whereNULL('stores.deleted_at');
+        $sql->whereNULL('orders.deleted_at');
+        $dt = ['stores' => $stores,'totalPendingOrders'=>$sql->count()];
         return view('orders.list', $dt);
     }
 
@@ -411,14 +416,25 @@ class OrderController extends Controller
     public function confirmedOrderList()
     {
         $stores = $query = DB::table('stores')->whereNull('deleted_at')->get();
-        $dt = ['stores' => $stores];
+        $sql = Order::select('orders.*', 'stores.name as store_name')->where('orders.payment', 'verified');
+        $sql->join('stores', 'orders.store_id', 'stores.id');
+        $sql->where('orders.paid_percentage', '>=', '40');
+        $sql->whereNotIn('orders.status', ['assembling','packing','installation','completed']);
+        $sql->whereNULL('stores.deleted_at');
+        $sql->whereNULL('orders.deleted_at');
+
+        $dt = ['stores' => $stores,'totalConfirmedOrder'=>$sql->count()];
         return view('orders.confirmed_order_list', $dt);
     }
 
     public function adminOrderList()
     {
         $stores = $query = DB::table('stores')->whereNull('deleted_at')->get();
-        $dt = ['stores' => $stores];
+        $sql = Order::select('orders.*', 'stores.name as store_name')->where('orders.payment', 'verified');
+        $sql->join('stores', 'orders.store_id', 'stores.id');
+        $sql->whereNULL('stores.deleted_at');
+        $sql->whereNULL('orders.deleted_at');
+        $dt = ['stores' => $stores,'totalOrders'=>$sql->count()];
         return view('orders.admin_order_list', $dt);
     }
 

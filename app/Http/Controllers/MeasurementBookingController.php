@@ -17,6 +17,11 @@ class MeasurementBookingController extends Controller
     {
         $category  = getCategory('product', -1, true);
         $data['categories'] = $category;
+          $booking = DB::table('orderfulfillment_bookings')->select('orderfulfillment_bookings.*', 'booking_assign.date as assign_date', 'booking_assign.assign_status', 'booking_assign.booking_id', 'booking_assign.id as assign_id', 'ots.booking_from_time', 'ots.booking_to_time')->whereNull('orderfulfillment_bookings.deleted_at')->leftJoin('orderfulfillment_time_slots as ots', 'orderfulfillment_bookings.time_slot_id', 'ots.id')->whereNull('ots.deleted_at');
+        $booking->join('orderfulfillment_booking_assigns as booking_assign', 'orderfulfillment_bookings.id', 'booking_assign.booking_id')
+        ->whereNULL('booking_assign.deleted_at');
+        $booking->whereIn('orderfulfillment_bookings.booking_status', ['confirmed', 'rescheduled']);
+        $data['totalAssignBookings'] =   $booking->count();
         return view('bookings.task', $data);
     }
 

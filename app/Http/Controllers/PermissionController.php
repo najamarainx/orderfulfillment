@@ -13,8 +13,10 @@ class PermissionController extends Controller
     public function index()
     {
         $categories = OrderFulfillmentCategory::whereNull('deleted_at')->where('type','permission')->get();
+        $totalItems = OrderFulfillmentPermission::whereNull('deleted_at')->count();
         $dt = [
-            'categories' => $categories
+            'categories' => $categories,
+            'totalItems'=>$totalItems
         ];
         return view('permissions.list', $dt);
     }

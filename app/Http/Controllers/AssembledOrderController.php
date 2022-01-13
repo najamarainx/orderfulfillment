@@ -22,7 +22,13 @@ class AssembledOrderController extends Controller
     public function index()
     {
         $stores = $query = DB::table('stores')->whereNull('deleted_at')->get();
-        $dt = ['stores' => $stores];
+        $sql = Order::select('orders.*', 'stores.name as store_name')->where('orders.payment', 'verified');
+        $sql->join('stores', 'orders.store_id', 'stores.id');
+        $sql->where('orders.paid_percentage', '>=', '40');
+        $sql->where('orders.status', 'assembling');
+        $sql->whereNULL('stores.deleted_at');
+        $sql->whereNULL('orders.deleted_at');
+        $dt = ['stores' => $stores,'totalAssembledOrder'=>$sql->count()];
         return view('assembled_orders.list', $dt);
     }
     public function getList(Request $request)

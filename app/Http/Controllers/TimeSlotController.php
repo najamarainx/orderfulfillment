@@ -10,7 +10,8 @@ use App\Models\OrderFulfillmentTimeSlot;
 class TimeSlotController extends Controller
 {
     public function index(){
-        return view('timeslots.list');
+        $totalSlots = OrderFulfillmentTimeSlot::whereNull('deleted_at')->count();
+        return view('timeslots.list',compact('totalSlots'));
     }
 
     public function getList(Request $request)

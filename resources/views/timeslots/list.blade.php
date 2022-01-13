@@ -34,7 +34,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">TimeSlot List
+                        <h3 class="card-label">TimeSlot List {{ isset($totalSlots) && !empty($totalSlots) ? '('.$totalSlots.')' : '' }}
 
                         </h3>
                     </div>

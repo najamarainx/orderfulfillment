@@ -15,7 +15,11 @@ class VariantController extends Controller
     public function index()
     {
         $items=OrderFulfillmentItem::whereNULL('deleted_at')->get();
+        $variants = DB::table('orderfulfillment_variants')->select('orderfulfillment_items.name as item_name','orderfulfillment_variants.*')->join('orderfulfillment_items','orderfulfillment_variants.item_id','=','orderfulfillment_items.id');
+        $variants->where('orderfulfillment_variants.deleted_at', NULL);
+        $variants->where('orderfulfillment_items.deleted_at', NULL);
         $data['items']=$items;
+        $data['totalItems']=$variants->count();
         return view('variants.list',$data);
     }
 

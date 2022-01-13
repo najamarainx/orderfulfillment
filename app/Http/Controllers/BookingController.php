@@ -6,6 +6,7 @@ use App\Models\OrderFulfillmentTimeSlot;
 use App\Models\OrderFulfillmentBooking;
 use App\Models\OrderFulfillmentBookingAssign;
 use App\Models\OrderFulfillmentCategory;
+use App\Models\OrderFulfillmentItem;
 use App\Models\OrderFulfillmentUserZipCode;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -21,6 +22,8 @@ class BookingController extends Controller
         $category  = getCategory('product', -1, true);
         $zipCode  = getZipCode();
         $statusArray = getBookingStatus();
+        $data['totalBookings'] = OrderFulfillmentBooking::whereNull('deleted_at')->whereIn('booking_status',['not called','not respond','cancelled'])->count();
+
         $date = Carbon::now()->format('Y-m-d');
         $data['statusArray'] = $statusArray;
 
@@ -340,6 +343,7 @@ class BookingController extends Controller
     {
         $category  = getCategory('product', -1, true);
         $timeSlotDetail = OrderFulfillmentTimeSlot::where('status', 'active')->get();
+        $data['totalBookings'] = OrderFulfillmentBooking::whereNull('deleted_at')->whereIn('booking_status',['confirmed','rescheduled'])->count();
         $zipCode  = getZipCode();
         $statusArray = getBookingStatus();
         $date = Carbon::now()->format('Y-m-d');
