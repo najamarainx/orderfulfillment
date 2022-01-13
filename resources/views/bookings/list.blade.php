@@ -727,7 +727,8 @@
                         required: true
                     },
                     customer_no: {
-                        required: true
+                        required: true,
+                        'check_phone_no':true
                     },
                     customer_email: {
                         required: true
@@ -851,6 +852,11 @@
                 });
             }
         });
+        
+        jQuery.validator.addMethod('check_phone_no', function(phone_number, element) {
+        return phone_number.length > 9 &&
+            phone_number.match(/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/);
+    }, 'Please enter a correct UK number.');
 
         $(document).on('click', '.edit', function() {
             var id = $(this).data('id');

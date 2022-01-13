@@ -321,10 +321,12 @@
                         required: true
                     },
                     phone_no: {
-                        required: true
+                        required: true,
+                        'check_phone_no':true
                     },
                     company_phone_no: {
-                        required: true
+                        required: true,
+                        'check_phone_no':true
                     },
                     address: {
                         required: true
@@ -349,7 +351,10 @@
                 }
             });
         })
-
+        jQuery.validator.addMethod('check_phone_no', function(phone_number, element) {
+        return phone_number.length > 9 &&
+            phone_number.match(/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/);
+    }, 'Please enter a correct UK number.');
         $(document).on('click', '#btn_add_new', function() {
             $('#addSupplierModal').modal({
                 backdrop: 'static',
