@@ -5,6 +5,25 @@
 @endsection
 @section('page_level_css')
     <style>
+          body {
+        font-family: poppins;
+    }
+    
+.d-flex.flex-row.flex-column-fluid.page {
+    background-color: white;
+}
+
+.card.card-custom {
+    box-shadow: 0px 0px 30px 0px rgb(82 63 105 / 42%);
+}
+
+.dataTables_wrapper .dataTable thead th {
+    color: #9ca7da;
+}
+
+.dataTables_wrapper .dataTable td {
+    color: black;
+}
         .error{
             color: red!important;
         }
@@ -14,6 +33,27 @@
         .role_p > span.select2.select2-container.select2-container--default {
             width: 84% !important;
         }
+        .btn.btn-icon-mobile {
+    color: #B5B5C3;
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+.btn.btn-icon-mobile:hover {
+    background-color: #eeeeff !important;
+    border-color: #eeeeff !important;
+}
+        .btn.btn-clean {
+    background-color: #FFE2E5;
+}
+.btn-clean:hover {
+    background-color: #B21F24 !important;
+}
+.btn-clean i{
+    color: #B21F24 !important;
+}
+.btn-clean i:hover{
+    color: white !important;
+}
     </style>
 @endsection
 @php
@@ -54,10 +94,7 @@
         <!--begin::Entry-->
         <div class="d-flex flex-column-fluid">
             <!--begin::Container-->
-            <div class="container">
-
-
-
+            <div class="col-12">
                 <!--begin::Advance Table Widget 2-->
                 <div class="card card-custom gutter-b">
                     <!--begin::Header-->

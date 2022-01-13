@@ -10,7 +10,9 @@
         .error {
             color: red !important;
         }
-
+        .btn.btn-light {
+    background-color: #FFE2E5;
+}
         .float_end {
             text-align: end;
         }

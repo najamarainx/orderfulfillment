@@ -6,12 +6,34 @@
 @endsection
 @section('page_level_css')
     <style>
+        body {
+    font-family: poppins;
+}
+
+.d-flex.flex-row.flex-column-fluid.page {
+    background-color: white;
+}
+
+.card.card-custom {
+    box-shadow: 0px 0px 30px 0px rgb(82 63 105 / 42%);
+}
+
+.dataTables_wrapper .dataTable thead th {
+    color: #9ca7da;
+}
+
+.dataTables_wrapper .dataTable td {
+    color: black;
+}
         .error {
             color: red !important;
         }
         span.select2.select2-container.select2-container--default {
             width:100% !important;
         }
+        .btn.btn-light {
+    background-color: #FFE2E5;
+}
     </style>
 @endsection
 @section('content')
@@ -32,7 +54,7 @@
             </div>
         </div>
         <!--begin::Container-->
-        <div class="container">
+        <div class="col-12">
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">

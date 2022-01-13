@@ -30,7 +30,7 @@ class SupplierStockController extends Controller
             'variants' => $variants,
 
         ];
-        return view('stocks.list', $dt);
+        return view('timeslots.stocks.list', $dt);
     }
 
     public function getList(Request $request)
