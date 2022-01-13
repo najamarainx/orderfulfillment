@@ -145,7 +145,7 @@
                 @if (hasPermission('bookingtaskList'))
 
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'bookingTaskList'  ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="javascript:;" class="menu-link menu-toggle">
+                        <a href="{{ route('bookingTaskList') }}" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <span class="svg-icon svg-icon-primary svg-icon-2x">
@@ -161,9 +161,9 @@
                                 <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Measurement</span>
-                            <i class="menu-arrow"></i>
+                            {{-- <i class="menu-arrow"></i> --}}
                         </a>
-                        <div class="menu-submenu">
+                        {{-- <div class="menu-submenu">
                             <i class="menu-arrow"></i>
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-parent" aria-haspopup="true">
@@ -182,15 +182,15 @@
                                 </li>
 
                             </ul>
-                        </div>
+                        </div> --}}
                     </li>
 
                 @endif
 
-                @if (hasPermission('adminOrderList'))
+                @if (hasPermission('adminOrderList') || hasPermission('adminOrderList'))
 
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'adminOrderList'  ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="javascript:;" class="menu-link menu-toggle">
+                        <a href="{{ route('adminOrderList') }}" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -208,9 +208,9 @@
                                 <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Orders</span>
-                            <i class="menu-arrow"></i>
+                            {{-- <i class="menu-arrow"></i> --}}
                         </a>
-                        <div class="menu-submenu">
+                        {{-- <div class="menu-submenu">
                             <i class="menu-arrow"></i>
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-parent" aria-haspopup="true">
@@ -230,7 +230,7 @@
                                     </li>
                                 @endif
                             </ul>
-                        </div>
+                        </div> --}}
                     </li>
                 @endif
                 @if (hasPermission('orderList'))
@@ -493,7 +493,7 @@
                 @if (hasPermission('viewZip'))
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'zipList' ? 'menu-item-open' : '' }}"
                         aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="javascript:;" class="menu-link menu-toggle">
+                        <a href="{{ route('zipList') }}" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -505,9 +505,9 @@
                                 <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Post Code</span>
-                            <i class="menu-arrow"></i>
+                            {{-- <i class="menu-arrow"></i> --}}
                         </a>
-                        <div class="menu-submenu">
+                        {{-- <div class="menu-submenu">
                             <i class="menu-arrow"></i>
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-parent " aria-haspopup="true">
@@ -525,7 +525,7 @@
                                 </li>
 
                             </ul>
-                        </div>
+                        </div> --}}
                     </li>
                 @endif
                 @if (hasPermission('viewUser') || hasPermission('viewCategory') || hasPermission('viewPermission') || hasPermission('viewRole'))
@@ -737,9 +737,9 @@
                         </div>
                     </li>
                 @endif
-                @if (hasPermission('inventoryList'))
+                @if (hasPermission('inventoryList') || hasPermission('ProductInventoryList'))
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'inventoryList'  ? 'menu-item-open' : '' }}"  aria-haspopup="true" data-menu-toggle="hover">
-                        <a href="javascript:;" class="menu-link menu-toggle">
+                        <a href="{{ route('inventoryList') }}" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <span class="svg-icon svg-icon-primary svg-icon-2x">
@@ -763,9 +763,9 @@
                                 <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Inventory</span>
-                            <i class="menu-arrow"></i>
+                            {{-- <i class="menu-arrow"></i> --}}
                         </a>
-                        <div class="menu-submenu">
+                        {{-- <div class="menu-submenu">
                             <i class="menu-arrow"></i>
                             <ul class="menu-subnav">
                                 <li class="menu-item menu-item-parent" aria-haspopup="true">
@@ -785,7 +785,7 @@
                                     </li>
                                 @endif
                             </ul>
-                        </div>
+                        </div> --}}
                     </li>
                 @endif
             </ul>
