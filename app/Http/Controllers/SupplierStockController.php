@@ -33,7 +33,7 @@ class SupplierStockController extends Controller
             'totalItems' => $bills->count(),
 
         ];
-        return view('timeslots.stocks.list', $dt);
+        return view('stocks.list', $dt);
     }
 
     public function getList(Request $request)
