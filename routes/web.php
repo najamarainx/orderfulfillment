@@ -47,6 +47,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/edit', [Controllers\UserController::class, 'getUserById'])->name('getUserById')->middleware('haspermission:editUser');
             Route::post('/submit', [Controllers\UserController::class, 'store'])->name('userSubmit')->middleware('haspermission:addUser');
             Route::post('/delete', [Controllers\UserController::class, 'destroy'])->name('userDelete')->middleware('haspermission:deleteUser');
+            Route::get('/profile', [Controllers\UserController::class, 'UserProfile'])->name('userProfile');
+            Route::post('update_profile', [Controllers\UserController::class, 'updateUserProfile'])->name('updateProfile');
+            Route::post('update_password', [Controllers\UserController::class, 'updateUserPassword'])->name('updatePassword');
         });
 
     Route::prefix('permission')->group(function () {

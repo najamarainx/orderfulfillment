@@ -12,11 +12,14 @@
         <!--begin::Header-->
         <div class="d-flex align-items-center mt-5">
             <div class="symbol symbol-100 mr-5">
+                @if(!empty(Auth::user()->photo))
+                <div class="symbol-label" style="background-image:url({{asset('user/profile'.'/'.Auth::user()->photo)}})"></div>
+                @endif
                 <div class="symbol-label" style="background-image:url('assets/media/users/300_21.jpg')"></div>
                 <i class="symbol-badge bg-success"></i>
             </div>
             <div class="d-flex flex-column">
-                <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{Auth::user()->u_name}}</a>
+                <a href="{{ route('userProfile') }}" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">{{Auth::user()->u_name}}</a>
                 <div class="navi mt-2">
                     <a href="#" class="navi-item">
                         <span class="navi-link p-0 pb-2">

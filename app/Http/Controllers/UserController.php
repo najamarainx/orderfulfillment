@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderFulfillmentItem;
 use App\Models\OrderFulfillmentUserZipCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,7 @@ use App\Models\Zip;
 use Carbon\Carbon;
 use Auth;
 use MongoDB\Driver\Session;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -359,5 +361,132 @@ class UserController extends Controller
         } else {
             return response()->json(['status' => 'error', 'message' => 'User not deleted ']);
         }
+    }
+
+    public function UserProfile(){
+        return view('users.profile');
+    }
+
+    public function updateUserProfile(Request $request){
+        $validate = true;
+        $validateInput = $request->all();
+
+        $rules = [
+
+            'name' => 'required',
+            'email' => 'required|max:100',
+            'phone' => 'required|max:100',
+
+        ];
+        $validator = Validator::make($validateInput, $rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            $allMsg = [];
+            foreach ($errors->all() as $message) {
+                $allMsg[] = $message;
+            }
+            $return['status'] = 'error';
+            $return['message'] = collect($allMsg)->implode('<br />');
+            $validate = false;
+        }
+        if ($validate) {
+
+            $id=Auth::user()->id;
+            $userObj = OrderFulfillmentUser::find($id);
+            if ($request->hasFile('user_image')) {
+                $userAttach = $request->file('user_image');
+                $userAttach = uniqid() . '.' . $request->user_image->getClientOriginalExtension();
+                $request->user_image->move(public_path('user/profile/'), $userAttach);
+                $userObj->photo = $userAttach;
+                if(\File::exists(public_path('user/profile/'.$request->old_image))){
+                    \File::delete(public_path('user/profile/'.$request->old_image));
+                }
+            }
+            $userObj->name=$request->name;
+            //$userObj->u_name=$request->u_name;
+            $userObj->phone_number=$request->phone;
+            $userObj->address=$request->address;
+            $userObj->country=$request->country;
+            $userObj->city=$request->city;
+            $userObj->state=$request->state;
+            $userObj->zip_code=$request->zip_code;
+
+            if(!$userObj->save())
+            {
+                $return = [
+                    'status' => 'error',
+                    'message' => 'User information is not saved ',
+                ];
+            }
+            else
+            {
+                $return = [
+                    'status' => 'success',
+                    'message' => 'User information is save successfully',
+                ];
+            }
+        }
+        return response()->json($return);
+    }
+
+    public function updateUserPassword(Request $request){
+        
+        $validate = true;
+        $validateInput = $request->all();
+
+        $rules = [
+
+            'currentpassword' => 'required',
+            'newpassword' => 'min:8|required_with:password_confirmation|same:cpassword',
+            'cpassword' => 'min:8'
+        ];
+       $message =  [];
+        $validator = Validator::make($validateInput, $rules, $message,[
+            'newpassword' => 'New Password',
+            'cpassword' => 'Confirm Password',
+        ]);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            $allMsg = [];
+            foreach ($errors->all() as $message) {
+                $allMsg[] = $message;
+            }
+            $return['status'] = 'error';
+            $return['message'] = collect($allMsg)->implode('<br />');
+            $validate = false;
+        }
+        if ($validate) {
+            $id = Auth::user()->id;
+            $userObj = OrderFulfillmentUser::find($id);
+            $user = OrderFulfillmentUser::where('id', $id)->first();
+            $newpassword = Hash::make($request->newpassword);
+            $validatePassword = Hash::check($request->currentpassword, $user->password);
+
+            if ($validatePassword > 0) {
+                $userObj->password=$newpassword;
+                if(!$userObj->save())
+                {
+                    $return = [
+                        'status' => 'error',
+                        'message' => 'Your information is not saved.',
+                    ];
+                }
+                else
+                {
+                    $return = [
+                        'status' => 'success',
+                        'message' => 'Your information is save successfully.',
+                    ];
+                }
+
+            } else {
+                $return = [
+                    'status' => 'error',
+                    'message' => 'Your current Password is Not Match.',
+                ];
+
+            }
+        }
+        return response()->json($return);
     }
 }
