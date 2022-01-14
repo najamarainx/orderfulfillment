@@ -539,8 +539,6 @@
         }
 
         function getDeptItems(depID, line) {
-
-
             var form_data = new FormData();
             form_data.append('depID', depID);
             $.ajax({
