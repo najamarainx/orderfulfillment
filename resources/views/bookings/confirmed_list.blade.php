@@ -367,36 +367,15 @@ td {
             </div>
             <!--end::Info-->
         </div>
-        <!--begin::Container-->
-        <div class="container">
-            <div class="card card-custom gutter-b">
-                <div class="card-header flex-wrap py-3">
-                    <div class="card-title">
-                        <h3 class="card-label">Booking List {{ isset($totalBookings) && !empty($totalBookings) ? '('.$totalBookings.')'  : '' }}
-                        </h3>
-                    </div>
-                    <div class="card-toolbar">
-                        <!--begin::Dropdown-->
-                        <!--end::Dropdown-->
-                        <!--begin::Button-->
-                        <a class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#addBookingModal"
-                            id="btn_add_new">
-                            <span class="svg-icon svg-icon-md">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                    width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <rect x="0" y="0" width="24" height="24" />
-                                        <circle fill="#000000" cx="9" cy="15" r="6" />
-                                        <path
-                                            d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z"
-                                            fill="#000000" opacity="0.3" />
-                                    </g>
-                                </svg>
-                                <!--end::Svg Icon-->
-                            </span>Add Booking</a>
-                        <!--end::Button-->
-                    </div>
+    </div>
+    <!--begin::Container-->
+    <div class="container">
+        <div class="card card-custom gutter-b">
+            <div class="card-header flex-wrap py-3">
+                <div class="card-title">
+                    <h3 class="card-label">Booking List
+                        {{ isset($totalBookings) && !empty($totalBookings) ? '('.$totalBookings.')'  : '' }}
+                    </h3>
                 </div>
                 <div class="card-toolbar">
                     <!--begin::Dropdown-->
@@ -723,605 +702,613 @@ $(document).ajaxStart(function() {
 });
 var table = "";
 var datatable = function() {
-    var initTable = function() {
-        // begin first table
-        bookingListTable = $('#itemTableList').DataTable({
-            responsive: true,
-            // Pagination settings
-            dom: `<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
-            // read more: https://datatables.net/examples/basic_init/dom.html
+        var initTable = function() {
+                // begin first table
+                bookingListTable = $('#itemTableList').DataTable({
+                        responsive: true,
+                        // Pagination settings
+                        dom: `<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
+                        // read more: https://datatables.net/examples/basic_init/dom.html
 
-            lengthMenu: [5, 10, 25, 50],
+                        lengthMenu: [5, 10, 25, 50],
 
-            pageLength: 10,
+                        pageLength: 10,
 
-            language: {
-                'lengthMenu': 'Display _MENU_',
-            },
+                        language: {
+                            'lengthMenu': 'Display _MENU_',
+                        },
 
-            searchDelay: 500,
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: "{{ route('getBookingList') }}",
-                type: 'POST',
-                data: {
-                    status: 'confirmed',
-                    // parameters for custom backend script demo
-                    columnsDef: [
-                        'id', 'date', 'time_slot', 'category_id', 'first_name', 'phone_number',
-                        'booking_status', 'assign_status'
-                    ],
-                },
+                        searchDelay: 500,
+                        processing: true,
+                        serverSide: true,
+                        ajax: {
+                            url: "{{ route('getBookingList') }}",
+                            type: 'POST',
+                            data: {
+                                status: 'confirmed',
+                                // parameters for custom backend script demo
+                                columnsDef: [
+                                    'id', 'date', 'time_slot', 'category_id', 'first_name', 'phone_number',
+                                    'booking_status', 'assign_status'
+                                ],
+                            },
 
-            };
+                        };
 
-    }();
-        jQuery.validator.addMethod('check_phone_no', function(phone_number, element) {
-        return phone_number.length > 9 &&
-            phone_number.match(/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/);
-    }, 'Please enter a correct UK number.');
-        jQuery(document).ready(function() {
-            var today, datepicker;
-            today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-            datepicker = $('#datepicker').datepicker({
-                minDate: today,
-                format: 'yyyy-mm-dd'
-            });
-            datatable.init();
-            var validator = $("#addForm").validate({
-                rules: {
-                    customer_name: {
-                        required: true
-                    },
-                    customer_no: {
-                        required: true,
-                        'check_phone_no':true
-                    },
-                    customer_email: {
-                        required: true
-                    },
-                    customer_address: {
-                        required: true
-                    },
-                    customer_post_code: {
-                        required: true
-                    }, 
-                    city: {
-                        required: true
-                    },
-                    state: {
-                        required: true
-                    },
-                    country: {
-                        required: true
-                    },
+                    }(); jQuery.validator.addMethod('check_phone_no', function(phone_number, element) {
+                        return phone_number.length > 9 &&
+                            phone_number.match(/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/);
+                    }, 'Please enter a correct UK number.'); jQuery(document).ready(function() {
+                            var today, datepicker;
+                            today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+                            datepicker = $('#datepicker').datepicker({
+                                minDate: today,
+                                format: 'yyyy-mm-dd'
+                            });
+                            datatable.init();
+                            var validator = $("#addForm").validate({
+                                    rules: {
+                                        customer_name: {
+                                            required: true
+                                        },
+                                        customer_no: {
+                                            required: true,
+                                            'check_phone_no': true
+                                        },
+                                        customer_email: {
+                                            required: true
+                                        },
+                                        customer_address: {
+                                            required: true
+                                        },
+                                        customer_post_code: {
+                                            required: true
+                                        },
+                                        city: {
+                                            required: true
+                                        },
+                                        state: {
+                                            required: true
+                                        },
+                                        country: {
+                                            required: true
+                                        },
 
-                },
-            },
-            columns: [{
-                    data: 'id'
-                },
-                {
-                    data: 'first_name'
-                },
-                {
-                    data: 'phone_number'
-                },
-                {
-                    data: 'date'
-                },
-                {
-                    data: 'time_slot'
-                },
-                {
-                    data: 'category_id'
-                },
-                {
-                    data: 'booking_status'
-                },
-                {
-                    data: 'assign_status'
-                },
-                {
-                    data: 'action',
-                    responsivePriority: -1,
-                    bSortable: false
-                },
+                                    },
+                                },
+                                columns: [{
+                                        data: 'id'
+                                    },
+                                    {
+                                        data: 'first_name'
+                                    },
+                                    {
+                                        data: 'phone_number'
+                                    },
+                                    {
+                                        data: 'date'
+                                    },
+                                    {
+                                        data: 'time_slot'
+                                    },
+                                    {
+                                        data: 'category_id'
+                                    },
+                                    {
+                                        data: 'booking_status'
+                                    },
+                                    {
+                                        data: 'assign_status'
+                                    },
+                                    {
+                                        data: 'action',
+                                        responsivePriority: -1,
+                                        bSortable: false
+                                    },
 
-            ],
-            rowCallback: function(td, cellData, rowData, row, col) {
-                var text = $(td).find("td:eq(5)").html();
-                if (text == 'Blindsss') {
-                    $(td).addClass('number amir chadasdsanumber-negative');
-                } else {
-                    $(td).addClass();
-                }
-            },
-            order: [
-                [0, "desc"]
-            ]
-        });
+                                ],
+                                rowCallback: function(td, cellData, rowData, row, col) {
+                                    var text = $(td).find("td:eq(5)").html();
+                                    if (text == 'Blindsss') {
+                                        $(td).addClass('number amir chadasdsanumber-negative');
+                                    } else {
+                                        $(td).addClass();
+                                    }
+                                },
+                                order: [
+                                    [0, "desc"]
+                                ]
+                            });
 
-        var filter = function() {
-            var val = $.fn.dataTable.util.escapeRegex($(this).val());
-            bookingListTable.column($(this).data('col-index')).search(val ? val : '', false, false)
-                .draw();
-        };
+                        var filter = function() {
+                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                            bookingListTable.column($(this).data('col-index')).search(val ? val : '', false,
+                                    false)
+                                .draw();
+                        };
 
-        $('#kt_search').on('click', function(e) {
-            e.preventDefault();
-            var params = {};
-            $('.datatable-input').each(function() {
-                var i = $(this).data('col-index');
-                if (params[i]) {
-                    params[i] += '|' + $(this).val();
-                } else {
-                    params[i] = $(this).val();
-                }
-            });
-            $.each(params, function(i, val) {
-                // apply search params to datatable
-                bookingListTable.column(i).search(val ? val : '', false, false);
-            });
-            bookingListTable.table().draw();
-        });
+                        $('#kt_search').on('click', function(e) {
+                            e.preventDefault();
+                            var params = {};
+                            $('.datatable-input').each(function() {
+                                var i = $(this).data('col-index');
+                                if (params[i]) {
+                                    params[i] += '|' + $(this).val();
+                                } else {
+                                    params[i] = $(this).val();
+                                }
+                            });
+                            $.each(params, function(i, val) {
+                                // apply search params to datatable
+                                bookingListTable.column(i).search(val ? val : '', false, false);
+                            });
+                            bookingListTable.table().draw();
+                        });
 
-        $('#kt_reset').on('click', function(e) {
-            e.preventDefault();
-            $('.datatable-input').each(function() {
-                $(this).val('');
-                bookingListTable.column($(this).data('col-index')).search('', false, false);
-            });
-            bookingListTable.table().draw();
-        });
+                        $('#kt_reset').on('click', function(e) {
+                            e.preventDefault();
+                            $('.datatable-input').each(function() {
+                                $(this).val('');
+                                bookingListTable.column($(this).data('col-index')).search('', false,
+                                    false);
+                            });
+                            bookingListTable.table().draw();
+                        });
 
-        $('#kt_datepicker').datepicker({
-            todayHighlight: true,
-            format: 'yyyy-mm-dd',
-            templates: {
-                leftArrow: '<i class="la la-angle-left"></i>',
-                rightArrow: '<i class="la la-angle-right"></i>',
-            },
-        });
+                        $('#kt_datepicker').datepicker({
+                            todayHighlight: true,
+                            format: 'yyyy-mm-dd',
+                            templates: {
+                                leftArrow: '<i class="la la-angle-left"></i>',
+                                rightArrow: '<i class="la la-angle-right"></i>',
+                            },
+                        });
 
-    };
-
-    return {
-
-        //main function to initiate the module
-        init: function() {
-            initTable();
-        },
-
-    };
-
-}();
-
-jQuery(document).ready(function() {
-    var today, datepicker;
-    today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-    datepicker = $('#datepicker').datepicker({
-        minDate: today,
-        format: 'yyyy-mm-dd'
-    });
-    datatable.init();
-    var validator = $("#addForm").validate({
-        rules: {
-            customer_name: {
-                required: true
-            },
-            customer_no: {
-                required: true
-            },
-            customer_email: {
-                required: true
-            },
-            customer_address: {
-                required: true
-            },
-            customer_post_code: {
-                required: true
-            },
-            city: {
-                required: true
-            },
-            state: {
-                required: true
-            },
-            country: {
-                required: true
-            },
-
-
-        },
-        errorPlacement: function(error, element) {
-            var elem = $(element);
-            if (elem.hasClass("category_id") || elem.hasClass("zip_code")) {
-                error.appendTo(element.parent().after());
-                //error.insertAfter(element);
-            } else {
-                error.insertAfter(element);
-            }
-        }
-    });
-
-    var input = document.getElementById("addForm");
-    input.addEventListener("keyup", function(event) {
-        if (event.keyCode === 13) {
-            event.preventDefault();
-            document.getElementById("btn_save").click();
-        }
-    });
-
-})
-jQuery(document).ready(function() {
-
-
-    var validator = $("#BookingAssign").validate({
-        rules: {
-            booking_user_id: {
-                required: true
-            }
-
-
-        },
-        errorPlacement: function(error, element) {
-            var elem = $(element);
-            if (elem.hasClass("booking_user_id")) {
-                error.appendTo(element.parent().after());
-                //error.insertAfter(element);
-            } else {
-                error.insertAfter(element);
-            }
-        }
-    });
-
-    var input = document.getElementById("BookingAssign");
-    input.addEventListener("keyup", function(event) {
-        if (event.keyCode === 13) {
-            event.preventDefault();
-            document.getElementById("btn_save_booking").click();
-        }
-    });
-
-})
-$(document).on('click', '#btn_add_new', function() {
-    var element = document.getElementById('test');
-    element.classList.add('col-lg-6');
-    element.classList.remove('col-lg-12');
-    $('#set_ctg').show();
-
-    $('#addBookingModal').modal({
-        backdrop: 'static',
-        keyboard: false
-    }).on('hide.bs.modal', function() {
-        $("#addForm").validate().resetForm();
-    });
-    var form = $("#addForm");
-    form[0].reset();
-    $('#id').val('');
-
-});
-
-
-$(document).on('click', '#btn_save', function() {
-    var validate = $("#addForm").valid();
-    var upid = $('#id').val();
-    if (upid == '') {
-        if (!$("input:radio[name='time_slot']").is(":checked")) {
-            $('.slot_error').text('Please select a slot');
-            validate = false;
-        }
-    }
-
-    if (validate) {
-        var form_data = $("#addForm").serializeArray();
-        $.ajax({
-            type: "POST",
-            url: "{{ route('bookingSubmit') }}", // your php file name
-            data: form_data,
-            dataType: "json",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(data) {
-                if (data.status == 'success') {
-                    toastr.options = {
-                        "closeButton": true,
-                        "debug": false,
-                        "newestOnTop": false,
-                        "progressBar": false,
-                        "positionClass": "toast-top-right",
-                        "preventDuplicates": true,
-                        "onclick": null,
-                        "showDuration": "300",
-                        "hideDuration": "1000",
-                        "timeOut": "5000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
                     };
-                    toastr.success(data.message);
+
+                    return {
+
+                        //main function to initiate the module
+                        init: function() {
+                            initTable();
+                        },
+
+                    };
+
+                }();
+
+                jQuery(document).ready(function() {
+                    var today, datepicker;
+                    today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+                    datepicker = $('#datepicker').datepicker({
+                        minDate: today,
+                        format: 'yyyy-mm-dd'
+                    });
+                    datatable.init();
+                    var validator = $("#addForm").validate({
+                        rules: {
+                            customer_name: {
+                                required: true
+                            },
+                            customer_no: {
+                                required: true
+                            },
+                            customer_email: {
+                                required: true
+                            },
+                            customer_address: {
+                                required: true
+                            },
+                            customer_post_code: {
+                                required: true
+                            },
+                            city: {
+                                required: true
+                            },
+                            state: {
+                                required: true
+                            },
+                            country: {
+                                required: true
+                            },
+
+
+                        },
+                        errorPlacement: function(error, element) {
+                            var elem = $(element);
+                            if (elem.hasClass("category_id") || elem.hasClass("zip_code")) {
+                                error.appendTo(element.parent().after());
+                                //error.insertAfter(element);
+                            } else {
+                                error.insertAfter(element);
+                            }
+                        }
+                    });
+
+                    var input = document.getElementById("addForm");
+                    input.addEventListener("keyup", function(event) {
+                        if (event.keyCode === 13) {
+                            event.preventDefault();
+                            document.getElementById("btn_save").click();
+                        }
+                    });
+
+                })
+                jQuery(document).ready(function() {
+
+
+                    var validator = $("#BookingAssign").validate({
+                        rules: {
+                            booking_user_id: {
+                                required: true
+                            }
+
+
+                        },
+                        errorPlacement: function(error, element) {
+                            var elem = $(element);
+                            if (elem.hasClass("booking_user_id")) {
+                                error.appendTo(element.parent().after());
+                                //error.insertAfter(element);
+                            } else {
+                                error.insertAfter(element);
+                            }
+                        }
+                    });
+
+                    var input = document.getElementById("BookingAssign");
+                    input.addEventListener("keyup", function(event) {
+                        if (event.keyCode === 13) {
+                            event.preventDefault();
+                            document.getElementById("btn_save_booking").click();
+                        }
+                    });
+
+                })
+                $(document).on('click', '#btn_add_new', function() {
+                    var element = document.getElementById('test');
+                    element.classList.add('col-lg-6');
+                    element.classList.remove('col-lg-12');
+                    $('#set_ctg').show();
+
+                    $('#addBookingModal').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    }).on('hide.bs.modal', function() {
+                        $("#addForm").validate().resetForm();
+                    });
                     var form = $("#addForm");
                     form[0].reset();
-                    $('#addBookingModal').modal('hide');
-                    bookingListTable.ajax.reload();
-                } else {
-                    Swal.fire("Sorry!", data.message, "error");
-                }
-            },
-            error: function(errorString) {
-                Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
-            }
-        });
-    }
-});
+                    $('#id').val('');
 
-$(document).on('click', '.edit', function() {
-    var id = $(this).data('id');
-    var form_data = new FormData();
-    form_data.append('id', id);
-    var element = document.getElementById('test');
-    // element.classList.add('col-lg-12');
-    // element.classList.remove('col-lg-6');
-    $('#set_ctg').hide();
-
-    $.ajax({
-        type: "POST",
-        url: "{{ route('getBookingById') }}", // your php file name
-        data: form_data,
-        dataType: "json",
-        processData: false,
-        contentType: false,
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function(data) {
-            if (data.status == 'success') {
-                $('#addBookingModal').modal({
-                    backdrop: 'static',
-                    keyboard: false
-                }).on('hide.bs.modal', function() {
-                    $("#addForm").validate().resetForm();
                 });
-                var rec = data.data;
-                var id = rec.id;
-                var first_name = rec.first_name;
-                var last_name = rec.last_name;
-                name = first_name + ' ' + (last_name ? last_name : '');
-                var date = rec.date;
-                var category_id = rec.category_id;
-                var time_slot_id = rec.time_slot_id;
-                var email = rec.email;
-                var phone_number = rec.phone_number;
-                var post_code = rec.post_code;
-                var address = rec.address;
-                var city = rec.city;
-                var state = rec.state;
-                var country = rec.country;
-                $('#id').val(id);
-                $('#customer_name').val(name);
-                $('#customer_no').val(phone_number);
-                $('#customer_email').val(email);
-                $('#customer_address').text(address);
-                $('#customer_post_code').val(post_code);
-                $('#city').val(city ? city : '');
-                $('#state').val(state ? state : '');
-                $('#country').val(country ? country : '');
-                $('.selected_date').val(date);
-                // $('#category_id').val(category_id).trigger('change.select2');
-                // $('#zip_code').val(time_slot_id).trigger('change.select2');
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            } else {
-                Swal.fire("Sorry!", data.message, "error");
-            }
-        },
-        error: function(errorString) {
-            Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
-        }
-    });
-});
 
-$(document).on('click', '.delete', function() {
-    var id = $(this).data('id');
-    var form_data = new FormData();
-    form_data.append('id', id);
-    Swal.fire({
-        title: "Are you sure?",
-        text: "You wont be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!"
-    }).then(function(result) {
-        if (result.value) {
-            $.ajax({
-                type: "POST",
-                url: "{{ route('bookingDelete') }}", // your php file name
-                data: form_data,
-                dataType: "json",
-                processData: false,
-                contentType: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(data) {
-                    if (data.status == 'success') {
-                        Swal.fire("Success!", data.message, "success");
-                        bookingListTable.ajax.reload();
-                    } else {
-                        Swal.fire("Sorry!", data.message, "error");
+
+                $(document).on('click', '#btn_save', function() {
+                    var validate = $("#addForm").valid();
+                    var upid = $('#id').val();
+                    if (upid == '') {
+                        if (!$("input:radio[name='time_slot']").is(":checked")) {
+                            $('.slot_error').text('Please select a slot');
+                            validate = false;
+                        }
                     }
-                },
-                error: function(errorString) {
-                    Swal.fire("Sorry!", "Something went wrong please contact to admin",
-                        "error");
-                }
-            });
-        }
-    });
-});
-$(document).on('click', '.confirmed', function() {
-    var id = $(this).data('id');
-    var form_data = new FormData();
-    form_data.append('id', id);
 
-    $.ajax({
-        type: "POST",
-        url: "{{ route('getUserAgainstZip') }}", // your php file name
-        data: form_data,
-        dataType: "json",
-        processData: false,
-        contentType: false,
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function(data) {
-            if (data.status == 'success') {
-                console.log(data);
-                $('#BookingAssignModal').modal({
-                    backdrop: 'static',
-                    keyboard: false
-                }).on('hide.bs.modal', function() {
-                    $("#BookingAssign").validate().resetForm();
-                });
-
-                var allUsers = data.getUsers;
-                var booking_id = data.booking_id;
-                $('#booking_id').val(booking_id);
-                $("#booking_user_id").empty();
-                $("#booking_user_id").append(new Option("Select User", "")).trigger("change");
-                $.each(allUsers, function(i, allUser) {
-                    $('#booking_user_id').append($('<option>', {
-                        value: allUser.id,
-                        text: allUser.name
-                    })).trigger("change");
-                });
-
-                var bookedUser = data.bookedUsers;
-                if (bookedUser != '' || bookedUser != null) {
-                    $.each(bookedUser, function(i, booked) {
-                        $("#booking_user_id option[value=" + booked + "]").prop(
-                            'disabled', true);
-                    });
-                }
-                var selectedUser = data.getSelectedUser;
-                //console.log(selectedUser);
-                if (selectedUser != null) {
-                    $("#booking_user_id").val(selectedUser.user_id);
-                    if (selectedUser.assign_status != 'pending') {
-                        $('.assign_task_body_wrapper').hide();
-                        $('#modal-footer').hide();
-                        $('.assign_taks_to_wrapper').show();
-                        $.each(allUsers, function(i, allUser) {
-                            if (allUser.id == selectedUser.user_id) {
-                                $('.assign_taks_to_txt').text(allUser.name
-                                    .toUpperCase());
+                    if (validate) {
+                        var form_data = $("#addForm").serializeArray();
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ route('bookingSubmit') }}", // your php file name
+                            data: form_data,
+                            dataType: "json",
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(data) {
+                                if (data.status == 'success') {
+                                    toastr.options = {
+                                        "closeButton": true,
+                                        "debug": false,
+                                        "newestOnTop": false,
+                                        "progressBar": false,
+                                        "positionClass": "toast-top-right",
+                                        "preventDuplicates": true,
+                                        "onclick": null,
+                                        "showDuration": "300",
+                                        "hideDuration": "1000",
+                                        "timeOut": "5000",
+                                        "extendedTimeOut": "1000",
+                                        "showEasing": "swing",
+                                        "hideEasing": "linear",
+                                        "showMethod": "fadeIn",
+                                        "hideMethod": "fadeOut"
+                                    };
+                                    toastr.success(data.message);
+                                    var form = $("#addForm");
+                                    form[0].reset();
+                                    $('#addBookingModal').modal('hide');
+                                    bookingListTable.ajax.reload();
+                                } else {
+                                    Swal.fire("Sorry!", data.message, "error");
+                                }
+                            },
+                            error: function(errorString) {
+                                Swal.fire("Sorry!", "Something went wrong please contact to admin",
+                                    "error");
                             }
                         });
                     }
+                });
+
+                $(document).on('click', '.edit', function() {
+                    var id = $(this).data('id');
+                    var form_data = new FormData();
+                    form_data.append('id', id);
+                    var element = document.getElementById('test');
+                    // element.classList.add('col-lg-12');
+                    // element.classList.remove('col-lg-6');
+                    $('#set_ctg').hide();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('getBookingById') }}", // your php file name
+                        data: form_data,
+                        dataType: "json",
+                        processData: false,
+                        contentType: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(data) {
+                            if (data.status == 'success') {
+                                $('#addBookingModal').modal({
+                                    backdrop: 'static',
+                                    keyboard: false
+                                }).on('hide.bs.modal', function() {
+                                    $("#addForm").validate().resetForm();
+                                });
+                                var rec = data.data;
+                                var id = rec.id;
+                                var first_name = rec.first_name;
+                                var last_name = rec.last_name;
+                                name = first_name + ' ' + (last_name ? last_name : '');
+                                var date = rec.date;
+                                var category_id = rec.category_id;
+                                var time_slot_id = rec.time_slot_id;
+                                var email = rec.email;
+                                var phone_number = rec.phone_number;
+                                var post_code = rec.post_code;
+                                var address = rec.address;
+                                var city = rec.city;
+                                var state = rec.state;
+                                var country = rec.country;
+                                $('#id').val(id);
+                                $('#customer_name').val(name);
+                                $('#customer_no').val(phone_number);
+                                $('#customer_email').val(email);
+                                $('#customer_address').text(address);
+                                $('#customer_post_code').val(post_code);
+                                $('#city').val(city ? city : '');
+                                $('#state').val(state ? state : '');
+                                $('#country').val(country ? country : '');
+                                $('.selected_date').val(date);
+                                // $('#category_id').val(category_id).trigger('change.select2');
+                                // $('#zip_code').val(time_slot_id).trigger('change.select2');
+                                window.scrollTo({
+                                    top: 0,
+                                    behavior: 'smooth'
+                                });
+                            } else {
+                                Swal.fire("Sorry!", data.message, "error");
+                            }
+                        },
+                        error: function(errorString) {
+                            Swal.fire("Sorry!", "Something went wrong please contact to admin",
+                                "error");
+                        }
+                    });
+                });
+
+                $(document).on('click', '.delete', function() {
+                    var id = $(this).data('id');
+                    var form_data = new FormData();
+                    form_data.append('id', id);
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "You wont be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Yes, delete it!"
+                    }).then(function(result) {
+                        if (result.value) {
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ route('bookingDelete') }}", // your php file name
+                                data: form_data,
+                                dataType: "json",
+                                processData: false,
+                                contentType: false,
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                success: function(data) {
+                                    if (data.status == 'success') {
+                                        Swal.fire("Success!", data.message, "success");
+                                        bookingListTable.ajax.reload();
+                                    } else {
+                                        Swal.fire("Sorry!", data.message, "error");
+                                    }
+                                },
+                                error: function(errorString) {
+                                    Swal.fire("Sorry!",
+                                        "Something went wrong please contact to admin",
+                                        "error");
+                                }
+                            });
+                        }
+                    });
+                });
+                $(document).on('click', '.confirmed', function() {
+                    var id = $(this).data('id');
+                    var form_data = new FormData();
+                    form_data.append('id', id);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('getUserAgainstZip') }}", // your php file name
+                        data: form_data,
+                        dataType: "json",
+                        processData: false,
+                        contentType: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(data) {
+                            if (data.status == 'success') {
+                                console.log(data);
+                                $('#BookingAssignModal').modal({
+                                    backdrop: 'static',
+                                    keyboard: false
+                                }).on('hide.bs.modal', function() {
+                                    $("#BookingAssign").validate().resetForm();
+                                });
+
+                                var allUsers = data.getUsers;
+                                var booking_id = data.booking_id;
+                                $('#booking_id').val(booking_id);
+                                $("#booking_user_id").empty();
+                                $("#booking_user_id").append(new Option("Select User", "")).trigger(
+                                    "change");
+                                $.each(allUsers, function(i, allUser) {
+                                    $('#booking_user_id').append($('<option>', {
+                                        value: allUser.id,
+                                        text: allUser.name
+                                    })).trigger("change");
+                                });
+
+                                var bookedUser = data.bookedUsers;
+                                if (bookedUser != '' || bookedUser != null) {
+                                    $.each(bookedUser, function(i, booked) {
+                                        $("#booking_user_id option[value=" + booked + "]")
+                                            .prop(
+                                                'disabled', true);
+                                    });
+                                }
+                                var selectedUser = data.getSelectedUser;
+                                //console.log(selectedUser);
+                                if (selectedUser != null) {
+                                    $("#booking_user_id").val(selectedUser.user_id);
+                                    if (selectedUser.assign_status != 'pending') {
+                                        $('.assign_task_body_wrapper').hide();
+                                        $('#modal-footer').hide();
+                                        $('.assign_taks_to_wrapper').show();
+                                        $.each(allUsers, function(i, allUser) {
+                                            if (allUser.id == selectedUser.user_id) {
+                                                $('.assign_taks_to_txt').text(allUser.name
+                                                    .toUpperCase());
+                                            }
+                                        });
+                                    }
 
 
-                }
+                                }
 
-            } else {
-                Swal.fire("Sorry!", data.message, "error");
-            }
-        },
-        error: function(errorString) {
-            Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
-        }
-    });
+                            } else {
+                                Swal.fire("Sorry!", data.message, "error");
+                            }
+                        },
+                        error: function(errorString) {
+                            Swal.fire("Sorry!", "Something went wrong please contact to admin",
+                                "error");
+                        }
+                    });
 
-});
-$(document).on('click', '#btn_save_booking', function() {
-    var validate = $("#BookingAssign").valid();
-    if (validate) {
-        var form_data = $("#BookingAssign").serializeArray();
-        $.ajax({
-            type: "POST",
-            url: "{{ route('bookingAssign') }}", // your php file name
-            data: form_data,
-            dataType: "json",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(data) {
-                if (data.status == 'success') {
-                    toastr.options = {
-                        "closeButton": true,
-                        "debug": false,
-                        "newestOnTop": false,
-                        "progressBar": false,
-                        "positionClass": "toast-top-right",
-                        "preventDuplicates": true,
-                        "onclick": null,
-                        "showDuration": "300",
-                        "hideDuration": "1000",
-                        "timeOut": "5000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
-                    };
-                    toastr.success(data.message);
-                    var form = $("#addForm");
-                    form[0].reset();
-                    $('#BookingAssignModal').modal('hide');
-                    bookingListTable.ajax.reload();
-                } else {
-                    Swal.fire("Sorry!", data.message, "error");
-                }
-            },
-            error: function(errorString) {
-                Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
-            }
-        });
-    }
-});
-$(document).on('click', '.selected_date', function() {
-    console.log('yes');
-    //    $('.zip_code').selectpicker("refresh");
-});
-$(document).on('change', '.zip_code', function() {
-    zipCode = $(this).val();
-    date = $('.date').val();
-    var form_data = new FormData();
-    form_data.append('zipCode', zipCode);
-    form_data.append('date', date);
-    $.ajax({
-        type: "POST",
-        url: "{{ route('getTimeSlotByZipCode') }}", // your php file name
-        data: form_data,
-        dataType: "json",
-        processData: false,
-        contentType: false,
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function(data) {
-            if (data.status == 'success') {
-                if (data.zipCode != '') {
-                    $('.selected_zip_code_time_slot_html').html('');
-                    $('.selected_zip_code_time_slot_html').html(data.timeSlotHtml);
-                } else {
-                    $('.time_slot_html').html();
-                    $('.time_slot_html').html(data.timeSlotHtml);
-                }
-            } else {
-                Swal.fire("Sorry!", data.message, "error");
-            }
-        },
-        error: function(errorString) {
-            Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
-        }
-    });
-})
+                });
+                $(document).on('click', '#btn_save_booking', function() {
+                    var validate = $("#BookingAssign").valid();
+                    if (validate) {
+                        var form_data = $("#BookingAssign").serializeArray();
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ route('bookingAssign') }}", // your php file name
+                            data: form_data,
+                            dataType: "json",
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(data) {
+                                if (data.status == 'success') {
+                                    toastr.options = {
+                                        "closeButton": true,
+                                        "debug": false,
+                                        "newestOnTop": false,
+                                        "progressBar": false,
+                                        "positionClass": "toast-top-right",
+                                        "preventDuplicates": true,
+                                        "onclick": null,
+                                        "showDuration": "300",
+                                        "hideDuration": "1000",
+                                        "timeOut": "5000",
+                                        "extendedTimeOut": "1000",
+                                        "showEasing": "swing",
+                                        "hideEasing": "linear",
+                                        "showMethod": "fadeIn",
+                                        "hideMethod": "fadeOut"
+                                    };
+                                    toastr.success(data.message);
+                                    var form = $("#addForm");
+                                    form[0].reset();
+                                    $('#BookingAssignModal').modal('hide');
+                                    bookingListTable.ajax.reload();
+                                } else {
+                                    Swal.fire("Sorry!", data.message, "error");
+                                }
+                            },
+                            error: function(errorString) {
+                                Swal.fire("Sorry!", "Something went wrong please contact to admin",
+                                    "error");
+                            }
+                        });
+                    }
+                });
+                $(document).on('click', '.selected_date', function() {
+                    console.log('yes');
+                    //    $('.zip_code').selectpicker("refresh");
+                });
+                $(document).on('change', '.zip_code', function() {
+                    zipCode = $(this).val();
+                    date = $('.date').val();
+                    var form_data = new FormData();
+                    form_data.append('zipCode', zipCode);
+                    form_data.append('date', date);
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('getTimeSlotByZipCode') }}", // your php file name
+                        data: form_data,
+                        dataType: "json",
+                        processData: false,
+                        contentType: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(data) {
+                            if (data.status == 'success') {
+                                if (data.zipCode != '') {
+                                    $('.selected_zip_code_time_slot_html').html('');
+                                    $('.selected_zip_code_time_slot_html').html(data.timeSlotHtml);
+                                } else {
+                                    $('.time_slot_html').html();
+                                    $('.time_slot_html').html(data.timeSlotHtml);
+                                }
+                            } else {
+                                Swal.fire("Sorry!", data.message, "error");
+                            }
+                        },
+                        error: function(errorString) {
+                            Swal.fire("Sorry!", "Something went wrong please contact to admin",
+                                "error");
+                        }
+                    });
+                })
 </script>
 @endsection
