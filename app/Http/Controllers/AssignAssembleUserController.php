@@ -14,8 +14,20 @@ class AssignAssembleUserController extends Controller
 {
     public function index()
     {
-
-        return view('assembled_orders.assign_list');
+        $sql = OrderFulfillmentAssignAssembleUser::select('orderfulffillment_assign_assemble_users.*','orderfulfillment_users.name as assigned_to','ab.name as assigned_from');
+        $sql->join('orders','orders.id','orderfulffillment_assign_assemble_users.order_id');
+        $sql->join('orderfulfillment_users','orderfulffillment_assign_assemble_users.user_id','orderfulfillment_users.id');
+        $sql->join('orderfulfillment_users as ab','orderfulffillment_assign_assemble_users.added_by','ab.id');
+        $sql->where('orderfulfillment_users.type','assembler');
+        $sql->whereNULL('orders.deleted_at');
+        $sql->where('orders.status','assembling');
+        $sql->whereNULL('orderfulffillment_assign_assemble_users.deleted_at');
+        $sql->whereNULL('orderfulfillment_users.deleted_at');
+        if(Auth::user()->is_head==1){
+            $sql->where('orderfulffillment_assign_assemble_users.user_id',Auth::user()->id);
+        }
+        $totalItems = $sql->count();
+        return view('assembled_orders.assign_list',compact('totalItems'));
     }
 
     public function getList(Request $request)
