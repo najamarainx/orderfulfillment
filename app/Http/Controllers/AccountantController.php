@@ -14,7 +14,12 @@ class AccountantController extends Controller
 {
     public function index()
     {
-        return view('accountant.list');
+        $sql = Order::select('orders.*')->where('orders.payment', 'verified');
+        $sql->where('orders.store_id',1);
+        $sql->where('orders.paid_percentage','!=',100);
+        $sql->whereNULL('orders.deleted_at');
+        $totalItems = $sql->count();
+        return view('accountant.list',compact('totalItems'));
 
     }
 
@@ -64,12 +69,23 @@ class AccountantController extends Controller
             $action .= '<a  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview" data-id="'.$orderObj->id.'~'.$orderObj->total_price.'">
                 <i class="la la-eye"></i>
             </a>';
-
+          
+            $orderItem_status_class = null;
+            if($orderObj->paid_percentage  <= 40){
+                $orderItem_status_class = 'label-light-danger';
+             }
+            if($orderObj->paid_percentage  > 40 && $orderObj->paid_percentage  <=99 ){
+                $orderItem_status_class = 'label-light-warning';
+             }
+            if($orderObj->paid_percentage  > 99){
+                $orderItem_status_class = 'label-light-success';
+             }  
+          
             $data[] = [
                 "id" => $orderObj->id,
                 "paid_price" => $orderObj->total_price,
                 "paid_amount" => $orderObj->paid_amount,
-                "paid_percentage" => $orderObj->paid_percentage,
+                "paid_percentage" => '<span class="label label-lg '.$orderItem_status_class.'  label-inline">'. $orderObj->paid_percentage.'</span>',
                 "created_at" => Carbon::create($orderObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
                 "action" => $action
             ];

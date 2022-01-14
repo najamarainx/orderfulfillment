@@ -153,7 +153,23 @@ class AssignInstallationUserController extends Controller
 
     public function assignList()
     {
-        return view('installation_orders.assign_list');
+        $sql = OrderFulfillmentInstallationUser::select('orderfulfillment_installations.*','orderfulfillment_users.name as assigned_to','ab.name as assigned_from','orders.paid_amount','orders.total_price','orders.payment_type');
+        $sql->join('orders','orders.id','orderfulfillment_installations.order_id');
+        $sql->join('orderfulfillment_bookings','orders.booking_id','orderfulfillment_bookings.id');
+        $sql->join('orderfulfillment_user_zip_codes_mappings','orderfulfillment_bookings.zip_code_id','orderfulfillment_user_zip_codes_mappings.zip_id');
+        $sql->join('orderfulfillment_users','orderfulfillment_installations.user_id','orderfulfillment_users.id');
+        $sql->join('orderfulfillment_users as ab','orderfulfillment_installations.added_by','ab.id');
+        $sql->where('orderfulfillment_users.type','installation');
+        $sql->where('orders.status','installation');
+        $sql->whereNULL('orders.deleted_at');
+        $sql->whereNULL('orderfulfillment_installations.deleted_at');
+        $sql->whereNULL('orderfulfillment_installations.deleted_at');
+        $sql->groupBy('orderfulfillment_installations.user_id');
+        if(Auth::user()->is_head==1){
+            $sql->where('orderfulfillment_installations.user_id',Auth::user()->id);
+        }
+        $totalItems = $sql->count();
+        return view('installation_orders.assign_list',compact('totalItems'));
     }
     public function getassignList(Request $request)
     {
