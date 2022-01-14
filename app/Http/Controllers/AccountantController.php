@@ -74,10 +74,10 @@ class AccountantController extends Controller
             if($orderObj->paid_percentage  <= 40){
                 $orderItem_status_class = 'label-light-danger';
              }
-            if($orderObj->paid_percentage  == 40 && $orderObj->paid_percentage  <=99 ){
+            if($orderObj->paid_percentage  > 40 && $orderObj->paid_percentage  <=99 ){
                 $orderItem_status_class = 'label-light-warning';
              }
-            if($orderObj->paid_percentage  == 100){
+            if($orderObj->paid_percentage  > 99){
                 $orderItem_status_class = 'label-light-success';
              }  
           
