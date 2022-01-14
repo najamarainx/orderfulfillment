@@ -1,0 +1,315 @@
+[33ma11c5fa[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m update stock listing
+[33m01c2a02[m update fatima changing
+[33m2fdffaa[m update work fatima.
+[33m5746add[m status change
+[33m270d1a8[m status change
+[33m69325c9[m phone no format validation
+[33m7847d2f[m sidebar
+[33m9799e21[m bg change
+[33m70455d6[m bg change
+[33m1821c4d[m sidebar layout
+[33mcce7d06[m sidebar and table listing records issue
+[33mb6acd77[m booking issue,order issue,
+[33m280a8d2[m booking module fixing
+[33m7226649[m cards
+[33mb98466e[m assign permissions show
+[33m2a936d7[m icon
+[33m15903cf[m route file change
+[33m317f167[m assembler controller
+[33m1a549df[m sidebar menu fixed
+[33m2964e92[m sidebar menu change
+[33m4f9836f[m zip to post codee
+[33m6dfd94f[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mbf0baba[m postcode
+[33mdc12435[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m5912f96[m order history main
+[33m22de631[m payment type and time slots
+[33m71dfb6b[m payment log type
+[33m532dc18[m role controller
+[33mf5788cc[m sub user assembler and permissions
+[33m36b271d[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m9ef9266[m admin order list
+[33m07c81b0[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m115e234[m order detail functions implemented
+[33mdbb256f[m user slots and item controller
+[33m00c95f0[m asssign detail
+[33m3b67c67[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m45f9616[m assembled order
+[33mb47a171[m revert
+[33md0f6f80[m get zip ids
+[33m62d1a4a[m assmbeld order conroller
+[33m0548d91[m assign detail
+[33m11d9139[m assign detail
+[33m46def74[m assign detail
+[33mfab106b[m order status
+[33me6f3d00[m assing assemble controller
+[33m41c7061[m assembler order
+[33m7ec73f9[m tasklist
+[33mc80b352[m taskcontroller
+[33m94516a4[m bookingcontroller
+[33m4c758d4[m add soft delete in stock order item
+[33m2923fbb[m assembled order
+[33m6bafc8a[m booking controller
+[33mbc47422[m create booking api
+[33mea23798[m api.php
+[33m36dc16f[m api token
+[33m0f39c93[m web
+[33mfd2ee74[m zipcontroller
+[33m8119ef7[m api
+[33m737f0d2[m kernel
+[33m6e20767[m zipcontroller
+[33m557b423[m web
+[33m3e10d52[m route service provider
+[33m8901c26[m route service provider
+[33m064ed9d[m assgined task and web file change
+[33m818877b[m assignpackging and sidbar
+[33m4da9a05[m web file change
+[33m9956737[m middleware
+[33m33da06f[m url
+[33mdb805cd[m middleware
+[33mabb60f5[m web
+[33mdd0ecd2[m web file change
+[33m4092a33[m zipcontroller change
+[33mdee87b0[m timeslot api
+[33m8b0f513[m web
+[33m341e52a[m web
+[33m3039968[m web
+[33m9bf00ec[m web
+[33m50b1744[m timeslot detial
+[33mc430683[m zipslot detail api
+[33m2bec7e8[m zip timeslots api
+[33mc85aba8[m zip api
+[33m935ab9c[m zipapi
+[33mc80ecda[m zip
+[33m5b496ab[m zip
+[33m490c530[m zip code
+[33m1f575d5[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m13729bc[m permissions
+[33mddc2c68[m user type change
+[33m1678818[m accountant module
+[33mcec7324[m conflict reolved order fulfilment assign user installtion
+[33m9ec45d2[m test
+[33m6ae66f8[m assmbeld order
+[33m82fc65b[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m2a148b5[m order installtion
+[33m3ea2a8a[m styling for permissions
+[33mcce9043[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mf3a80c1[m user controller
+[33maa5c050[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m939ed6c[m assembler check
+[33m056feba[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m1b08d3e[m user creation of installer
+[33m1bb1680[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m69de3dd[m order installation listing and assigning installation listing
+[33ma08407d[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m5738e36[m assembled user
+[33mdc992bd[m conflict webphp
+[33m6e421d1[m orders installation module
+[33mb2692d6[m users list
+[33m1b95e5c[m user controller
+[33mcd3b99c[m packaging order and user creations
+[33m7902fec[m user setting
+[33ma51dc01[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33ma7c2a5a[m assembled ordre
+[33m8175e3e[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m188e2fa[m packaging module complete with listing
+[33m2da339c[m assembled order complete
+[33md573b7f[m web and model conflict
+[33me7894e0[m assembler
+[33m6540afe[m user assebbler order list and update status agaisnt order assign
+[33me32a546[m web php conflict
+[33m16c8d10[m just only page and write code controoler
+[33mfcafbd2[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m3ca46b8[m assebled controller
+[33m766c26a[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33me01b29b[m make controller just
+[33m7e0de37[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mb809747[m assembled lsiting
+[33m5a14186[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mf7b7eb5[m make controller and model
+[33m3392ff4[m sidebar order assembled label change
+[33mf039a7e[m footer
+[33m26b3967[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33md8f4a2a[m style.bunlde.css
+[33m7c6696e[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m782bad4[m order ready for assembling
+[33m865f267[m style css
+[33mb956851[m list
+[33m68975b6[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m7fa94c1[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m9e670b6[m department id with session
+[33me6d4e8c[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m9ab5c0d[m RoleController
+[33m4f928c2[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mfe590bd[m item controller
+[33md05c49a[m styling for permissions
+[33mf28a60b[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mb6924dd[m code styling update from Fatima
+[33md677346[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m27b604f[m item listing view set
+[33mfbc506f[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m3938f58[m stock controller
+[33m93dccaf[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m909b575[m working stock list view
+[33mbb3450c[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33maf2fccd[m supplier stock edit
+[33mfb3b003[m some changing in variant page list
+[33m6ad8cd3[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m266e6a4[m item merge against variants
+[33m7b3477f[m worker task controller
+[33m6b148f1[m woker task
+[33mc50cd64[m worker task
+[33m1a69d4d[m worker task
+[33m83faf56[m worker task controller
+[33m2f5e308[m worker task
+[33m40b037f[m user controller
+[33m701e6a9[m user controller
+[33mb1f4128[m user password
+[33mdcf8154[m web
+[33m3418782[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m00838a7[m web
+[33mf36df82[m permission type revert
+[33m8da8533[m sidebar change
+[33md237d33[m sidebar
+[33m5704800[m web
+[33m7e73c26[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m6161a0d[m booking controller
+[33m03b2622[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m6afd0a7[m statuses updated when user tasks done
+[33ma78ffe1[m booking contorller
+[33m1f38a21[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m56ddf38[m permisisons
+[33md637983[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mc677a39[m order status change and optimize query
+[33m79b4e4f[m side bar
+[33m9728120[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mbcf1d5a[m order controler
+[33m315e2a5[m slot list check and confirmed listing test
+[33m70eb75a[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m4bdadcf[m side bar sequence
+[33m99ad7c2[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m6ef3c17[m production inventory editable and show listing against product
+[33mc728b98[m models
+[33m2f25386[m modal delete
+[33mb5e1a04[m model name change
+[33m71eb8aa[m user
+[33m20dcb6a[m auth
+[33m74d72a3[m auth
+[33m71719ea[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mc89fcfa[m orderfulfillment controller
+[33m904119a[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m259be03[m TYPE CHANGE of category controller
+[33md3fab41[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m39071b3[m orderfulfillment user controller
+[33m5e1025f[m security code generate against worker
+[33m7fbc9e8[m login controller econdition change
+[33m1b54269[m order controller
+[33mba41e1f[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mc4dc84b[m task controller and role chcks
+[33m1afb562[m order controller
+[33md013f44[m order controller
+[33mfa7e7d0[m login Container
+[33m230715f[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mf7e010d[m condition change task list view
+[33m2534725[m tak controller
+[33meb058cf[m task controller conflicts
+[33m975aa39[m order controller
+[33me3d90dd[m task list and assigned task user selected user against task
+[33m65cd34f[m conflict resolved task controller
+[33mcd13e52[m task list and assign pop up
+[33m6423b5a[m as
+[33md792d9b[m completed tasks
+[33m1ebe7bb[m taskss list view folder
+[33m203c9cb[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m73be604[m task controller in routes
+[33m445c331[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33ma65f9ef[m user controller
+[33m522d663[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mcf79dd4[m task controller and task side menu
+[33mdbc4908[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m7cdda50[m login controller
+[33md8ba5a0[m product items not insert in duplicate and quantity check implements
+[33me8fc4e7[m inventory assign against order
+[33m87bbd47[m orders detail listing done
+[33mb49b14c[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m284acfb[m orders listing show
+[33m66a16fe[m order item
+[33mfc135ee[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m55d4ddd[m measurement booking
+[33m5ecb7fb[m order listing for production users
+[33m134fe76[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mbf7870a[m measurement order create
+[33m421a5da[m Supplier to inventory module done
+[33m1b45882[m stock order edit page query and function
+[33me11044a[m booking assign controller
+[33m598d914[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m472d960[m set query of booking list and confirmed list
+[33m86d6ae0[m booking assign
+[33m1fc6b5e[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m90d7909[m sidebar
+[33m0022d35[m booking user list assign
+[33m1523d02[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m5b327fe[m side bar
+[33m1eb7e55[m booking controller category conflict resolved
+[33m14b4d12[m booking assign done
+[33m8bc1317[m booking
+[33m09b172f[m booking and helper file conflicts
+[33m7cbaf8a[m booking controller
+[33m227390b[m conflict resolved
+[33m48af731[m user list show against slot
+[33me6b0eff[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m4add95a[m booking
+[33mca110fd[m booking add and edit with customer on both side booking listing and confirmed order listing
+[33mba011c6[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mca3f2f7[m booking status change text
+[33mf62ab7f[m booking controller
+[33mc05c99f[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m20ec072[m booking controller
+[33m919e463[m booking and confirmed list show
+[33mbe76623[m slots enable and disabled
+[33m2fa45de[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mbcbe5a9[m conflict resolved
+[33m524e6cb[m booking controller
+[33m7c7e7f5[m user zip code assign
+[33m12e505d[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m47ef202[m booking
+[33mb1b208e[m complete supplier stock order and maintain inventory stock only insertion
+[33mb4827fb[m item controller
+[33mfab3738[m booking and inventory
+[33m81b7c6b[m till stock supplier orders
+[33m77c8583[m orderfulfillment stock order item
+[33md05a0c0[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mdd049ed[m conflict resolved sidebar,web.php
+[33m89a9057[m sidebar
+[33mb8a29a1[m stock order list show and dynamic pagination and filter work
+[33mb0cd953[m inventory item
+[33mf851487[m supplier
+[33me2223d2[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m9d61b09[m supplir
+[33m507acb2[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m221e480[m variant list
+[33mc16b0e0[m supplier
+[33m9e51717[m items
+[33m0229173[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mf89bbff[m department and item
+[33mc182502[m user module list with filter
+[33m10abf47[m conflict resolved
+[33m80d456a[m zip done
+[33m74c6c1b[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33mc090061[m permission roles
+[33mf1a5bd0[m conflict resolve
+[33md404604[m zip list dynamically
+[33mbf31e2a[m categoy controller
+[33mfeffb75[m Merge branch 'master' of https://github.com/najamarainx/orderfulfillment
+[33m86ae522[m role controller
+[33mc7f9b00[m conflict resolve
+[33m8dcc668[m html paages user list and zip code
+[33ma7b6cad[m role and validate librarires
+[33ma94a617[m web file
+[33m70ec59f[m web file
+[33mcdcae39[m web
+[33m7850d46[m web route
+[33m8550666[m login and admin
+[33m58404ca[m login and main layout
+[33mf759299[m deleted model
+[33m1cbe818[m first commit

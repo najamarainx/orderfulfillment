@@ -347,31 +347,6 @@ td {
 @endsection
 @section('content')
 
-<<<<<<< HEAD
-<div class="d-flex flex-column-fluid">
-<div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
-            <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Info-->
-                <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Deprtments</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Actions-->
-                    <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
-                    <span class="text-muted font-weight-bold mr-4">Task List</span>
-                    <!--end::Actions-->
-                </div>
-                <!--end::Info-->
-            </div>
-        </div>
-    <!--begin::Container-->
-    <div class="col-12">
-        <div class="card card-custom gutter-b">
-            <div class="card-header flex-wrap py-3">
-                <div class="card-title">
-                    <h3 class="card-label">Tasks List
-                    </h3>
-=======
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
         <div class="container">
@@ -381,10 +356,7 @@ td {
                         <h3 class="card-label">Tasks List {{ isset($totalItems) && !empty($totalItems) ? '('.$totalItems.')'  :' '  }}
                         </h3>
                     </div>
-
->>>>>>> 5746add8f3c7ffdcb7d8104248303d35be720e25
                 </div>
-
             </div>
             <div class="card-body">
                 <form class="kt-form kt-form--fit">
