@@ -656,7 +656,7 @@
                                     </li>
                                 @endif
                                 @if (hasPermission('departmentTaskList'))
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'tasksList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('tasksList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
