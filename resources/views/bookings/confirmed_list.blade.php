@@ -11,6 +11,12 @@
          body{
         background-color: white;font-family: 'Poppins';
     }
+    .dataTables_wrapper .dataTable tfoot th, .dataTables_wrapper .dataTable thead th {
+    color:#9b9da2;
+}
+.dataTables_wrapper .dataTable td{
+    color: #181C32;
+}
 .btn.btn-light {
     background-color: #FFE2E5;
     border-color: transparent;

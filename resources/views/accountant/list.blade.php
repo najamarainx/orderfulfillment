@@ -25,6 +25,12 @@ i.la.la-eye {
 .dataTables_wrapper .dataTable td{
     color: #181C32;
 }
+.modal-content{
+    height: 100%;
+    margin-left: 25px;
+}
+    
+.modal-dialog {height: 100%;}
         .error {
             color: red !important;
         }
@@ -109,7 +115,7 @@ i.la.la-eye {
 
 
     <div class="modal fade" id="staticBackdrop1" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Payment
