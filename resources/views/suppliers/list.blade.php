@@ -142,13 +142,13 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="phone_no">Phone No <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" id="phone_no" name="phone_no" placeholder="Phone No">
+                                    <input type="number" class="form-control" id="phone_no" name="phone_no" placeholder="Phone No(UK)">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="phone_no">Company Phone No <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" id="company_phone_no" name="company_phone_no" placeholder="Company Phone No">
+                                    <input type="number" class="form-control" id="company_phone_no" name="company_phone_no" placeholder="Company Phone No(UK)">
                                 </div>
                             </div>
                         </div>
