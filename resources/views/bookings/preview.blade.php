@@ -38,9 +38,20 @@
                                     <P>{{ \Carbon\Carbon::parse($bookingDetail->date)->format('m/d/Y') }}</P>
                                     <P>{{ date('g:i a', strtotime($bookingDetail->bookingSlot->booking_from_time)) . ' - ' . date('g:i a', strtotime($bookingDetail->bookingSlot->booking_to_time)) }}
                                     </P>
-
+                                    @php 
+                                    $booking_status_class = null;
+                                    if($bookingDetail->bookingDetail->assign_status  == 'pending'){
+                                        $booking_status_class = 'label-light-danger';
+                                     }
+                                    if($bookingDetail->bookingDetail->assign_status  == 'in progress'){
+                                        $booking_status_class = 'label-light-warning';
+                                     }
+                                    if($bookingDetail->bookingDetail->assign_status  == 'completed'){
+                                        $booking_status_class = 'label-light-success';
+                                     }  
+                                     @endphp
                                     <P><span
-                                            class="badge badge-success badge-pill booking_assign_status">{{ $bookingDetail->bookingDetail->assign_status }}</span>
+                                            class="label label-lg {{ $booking_status_class }}  label-inline booking_assign_status">{{ $bookingDetail->bookingDetail->assign_status }}</span>
                                     </P>
                                 </div>
                             </div>
@@ -221,7 +232,6 @@
                                                     <span class="text-dark-75 font-weight-normal d-block ">{{$orderDetailObj->price}}</span>
 
                                                 </td>
-
                                             </tr>
                                             @endforeach
                                             @endif
