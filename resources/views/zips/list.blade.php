@@ -5,6 +5,24 @@
 @endsection
 @section('page_level_css')
 <style>
+      body{
+        background-color: white;font-family: 'Poppins';
+    }
+.btn.btn-light {
+    background-color: #FFE2E5;
+    border-color: transparent;
+}
+.card.card-custom{
+    box-shadow: 0px 0px 30px 0px rgb(38 32 45 / 64%);
+}
+i.la.la-eye {
+    color:#B21F24;
+}.dataTables_wrapper .dataTable tfoot th, .dataTables_wrapper .dataTable thead th {
+    color:#9b9da2;
+}
+.dataTables_wrapper .dataTable td{
+    color: #181C32;
+}
 .error {
     color: red !important;
 }
@@ -36,9 +54,6 @@
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
         <div class="container">
-
-
-
             <!--begin::Advance Table Widget 2-->
             <div class="card card-custom gutter-b">
                 <!--begin::Header-->

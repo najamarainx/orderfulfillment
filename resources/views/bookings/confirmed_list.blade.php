@@ -8,6 +8,22 @@
 
 @section('page_level_css')
     <style>
+         body{
+        background-color: white;font-family: 'Poppins';
+    }
+    .dataTables_wrapper .dataTable tfoot th, .dataTables_wrapper .dataTable thead th {
+    color:#9b9da2;
+}
+.dataTables_wrapper .dataTable td{
+    color: #181C32;
+}
+.btn.btn-light {
+    background-color: #FFE2E5;
+    border-color: transparent;
+}
+.card.card-custom{
+    box-shadow: 0px 0px 30px 0px rgb(38 32 45 / 64%);
+}
         .error {
             color: red !important;
         }

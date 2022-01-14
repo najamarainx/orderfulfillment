@@ -5,6 +5,12 @@
 @endsection
 @section('page_level_css')
     <style>
+        .dataTables_wrapper .dataTable tfoot th, .dataTables_wrapper .dataTable thead th {
+    color:#9b9da2;
+}
+.dataTables_wrapper .dataTable td{
+    color: #181C32;
+}
         .error {
             color: red !important;
         }

@@ -6,6 +6,31 @@
 @endsection
 @section('page_level_css')
     <style>
+             body{
+        background-color: white;font-family: 'Poppins';
+    }
+.btn.btn-light {
+    background-color: #FFE2E5;
+    border-color: transparent;
+}
+.card.card-custom{
+    box-shadow: 0px 0px 30px 0px rgb(38 32 45 / 64%);
+}
+i.la.la-eye {
+    color:#B21F24;
+}
+.dataTables_wrapper .dataTable tfoot th, .dataTables_wrapper .dataTable thead th {
+    color:#9b9da2;
+}
+.dataTables_wrapper .dataTable td{
+    color: #181C32;
+}
+.modal-content{
+    height: 100%;
+    margin-left: 25px;
+}
+    
+.modal-dialog {height: 100%;}
         .error {
             color: red !important;
         }
@@ -90,7 +115,7 @@
 
 
     <div class="modal fade" id="staticBackdrop1" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Payment
