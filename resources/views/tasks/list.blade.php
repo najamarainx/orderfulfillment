@@ -357,7 +357,6 @@ td {
                         </h3>
                     </div>
                 </div>
-
             </div>
             <div class="card-body">
                 <form class="kt-form kt-form--fit">
