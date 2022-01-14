@@ -28,14 +28,49 @@
     <link href="{{asset('assets/css/themes/layout/brand/dark.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/themes/layout/aside/dark.css')}}" rel="stylesheet" type="text/css" />
     <!-- Styles -->
-
+<style> .bg_1 {
+            background-image: url(assets/media/bg/bg1.jpg);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+        .max-height {
+            max-height: 20rem !important;
+        }
+        .login_content{
+            margin: 0;
+            height: 100%;
+        }
+        .login_form {
+            background-color: white;
+        }
+        .login-content{
+            width: 67%;
+        }
+        .logo_max_h{
+            max-height: 47px !important;
+        }
+        </style>
 </head>
 <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
     <div class="d-flex flex-column flex-root">
-				<div class="login-container order-2 order-lg-1 d-flex flex-center flex-row-fluid px-7 pt-lg-0 pb-lg-0 pt-4 pb-6 bg-white">
+            <div class="row login_content">
+                <!--begin:Aside-->
+                <div class="d-flex col-6 w-100 flex-center p-15 bg_1 text-center">
+                        <div class="login-wrapper">
+                            <!--begin:Aside Content-->
+                            <div class="text-dark-75">
+                                <a href="#">
+                                    <img src="assets/media/logos/loginlogo.png" class="max-height bg" alt="" />
+                                </a>
+                            </div>
+                            <!--end:Aside Content-->
+                        </div>
+                    </div>
+                    <!--end:Aside-->
+				<div class="login-container col-6 w-100 order-2 order-lg-1 d-flex flex-center flex-row-fluid px-7 pt-lg-0 pb-lg-0 pt-4 pb-6 bg-white">
 					<div class="login-content d-flex flex-column pt-lg-0 pt-12">
                         <a href="#" class="login-logo pb-xl-20 pb-15">
-							<img src="{{asset('assets/media/logos/logo-4.png')}}" class="max-h-70px" alt="" />
+							<img src="{{asset('assets/media/logos/logo-4.png')}}" class="max-h-70px logo_max_h" alt="" />
 
                         </a>
                         @yield('content')
@@ -100,6 +135,7 @@
         <main class="py-4">
             @yield('content')
         </main>
+        </div>
     </div> --}}
 
 
