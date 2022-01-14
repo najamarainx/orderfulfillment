@@ -7,25 +7,6 @@
 @endsection
 @section('page_level_css')
     <style>
-          body {
-        font-family: poppins;
-    }
-    
-.d-flex.flex-row.flex-column-fluid.page {
-    background-color: white;
-}
-
-.card.card-custom {
-    box-shadow: 0px 0px 30px 0px rgb(82 63 105 / 42%);
-}
-
-.dataTables_wrapper .dataTable thead th {
-    color: #9ca7da;
-}
-
-.dataTables_wrapper .dataTable td {
-    color: black;
-}
         .error {
             color: red !important;
         }
@@ -80,9 +61,7 @@
         #msform .action-button-previous:focus {
             box-shadow: 0 0 0 2px white, 0 0 0 3px #616161
         }
-        .btn.btn-light {
-    background-color: #FFE2E5;
-}
+
         select.list-dt {
             border: none;
             outline: 0;
@@ -339,23 +318,8 @@
 @section('content')
 
     <div class="d-flex flex-column-fluid">
-    <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
-            <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Info-->
-                <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Page Title-->
-                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Order</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Actions-->
-                    <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
-                    <span class="text-muted font-weight-bold mr-4">Tasks List</span>
-                    <!--end::Actions-->
-                </div>
-                <!--end::Info-->
-            </div>
-        </div>
         <!--begin::Container-->
-        <div class="col-12">
+        <div class="container">
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">

@@ -14,9 +14,6 @@
         span.select2.select2-container.select2-container--default {
             width:100% !important;
         }
-        .btn.btn-light {
-    background-color: #FFE2E5;
-}
     </style>
 @endsection
 @section('content')

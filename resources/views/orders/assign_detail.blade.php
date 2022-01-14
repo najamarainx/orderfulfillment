@@ -10,9 +10,7 @@
         .error {
             color: red !important;
         }
-        .btn.btn-light {
-    background-color: #FFE2E5;
-}
+
         .float_end {
             text-align: end;
         }
@@ -541,8 +539,6 @@
         }
 
         function getDeptItems(depID, line) {
-
-
             var form_data = new FormData();
             form_data.append('depID', depID);
             $.ajax({

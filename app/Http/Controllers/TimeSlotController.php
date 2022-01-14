@@ -36,17 +36,6 @@ class TimeSlotController extends Controller
             if ($search != "") {
 
                 if ($col == 'booking_from_time' || $col == 'booking_to_time') {
-
-                    // $dateArr = explode('|', $search);
-                    // $dateFrom = Carbon::create($dateArr[0] . " 00:00:00")->format('Y-m-d H:i:s');
-                    // $dateTo = Carbon::create($dateArr[1] . " 23:59:59")->format('Y-m-d H:i:s');
-                    // $timeSlot->whereRaw(
-                    //     "( >= ? AND reservation_from <= ?)",
-                    //     [
-                    //        $fromDate." 00:00:00",
-                    //        $toDate." 23:59:59"
-                    //     ]
-                    //   );
                 }
             }
         }

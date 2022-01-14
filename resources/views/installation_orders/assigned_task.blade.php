@@ -9,9 +9,7 @@
         .error {
             color: red !important;
         }
-        .btn.btn-light {
-    background-color: #FFE2E5;
-}
+
     </style>
 @endsection
 @section('content')
