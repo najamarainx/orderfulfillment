@@ -5,9 +5,7 @@
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('page_level_css')
-<style>
-   
-</style>
+
 @endsection
 @section('content')
     <div class="d-flex flex-column-fluid">
