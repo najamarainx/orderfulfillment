@@ -8,6 +8,16 @@
 
 @section('page_level_css')
     <style>
+         body{
+        background-color: white;font-family: 'Poppins';
+    }
+.btn.btn-light {
+    background-color: #FFE2E5;
+    border-color: transparent;
+}
+.card.card-custom{
+    box-shadow: 0px 0px 30px 0px rgb(38 32 45 / 64%);
+}
         .error {
             color: red !important;
         }
