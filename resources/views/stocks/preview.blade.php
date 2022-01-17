@@ -177,6 +177,17 @@
 @section('page_level_js')
 
     <script>
+        $('#downloadPDF').click(function () {
+            domtoimage.toPng(document.getElementById('content2'))
+                .then(function (blob) {
+                    var pdf = new jsPDF('l', 'pt', [$('#content2').width(), $('#content2').height()]);
+
+                    pdf.addImage(blob, 'PNG', 0, 0, $('#content2').width(), $('#content2').height());
+                    pdf.save("stock-invoice.pdf");
+
+                    that.options.api.optionsChanged();
+                });
+        });
         function printDiv(divName) {
             var printContents = document.getElementById(divName).innerHTML;
             var originalContents = document.body.innerHTML;
@@ -184,24 +195,9 @@
             document.body.innerHTML = printContents;
 
             window.print();
-
+            console.log(originalContents);
             document.body.innerHTML = originalContents;
         }
-
-    </script>
-
-    <script>
-        $('#downloadPDF').click(function () {
-            domtoimage.toPng(document.getElementById('content2'))
-                .then(function (blob) {
-                    var pdf = new jsPDF('l', 'pt', [$('#content2').width(), $('#content2').height()]);
-
-                    pdf.addImage(blob, 'PNG', 0, 0, $('#content2').width(), $('#content2').height());
-                    pdf.save("test.pdf");
-
-                    that.options.api.optionsChanged();
-                });
-        });
     </script>
 
 @endsection

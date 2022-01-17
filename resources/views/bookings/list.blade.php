@@ -391,10 +391,20 @@
                                    <input type="text"  class="form-control datatable-input "  id="kt_datepicker" autocomplete="off" data-col-index="1">
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
+                                <label>Name:</label>
+                                <input type="text" class="form-control datatable-input" placeholder="E.g: test"
+                                    data-col-index="1" />
+                            </div>
+                            <div class="col-lg-3 mb-lg-2 mb-2">
+                                <label>Phone No:</label>
+                                <input type="text" class="form-control datatable-input" placeholder="Phone No(UK)"
+                                    data-col-index="2" />
+                            </div>
+                            <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Cateogry:</label>
                                 @if (!$categories->isEmpty())
-                                            <select class="form-control form-control-lg  kt_select2_1 w-100 category_id"
-                                                data-live-search="true" data-col-index="3">
+                                            <select class="form-control form-control-lg  datatable-input kt_select2_1 w-100 category_id"
+                                                data-live-search="true" data-col-index="5">
                                                 <option value=""></option>
                                                 @foreach ($categories as $catObj)
                                                     <option value="{{ $catObj->id }}">{{ $catObj->name }}</option>
@@ -402,20 +412,12 @@
                                             </select>
                                         @endif
                             </div>
-                            <div class="col-lg-3 mb-lg-2 mb-2">
-                                <label>Name:</label>
-                                <input type="text" class="form-control datatable-input" placeholder="E.g: test"
-                                    data-col-index="4" />
-                            </div>
-                            <div class="col-lg-3 mb-lg-2 mb-2">
-                                <label>Phone No:</label>
-                                <input type="text" class="form-control datatable-input" placeholder="Phone No(UK)"
-                                    data-col-index="5" />
-                            </div>
+                           
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Status:</label>
                                 <select name="" id="" class="form-control datatable-input" data-col-index="6">
-                                   @foreach ($statusArray as $status)
+                                   <option value="">Select Status</option>
+                                    @foreach ($statusArray as $status)
                                        <option value="{{$status}}">{{ucfirst($status)}}</option>
                                    @endforeach
                                 </select>
@@ -702,7 +704,10 @@
                 });
 
                 $('#kt_reset').on('click', function(e) {
+                     $('.category_id').val('').trigger('change.select2');
+
                     e.preventDefault();
+                    $('.category_id').val('').trigger('change.slect2');
                     $('.datatable-input').each(function() {
                         $(this).val('');
                         bookingListTable.column($(this).data('col-index')).search('', false, false);

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Validator;
 class AssignPackagingUserController extends Controller
 {
     public function index(){
-        $stores = $query = DB::table('stores')->whereNull('deleted_at')->get();
+        $stores =  DB::table('stores')->whereNull('deleted_at')->get();
         $sql = OrderFulfillmentPackagingUser::select('orderfulfillment_packings.*','orderfulfillment_users.name as assigned_to','ab.name as assigned_from');
         $sql->join('orders','orders.id','orderfulfillment_packings.order_id');
         $sql->join('orderfulfillment_users','orderfulfillment_packings.user_id','orderfulfillment_users.id');
@@ -55,7 +55,7 @@ class AssignPackagingUserController extends Controller
                     $colp = 'orders.id';
                     $sql->where($colp, $search);
                 }
-                if ($col == 'name') {
+                if ($col == 'store_id') {
                     $colp = 'orders.store_id';
                     $sql->where($colp, $search);
                 }

@@ -383,7 +383,7 @@
 
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Status:</label>
-                                <select  class="form-control datatable-input" data-col-index="5">
+                                <select  class="form-control datatable-input" data-col-index="6">
                                     <option value="">Select a status</option>
                                    @foreach ($AssignTaskArray as $status)
                                        <option value="{{$status}}">{{ucfirst($status)}}</option>

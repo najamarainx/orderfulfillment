@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Validator;
 class AssignInstallationUserController extends Controller
 {
     public function index(){
+        $stores =  DB::table('stores')->whereNull('deleted_at')->get();
         $sql = Order::select('orders.*', 'stores.name as store_name')->where('orders.payment', 'verified');
         $sql->join('stores', 'orders.store_id','stores.id');
         $sql->join('orderfulfillment_bookings','orderfulfillment_bookings.id', 'orders.booking_id');
@@ -28,7 +29,7 @@ class AssignInstallationUserController extends Controller
         $sql->whereNULL('stores.deleted_at');
         $sql->whereNULL('orders.deleted_at');
         $totalInstallationOrder = $sql->count();
-        return view('installation_orders.list',compact('totalInstallationOrder'));
+        return view('installation_orders.list',compact(['totalInstallationOrder','stores']));
     }
 
     public function getList(Request $request)
@@ -62,7 +63,7 @@ class AssignInstallationUserController extends Controller
                     $colp = 'orders.id';
                     $sql->where($colp, $search);
                 }
-                if ($col == 'name') {
+                if ($col == 'store_id') {
                     $colp = 'orders.store_id';
                     $sql->where($colp, $search);
                 }
