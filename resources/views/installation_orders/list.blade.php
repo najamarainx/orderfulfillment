@@ -63,7 +63,15 @@
                                     <input type="text" class="form-control datatable-input" placeholder="Name" data-col-index="0">
                                 </div>
                             </div>
-
+                            <div class="col-lg-3 mb-lg-3 mb-2">
+                                <label>Stores Name:</label>
+                                <select class="form-control kt_select2_1 datatable-input " id="store_search" data-col-index="1" >
+                                    <option value="">Select Store</option>
+                                    @foreach($stores as $store)
+                                        <option value="{{$store->id}}" >{{ucfirst($store->name)}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="col-lg-6 mb-lg-6 mb-2">
                                 <label>&nbsp;</label><br /><button class="btn btn-primary btn-primary--icon" id="kt_search">
                                     <span>

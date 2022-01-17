@@ -82,7 +82,7 @@
                     <div class="row mb-6">
                         <div class="col-lg-3 mb-lg-2 mb-2">
                             <label>Department: <span class="text-danger">*</span> </label>
-                            <select   class="form-control datatable-input kt_select2_1"  data-col-index="1">
+                            <select   class="form-control datatable-input kt_select2_1 inventory_search "  data-col-index="1">
                                     @if(!empty($departments))
                                     <option value="">Select</option>
                                     @foreach ($departments as $departmentObj)
@@ -93,7 +93,7 @@
                         </div>
                         <div class="col-lg-3 mb-lg-2 mb-2">
                             <label>Item: <span class="text-danger">*</span> </label>
-                            <select   class="form-control datatable-input kt_select2_1"  data-col-index="2">
+                            <select   class="form-control datatable-input kt_select2_1 inventory_search"  data-col-index="2">
                                     @if(!empty($items))
                                     <option value="">Select</option>
                                     @foreach ($items as $itemObj)
@@ -104,7 +104,7 @@
                         </div>
                         <div class="col-lg-3 mb-lg-2 mb-2">
                             <label>Variant: <span class="text-danger">*</span> </label>
-                            <select   class="form-control datatable-input kt_select2_1"  data-col-index="3">
+                            <select   class="form-control datatable-input kt_select2_1 inventory_search"  data-col-index="3">
                                     @if(!empty($variants))
                                     <option value="">Select</option>
                                     @foreach ($variants as $variantObj)
@@ -248,6 +248,8 @@
 
                 $('#kt_reset').on('click', function(e) {
                     e.preventDefault();
+                    $('.inventory_search').val('').trigger('change')
+
                     $('.datatable-input').each(function() {
                         $(this).val('');
                         table.column($(this).data('col-index')).search('', false, false);

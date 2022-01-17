@@ -56,7 +56,7 @@ class AssembledOrderController extends Controller
                     $colp = 'orders.id';
                     $sql->where($colp, $search);
                 }
-                if ($col == 'name') {
+                if ($col == 'store_id') {
                     $colp = 'orders.store_id';
                     $sql->where($colp, $search);
                 }

@@ -364,7 +364,7 @@
                         <div class="row mb-6">
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Date:</label>
-                                   <input type="text"  class="form-control datatable-input "  id="kt_datepicker" autocomplete="off" data-col-index="6">
+                                   <input type="text"  class="form-control datatable-input "  id="kt_datepicker" autocomplete="off" data-col-index="7">
                             </div>
                             @if(Auth::user()->type!='team_lead')
                             <div class="col-lg-3 mb-lg-2 mb-2">
@@ -383,7 +383,7 @@
 
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Status:</label>
-                                <select  class="form-control datatable-input" data-col-index="5">
+                                <select  class="form-control datatable-input" data-col-index="6">
                                     <option value="">Select a status</option>
                                    @foreach ($AssignTaskArray as $status)
                                        <option value="{{$status}}">{{ucfirst($status)}}</option>
@@ -393,18 +393,19 @@
 
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>&nbsp;</label><br />
-                                <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
-                                    <span>
-                                        <i class="la la-close"></i>
-                                        <span>Reset</span>
-                                    </span>
-                                </button>
+                               
                                 <button class="btn btn-primary btn-primary--icon" id="kt_search">
                                     <span>
                                         <i class="la la-search"></i>
                                         <span>Search</span>
                                     </span>
                                 </button>&#160;&#160;
+                                <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
+                                    <span>
+                                        <i class="la la-close"></i>
+                                        <span>Reset</span>
+                                    </span>
+                                </button>
                             </div>
                         </div>
                     </form>
