@@ -331,9 +331,27 @@
                                             <td>{{$product->side_control}}</td>
                                             <td>{{$product->chain_color}}</td>
                                             <td>{{$product->fitting_option}}</td>
-
+                                            @php
+                                            $product_status_class = null;
+                                             if($product->status == 'pending'){
+                                                    $product_status_class = 'label-light-danger';
+                                                }
+                                                if($product->status == 'in progress'){
+                                                    $product_status_class = 'label-light-warning';
+                                                }
+                                                if($product->status == 'not respond'){
+                                                    $product_status_class = 'label-light-warning';
+                                                }
+                                                if($product->status == 'assigned'){
+                                                    $product_status_class = 'label-light-success';
+                                                }
+                                                if($product->status == 'completed'){
+                                                    $product_status_class = 'label-light-success';
+                                                }
+                                                
+                                            @endphp
                                            <td>
-                                                <span class="label label-lg label-light-success label-inline">{{$product->status}}</span>
+                                                <span class="label label-lg {{ $product_status_class }} label-inline">{{$product->status}}</span>
                                             </td>
                                         </tr>
 
@@ -377,8 +395,27 @@
                                                                     </div>
                                                                 </div>
                                                             </td>
+                                                            @php
+                                                            $sale_log_status_class = null;
+                                                             if($saleLogItem->status == 'pending'){
+                                                                    $sale_log_status_class = 'label-light-danger';
+                                                                }
+                                                                if($saleLogItem->status == 'in progress'){
+                                                                    $sale_log_status_class = 'label-light-warning';
+                                                                }
+                                                                if($saleLogItem->status == 'not respond'){
+                                                                    $sale_log_status_class = 'label-light-warning';
+                                                                }
+                                                                if($saleLogItem->status == 'assigned'){
+                                                                    $sale_log_status_class = 'label-light-success';
+                                                                }
+                                                                if($saleLogItem->status == 'completed'){
+                                                                    $sale_log_status_class = 'label-light-success';
+                                                                }
+                                                                
+                                                            @endphp
                                                             <td>
-                                                                <span class="label label-lg label-light-success label-inline">{{$saleLogItem->status}}</span>
+                                                                <span class="label label-lg {{   $sale_log_status_class }} label-inline">{{$saleLogItem->status}}</span>
                                                             </td>
                                                         </tr>
                                                         @endforeach
@@ -452,7 +489,7 @@
                                             </td>
                                             <td>
 
-                                                <span class="label label-lg label-light-success label-inline">{{$assemble->status}}</span>
+                                                <span class="label label-lg label-light-warning label-inline">{{$assemble->status}}</span>
                                             </td>
                                             <td>
                                                 <div>
@@ -520,7 +557,7 @@
                                                 </td>
                                                 <td>
 
-                                                    <span class="label label-lg label-light-success label-inline">{{$assemble->status}}</span>
+                                                    <span class="label label-lg label-light-warning label-inline">{{$assemble->status}}</span>
                                                 </td>
                                                 <td>
                                                     <div>
@@ -588,7 +625,7 @@
                                                 </td>
                                                 <td>
 
-                                                    <span class="label label-lg label-light-success label-inline">{{$assemble->status}}</span>
+                                                    <span class="label label-lg label-light-warning label-inline">{{$assemble->status}}</span>
                                                 </td>
                                                 <td>
                                                     <div>
