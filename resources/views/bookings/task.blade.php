@@ -346,7 +346,7 @@ td {
 </style>
 @php
 $AssignstatusArray = ['pending', 'in progress', 'not respond', 'completed'];
-$statusArray = ['pending', 'in progress'];
+$statusArray = ['pending', 'in progress','completed'];
 @endphp
 @endsection
 @section('content')
