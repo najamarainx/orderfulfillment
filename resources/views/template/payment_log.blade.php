@@ -8,8 +8,8 @@
         <th style="min-width: 120px ">Received By</th>
         <th class="text-info " style="min-width: 150px ">Designation
         </th>
-        <th class="text-info " style="min-width: 150px ">Amount Received($)</th>
-        <th></th>
+        <th class="text-info " style="min-width: 150px ">Amount Received(£)</th>
+        <th class="text-info " style="min-width: 50px ">Payment Verify</th>
     </tr>
     </thead>
 
@@ -34,7 +34,7 @@
                     </td>
                     <td>
                         <div class="form-check">
-                            <input class="form-check-input" name="verify_amt[{{$paymentLog->id}}]" type="checkbox" {{isset($paymentLog->is_verified) && $paymentLog->is_verified==1 ? 'checked  disabled':''}} value="{{$paymentLog->is_verifeid}}" id="defaultCheck1">
+                            <input class="form-check-input mt-n1" name="verify_amt[{{$paymentLog->id}}]" type="checkbox" {{isset($paymentLog->is_verified) && $paymentLog->is_verified==1 ? 'checked  disabled':''}} value="{{$paymentLog->is_verifeid}}" id="defaultCheck1">
                         </div>
                     </td>
                 </tr>

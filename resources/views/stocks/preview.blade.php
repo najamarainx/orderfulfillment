@@ -22,8 +22,8 @@
     </style>
 @endsection
 @section('content')
-    <div id="print-content" class="card card-custom">
-        <div id="content2" class="card-body p-0">
+    <div id="content2" class="card card-custom">
+        <div id="print-content" class="card-body p-0">
             <!--begin::Invoice-->
             <!--begin::Invoice header-->
             <div class="container">

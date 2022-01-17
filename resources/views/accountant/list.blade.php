@@ -25,11 +25,11 @@ i.la.la-eye {
 .dataTables_wrapper .dataTable td{
     color: #181C32;
 }
-.modal-content{
+/* .modal-content{
     height: 100%;
     margin-left: 25px;
-}
-    
+} */
+
 .modal-dialog {height: 100%;}
         .error {
             color: red !important;
@@ -116,7 +116,7 @@ i.la.la-eye {
 
     <div class="modal fade" id="staticBackdrop1" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="height: fit-content;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Payment
                     </h5>
@@ -124,10 +124,10 @@ i.la.la-eye {
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
-                <div class="modal-body" style="height: 350px;">
+                <div class="modal-body">
 
-                        <div class="form-group row d-flex justify-content-center">
-                            <label for="total_amount" class="mr-3 col-form-label">Total Amount</label>
+                        <div class="form-group row d-flex justify-content-center bg-primary py-3">
+                            <label for="total_amount" class="mr-3 col-form-label text-white">Total Amount</label>
                             <div class="">
                                 <input type="text" class="form-control" id="total_amount_order"  readonly>
                             </div>

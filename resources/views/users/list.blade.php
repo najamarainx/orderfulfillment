@@ -233,7 +233,7 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
     <!--end::Content-->
     <!--------modal user---------------->
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-md" role="document">
 
             <form onsubmit="return false" id="addForm">
                 <input type="hidden" class="form-control" name="id" id="id" value="" />
@@ -281,17 +281,19 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                         @endif
                         <div class="col-6">
                             <div class="input-group role_p">
-                            <label class="control-label" for="user_role">User Role</label>
-                                <select class="form-control kt_select2_1 user_role" id="user_role" name="user_role" required >
-                                    <option value="">Select Role</option>
-                                    @foreach($roles as $role)
-                                    <option value="{{$role->id}}">{{ucfirst($role->name)}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-primary font-weight-bold" id="show_permission">
-                                        <i class="la la-eye"></i>
-                                    </button>
+                                <label class="control-label" for="user_role">User Role</label>
+                                <div class="d-flex w-75">
+                                    <select class="form-control kt_select2_1 user_role" id="user_role" name="user_role" required >
+                                        <option value="">Select Role</option>
+                                        @foreach($roles as $role)
+                                        <option value="{{$role->id}}">{{ucfirst($role->name)}}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-primary font-weight-bold" id="show_permission">
+                                            <i class="la la-eye"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
