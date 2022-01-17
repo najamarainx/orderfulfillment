@@ -160,16 +160,18 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-10">
-                                <div class="form-group">
-                                    <label>Variant<span class="text-danger">*</span></label>
-                                    <input type="text" name="name[]"  id="variant_0" class="form-control variant">
+                            <div class="col-12 row mb-4">
+                                <div class="col-10">
+                                    <div class="form-group">
+                                        <label>Variant<span class="text-danger">*</span></label>
+                                        <input type="text" name="name[]"  id="variant_0" placeholder="Enter Variant" class="form-control variant">
+                                    </div>
                                 </div>
+                                <div class="col-2 mt-7" id="test_up">
+                                    <button type="button" class="btn btn-primary" onclick="addfield(0)">+</button>
+                                </div>
+                                <div id="newfield_0" class="col-lg-12"></div>
                             </div>
-                            <div class="col-2 mt-7" id="test_up">
-                                <button type="button" class="btn btn-primary" onclick="addfield(0)">+</button>
-                            </div>
-                            <div id="newfield_0" class="col-lg-12"></div>
 
                         </div>
                         <div class="text-right">

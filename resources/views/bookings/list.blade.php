@@ -219,8 +219,6 @@
         .slot_radio input.radio:empty ~ label {
             position: relative;
             float: left;
-            line-height: 1.5em;
-            text-indent: 3.25em;
             cursor: pointer;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -230,11 +228,14 @@
             border: 1px solid #B21F24;
             background-color: #B21F24;
             color: #fff;
-            padding-top: 17px;
-            padding-bottom: 0px;
+            padding: 10px 10px 10px 10px;
+            padding-right : 5px;
+            text-align: center;
             border-radius: 8px;
         }
-
+        .time_slot_html.row .col-md-6 {
+            padding: 2px;
+        }
         .slot_radio input.radio:empty ~ label:before {
             position: absolute;
             display: block;

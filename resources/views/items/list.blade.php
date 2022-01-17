@@ -168,13 +168,13 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-6">
                         <div class="form-group">
                             <label>Min Quantity <span class="text-danger">*</span></label>
                             <input type="number" name="min_qty" id="min_qty"  min="1" class="form-control" placeholder="Min Quantity">
                         </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-6">
                         <div class="form-group">
                             <label>Unit <span class="text-danger">*</span></label>
                             <input type="text"  name="unit"  id="unit" class="form-control" placeholder="Unit">
