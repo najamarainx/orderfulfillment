@@ -1,8 +1,8 @@
 // Class definition
 
-var KTBootstrapDatetimepicker = function () {
+var KTBootstrapDatetimepicker = function() {
     // Private functions
-    var baseDemos = function () {
+    var baseDemos = function() {
         // Demo 1
         $('#kt_datetimepicker_1').datetimepicker();
 
@@ -18,12 +18,15 @@ var KTBootstrapDatetimepicker = function () {
 
         // Demo 4
         $('#kt_datetimepicker_4').datetimepicker({
-            format: 'LT'
+            format: 'LT',
+            stepping: 15
+
         });
 
         // Demo 5
         $('#kt_datetimepicker_5').datetimepicker({
-            format: 'LT'
+            format: 'LT',
+            stepping: 15
         });
 
         // Demo 6
@@ -42,10 +45,10 @@ var KTBootstrapDatetimepicker = function () {
             useCurrent: false
         });
 
-        $('#kt_datetimepicker_7_1').on('change.datetimepicker', function (e) {
+        $('#kt_datetimepicker_7_1').on('change.datetimepicker', function(e) {
             $('#kt_datetimepicker_7_2').datetimepicker('minDate', e.date);
         });
-        $('#kt_datetimepicker_7_2').on('change.datetimepicker', function (e) {
+        $('#kt_datetimepicker_7_2').on('change.datetimepicker', function(e) {
             $('#kt_datetimepicker_7_1').datetimepicker('maxDate', e.date);
         });
 
@@ -55,7 +58,7 @@ var KTBootstrapDatetimepicker = function () {
         });
     }
 
-    var modalDemos = function () {
+    var modalDemos = function() {
         // Demo 9
         $('#kt_datetimepicker_9').datetimepicker();
 
@@ -70,7 +73,7 @@ var KTBootstrapDatetimepicker = function () {
         });
     }
 
-    var validationDemos = function () {
+    var validationDemos = function() {
         // Demo 12
         $('#kt_datetimepicker_12').datetimepicker();
 

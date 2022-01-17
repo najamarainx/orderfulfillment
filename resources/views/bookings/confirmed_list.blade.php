@@ -393,7 +393,7 @@
                         <div class="row mb-6">
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Date:</label>
-                                   <input type="text"  class="form-control datatable-input "  id="kt_datepicker" autocomplete="off" data-col-index="1">
+                                   <input type="text"  class="form-control datatable-input "  id="kt_datepicker" autocomplete="off" data-col-index="3">
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Name:</label>
