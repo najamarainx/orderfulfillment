@@ -14,8 +14,9 @@
             <div class="symbol symbol-100 mr-5">
                 @if(!empty(Auth::user()->photo))
                 <div class="symbol-label" style="background-image:url({{asset('user/profile'.'/'.Auth::user()->photo)}})"></div>
-                @endif
+                @else
                 <div class="symbol-label" style="background-image:url('assets/media/users/300_21.jpg')"></div>
+                @endif
                 <i class="symbol-badge bg-success"></i>
             </div>
             <div class="d-flex flex-column">
