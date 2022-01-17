@@ -18,12 +18,15 @@ var KTBootstrapDatetimepicker = function () {
 
         // Demo 4
         $('#kt_datetimepicker_4').datetimepicker({
-            format: 'LT'
+            format: 'LT',
+            stepping: 15
+
         });
 
         // Demo 5
         $('#kt_datetimepicker_5').datetimepicker({
-            format: 'LT'
+            format: 'LT',
+            stepping: 15
         });
 
         // Demo 6
