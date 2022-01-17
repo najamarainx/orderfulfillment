@@ -57,20 +57,20 @@
                                     <label class="col-form-label">Full Name <span class="text-danger">*</span></label>
                                     <input required type="text" class="form-control" name="name" value="{{(Auth::check()) ? Auth::user()->name : ''}}" id="name" placeholder="Enter name" />
                                 </div>
-                               
+
                                 <div class="form-group col-md-6">
                                     <label class="col-form-label">Email <span class="text-danger">*</span></label>
                                     <input required type="email" class="form-control colorDisable" value="{{(Auth::check()) ? Auth::user()->email : ''}}" name="email" id="email" readonly
                                         placeholder="Enter email name" />
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label class="col-12 col-form-label">Phone Number <span class="text-danger">*</span></label>
+                                    <label>Phone Number <span class="text-danger">*</span></label>
                                     <input required type="text" class="form-control" value="{{Auth::user()->phone_number}}"  name="phone" id="phone"
                                         placeholder="Enter phone number" />
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="country">Country:</label>
-                                    <input type="text" class="form-control" placeholder="Enter Country" name="country" value="{{ !empty(Auth::user()->country) ? Auth::user()->country : '' }}" >   
+                                    <input type="text" class="form-control" placeholder="Enter Country" name="country" value="{{ !empty(Auth::user()->country) ? Auth::user()->country : '' }}" >
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="state">State:</label>
@@ -123,17 +123,17 @@
                     <div class="card-body">
                         <form onsubmit="return false" id="passwordform">
                             <div class="row mb-2">
-                                <div class="col-md-8">
-                                    <label class="col-form-label">Current Password <span class="text-danger">*</span></label>
+                                <div class="col-lg-12 col-sm-4">
+                                    <label>Current Password <span class="text-danger">*</span></label>
                                     <input type="password" class="form-control" name="currentpassword" id="currentpassword" placeholder="Enter Current Password" required />
                                 </div>
-                                <div class="col-md-8">
-                                    <label class="col-form-label">New Password <span class="text-danger">*</span></label>
+                                <div class="col-lg-12 col-sm-4">
+                                    <label>New Password <span class="text-danger">*</span></label>
                                     <input type="password" class="form-control"  name="newpassword" id="newpassword"
                                         placeholder="Enter New Password" required />
                                 </div>
-                                <div class="col-md-8">
-                                    <label class="col-form-label">Confirm Password <span class="text-danger">*</span></label>
+                                <div class="col-lg-12 col-sm-4">
+                                    <label>Confirm Password <span class="text-danger">*</span></label>
                                     <input type="password" name="cpassword" id="cpassword" class="form-control"
                                         placeholder="Enter Password" required />
                                 </div>

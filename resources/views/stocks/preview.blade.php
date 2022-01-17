@@ -9,21 +9,32 @@
         .error {
             color: red !important;
         }
-        /* @media only print {
-            #print-content{
-                font-size: 130px !important;
-                font-family: georgia, times, serif;
-                font-style: italic !important;
-                font-weight: 500;
-                color: red;
-            }
-        } */
+
+        @media screen {
+        #printSection {
+            display: none;
+        }
+        }
+
+        @media print {
+        body * {
+            visibility:hidden;
+        }
+        #printSection, #printSection * {
+            visibility:visible;
+        }
+        #printSection {
+            position:absolute;
+            left:0;
+            top:0;
+        }
+        }
 
     </style>
 @endsection
 @section('content')
     <div id="content2" class="card card-custom">
-        <div id="print-content" class="card-body p-0">
+        <div id="printThis" class="card-body p-0">
             <!--begin::Invoice-->
             <!--begin::Invoice header-->
             <div class="container">
@@ -156,7 +167,7 @@
             <div class="col-md-9">
                 {{-- onclick="window.print();" --}}
                 <div class="d-flex font-size-sm flex-wrap">
-                    <button type="button" class="btn btn-primary font-weight-bolder py-4 mr-3 mr-sm-14 my-1 px-7" onclick="printDiv('print-content')">Print Invoice</button>
+                    <button type="button" class="btn btn-primary font-weight-bolder py-4 mr-3 mr-sm-14 my-1 px-7" id="btnPrint">Print Invoice</button>
                     <button type="button" class="btn btn-light-danger font-weight-bolder mr-3 ml-sm-auto my-1 px-7" id="downloadPDF">Download</button>
                 </div>
             </div>
@@ -166,11 +177,6 @@
 @endsection
 
 @section('page_level_js_plugin')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script> --}}
-
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
 @endsection
@@ -188,15 +194,24 @@
                     that.options.api.optionsChanged();
                 });
         });
-        function printDiv(divName) {
-            var printContents = document.getElementById(divName).innerHTML;
-            var originalContents = document.body.innerHTML;
+        document.getElementById("btnPrint").onclick = function () {
+            printElement(document.getElementById("printThis"));
+        }
 
-            document.body.innerHTML = printContents;
+        function printElement(elem) {
+            var domClone = elem.cloneNode(true);
 
+            var $printSection = document.getElementById("printSection");
+
+            if (!$printSection) {
+                var $printSection = document.createElement("div");
+                $printSection.id = "printSection";
+                document.body.appendChild($printSection);
+            }
+
+            $printSection.innerHTML = "";
+            $printSection.appendChild(domClone);
             window.print();
-            console.log(originalContents);
-            document.body.innerHTML = originalContents;
         }
     </script>
 
