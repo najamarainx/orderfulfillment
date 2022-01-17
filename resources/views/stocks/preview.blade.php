@@ -194,10 +194,11 @@
                     that.options.api.optionsChanged();
                 });
         });
+
+
         document.getElementById("btnPrint").onclick = function () {
             printElement(document.getElementById("printThis"));
         }
-
         function printElement(elem) {
             var domClone = elem.cloneNode(true);
 

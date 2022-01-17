@@ -18,6 +18,25 @@
             border-top: none;
         }
 
+        @media screen {
+        #printSection {
+            display: none;
+        }
+        }
+
+        @media print {
+        body * {
+            visibility:hidden;
+        }
+        #printSection, #printSection * {
+            visibility:visible;
+        }
+        #printSection {
+            position:absolute;
+            left:0;
+            top:0;
+        }
+        }
     </style>
 @endsection
 @section('content')
@@ -46,9 +65,8 @@
         <div class="d-flex flex-column-fluid">
             <!--begin::Container-->
             <div class="container">
-                <div class="row">
 
-
+                <div id="printThis" class="row">
                     <!--begin::card One-->
                     <div class="col-lg-12">
                         <div class="card card-custom gutter-b ml-auto">
@@ -332,7 +350,7 @@
                                             <td>{{$product->chain_color}}</td>
                                             <td>{{$product->fitting_option}}</td>
 
-                                           <td>
+                                        <td>
                                                 <span class="label label-lg label-light-success label-inline">{{$product->status}}</span>
                                             </td>
                                         </tr>
@@ -612,6 +630,10 @@
                     </div>
                     <!--end::card Six-->
 
+                </div>
+                <!--end::Advance Table Widget 3-->
+
+                <div class="row">
                     <div class="col-lg-12">
                         <div class="card card-custom gutter-b ml-auto">
                             <!--begin::Body-->
@@ -621,9 +643,10 @@
                                 <div class="container">
                                     <div class="row justify-content-center">
                                         <div class="col-md-12">
-                                            <div class="d-flex font-size-sm flex-wrap">
-                                                <button type="button" class="btn btn-primary font-weight-bolder py-4 mr-3 mr-sm-14 my-1 px-7">Print Invoice</button>
-                                                <button id="cmd" type="button" class="btn btn-light-danger font-weight-bolder mr-3 ml-sm-auto my-1 px-7">Download</button>
+                                            <div class="d-flex justify-content-between font-size-sm flex-wrap">
+                                                {{-- <p class="h2">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> --}}
+                                                <button type="button" class="btn btn-primary font-weight-bolder py-4 mr-3 mr-sm-14 my-1 px-7" id="btnPrint">Print Invoice</button>
+                                                {{-- <button type="button" class="btn btn-light-danger font-weight-bolder mr-3 ml-sm-auto my-1 px-7" onclick="javascript:demoFromHTML();">Download</button> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -633,10 +656,8 @@
                             <!--end::Body-->
                         </div>
                     </div>
-
-
                 </div>
-                <!--end::Advance Table Widget 3-->
+
             </div>
             <!--end::Container-->
         </div>
@@ -644,4 +665,34 @@
     </div>
     <!--end::Content-->
     <!--end::Content-->
+@endsection
+
+@section('page_level_js_plugin')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+@endsection
+@section('page_level_js')
+    <script>
+
+        document.getElementById("btnPrint").onclick = function () {
+            printElement(document.getElementById("printThis"));
+        }
+        function printElement(elem) {
+            var domClone = elem.cloneNode(true);
+
+            var $printSection = document.getElementById("printSection");
+
+            if (!$printSection) {
+                var $printSection = document.createElement("div");
+                $printSection.id = "printSection";
+                document.body.appendChild($printSection);
+            }
+
+            $printSection.innerHTML = "";
+            $printSection.appendChild(domClone);
+            window.print();
+        }
+    </script>
+
 @endsection
