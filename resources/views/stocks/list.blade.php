@@ -1,6 +1,50 @@
 @extends('layouts.app') @section('title', 'Stock List') @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" /> @endsection @section('page_level_css')
     <style>
+           body{
+        background-color: white;
+        font-family: 'Poppins';
+    }
+    a.btn.btn-sm.btn-clean.btn-icon {  background-color: #FFE2E5;
+    border-color: transparent;
+}
+a.btn.btn-sm.btn-clean.btn-icon.delete {
+    background-color: #FFE2E5;
+    border-color: transparent;
+}
+i.la.la-eye {
+    color:#B21F24;
+}
+.btn.btn-clean i {
+    color:#B21F24;
+}
+.btn.btn-clean i:hover{
+    color: #FFE2E5 !important;
+}
+.btn.btn-clean i:active{
+    color: #FFE2E5 !important;
+}
+.btn.btn-clean:not(:disabled):not(.disabled):active:not(.btn-text) i{color: #FFE2E5;
+}
+a.btn.btn-sm.btn-clean.btn-icon:hover {   background-color: #B21F24 !important;
+    border-color: transparent;
+}
+a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
+    background-color: #B21F24;
+    border-color: transparent;
+}
+.btn.btn-light {
+    background-color: #FFE2E5;
+    border-color: transparent;
+}
+.card.card-custom{
+    box-shadow: 0px 0px 30px 0px rgb(38 32 45 / 64%);
+}.dataTables_wrapper .dataTable tfoot th, .dataTables_wrapper .dataTable thead th {
+    color:#9b9da2;
+}
+.dataTables_wrapper .dataTable td{
+    color: #181C32;
+}
         .error {
             color: red!important;
         }

@@ -2,9 +2,16 @@
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" /> @endsection @section('page_level_css')
     <style>
         body {
-    font-family: poppins;
+            font-family: 'Poppins';
+    background-color: white;
 }
-
+.btn.btn-light {
+    background-color: #FFE2E5;
+    border-color: transparent;
+}
+.card.card-custom{
+    box-shadow: 0px 0px 30px 0px rgb(38 32 45 / 64%);
+}
 .d-flex.flex-row.flex-column-fluid.page {
     background-color: white;
 }
@@ -48,6 +55,11 @@
 }
 .btn-clean i:hover{
     color: white !important;
+}.dataTables_wrapper .dataTable tfoot th, .dataTables_wrapper .dataTable thead th {
+    color:#9b9da2;
+}
+.dataTables_wrapper .dataTable td{
+    color: #181C32;
 }
         span.select2.select2-container.select2-container--default {
             width: 100% !important;

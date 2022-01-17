@@ -5,6 +5,44 @@
 @endsection
 @section('page_level_css')
     <style>
+        body{
+        background-color: white;font-family: 'Poppins';
+    }
+    a.btn.btn-sm.btn-clean.btn-icon.edit {
+        background-color: #FFE2E5;
+    border-color: transparent;
+}
+a.btn.btn-sm.btn-clean.btn-icon.delete {
+    background-color: #FFE2E5;
+    border-color: transparent;
+}
+.btn.btn-clean i {
+    color:#B21F24;
+}
+.btn.btn-clean i:hover{
+    color: #FFE2E5 !important;
+}
+.btn.btn-clean i:active{
+    color: #FFE2E5 !important;
+}
+.btn.btn-clean:not(:disabled):not(.disabled):active:not(.btn-text) i{color: #FFE2E5;
+}
+a.btn.btn-sm.btn-clean.btn-icon.edit:hover {
+        background-color: #B21F24;
+    border-color: transparent;
+}
+a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
+    background-color: #B21F24;
+    border-color: transparent;
+}
+.card.card-custom{
+    box-shadow: 0px 0px 30px 0px rgb(38 32 45 / 64%);
+}.dataTables_wrapper .dataTable tfoot th, .dataTables_wrapper .dataTable thead th {
+    color:#9b9da2;
+}
+.dataTables_wrapper .dataTable td{
+    color: #181C32;
+}
         .error{
             color: red!important;
         }
@@ -128,7 +166,7 @@
                                             <select class="form-control kt_select2_1 datatable-input "id="type_search" data-col-index="5">
                                                 <option value="">Select User Type</option>
                                                 @foreach($userTypes as $type)
-                                                    <option value="{{$type}}">{{ucfirst($type)}}</option>
+                                                    <option value="{{$type}}">{{str_replace('_',' ',ucfirst($type))}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

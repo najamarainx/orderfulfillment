@@ -7,6 +7,21 @@
 @endsection
 @section('page_level_css')
     <style>
+         body{
+        background-color: white;font-family: 'Poppins';
+    }
+.btn.btn-light {
+    background-color: #FFE2E5;
+    border-color: transparent;
+}
+.card.card-custom{
+    box-shadow: 0px 0px 30px 0px rgb(38 32 45 / 64%);
+}.dataTables_wrapper .dataTable tfoot th, .dataTables_wrapper .dataTable thead th {
+    color:#9b9da2;
+}
+.dataTables_wrapper .dataTable td{
+    color: #181C32;
+}
         .error {
             color: red !important;
         }
@@ -326,12 +341,27 @@
 @section('content')
 
     <div class="d-flex flex-column-fluid">
+    <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
+        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::Info-->
+            <div class="d-flex align-items-center flex-wrap mr-2">
+                <!--begin::Page Title-->
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Installation Order</h5>
+                <!--end::Page Title-->
+                <!--begin::Actions-->
+                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
+                <span class="text-muted font-weight-bold mr-4">Assigned User List</span>
+                <!--end::Actions-->
+            </div>
+            <!--end::Info-->
+        </div>
+    </div>
         <!--begin::Container-->
         <div class="container">
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">Tasks List
+                        <h3 class="card-label">Tasks List {{ isset($totalInstallationOrder) && !empty($totalInstallationOrder) ? '('. $totalInstallationOrder.')' :' '  }} 
                         </h3>
                     </div>
                     @php

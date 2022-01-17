@@ -376,7 +376,7 @@
                                     </li>
                                 @endif
                                 @if (hasPermission('packagingUsers'))
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'packagedOrderAssigned'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('packagedOrderAssigned') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -587,7 +587,7 @@
                                     </li>
                                 @endif
                                 @if (haspermission('viewRole'))
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'roleList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('roleList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">
@@ -656,7 +656,7 @@
                                     </li>
                                 @endif
                                 @if (hasPermission('departmentTaskList'))
-                                    <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'tasksList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
                                         data-menu-toggle="hover">
                                         <a href="{{ route('tasksList') }}" class="menu-link menu-toggle">
                                             <i class="menu-bullet menu-bullet-line">

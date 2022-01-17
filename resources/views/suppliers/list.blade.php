@@ -6,6 +6,21 @@
 @endsection
 @section('page_level_css')
     <style>
+           body{
+        background-color: white;font-family: 'Poppins';
+    }
+.btn.btn-light {
+    background-color: #FFE2E5;
+    border-color: transparent;
+}
+.card.card-custom{
+    box-shadow: 0px 0px 30px 0px rgb(38 32 45 / 64%);
+}.dataTables_wrapper .dataTable tfoot th, .dataTables_wrapper .dataTable thead th {
+    color:#9b9da2;
+}
+.dataTables_wrapper .dataTable td{
+    color: #181C32;
+}
         .error {
             color: red !important;
         }
@@ -142,13 +157,13 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="phone_no">Phone No <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" id="phone_no" name="phone_no" placeholder="Phone No">
+                                    <input type="number" class="form-control" id="phone_no" name="phone_no" placeholder="Phone No(UK)">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="phone_no">Company Phone No <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" id="company_phone_no" name="company_phone_no" placeholder="Company Phone No">
+                                    <input type="number" class="form-control" id="company_phone_no" name="company_phone_no" placeholder="Company Phone No(UK)">
                                 </div>
                             </div>
                         </div>
