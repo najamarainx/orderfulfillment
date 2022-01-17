@@ -492,14 +492,14 @@
                                 <div class="form-group mb-4">
                                     <label class="mb-0">State</label>
                                     <input type="text" class="form-control" name="state" id="state" placeholder="State">
-                                    
+
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group mb-4">
                                     <label class="mb-0">Country</label>
                                     <input type="text" class="form-control" name="country" id="country" placeholder="Country">
-                                    
+
                                 </div>
                             </div>
                             <div class="col-12">
@@ -508,7 +508,7 @@
                                     <input type="text" class="form-control" name="city" id="city" placeholder="City">
                                 </div>
                             </div>
-                          
+
                         </div>
                     </div>
 
@@ -565,7 +565,7 @@
                             </div>
                             <div class="col-12">
                                 <p class="text-danger slot_error"></p>
-                                <div class="time_slot_html">
+                                <div class="time_slot_html row">
 
                                 </div>
                             </div>
@@ -817,7 +817,7 @@
                     },
                     customer_post_code: {
                         required: true
-                    }, 
+                    },
                     city: {
                         required: true
                     },
@@ -963,7 +963,7 @@
             // element.classList.add('col-lg-12');
             // element.classList.remove('col-lg-6');
             $('#set_ctg').hide();
-           
+
             $.ajax({
                 type: "POST",
                 url: "{{ route('getBookingById') }}", // your php file name

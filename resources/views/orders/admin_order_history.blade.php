@@ -622,8 +622,8 @@
                                     <div class="row justify-content-center">
                                         <div class="col-md-12">
                                             <div class="d-flex font-size-sm flex-wrap">
-                                                <button type="button" class="btn btn-primary font-weight-bolder py-4 mr-3 mr-sm-14 my-1 px-7" onclick="window.print();">Print Invoice</button>
-                                                <button type="button" class="btn btn-light-danger font-weight-bolder mr-3 ml-sm-auto my-1 px-7" onclick="window.print();">Download</button>
+                                                <button type="button" class="btn btn-primary font-weight-bolder py-4 mr-3 mr-sm-14 my-1 px-7">Print Invoice</button>
+                                                <button id="cmd" type="button" class="btn btn-light-danger font-weight-bolder mr-3 ml-sm-auto my-1 px-7">Download</button>
                                             </div>
                                         </div>
                                     </div>
@@ -645,4 +645,3 @@
     <!--end::Content-->
     <!--end::Content-->
 @endsection
-

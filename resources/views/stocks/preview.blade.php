@@ -9,12 +9,21 @@
         .error {
             color: red !important;
         }
+        /* @media only print {
+            #print-content{
+                font-size: 130px !important;
+                font-family: georgia, times, serif;
+                font-style: italic !important;
+                font-weight: 500;
+                color: red;
+            }
+        } */
 
     </style>
 @endsection
 @section('content')
-    <div class="card card-custom">
-        <div class="card-body p-0">
+    <div id="print-content" class="card card-custom">
+        <div id="content2" class="card-body p-0">
             <!--begin::Invoice-->
             <!--begin::Invoice header-->
             <div class="container">
@@ -31,13 +40,13 @@
                                     <div class="d-flex flex-column align-items-md-end px-0">
                                         <span
                                             class="display-4 text-dark font-weight-bold mb-4 text-dark d-flex flex-column align-items-md-end opacity-70">
-                                            <span>Transaction Id</span>
+                                            <span class="w-100 text-right">Transaction Id</span>
                                             @php $month = date('m');
                                                 $transactionId = $month . str_pad($orderItems->id, STR_PAD_RIGHT);
                                             @endphp
                                         </span>
-                                        <span class="font-weight-boldest display-4">#{{ $transactionId }}</span>
-                                        <span>Date: {{date('M d y',strtotime($orderItems->created_at))}}</span>
+                                        <span class="w-100 text-right font-weight-boldest display-4">#{{ $transactionId }}</span>
+                                        <span class="w-100 text-right">Date: {{date('d M y',strtotime($orderItems->created_at))}}</span>
                                     </div>
                                 </div>
                                 <!-- <div class="border-bottom w-100 opacity-100"></div> -->
@@ -137,21 +146,63 @@
             <!--begin::Invoice Footer-->
 
             <!--end::Invoice Footer-->
-            <!-- begin: Invoice action-->
-            <div class="container">
-                <div class="row justify-content-center py-8 px-8 py-md-28 px-md-0">
-                    <div class="col-md-9">
-                        <div class="d-flex font-size-sm flex-wrap">
-                            <button type="button" class="btn btn-primary font-weight-bolder py-4 mr-3 mr-sm-14 my-1 px-7"
-                                onclick="window.print();">Print Invoice</button>
-                            <button type="button" class="btn btn-light-danger font-weight-bolder mr-3 ml-sm-auto my-1 px-7"
-                                onclick="window.print();">Download</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end: Invoice action-->
+
             <!--end::Invoice-->
         </div>
     </div>
+    <!-- begin: Invoice action-->
+    <div class="container">
+        <div class="row justify-content-center py-2 px-4 py-md-2 px-md-0">
+            <div class="col-md-9">
+                {{-- onclick="window.print();" --}}
+                <div class="d-flex font-size-sm flex-wrap">
+                    <button type="button" class="btn btn-primary font-weight-bolder py-4 mr-3 mr-sm-14 my-1 px-7" onclick="printDiv('print-content')">Print Invoice</button>
+                    <button type="button" class="btn btn-light-danger font-weight-bolder mr-3 ml-sm-auto my-1 px-7" id="downloadPDF">Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: Invoice action-->
 @endsection
+
+@section('page_level_js_plugin')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script> --}}
+
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+@endsection
+@section('page_level_js')
+
+    <script>
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }
+
+    </script>
+
+    <script>
+        $('#downloadPDF').click(function () {
+            domtoimage.toPng(document.getElementById('content2'))
+                .then(function (blob) {
+                    var pdf = new jsPDF('l', 'pt', [$('#content2').width(), $('#content2').height()]);
+
+                    pdf.addImage(blob, 'PNG', 0, 0, $('#content2').width(), $('#content2').height());
+                    pdf.save("test.pdf");
+
+                    that.options.api.optionsChanged();
+                });
+        });
+    </script>
+
+@endsection
+

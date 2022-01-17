@@ -215,7 +215,9 @@
             border: 1px solid #B21F24;
             background-color: #B21F24;
             color: #fff;
-            padding-top: 15px;
+            padding-top: 17px;
+            padding-bottom: 0px;
+            border-radius: 8px;
         }
 
         .slot_radio input.radio:empty ~ label:before {
@@ -227,11 +229,11 @@
             content: '';
             width: 2.5em;
             background: #B21F24;
-            border-radius: 3px 0 0 3px;
+            border-radius: 8px 0 0 8px;
         }
 
         .slot_radio input.radio:hover:not(:checked) ~ label:before {
-            content:'\2714';
+            /* content:'\2714'; */
             text-indent: .9em;
             line-height: 2.5em;
             color: #C2C2C2;
@@ -257,7 +259,9 @@
         .slot_radio input.radio:focus ~ label:before {
             box-shadow: 0 0 0 3px #999;
         }
-
+        .slot_radio label{
+            color: #fff !important;
+        }
         .disabled input.radio:empty ~ label, .disabled input.radio:empty ~ label:before {
             background-color: lightgray !important;
         }
@@ -481,14 +485,14 @@
                                     <div class="form-group mb-4">
                                         <label class="mb-0">State</label>
                                         <input type="text" class="form-control" name="state" id="state" placeholder="State">
-                                        
+
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group mb-4">
                                         <label class="mb-0">Country</label>
                                         <input type="text" class="form-control" name="country" id="country" placeholder="Country">
-                                        
+
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -497,7 +501,7 @@
                                         <input type="text" class="form-control" name="city" id="city" placeholder="City">
                                     </div>
                                 </div>
-                              
+
                             </div>
                         </div>
 
@@ -554,7 +558,7 @@
                                 </div>
                                 <div class="col-12">
                                     <p class="text-danger slot_error"></p>
-                                    <div class="time_slot_html">
+                                    <div class="time_slot_html row">
 
                                     </div>
                                 </div>
@@ -777,7 +781,7 @@
             // element.classList.add('col-lg-6');
             // element.classList.remove('col-lg-12');
             $('#set_ctg').show();
-           
+
 
             $('#addBookingModal').modal({
                 backdrop: 'static',
@@ -852,7 +856,7 @@
                 });
             }
         });
-        
+
         jQuery.validator.addMethod('check_phone_no', function(phone_number, element) {
         return phone_number.length > 9 &&
             phone_number.match(/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/);
@@ -866,7 +870,7 @@
             // element.classList.add('col-lg-12');
             // element.classList.remove('col-lg-6');
             $('#set_ctg').hide();
-           
+
             $.ajax({
                 type: "POST",
                 url: "{{ route('getBookingById') }}", // your php file name
