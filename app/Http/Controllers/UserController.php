@@ -157,7 +157,7 @@ class UserController extends Controller
                 "email" => $userObj->email,
                 "phone_number" => $userObj->phone_number,
                 "role" => $userObj->role_name,
-                "user_type" => $userObj->type,
+                "user_type" => str_replace('_',' ',ucfirst($userObj->type)),
                 "created_at" => Carbon::create($userObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
                 "action" => $action
             ];
@@ -430,7 +430,7 @@ class UserController extends Controller
     }
 
     public function updateUserPassword(Request $request){
-        
+
         $validate = true;
         $validateInput = $request->all();
 

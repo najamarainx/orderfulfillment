@@ -166,7 +166,7 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                             <select class="form-control kt_select2_1 datatable-input "id="type_search" data-col-index="5">
                                                 <option value="">Select User Type</option>
                                                 @foreach($userTypes as $type)
-                                                    <option value="{{$type}}">{{ucfirst($type)}}</option>
+                                                    <option value="{{$type}}">{{str_replace('_',' ',ucfirst($type))}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
