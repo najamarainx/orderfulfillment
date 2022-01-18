@@ -124,7 +124,7 @@ class SupplierStockController extends Controller
                 "name" => $billObj->supplier_name,
                 "company_name" => $billObj->company_name,
                 //"dept" => $billObj->dept_name,
-                "price" => $billObj->total_price,
+                "price" =>'£'. $billObj->total_price,
                 "qty" => $billObj->qty,
                 "created_at" => Carbon::create($billObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
                 "action" => $action

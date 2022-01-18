@@ -105,7 +105,7 @@
                                         <tr>
                                             <th>Payment Logs</th>
                                             <th>Received By</th>
-                                            <th>Amount</th>
+                                            <th>Amount(£)</th>
                                             <th>Date</th>
                                             <th>Designation</th>
                                             <th>Payment Type</th>
@@ -482,7 +482,6 @@
                                     <table class="table table-condensed table-head-custom table-vertical-center">
                                         <thead>
                                         <tr>
-
                                             <th>Assign From</th>
                                             <th>Assign To</th>
                                             <th>Status</th>
@@ -494,7 +493,6 @@
                                         <!-- Tr One:: Start  -->
                                         @foreach($orderAssembleInfo as $assemble)
                                         <tr>
-
                                             <td>
                                                 <div>
                                                     <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ucfirst($assemble->assigned_from)}}</a>

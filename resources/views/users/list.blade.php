@@ -290,9 +290,9 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                         @endforeach
                                     </select>
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-primary font-weight-bold" id="show_permission">
+                                        <a type="button" style="background: #FFE2E5;" class="btn  btn-clean btn-hover-primary btn-icon font-weight-bold" id="show_permission">
                                             <i class="la la-eye"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
