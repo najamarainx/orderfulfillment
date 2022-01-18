@@ -344,11 +344,11 @@
                                             id="kt_advance_table_widget_3">
                                             <tr>
                                                 <th class="font_weight">Paid Amount</th>
-                                                <td class="float_end">{{ $orderItems->paid_amount }}</td>
+                                                <td class="float_end">£{{ $orderItems->paid_amount }}</td>
                                             </tr>
                                             <tr>
                                                 <th class="font_weight">Total Amount</th>
-                                                <td class="float_end">{{ $orderItems->total_price }}</td>
+                                                <td class="float_end">£{{ $orderItems->total_price }}</td>
                                             </tr>
 
                                         </table>

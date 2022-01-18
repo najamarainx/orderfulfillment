@@ -97,7 +97,7 @@ i.la.la-eye {
                             <th>Order ID</th>
                             <th>Total Amount(£)</th>
                             <th>Receiving Amount(£)</th>
-                            <th>Percentage(£)</th>
+                            <th>Percentage</th>
                             <th>Created At</th>
                             <th>Actions</th>
                         </tr>
