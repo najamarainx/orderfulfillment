@@ -114,7 +114,7 @@
                                 </h3>
 
 
-                                @if(Auth::user()->type == 'assembler' && Auth::user()->is_head == 0)
+                                @if (Auth::user()->type == 'assembler' && Auth::user()->is_head == 0)
                                     <button type="button" id="update_assemble_stauts_btn" data-status="packing"
                                         data-id="{{ $orderItems->id }}"
                                         class="btn btn-primary font-weight-bold update_assemble_stauts_btn">Proceed To
@@ -194,18 +194,18 @@
                                                         <span
                                                             class="text-dark-75 font-weight-normal d-block ">{{ ucfirst($orderItem->fitting_option) }}</span>
                                                     </td>
-                                                    @php 
-                                                    $orderItem_status_class = null;
-                                                    if($orderItem->status  == 'pending'){
-                                                        $orderItem_status_class = 'label-light-danger';
-                                                     }
-                                                    if($orderItem->status  == 'in progress'){
-                                                        $orderItem_status_class = 'label-light-warning';
-                                                     }
-                                                    if($orderItem->status  == 'completed'){
-                                                        $orderItem_status_class = 'label-light-success';
-                                                     }  
-                                                     @endphp
+                                                    @php
+                                                        $orderItem_status_class = null;
+                                                        if ($orderItem->status == 'pending') {
+                                                            $orderItem_status_class = 'label-light-danger';
+                                                        }
+                                                        if ($orderItem->status == 'in progress') {
+                                                            $orderItem_status_class = 'label-light-warning';
+                                                        }
+                                                        if ($orderItem->status == 'completed') {
+                                                            $orderItem_status_class = 'label-light-success';
+                                                        }
+                                                    @endphp
                                                     <td>
                                                         <span
                                                             class="label label-lg {{ $orderItem_status_class }} label-inline">{{ ucfirst($orderItem->status) }}</span>
@@ -234,7 +234,7 @@
                                                             </span>
                                                         </a>
 
-                                                        @if (!in_array(Auth::user()->type,$usersTypeArray))
+                                                        @if (!in_array(Auth::user()->type, $usersTypeArray))
                                                             <a onclick="assignProductInventory({{ $orderItem->product_id }})"
                                                                 class="btn btn-icon btn-light btn-hover-primary btn-sm"
                                                                 data-toggle="modal" data-target="#staticBackdrop1">
@@ -264,16 +264,13 @@
                                     </table>
                                 </div>
                                 <!--end::Table-->
-
                             </div>
                             <!--end::Body-->
                         </div>
                     </div>
-
                 </div>
                 <div class="row">
                     <!--begin::Advance Table Widget 3-->
-
                     <div class="col-lg-6">
                         <div class="card card-custom gutter-b ml-auto">
                             <!--begin::Header-->
@@ -302,7 +299,6 @@
                                             <th class="font_weight">City</th>
                                             <td class="float_end">{{ ucfirst($orderItems->city) }}</td>
                                         </tr>
-
                                         <tr>
                                             <th class="font_weight">Postal Code</th>
                                             <td class="float_end">{{ $orderItems->zip_code }}</td>
@@ -315,12 +311,9 @@
                                             <th class="font_weight">Address</th>
                                             <td class="float_end">{{ $orderItems->address }}</td>
                                         </tr>
-
-
                                     </table>
                                 </div>
                                 <!--end::Table-->
-
                             </div>
                             <!--end::Body-->
                         </div>
@@ -350,11 +343,9 @@
                                                 <th class="font_weight">Total Amount</th>
                                                 <td class="float_end">£{{ $orderItems->total_price }}</td>
                                             </tr>
-
                                         </table>
                                     </div>
                                     <!--end::Table-->
-
                                 </div>
                                 <!--end::Body-->
                             </div>
@@ -527,7 +518,9 @@
             html += '<option value="">Variant</option>';
             html += '</select>';
             html += '</select></div>';
-            html += '<div class="form-group col-lg-2 col-5"><input type="number" class="form-control kt_select2_1" name="qty[]" id="qty_id_' + numbervar + '" readonly>';
+            html +=
+                '<div class="form-group col-lg-2 col-5"><input type="number" class="form-control kt_select2_1" name="qty[]" id="qty_id_' +
+                numbervar + '" readonly>';
             html += '</select><span class="text-danger" id="actual_qty_' + numbervar + '"></span></div>';
             html += '<div class="row col-lg-3 col-10">';
             html += '<div class="col-3 inc_dec">';
@@ -866,7 +859,6 @@
         });
 
         $(document).on('click', '.update_invenoty_product', function() {
-
             var ids = $(this).data('id');
             var get_ids = ids.split("~");
             if ($('#qty_' + get_ids[1]).val() > $('#available_qty_' + get_ids[1]).val()) {
