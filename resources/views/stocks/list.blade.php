@@ -139,7 +139,7 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                             <tr>
                                 <th>Billing ID</th>
                                 <th>Name</th>
-                                <th>Total Price</th>
+                                <th>Total Price(£)</th>
                                 <th>Qty</th>
                                 <th>Created At</th>
                                 <th>Action</th>

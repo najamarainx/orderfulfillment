@@ -83,9 +83,9 @@ class AccountantController extends Controller
           
             $data[] = [
                 "id" => $orderObj->id,
-                "paid_price" => $orderObj->total_price,
+                "paid_price" =>'£'.$orderObj->total_price,
                 "paid_amount" => '£'.$orderObj->paid_amount,
-                "paid_percentage" => '<span class="label label-lg '.$orderItem_status_class.'  label-inline">'. $orderObj->paid_percentage.'</span>',
+                "paid_percentage" => '<span class="label label-lg '.$orderItem_status_class.'  label-inline">£'. $orderObj->paid_percentage.'</span>',
                 "created_at" => Carbon::create($orderObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
                 "action" => $action
             ];

@@ -62,7 +62,6 @@ i.la.la-eye {
                         <h3 class="card-label">Orders List {{ isset($totalItems) && !empty($totalItems) ? '('.$totalItems.')'  :' '  }}
                         </h3>
                     </div>
-
                 </div>
                 <div class="card-body">
                     <form class="kt-form kt-form--fit">
@@ -96,9 +95,9 @@ i.la.la-eye {
                         <thead>
                         <tr>
                             <th>Order ID</th>
-                            <th>Total Amount</th>
-                            <th>Receiving Amount</th>
-                            <th>Percentage</th>
+                            <th>Total Amount(£)</th>
+                            <th>Receiving Amount(£)</th>
+                            <th>Percentage(£)</th>
                             <th>Created At</th>
                             <th>Actions</th>
                         </tr>
@@ -299,7 +298,7 @@ i.la.la-eye {
                 success: function(data) {
                     $('#staticBackdrop1').modal('show');
                     $('#total_amount_order').val('');
-                    $('#total_amount_order').val(data.totalAmount);
+                    $('#total_amount_order').val('£'+data.totalAmount);
                     $('.append_log').html('');
                     $('.append_log').html(data.paymeentLogHtml);
                 },

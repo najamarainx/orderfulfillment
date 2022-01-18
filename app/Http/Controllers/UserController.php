@@ -146,8 +146,7 @@ class UserController extends Controller
                 </g>
             </svg>
             <!--end::Svg Icon-->
-        </span>
-                        </a>';
+        </span></a>';
             }
             if(hasPermission('deleteUser')){
             $action .= '<a href="javascript:;" class="btn btn-sm btn-clean btn-icon btn-hover-primary delete" data-id="' . $userObj->id . '" title="Delete">

@@ -30,7 +30,7 @@
                         {{ucfirst($paymentLog->type)}}
                     </td>
                     <td>
-                        {{$paymentLog->paid_amount}}
+                        £{{$paymentLog->paid_amount}}
                     </td>
                     <td>
                         <div class="form-check">
