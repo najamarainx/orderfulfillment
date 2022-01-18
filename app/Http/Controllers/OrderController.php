@@ -96,12 +96,8 @@ class OrderController extends Controller
             }
             if($request->order_status == 'admin_order')
             {
-                $action .= '<a href="' . url('orders/getOrderDetailHistory') . '/' . $orderObj->id . '" target="_blank"  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 ">
-                <span class="svg-icon svg-icon-md svg-icon-primary">
-                    <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
-                    <i class="la la-eye"></i>
-                    <!--end::Svg Icon-->
-                </span>
+                $action .= '<a href="' . url('orders/getOrderDetailHistory') . '/' . $orderObj->id . '" target="_blank"  class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview">
+                <i class="la la-eye"></i>
             </a>';
             }
 

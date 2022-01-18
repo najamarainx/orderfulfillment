@@ -35,6 +35,11 @@
     @yield('page_level_css_plugin')
     @php $statusArray = ['not called', 'confirmed', 'rescheduled', 'not respond', 'cancelled'];
     @endphp
+    <style>
+        i.la.la-eye {
+    color: #B21F24;
+}
+    </style>
 </head>
 
 <body id="kt_body"
