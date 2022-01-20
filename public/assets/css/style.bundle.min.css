@@ -37438,8 +37438,8 @@ button {
     color: #FFFFFF; }
   .btn.btn-primary:hover:not(.btn-text):not(:disabled):not(.disabled), .btn.btn-primary:focus:not(.btn-text), .btn.btn-primary.focus:not(.btn-text) {
     color: #FFFFFF;
-    background-color: #187DE4;
-    border-color: #187DE4; }
+    background-color: #B21F24;
+    border-color: #B21F24; }
     .btn.btn-primary:hover:not(.btn-text):not(:disabled):not(.disabled) i, .btn.btn-primary:focus:not(.btn-text) i, .btn.btn-primary.focus:not(.btn-text) i {
       color: #FFFFFF; }
     .btn.btn-primary:hover:not(.btn-text):not(:disabled):not(.disabled) .svg-icon svg g [fill], .btn.btn-primary:focus:not(.btn-text) .svg-icon svg g [fill], .btn.btn-primary.focus:not(.btn-text) .svg-icon svg g [fill] {
@@ -37453,8 +37453,8 @@ button {
       color: #FFFFFF; }
   .btn.btn-primary.disabled, .btn.btn-primary:disabled {
     color: #FFFFFF;
-    background-color: #3699FF;
-    border-color: #3699FF; }
+    background-color: #B21F24;
+    border-color: #B21F24; }
     .btn.btn-primary.disabled i, .btn.btn-primary:disabled i {
       color: #FFFFFF; }
     .btn.btn-primary.disabled .svg-icon svg g [fill], .btn.btn-primary:disabled .svg-icon svg g [fill] {

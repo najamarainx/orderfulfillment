@@ -202,7 +202,7 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                             <th>Role</th>
                                             <th>User Type</th>
                                             <th>Created At</th>
-                                           <th>Action</th>
+                                           <th class="cust_th_table">Action</th>
                                         </tr>
                                         </thead>
 

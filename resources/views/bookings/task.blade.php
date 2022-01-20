@@ -444,7 +444,7 @@ $statusArray = ['pending', 'in progress','completed'];
                             <th>Time Slot</th>
                             <th>Category</th>
                             <th>Assign Status</th>
-                            <th>Actions</th>
+                            <th class="cust_th_table">Actions</th>
                         </tr>
                     </thead>
                     <tbody>

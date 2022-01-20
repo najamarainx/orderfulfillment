@@ -52141,7 +52141,7 @@ button {
 .btn.btn-primary:focus:not(.btn-text),
 .btn.btn-primary.focus:not(.btn-text) {
     color: #FFFFFF;
-    background-color: #000000;
+    background: #000000;
     border-color: #000000;
 }
 
@@ -89536,4 +89536,14 @@ button#kt_reset,
 .la.la-close:before {
     content: "\f00d";
     color: #b21f24;
+}
+
+.btn.btn-primary:focus,
+.btn.btn-primary.font-weight-bolder {
+    background: #b21f24 !important;
+    border: none !important;
+}
+
+th.cust_th_table {
+    width: 200px !important;
 }

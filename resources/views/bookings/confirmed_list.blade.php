@@ -456,7 +456,7 @@
                                 <th>Category</th>
                                 <th>Status</th>
                                 <th>Assign Status</th>
-                                <th>Actions</th>
+                                <th class="cust_th_table">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
