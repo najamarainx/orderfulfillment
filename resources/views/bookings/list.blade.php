@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Booking')
-
 @section('page_level_css_plugin')
     <link rel="stylesheet" href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css">
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -33,16 +32,13 @@
             position: relative;
             margin-top: 20px
         }
-
         #msform fieldset:not(:first-of-type) {
             display: none
         }
-
         #msform fieldset .form-card {
             text-align: left;
             color: #9E9E9E
         }
-
         #msform .action-button {
             width: 100px;
             background: #FF3414;
@@ -54,12 +50,10 @@
             padding: 10px 5px;
             margin: 10px 5px
         }
-
         #msform .action-button:hover,
         #msform .action-button:focus {
             box-shadow: 0 0 0 2px white, 0 0 0 3px #FF3414;
         }
-
         #msform .action-button-previous {
             width: 100px;
             background: #616161;
@@ -71,12 +65,10 @@
             padding: 10px 5px;
             margin: 10px 5px
         }
-
         #msform .action-button-previous:hover,
         #msform .action-button-previous:focus {
             box-shadow: 0 0 0 2px white, 0 0 0 3px #616161
         }
-
         select.list-dt {
             border: none;
             outline: 0;
@@ -84,18 +76,15 @@
             padding: 2px 5px 3px 5px;
             margin: 2px
         }
-
         select.list-dt:focus {
             border-bottom: 2px solid skyblue
         }
-
         .card {
             z-index: 0;
             border: none;
             border-radius: 0.5rem;
             position: relative
         }
-
         .fs-title {
             font-size: 25px;
             color: #2C3E50;
@@ -103,17 +92,14 @@
             font-weight: bold;
             text-align: left
         }
-
         #progressbar {
             margin-bottom: 30px;
             overflow: hidden;
             color: lightgrey
         }
-
         #progressbar .active {
             color: #000000
         }
-
         #progressbar li {
             list-style-type: none;
             font-size: 12px;
@@ -121,27 +107,22 @@
             float: left;
             position: relative
         }
-
         #progressbar #category:before {
             font-family: FontAwesome;
             content: "\f023"
         }
-
         #progressbar #date_and_time:before {
             font-family: FontAwesome;
             content: "\f007"
         }
-
         #progressbar #client_detail:before {
             font-family: FontAwesome;
             content: "\f09d"
         }
-
         #progressbar #confirm:before {
             font-family: FontAwesome;
             content: "\f00c"
         }
-
         #progressbar li:before {
             width: 50px;
             height: 50px;
@@ -154,7 +135,6 @@
             margin: 0 auto 10px auto;
             padding: 2px
         }
-
         #progressbar li:after {
             content: '';
             width: 100%;
@@ -165,17 +145,14 @@
             top: 25px;
             z-index: -1
         }
-
         #progressbar li.active:before,
         #progressbar li.active:after {
             background: #FF3414;
         }
-
         .radio-group {
             position: relative;
             margin-bottom: 25px
         }
-
         .radio {
             display: inline-block;
             width: 20;
@@ -187,35 +164,27 @@
             cursor: pointer;
             margin: 8px 2px
         }
-
         .radio:hover {
             box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3)
         }
-
         .radio.selected {
             box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1)
         }
-
         .fit-image {
             width: 100%;
             object-fit: cover
         }
-
         fieldset {
             padding: 0px 30px;
         }
-
         .form-control:focus {
             border-color: #FF3414;
             box-shadow: 0 0 0 0.2rem rgb(255 52 20 / 25%);
         }
-
-
         /* check the balance */
         .slot_radio input.radio:empty {
             display: none;
         }
-
         .slot_radio input.radio:empty ~ label {
             position: relative;
             float: left;
@@ -247,18 +216,15 @@
             background: #B21F24;
             border-radius: 8px 0 0 8px;
         }
-
         .slot_radio input.radio:hover:not(:checked) ~ label:before {
             /* content:'\2714'; */
             text-indent: .9em;
             line-height: 2.5em;
             color: #C2C2C2;
         }
-
         .slot_radio input.radio:hover:not(:checked) ~ label {
             color: #888;
         }
-
         .slot_radio input.radio:checked ~ label:before {
             content:'\2714';
             text-indent: .9em;
@@ -266,12 +232,10 @@
             background-color: #B21F24;
             padding-top: 14px;
         }
-
         .slot_radio input.radio:checked ~ label {
             color: #fff;
             background-color: #B21F24;
         }
-
         .slot_radio input.radio:focus ~ label:before {
             box-shadow: 0 0 0 3px #999;
         }
@@ -281,23 +245,19 @@
         .disabled input.radio:empty ~ label, .disabled input.radio:empty ~ label:before {
             background-color: lightgray !important;
         }
-
         .disabled input.radio:hover:not(:checked) ~ label:before {
             content:'';
             text-indent: .9em;
             color: #fff !important;
         }
-
         .cat_box {
             box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
             text-align: center;
             padding-top: 15px;
         }
-
         .cat_box label {
             display: block;
         }
-
         h6 {
             font-size: 1rem;
             font-weight: 700;
@@ -306,15 +266,12 @@
             color: #333;
             letter-spacing: 0px;
         }
-
         .confirmation_table td, .confirmation_table th, .confirmation_table, th, tr, td{
             border: none;
         }
-
         .confirmation_table:first-child tr th {
             padding-bottom: 0px;
         }
-
         .confirmation_table {
             border-radius: 5px;
             margin-top: 20px;
@@ -324,36 +281,25 @@
         }
         @media only screen
         and (device-width : 375px){
-
             .flatpickr-calendar {
                 width: 307.875px;
                 margin-left: -34px;
                 margin-bottom: 20px;
             }
-
         }
-
     </style>
 @endsection
 @section('content')
-
     <div class="d-flex flex-column-fluid">
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Info-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Page Title-->
                     <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Booking</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
                     <span class="text-muted font-weight-bold mr-4">Booking List </span>
-                    <!--end::Actions-->
                 </div>
-                <!--end::Info-->
             </div>
         </div>
-        <!--begin::Container-->
         <div class="container">
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
@@ -362,13 +308,9 @@
                         </h3>
                     </div>
                     <div class="card-toolbar">
-                        <!--begin::Dropdown-->
-                        <!--end::Dropdown-->
-                        <!--begin::Button-->
                         <a class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#addBookingModal"
                             id="btn_add_new">
                             <span class="svg-icon svg-icon-md">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -379,9 +321,7 @@
                                             fill="#000000" opacity="0.3" />
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>Add Booking</a>
-                        <!--end::Button-->
                     </div>
                 </div>
                 <div class="card-body">
@@ -413,7 +353,6 @@
                                             </select>
                                         @endif
                             </div>
-                           
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Status:</label>
                                 <select name="" id="" class="form-control datatable-input" data-col-index="6">
@@ -436,11 +375,9 @@
                                         <span>Reset</span>
                                     </span>
                                 </button>
-
                             </div>
                         </div>
                     </form>
-                    <!--begin: Datatable-->
                     <table class="table table-bordered table-checkable" id="itemTableList">
                         <thead>
                             <tr>
@@ -457,12 +394,10 @@
                         <tbody>
                         </tbody>
                     </table>
-                    <!--end: Datatable-->
                 </div>
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="addBookingModal" data-backdrop="static" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -475,9 +410,7 @@
                 </div>
                 <div class="modal-body">
                  <form id="addForm">
-
                     <div class="row">
-
                         <div class="col-lg-6 col-md-6 col-sm-12 pr-lg-6 pr-md-6 border-right-lg border-right-md " id="test">
                             <div class="row">
                                 <div class="col-12">
@@ -503,14 +436,12 @@
                                     <div class="form-group mb-4">
                                         <label class="mb-0">State</label>
                                         <input type="text" class="form-control" name="state" id="state" placeholder="State">
-
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group mb-4">
                                         <label class="mb-0">Country</label>
                                         <input type="text" class="form-control" name="country" id="country" placeholder="Country">
-
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -519,10 +450,8 @@
                                         <input type="text" class="form-control" name="city" id="city" placeholder="City">
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-
                         <div class="col-lg-6 col-md-6 col-sm-12 pl-lg-6 pl-md-6" id="classes_wrapper">
                             <div class="row">
                                 <div class="col-12">
@@ -554,7 +483,6 @@
                                         @endif
                                     </div>
                                 </div>
-
                                 <div class="col-12">
                                     <div class="form-group mb-4">
                                         <label>Select Date: </label>
@@ -577,12 +505,10 @@
                                 <div class="col-12">
                                     <p class="text-danger slot_error"></p>
                                     <div class="time_slot_html row">
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                  </form>
                 </div>
@@ -594,15 +520,12 @@
             </div>
         </div>
     </div>
-
-
 @endsection
 @section('page_level_js_plugin')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/jqvalidation/jquery.validate.min.js?v=7.0.4') }}"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 @endsection
-
 @section('page_level_js')
     <script>
         $(document).ajaxStart(function() {
@@ -623,15 +546,11 @@
                     // Pagination settings
                     dom: `<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
                     // read more: https://datatables.net/examples/basic_init/dom.html
-
                     lengthMenu: [5, 10, 25, 50],
-
                     pageLength: 10,
-
                     language: {
                         'lengthMenu': 'Display _MENU_',
                     },
-
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
@@ -674,18 +593,15 @@
                             responsivePriority: -1,
                             bSortable: false
                         },
-
                     ],
                     order: [
                         [0, "desc"]
                     ]
                 });
-
                 var filter = function() {
                     var val = $.fn.dataTable.util.escapeRegex($(this).val());
                     bookingListTable.column($(this).data('col-index')).search(val ? val : '', false, false).draw();
                 };
-
                 $('#kt_search').on('click', function(e) {
                     e.preventDefault();
                     var params = {};
@@ -703,10 +619,8 @@
                     });
                     bookingListTable.table().draw();
                 });
-
                 $('#kt_reset').on('click', function(e) {
                      $('.category_id').val('').trigger('change.select2');
-
                     e.preventDefault();
                     $('.category_id').val('').trigger('change.slect2');
                     $('.datatable-input').each(function() {
@@ -715,7 +629,6 @@
                     });
                     bookingListTable.table().draw();
                 });
-
                 $('#kt_datepicker').datepicker({
                     todayHighlight: true,
                     format: 'yyyy-mm-dd',
@@ -724,20 +637,14 @@
                         rightArrow: '<i class="la la-angle-right"></i>',
                     },
                 });
-
             };
-
             return {
-
                 //main function to initiate the module
                 init: function() {
                     initTable();
                 },
-
             };
-
         }();
-
         jQuery(document).ready(function() {
             var today, datepicker;
             today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
@@ -773,8 +680,6 @@
                     customer_post_code: {
                         required: true
                     }
-
-
                 },
                 errorPlacement: function(error, element) {
                     var elem = $(element);
@@ -786,7 +691,6 @@
                     }
                 }
             });
-
             var input = document.getElementById("addForm");
             input.addEventListener("keyup", function(event) {
                 if (event.keyCode === 13) {
@@ -794,16 +698,12 @@
                     document.getElementById("btn_save").click();
                 }
             });
-
         })
         $(document).on('click', '#btn_add_new', function() {
-
             var element = document.getElementById('test');
             // element.classList.add('col-lg-6');
             // element.classList.remove('col-lg-12');
             $('#set_ctg').show();
-
-
             $('#addBookingModal').modal({
                 backdrop: 'static',
                 keyboard: false
@@ -811,7 +711,6 @@
                 $('.slot_error').text('');
                 $("#addForm").validate().resetForm();
             });
-
             var form = $("#addForm");
             form[0].reset();
             $('#id').val('');
@@ -819,10 +718,7 @@
             $('#category_id').val('').trigger('change.select2');
             $('#zip_code').val('').trigger('change.select2');
             $('.time_slot_html').html('');
-
         });
-
-
         $(document).on('click', '#btn_save', function() {
             var validate = $("#addForm").valid();
             var upid=$('#id').val();
@@ -832,7 +728,6 @@
                     validate = false;
                 }
             }
-
             if (validate) {
                 var form_data = $("#addForm").serializeArray();
                 $.ajax({
@@ -877,12 +772,10 @@
                 });
             }
         });
-
         jQuery.validator.addMethod('check_phone_no', function(phone_number, element) {
         return phone_number.length > 9 &&
             phone_number.match(/^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$/);
     }, 'Please enter a correct UK number.');
-
         $(document).on('click', '.edit', function() {
             var id = $(this).data('id');
             var form_data = new FormData();
@@ -891,7 +784,6 @@
             // element.classList.add('col-lg-12');
             // element.classList.remove('col-lg-6');
             $('#set_ctg').hide();
-
             $.ajax({
                 type: "POST",
                 url: "{{ route('getBookingById') }}", // your php file name
@@ -950,7 +842,6 @@
                 }
             });
         });
-
         $(document).on('click', '.delete', function() {
             var id = $(this).data('id');
             var form_data = new FormData();

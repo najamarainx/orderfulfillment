@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Users Time Slot')
-
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
@@ -12,7 +11,6 @@
         .slot_checkbox input.checkbox:empty {
             display: none;
         }
-
         .slot_checkbox input.checkbox:empty~label {
             position: relative;
             float: left;
@@ -28,7 +26,6 @@
             background-color: #B21F24;
             color: #fff;
         }
-
         .slot_checkbox input.checkbox:empty~label:before {
             position: absolute;
             display: block;
@@ -40,37 +37,30 @@
             background: #B21F24;
             border-radius: 3px 0 0 3px;
         }
-
         .slot_checkbox input.checkbox:hover:not(:checked)~label:before {
            text-indent: .9em;
             color: #C2C2C2;
         }
-
         .slot_checkbox input.checkbox:hover:not(:checked)~label {
             color: #C2C2C2;
         }
-
         .slot_checkbox input.checkbox:checked~label:before {
             content: '\2714';
             text-indent: .9em;
             color: #9CE2AE;
             background-color: #B21F24;
         }
-
         .slot_checkbox input.checkbox:checked~label {
             color: #fff;
             background-color: #B21F24;
         }
-
         .slot_checkbox input.checkbox:focus~label:before {
             box-shadow: 0 0 0 3px #999;
         }
-
         .disabled input.checkbox:empty~label,
         .disabled input.checkbox:empty~label:before {
             background-color: lightgray !important;
         }
-
         .disabled input.checkbox:hover:not(:checked)~label:before {
             content: '';
             text-indent: .9em;
@@ -78,41 +68,26 @@
     </style>
 @endsection
 @section('content')
-    <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-        <!--begin::Subheader-->
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Info-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Page Title-->
                     <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Listing</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
                     <span class="text-muted font-weight-bold mr-4">Users Slot</span>
-                    <!--end::Actions-->
                 </div>
-                <!--end::Info-->
             </div>
         </div>
-        <!--end::Subheader-->
-        <!--begin::Entry-->
         <div class="d-flex flex-column-fluid">
-            <!--begin::Container-->
             <div class="container">
                 <div class="card card-custom gutter-b">
-                    <!--begin::Header-->
                     <div class="card-header border-0 py-5">
                         <h3 class="card-title align-items-center">
                             <span class="card-label font-weight-bolder text-dark">Post Code Slots</span>
                         </h3>
                         <div class="card-toolbar">
-
                         </div>
                     </div>
-                    <!--end::Header-->
-                    <!--begin::Body-->
                     <div class="card-body pt-0 pb-3">
                         <form class="kt-form kt-form--fit" id="addForm">
                             <input type="hidden" name="id" id="id" value="{{$zip_id}}">
@@ -123,9 +98,7 @@
                                     foreach($slot->slot_users as $userCehck){
                                         $userselected[]=$userCehck->user_id;
                                     }
-
                                     }
-
                                 @endphp
                             <div class="row col-8 m-auto d-flex justify-content-between">
                                 <div class="slot_checkbox col-4">
@@ -145,21 +118,15 @@
                             </div>
                             @endforeach
                         </form>
-                        <!--end::Table-->
-
                     </div>
-                    <!--end::Body-->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary font-weight-bold" id="btn_save">Save</button>
                     </div>
                 </div>
             </div>
-            <!--end::Container-->
         </div>
-        <!--end::Entry-->
     </div>
-    <!--end::Content-->
 @endsection
 @section('page_level_js_plugin')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4') }}"></script>
@@ -167,12 +134,10 @@
 @endsection
 @section('page_level_js')
     <script type="text/javascript">
-
         jQuery(document).ready(function() {
            var validator = $("#addForm").validate({
                 ignore: ":hidden:not(.selectpicker)",
                 rules: {
-
                 },
                 errorPlacement: function(error, element) {
                     var elem = $(element);
@@ -184,12 +149,10 @@
                     }
                 }
             });
-
             $('input[type="file"]').change(function(e) {
                 var fileName = e.target.files[0].name;
                 $(this).next('label.file_label').html(fileName);
             });
-
             $(document).on('click', '#btn_add_new', function(){
                 $('#staticBackdrop').modal({
                     backdrop: 'static',
@@ -200,8 +163,6 @@
                 var form = $("#addForm");
                 form[0].reset();
             });
-
-
             $(document).on('click', '#btn_save', function(){
                 var validate = $("#addForm").valid();
                 if(validate) {
@@ -246,7 +207,6 @@
                     });
                 }
             });
-
            var input = document.getElementById("addForm");
             input.addEventListener("keyup", function(event) {
                 if (event.keyCode === 13) {
@@ -254,11 +214,7 @@
                     document.getElementById("btn_save").click();
                 }
             });
-
-
-
         });
-
         function showUsers(id){
             var usersoption = document.getElementById("time_slot_"+id).checked;
             if(usersoption==true){
@@ -267,8 +223,6 @@
                 $("#slot_user_"+id).val('').trigger('change');
                 $("#slot_user_"+id).prop("disabled", true);
             }
-
         }
-
     </script>
 @endsection

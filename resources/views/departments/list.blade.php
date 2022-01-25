@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Department')
-
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
@@ -24,27 +23,19 @@
         .error {
             color: red !important;
         }
-
     </style>
 @endsection
 @section('content')
     <div class="d-flex flex-column-fluid">
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Info-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Page Title-->
                     <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Departments</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
                     <span class="text-muted font-weight-bold mr-4">List</span>
-                    <!--end::Actions-->
                 </div>
-                <!--end::Info-->
             </div>
         </div>
-        <!--begin::Container-->
         <div class="container">
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
@@ -53,13 +44,9 @@
                         </h3> 
                     </div>
                     <div class="card-toolbar">
-                        <!--begin::Dropdown-->
-                        <!--end::Dropdown-->
-                        <!--begin::Button-->
                         <a class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#addDepartmentModal"
                             id="btn_add_new">
                             <span class="svg-icon svg-icon-md">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -70,9 +57,7 @@
                                             fill="#000000" opacity="0.3" />
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>Add Deparmtment</a>
-                        <!--end::Button-->
                     </div>
                 </div>
                 <div class="card-body">
@@ -100,7 +85,6 @@
                             </div>
                         </div>
                     </form>
-                    <!--begin: Datatable-->
                     <table class="table table-bordered table-checkable" id="departmentTableList">
                         <thead>
                             <tr>
@@ -113,13 +97,10 @@
                         <tbody>
                         </tbody>
                     </table>
-                    <!--end: Datatable-->
                 </div>
             </div>
         </div>
     </div>
-
-
     <div class="modal fade" id="addDepartmentModal" data-backdrop="static" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -157,7 +138,6 @@
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/jqvalidation/jquery.validate.min.js?v=7.0.4') }}"></script>
 @endsection
-
 @section('page_level_js')
     <script>
           $(document).ajaxStart(function() {
@@ -178,15 +158,11 @@
                     // Pagination settings
                     dom: `<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
                     // read more: https://datatables.net/examples/basic_init/dom.html
-
                     lengthMenu: [5, 10, 25, 50],
-
                     pageLength: 10,
-
                     language: {
                         'lengthMenu': 'Display _MENU_',
                     },
-
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
@@ -222,12 +198,10 @@
                         [0, "desc"]
                     ]
                 });
-
                 var filter = function() {
                     var val = $.fn.dataTable.util.escapeRegex($(this).val());
                     table.column($(this).data('col-index')).search(val ? val : '', false, false).draw();
                 };
-
                 $('#kt_search').on('click', function(e) {
                     e.preventDefault();
                     var params = {};
@@ -245,7 +219,6 @@
                     });
                     table.table().draw();
                 });
-
                 $('#kt_reset').on('click', function(e) {
                     e.preventDefault();
                     $('.datatable-input').each(function() {
@@ -254,7 +227,6 @@
                     });
                     table.table().draw();
                 });
-
                 $('#kt_datepicker').datepicker({
                     todayHighlight: true,
                     format: 'yyyy-mm-dd',
@@ -263,18 +235,13 @@
                         rightArrow: '<i class="la la-angle-right"></i>',
                     },
                 });
-
             };
-
             return {
-
                 //main function to initiate the module
                 init: function() {
                     initTable();
                 },
-
             };
-
         }();
         jQuery(document).ready(function() {
             datatable.init();
@@ -283,7 +250,6 @@
                     name: {
                         required: true
                     },
-
                 },
                 errorPlacement: function(error, element) {
                     var elem = $(element);
@@ -295,7 +261,6 @@
                     }
                 }
             });
-
             var input = document.getElementById("addForm");
             input.addEventListener("keyup", function(event) {
                 if (event.keyCode === 13) {
@@ -315,8 +280,6 @@
             form[0].reset();
             $('#id').val('');
         });
-
-
         $(document).on('click', '#btn_save', function() {
             var validate = $("#addForm").valid();
             if (validate) {
@@ -363,7 +326,6 @@
                 });
             }
         });
-
         $(document).on('click', '.edit', function() {
             var id = $(this).data('id');
             var form_data = new FormData();
@@ -404,7 +366,6 @@
                 }
             });
         });
-
         $(document).on('click', '.delete', function() {
             var id = $(this).data('id');
             var form_data = new FormData();

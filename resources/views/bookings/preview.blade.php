@@ -1,15 +1,12 @@
 @extends('layouts.app')
 @section('title', 'Booking')
-
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('page_level_css')
-
 @endsection
 @section('content')
     <div class="d-flex flex-column-fluid">
-        <!--begin::Container-->
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-12">
@@ -66,17 +63,11 @@
                                 <span class="card-label font-weight-bolder text-dark">Book By Customer Support</span>
                             </h3>
                         </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
                         <div class="card-body pt-0 pb-3">
-
-                            <!-- begin: Invoice-->
-                            <!-- begin: Invoice footer-->
                             <div class="row">
                                 <div class="col-12">
                                     <div class="d-flex flex-column mb-10 mb-md-0">
                                         <div class="d-flex align-items-center">
-
                                             <div>
                                                 <a href="#"
                                                     class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ $bookingDetail->bookingDetail->bookedUser->u_name }}</a>
@@ -91,39 +82,23 @@
                                                 class="col-md-6 col-xs-12 text-md-right text-sm-left text-xs-left">{{ \Carbon\Carbon::parse($bookingDetail->date)->format('m/d/Y') }}</span>
                                         </div>
                                         <hr class="w-100">
-                                        {{-- <div class="row">
-                                        <span class="col-md-6 col-xs-12 font-weight-bold">Appointment Time</span>
-                                        <span class="col-md-6 col-xs-12 text-md-right text-sm-left text-xs-left">11:30 AM</span>
-                                    </div> --}}
                                     </div>
                                 </div>
                             </div>
-                            <!-- end: Invoice footer-->
-                            <!-- end: Invoice-->
-
-
                         </div>
-                        <!--end::Body-->
                     </div>
                     <div class="card card-custom gutter-b">
-                        <!--begin::Header-->
                         <div class="card-header border-0 py-5">
                             <h3 class="card-title align-items-center">
                                 <span class="card-label font-weight-bolder text-dark">Booking Assigned to Measurement
                                     Person</span>
                             </h3>
                         </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
                         <div class="card-body pt-0 pb-3">
-
-                            <!-- begin: Invoice-->
-                            <!-- begin: Invoice footer-->
                             <div class="row">
                                 <div class="col-12">
                                     <div class="d-flex flex-column mb-10 mb-md-0">
                                         <div class="d-flex align-items-center">
-
                                             <div>
                                                 <a href="#"
                                                     class="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg">{{ $bookingDetail->bookingDetail->assignedUser->u_name }}</a>
@@ -138,19 +113,10 @@
                                                 class="col-md-6 col-xs-12 text-md-right text-sm-left text-xs-left">{{ !empty($bookingDetail->bookingDetail->date) ? \Carbon\Carbon::parse($bookingDetail->bookingDetail->date)->format('m/d/Y') : '' }}</span>
                                         </div>
                                         <hr class="w-100">
-                                        {{-- <div class="row">
-                                        <span class="col-md-6 col-xs-12 font-weight-bold">Appointment Time</span>
-                                        <span class="col-md-6 col-xs-12 text-md-right text-sm-left text-xs-left">11:30 AM</span>
-                                    </div> --}}
                                     </div>
                                 </div>
                             </div>
-                            <!-- end: Invoice footer-->
-                            <!-- end: Invoice-->
-
-
                         </div>
-                        <!--end::Body-->
                     </div>
                 </div>
             </div>
@@ -172,7 +138,6 @@
                                     <p>Date: {{\Carbon\carbon::parse($bookingDetail->bookingOrder->created_at)->format('m/d/Y') }}</p>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 text-right">
-                                   
                                     <p>Total Amount: 	£{{$bookingDetail->bookingOrder->total_price}}</p>
                                     <p>Paid Amount: 	£{{$bookingDetail->bookingOrder->paid_amount}}</p>
                                 </div>
@@ -194,7 +159,6 @@
                                                 </th>
                                                 <th>Fittings Option
                                                 </th>
-                                               
                                                <th>Price</th>
                                             </tr>
                                         </thead>
@@ -227,10 +191,8 @@
                                                 <td>
                                                     <span class="text-dark-75 font-weight-normal d-block ">{{!empty($orderDetailObj->fitting_option) ? $orderDetailObj->fitting_option : '' }}</span>
                                                 </td>
-                                               
                                                 <td>
                                                     <span class="text-dark-75 font-weight-normal d-block ">{{$orderDetailObj->price}}</span>
-
                                                 </td>
                                             </tr>
                                             @endforeach

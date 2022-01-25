@@ -16,31 +16,18 @@
         }
     </style>
 @endsection
-
-
 @section('content')
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-
-    <!--begin::Subheader-->
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <!--begin::Page Title-->
                 <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Users</h5>
-                <!--end::Page Title-->
-                <!--begin::Actions-->
                 <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
                 <span class="text-muted font-weight-bold mr-4">User Profile</span>
-                <!--end::Actions-->
             </div>
-            <!--end::Info-->
         </div>
     </div>
-    <!--end::Subheader-->
-    <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
-        <!--begin::Container-->
         <div class="container">
             <div class="row">
                 <div class="card card-custom col-lg-7 col-12">
@@ -57,7 +44,6 @@
                                     <label class="col-form-label">Full Name <span class="text-danger">*</span></label>
                                     <input required type="text" class="form-control" name="name" value="{{(Auth::check()) ? Auth::user()->name : ''}}" id="name" placeholder="Enter name" />
                                 </div>
-
                                 <div class="form-group col-md-6">
                                     <label class="col-form-label">Email <span class="text-danger">*</span></label>
                                     <input required type="email" class="form-control colorDisable" value="{{(Auth::check()) ? Auth::user()->email : ''}}" name="email" id="email" readonly
@@ -155,7 +141,6 @@
 @endsection
 @section('page_level_js')
 <script>
-
 $(document).ready(function(){
     var validator = $("#addForm").validate({
         ignore: ":hidden:not(.selectpicker)",
@@ -239,7 +224,6 @@ jQuery.validator.addMethod('check_phone_no', function(phone_number, element) {
             });
         }
     });
-
     $(document).on('click', '#btn_password', function() {
     var newpass = $("#newpassword").val();
     var cpass = $("#cpassword").val();
@@ -297,6 +281,5 @@ jQuery.validator.addMethod('check_phone_no', function(phone_number, element) {
         return false;
     }
 });
-
 </script>
 @endsection

@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Order Preview')
-
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
@@ -9,38 +8,23 @@
         .error {
             color: red !important;
         }
-
     </style>
 @endsection
 @section('content')
-    <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-        <!--begin::Subheader-->
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Info-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Page Title-->
                     <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Dashboard</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
                     <span class="text-muted font-weight-bold mr-4">Dashboard</span>
-                    <!--end::Actions-->
                 </div>
-                <!--end::Info-->
             </div>
         </div>
-        <!--end::Subheader-->
-        <!--begin::Entry-->
         <div class="d-flex flex-column-fluid">
-            <!--begin::Container-->
             <div class="container">
-
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
-
-
                         <div id="kt_repeater_2">
                             <div class="card card-custom">
                                 <div class="card-header d-flex justify-content-between">
@@ -50,8 +34,6 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-
-                                    <!--begin::Table-->
                                     <form id="addForm" method="post">
                                     <input type="hidden" name="id" name="id" value="{{$orderItems->id}}">
                                     <div class="row">
@@ -65,8 +47,6 @@
                                             </select>
                                         </div>
                                     </div>
-
-                                    <!--begin::Table-->
                                     <div class="table-responsive">
                                         <table class="table table-head-custom table-vertical-center" id="kt_advance_table_widget_4">
                                             <thead>
@@ -142,11 +122,9 @@
                                                             <input class="form-control total_price" type="number" readonly name="price[]" id="price_id_{{$key}}" value="{{floor($orderItemObj->total_price)}}">
                                                         </div>
                                                     </td>
-
                                                     <td class="pr-0 text-right">
                                                         <a href="javascript:;"  class="btn btn-icon btn-light btn-hover-primary btn-sm removetr" data-id="{{$key}}">
 																			<span class="svg-icon svg-icon-md svg-icon-primary">
-																				<!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
 																				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
 																					<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 																						<rect x="0" y="0" width="24" height="24" />
@@ -154,7 +132,6 @@
 																						<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3" />
 																					</g>
 																				</svg>
-                                                                                <!--end::Svg Icon-->
 																			</span>
                                                         </a>
                                                     </td>
@@ -162,15 +139,11 @@
                                             @endforeach
                                             </tbody>
                                         </table>
-
                                     </div>
-                                    <!--end::Table-->
                                     <hr class="w-100">
-
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                         </div>
-
                                         <div class="col-lg-3 col-md-3 col-sm-12">
                                             <div class="form-group mb-0">
                                                 <label class="mb-0">Total Quantity</label>
@@ -184,7 +157,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     </form>
                                 </div>
                                 <div class="card-footer text-right w-100">
@@ -193,26 +165,16 @@
                                     <button type="button" id="btn_save" data-id="save" class="btn btn-primary">Save </button>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-
-
-
             </div>
-            <!--end::Container-->
         </div>
-        <!--end::Entry-->
     </div>
-    <!--end::Content-->
 @endsection
 @section('page_level_js')
     <script type="text/javascript">
         function getDeptItems(depID,line){
-
-
             var form_data = new FormData();
             form_data.append('depID', depID);
             $.ajax({
@@ -242,9 +204,7 @@
                     Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                 }
             });
-
         }
-
         function getItemUnit(itemID,line){
             let itemUnit = itemID;
             var myArray = itemUnit.split("~");
@@ -252,7 +212,6 @@
             $('#unit_item_'+line).val(myArray[1]);
             $('#item_select_'+line).val('');
             $('#item_select_'+line).val(myArray[0]);
-
             var form_data = new FormData();
             form_data.append('item_id',myArray[0]);
             $.ajax({
@@ -283,11 +242,8 @@
                     // Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                 }
             });
-
         }
-
         function calculateTotalPrice(number=-1){
-
             if(number!=-1){
                 var unit_variant=$('#unit_price_'+number).val();
                 var qty_variant=$('#qty_id_'+number).val();
@@ -305,30 +261,23 @@
             $(".total_price").each(function(){
                 totalpricevalues += +$(this).val();
             });
-
             $('.price').val(totalpricevalues);
-
         }
-
         /*$('#kt_advance_table_widget_4 tr').click(function(){
             $(this).remove();
             calculateTotalPrice();
             return false;
         });*/
-
         $(document).on('click', '.removetr', function() {
             var id = $(this).data('id');
             $('table#kt_advance_table_widget_4 tr#'+id).remove();
             calculateTotalPrice();
-
         });
-
         function addRow()
         {
             var rowid=$('#kt_advance_table_widget_4 tr:last').attr('id');
             rowid=parseInt(rowid) + parseInt(1);
             var html='<tr id='+rowid+'>';
-
             html+='<td><div class="form-group mb-0">';
             html+='<select class="form-control form-control-lg kt_select2_1 " name="department_id[]" onchange="getDeptItems(this.value,'+rowid+')" id="department_id_'+rowid+'"  data-live-search=true>';
             html+='<option value="">Select Department</option>';
@@ -337,41 +286,31 @@
                     @endforeach
             html+='</select>';
             html+='</div></td>';
-
             html+='<td><div class="form-group mb-0">';
             html+='<select class="form-control form-control-lg kt_select2_1 " onchange="getItemUnit(this.value,'+rowid+')" id="item_id_'+rowid+'" disabled data-live-search=true>';
             html+='<option value="">Select Item</option>';
-
             html+='</select>';
             html+='</div> <input type="hidden" name="item_id[]" id="item_select_'+rowid+'"></td>';
-
-
-
             html+='<td><div class="form-group mb-0">';
             html+='<div class="form-group mb-0">';
             html+='<input class="form-control" type="text" id="unit_item_'+rowid+'" readonly  placeholder="">';
             html+='</div>';
             html+='</div></td>';
-
             html+='<td><div class="form-group mb-0">';
             html+='<select class="form-control form-control-lg kt_select2_1 " name="variant[]" id="varaint_id_'+rowid+'"  data-live-search=true>';
             html+='</select>';
             html+='</div></td>';
-
             html+='<td><div class="form-group mb-0">';
             html+='<div class="form-group mb-0">';
             html+=' <input class="form-control" type="number" name="unit_price[]" onkeyup="calculateTotalPrice('+rowid+')" id="unit_price_'+rowid+'"  placeholder="Unit Price">';
             html+='</div>';
             html+='</div></td>';
-
             html+='<td><div class="form-group mb-0">';
             html+=' <input class="form-control total_qty" type="number" name="qty[]" onkeyup="calculateTotalPrice('+rowid+')" id="qty_id_'+rowid+'"  placeholder="Quantity">';
             html+='</div></td>';
-
             html+='<td><div class="form-group mb-0">';
             html+='<input class="form-control total_price" type="number" readonly name="price[]" id="price_id_'+rowid+'">';
             html+='</div></td>';
-
             html+='<td class="pr-0 text-right">';
             html+='<a href="javascript:;" data-repeater-delete="" class="btn btn-icon btn-light btn-hover-primary btn-sm removetr" data-id="'+rowid+'">';
             html+='<span class="svg-icon svg-icon-md svg-icon-primary">';
@@ -379,18 +318,9 @@
             html+='</span>';
             html+='</a>';
             html+='</td>';
-
             html+='</tr>';
-
             $("#kt_advance_table_widget_4 > tbody").append(html);
-
-
-
-
         }
-
-
-
         $(document).on('click', '#btn_save', function() {
             var id = $(this).data('id');
             if(id=='save'){id=0;}
@@ -426,10 +356,7 @@
                             "hideMethod": "fadeOut"
                         };
                         toastr.success(data.message);
-
                         window.location ="{{ route('stockList') }}";
-
-
                     } else {
                         Swal.fire("Sorry!", data.message, "error");
                     }
@@ -438,7 +365,6 @@
                     Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                 }
             });
-
         });
     </script>
 @endsection

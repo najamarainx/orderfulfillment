@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Variants')
-
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
@@ -33,20 +32,13 @@
     <div class="d-flex flex-column-fluid">
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Info-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Page Title-->
                     <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Variant</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
                     <span class="text-muted font-weight-bold mr-4">Variant List</span>
-                    <!--end::Actions-->
                 </div>
-                <!--end::Info-->
             </div>
         </div>
-        <!--begin::Container-->
         <div class="container">
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
@@ -55,13 +47,9 @@
                         </h3>
                     </div>
                     <div class="card-toolbar">
-                        <!--begin::Dropdown-->
-                        <!--end::Dropdown-->
-                        <!--begin::Button-->
                         <a class="btn btn-primary font-weight-bolder" data-toggle="modal" data-target="#addItemModal"
                            id="btn_add_new">
                         <span class="svg-icon svg-icon-md">
-                            <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                  width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -72,15 +60,12 @@
                                         fill="#000000" opacity="0.3" />
                                 </g>
                             </svg>
-                            <!--end::Svg Icon-->
                         </span>Add Variant</a>
-                        <!--end::Button-->
                     </div>
                 </div>
                 <div class="card-body">
                     <form class="kt-form kt-form--fit">
                         <div class="row mb-6">
-
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>Name:</label>
                                 <input type="text" class="form-control datatable-input" placeholder="E.g: test"
@@ -94,7 +79,6 @@
                                         <option value="{{$item->id}}">{{ucfirst($item->name)}}</option>
                                     @endforeach
                                 </select>
-
                             </div>
                             <div class="col-lg-3 mb-lg-2 mb-2">
                                 <label>&nbsp;</label><br />
@@ -110,11 +94,9 @@
                                     <span>Reset</span>
                                 </span>
                                 </button>
-
                             </div>
                         </div>
                     </form>
-                    <!--begin: Datatable-->
                     <table class="table table-bordered table-checkable" id="itemTableList">
                         <thead>
                         <tr>
@@ -128,12 +110,10 @@
                         <tbody>
                         </tbody>
                     </table>
-                    <!--end: Datatable-->
                 </div>
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="addItemModal" data-backdrop="static" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -172,7 +152,6 @@
                                 </div>
                                 <div id="newfield_0" class="col-lg-12"></div>
                             </div>
-
                         </div>
                         <div class="text-right">
                             <button type="button" class="btn btn-light-primary font-weight-bold"
@@ -189,7 +168,6 @@
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/jqvalidation/jquery.validate.min.js?v=7.0.4') }}"></script>
 @endsection
-
 @section('page_level_js')
     <script>
         $(document).ajaxStart(function() {
@@ -210,15 +188,11 @@
                     // Pagination settings
                     dom: `<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
                     // read more: https://datatables.net/examples/basic_init/dom.html
-
                     lengthMenu: [5, 10, 25, 50],
-
                     pageLength: 10,
-
                     language: {
                         'lengthMenu': 'Display _MENU_',
                     },
-
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
@@ -238,7 +212,6 @@
                     columns: [{
                         data: 'id'
                     },
-
                         {
                             data: 'name'
                         },
@@ -253,18 +226,15 @@
                             responsivePriority: -1,
                             bSortable: false
                         },
-
                     ],
                     order: [
                         [0, "desc"]
                     ]
                 });
-
                 var filter = function() {
                     var val = $.fn.dataTable.util.escapeRegex($(this).val());
                     table.column($(this).data('col-index')).search(val ? val : '', false, false).draw();
                 };
-
                 $('#kt_search').on('click', function(e) {
                     e.preventDefault();
                     var params = {};
@@ -282,7 +252,6 @@
                     });
                     table.table().draw();
                 });
-
                 $('#kt_reset').on('click', function(e) {
                     e.preventDefault();
                     $('.datatable-input').each(function() {
@@ -292,7 +261,6 @@
                     });
                     table.table().draw();
                 });
-
                 $('#kt_datepicker').datepicker({
                     todayHighlight: true,
                     format: 'yyyy-mm-dd',
@@ -301,38 +269,28 @@
                         rightArrow: '<i class="la la-angle-right"></i>',
                     },
                 });
-
             };
-
             return {
-
                 //main function to initiate the module
                 init: function() {
                     initTable();
                 },
-
             };
-
         }();
-
         jQuery(document).ready(function() {
             datatable.init();
             var validator = $("#addForm").validate({
-
                 errorPlacement: function(error, element) {
                     var elem = $(element);
                     if (elem.hasClass("department_id")) {
-
                         error.appendTo(element.parent().after());
                         //error.insertAfter(element);
                     }
-
                     else {
                         error.insertAfter(element);
                     }
                 }
             });
-
             var input = document.getElementById("addForm");
             input.addEventListener("keyup", function(event) {
                 if (event.keyCode === 13) {
@@ -353,15 +311,10 @@
             $('#item_id').val('').trigger('change');
             $('#test_up').show();
             $('#newfield_0').empty();
-
-
         });
-
-
         $(document).on('click', '#btn_save', function() {
             additionalValidtion();
             var validate = $("#addForm").valid();
-
             if (validate) {
                 var form_data = $("#addForm").serializeArray();
                 $.ajax({
@@ -406,7 +359,6 @@
                 });
             }
         });
-
         $(document).on('click', '.edit', function() {
             var id = $(this).data('id');
             var form_data = new FormData();
@@ -450,7 +402,6 @@
                 }
             });
         });
-
         $(document).on('click', '.delete', function() {
             var id = $(this).data('id');
             var form_data = new FormData();
@@ -489,9 +440,7 @@
                 }
             });
         });
-
         var number = 1;
-
         function addfield(id) {
             let html = `<div id="row_${number}">
                         <div class="row">
@@ -503,14 +452,9 @@
                             </div>
                         </div>
         </div>`;
-
             $('#newfield_' + id).append(html);
             number++;
-
         }
-
-
-
         function removeField(id) {
             $('#row_' + id).remove();
         }
@@ -524,6 +468,5 @@
                 });
             });
         }
-
     </script>
 @endsection

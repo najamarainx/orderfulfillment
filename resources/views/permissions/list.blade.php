@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Permission')
-
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
@@ -24,25 +23,17 @@
         .error {
             color: red !important;
         }
-
     </style>
 @endsection
-
 @section('content')
     <div class="d-flex flex-column-fluid">
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Info-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Page Title-->
                     <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Users</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
                     <span class="text-muted font-weight-bold mr-4">Permission</span>
-                    <!--end::Actions-->
                 </div>
-                <!--end::Info-->
             </div>
         </div>
         <!--begin::Container-->
@@ -52,7 +43,6 @@
                     <div class="card-header">
                         <div class="card-title">
                             <span class="card-icon svg-icon svg-icon-primary svg-icon-2x">
-                                <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo5\dist/../src/media/svg/icons\Home\Key.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -68,14 +58,11 @@
                                         </path>
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>
                             <h3 class="card-label">Permission Add</h3>
                         </div>
                         <div class="card-toolbar">
-                            <!--begin::Dropdown-->
                             <div class="dropdown dropdown-inline mr-2"></div>
-                            <!--end::Dropdown-->
                         </div>
                     </div>
                     <div class="card-body">
@@ -87,7 +74,6 @@
                                     <div class="dropdown bootstrap-select form-control datatable-input"><select
                                             class="form-control selectpicker datatable-input" name="category_id"
                                             id="category_id" data-live-search="true">
-
                                             <option value="">Select</option>
                                             @if (!empty($categories))
                                                 @foreach ($categories as $catObj)
@@ -116,16 +102,9 @@
                     <div class="card-header flex-wrap py-3">
                         <div class="card-title">
                             <h3 class="card-label">Permission List {{ isset($totalItems) && !empty($totalItems) ? '('.$totalItems.')'  :' '  }}
-
                             </h3>
                         </div>
                         <div class="card-toolbar">
-                            <!--begin::Dropdown-->
-
-                            <!--end::Dropdown-->
-                            <!--begin::Button-->
-
-                            <!--end::Button-->
                         </div>
                     </div>
                     <div class="card-body">
@@ -141,7 +120,6 @@
                                             @endforeach
                                         @endif
                                     </select>
-
                                 </div>
                                 <div class="col-lg-3 mb-lg-2 mb-2">
                                     <label>Permission Name:</label>
@@ -165,7 +143,6 @@
                                 </div>
                             </div>
                         </form>
-                        <!--begin: Datatable-->
                         <table class="table table-bordered table-checkable" id="permissionDatatableList">
                             <thead>
                                 <tr>
@@ -177,7 +154,6 @@
                                 </tr>
                             </thead>
                         </table>
-                        <!--end: Datatable-->
                     </div>
                 </div>
             @else
@@ -185,7 +161,6 @@
                     <div class="card-header">
                         <div class="card-title">
                             <span class="card-icon svg-icon svg-icon-primary svg-icon-2x">
-                                <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo5\dist/../src/media/svg/icons\Home\Key.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -199,14 +174,11 @@
                                             transform="translate(15.985281, 8.985281) rotate(-315.000000) translate(-15.985281, -8.985281) " />
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>
                             <h3 class="card-label">Permissions</h3>
                         </div>
                         <div class="card-toolbar">
-                            <!--begin::Dropdown-->
                             <div class="dropdown dropdown-inline mr-2"></div>
-                            <!--end::Dropdown-->
                         </div>
                     </div>
                     <div class="card-body">
@@ -225,7 +197,6 @@
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/jqvalidation/jquery.validate.min.js?v=7.0.4') }}"></script>
 @endsection
-
 @section('page_level_js')
     <script>
         var table = "";
@@ -237,15 +208,11 @@
                     // Pagination settings
                     dom: `<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
                     // read more: https://datatables.net/examples/basic_init/dom.html
-
                     lengthMenu: [5, 10, 25, 50],
-
                     pageLength: 10,
-
                     language: {
                         'lengthMenu': 'Display _MENU_',
                     },
-
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
@@ -284,12 +251,10 @@
                         [0, "desc"]
                     ]
                 });
-
                 var filter = function() {
                     var val = $.fn.dataTable.util.escapeRegex($(this).val());
                     table.column($(this).data('col-index')).search(val ? val : '', false, false).draw();
                 };
-
                 $('#kt_search').on('click', function(e) {
                     e.preventDefault();
                     var params = {};
@@ -307,7 +272,6 @@
                     });
                     table.table().draw();
                 });
-
                 $('#kt_reset').on('click', function(e) {
                     e.preventDefault();
                     $('#category_search').val('').trigger('change')
@@ -317,7 +281,6 @@
                     });
                     table.table().draw();
                 });
-
                 $('#kt_datepicker').datepicker({
                     todayHighlight: true,
                     format: 'yyyy-mm-dd',
@@ -326,22 +289,16 @@
                         rightArrow: '<i class="la la-angle-right"></i>',
                     },
                 });
-
             };
-
             return {
-
                 //main function to initiate the module
                 init: function() {
                     initTable();
                 },
-
             };
-
         }();
         jQuery(document).ready(function() {
             datatable.init();
-
             $("#addForm").validate({
                 ignore: ":hidden:not(.selectpicker)",
                 rules: {
@@ -400,7 +357,6 @@
                 });
             }
         });
-
         $(document).on('click', '.edit', function() {
             var id = $(this).data('id');
             var form_data = new FormData();
@@ -438,7 +394,6 @@
                 }
             });
         });
-
         $(document).on('click', '.delete', function() {
             var id = $(this).data('id');
             var form_data = new FormData();

@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Order Preview')
-
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
@@ -9,13 +8,11 @@
         .error {
             color: red !important;
         }
-
         @media screen {
         #printSection {
             display: none;
         }
         }
-
         @media print {
         body * {
             visibility:hidden;
@@ -29,19 +26,15 @@
             top:0;
         }
         }
-
     </style>
 @endsection
 @section('content')
     <div id="content2" class="card card-custom">
         <div id="printThis" class="card-body p-0">
-            <!--begin::Invoice-->
-            <!--begin::Invoice header-->
             <div class="container">
                 <div class="card card-custom card-shadowless">
                     <div class="card-body p-0">
                         <div class="row justify-content-center py-8 px-8 py-md-27 px-md-0">
-
                             <div class="col-md-9">
                                 <div class="d-flex justify-content-between pb-5 pb-md-5 flex-column flex-md-row">
                                     <div class="form-group row">
@@ -60,7 +53,6 @@
                                         <span class="w-100 text-right">Date: {{date('d M y',strtotime($orderItems->created_at))}}</span>
                                     </div>
                                 </div>
-                                <!-- <div class="border-bottom w-100 opacity-100"></div> -->
                                 <hr class="w-100">
                                 <div class="d-flex justify-content-between text-dark pt-6">
                                     <div class="d-flex flex-column flex-root">
@@ -77,30 +69,22 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
-            <!--end::Invoice header-->
-            <!--begin::Invoice Body-->
             <div class="position-relative">
-                <!--begin::Background Rows-->
                 <div class="bgi-size-cover bg-primary bgi-position-center bgi-no-repeat h-65px"></div>
                 <div class="bg-white h-65px"></div>
                 <div class="bg-light h-65px"></div>
                 <div class="bg-white h-65px"></div>
                 <div class="bg-light h-65px"></div>
-                <!--end::Background Rows-->
-                <!--begin:Table-->
                 <div class="container position-absolute top-0 left-0 right-0">
                     <div class="row justify-content-center">
                         <div class="col-md-12">
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
-
                                         <tr class="font-weight-boldest text-white h-65px">
                                             <td class="align-middle font-size-h5 pl-0 border-0">Item ID</td>
                                             <td class="align-middle font-size-h5 pl-0 border-0">Item Name</td>
@@ -135,8 +119,6 @@
                         </div>
                     </div>
                 </div>
-                <!--end:Table-->
-                <!--begin::Total-->
                 <div class="container">
                     <div class="row justify-content-center pt-25 pb-20">
                         <div class="col-md-9">
@@ -151,21 +133,12 @@
                         </div>
                     </div>
                 </div>
-                <!--end::Total-->
             </div>
-            <!--end::Invoice Body-->
-            <!--begin::Invoice Footer-->
-
-            <!--end::Invoice Footer-->
-
-            <!--end::Invoice-->
         </div>
     </div>
-    <!-- begin: Invoice action-->
     <div class="container">
         <div class="row justify-content-center py-2 px-4 py-md-2 px-md-0">
             <div class="col-md-9">
-                {{-- onclick="window.print();" --}}
                 <div class="d-flex font-size-sm flex-wrap">
                     <button type="button" class="btn btn-primary font-weight-bolder py-4 mr-3 mr-sm-14 my-1 px-7" id="btnPrint">Print Invoice</button>
                     <button type="button" class="btn btn-light-danger font-weight-bolder mr-3 ml-sm-auto my-1 px-7" id="downloadPDF">Download</button>
@@ -173,48 +146,36 @@
             </div>
         </div>
     </div>
-    <!-- end: Invoice action-->
 @endsection
-
 @section('page_level_js_plugin')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
 @endsection
 @section('page_level_js')
-
     <script>
         $('#downloadPDF').click(function () {
             domtoimage.toPng(document.getElementById('content2'))
                 .then(function (blob) {
                     var pdf = new jsPDF('l', 'pt', [$('#content2').width(), $('#content2').height()]);
-
                     pdf.addImage(blob, 'PNG', 0, 0, $('#content2').width(), $('#content2').height());
                     pdf.save("stock-invoice.pdf");
-
                     that.options.api.optionsChanged();
                 });
         });
-
-
         document.getElementById("btnPrint").onclick = function () {
             printElement(document.getElementById("printThis"));
         }
         function printElement(elem) {
             var domClone = elem.cloneNode(true);
-
             var $printSection = document.getElementById("printSection");
-
             if (!$printSection) {
                 var $printSection = document.createElement("div");
                 $printSection.id = "printSection";
                 document.body.appendChild($printSection);
             }
-
             $printSection.innerHTML = "";
             $printSection.appendChild(domClone);
             window.print();
         }
     </script>
-
 @endsection
-

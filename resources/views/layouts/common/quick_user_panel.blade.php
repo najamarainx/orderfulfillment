@@ -18,16 +18,11 @@
             </a>
         </div>
     </div>
-    <!--end::Header-->
-    <!--begin::Content-->
     <div class="offcanvas-content px-10">
         <div class="tab-content">
-            <!--begin::Tabpane-->
             <div class="tab-pane fade show pt-3 pr-5 mr-n5 active" id="kt_quick_panel_logs" role="tabpanel">
-                <!--begin::Section-->
                 <div class="mb-15">
                     <h5 class="font-weight-bold mb-5">System Messages</h5>
-                    <!--begin: Item-->
                     <div class="d-flex align-items-center flex-wrap mb-5">
                         <div class="symbol symbol-50 symbol-light mr-5">
                             <span class="symbol-label">
@@ -40,8 +35,6 @@
                         </div>
                         <span class="btn btn-sm btn-light font-weight-bolder py-1 my-lg-0 my-2 text-dark-50">+82$</span>
                     </div>
-                    <!--end: Item-->
-                    <!--begin: Item-->
                     <div class="d-flex align-items-center flex-wrap mb-5">
                         <div class="symbol symbol-50 symbol-light mr-5">
                             <span class="symbol-label">
@@ -54,8 +47,6 @@
                         </div>
                         <span class="btn btn-sm btn-light font-weight-bolder my-lg-0 my-2 py-1 text-dark-50">+280$</span>
                     </div>
-                    <!--end: Item-->
-                    <!--begin: Item-->
                     <div class="d-flex align-items-center flex-wrap mb-5">
                         <div class="symbol symbol-50 symbol-light mr-5">
                             <span class="symbol-label">
@@ -68,8 +59,6 @@
                         </div>
                         <span class="btn btn-sm btn-light font-weight-bolder my-lg-0 my-2 py-1 text-dark-50">+4500$</span>
                     </div>
-                    <!--end: Item-->
-                    <!--begin: Item-->
                     <div class="d-flex align-items-center flex-wrap mb-5">
                         <div class="symbol symbol-50 symbol-light mr-5">
                             <span class="symbol-label">
@@ -82,8 +71,6 @@
                         </div>
                         <span class="btn btn-sm btn-light font-weight-bolder my-lg-0 my-2 py-1 text-dark-50">+4500$</span>
                     </div>
-                    <!--end: Item-->
-                    <!--begin: Item-->
                     <div class="d-flex align-items-center flex-wrap">
                         <div class="symbol symbol-50 symbol-light mr-5">
                             <span class="symbol-label">
@@ -96,17 +83,12 @@
                         </div>
                         <span class="btn btn-sm btn-light font-weight-bolder my-lg-0 my-2 py-1 text-dark-50">+4500$</span>
                     </div>
-                    <!--end: Item-->
                 </div>
-                <!--end::Section-->
-                <!--begin::Section-->
                 <div class="mb-5">
                     <h5 class="font-weight-bold mb-5">Notifications</h5>
-                    <!--begin: Item-->
                     <div class="d-flex align-items-center bg-light-warning rounded p-5 mb-5">
                         <span class="svg-icon svg-icon-warning mr-5">
                             <span class="svg-icon svg-icon-lg">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Home/Library.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <rect x="0" y="0" width="24" height="24" />
@@ -114,7 +96,6 @@
                                         <rect fill="#000000" opacity="0.3" transform="translate(17.825568, 11.945519) rotate(-19.000000) translate(-17.825568, -11.945519)" x="16.3255682" y="2.94551858" width="3" height="18" rx="1" />
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>
                         </span>
                         <div class="d-flex flex-column flex-grow-1 mr-2">
@@ -123,8 +104,6 @@
                         </div>
                         <span class="font-weight-bolder text-warning py-1 font-size-lg">+28%</span>
                     </div>
-                    <!--end: Item-->
-                    <!--begin: Item-->
                     <div class="d-flex align-items-center bg-light-success rounded p-5 mb-5">
                         <span class="svg-icon svg-icon-success mr-5">
                             <span class="svg-icon svg-icon-lg">
@@ -136,7 +115,6 @@
                                         <path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>
                         </span>
                         <div class="d-flex flex-column flex-grow-1 mr-2">
@@ -145,12 +123,9 @@
                         </div>
                         <span class="font-weight-bolder text-success py-1 font-size-lg">+50%</span>
                     </div>
-                    <!--end: Item-->
-                    <!--begin: Item-->
                     <div class="d-flex align-items-center bg-light-danger rounded p-5 mb-5">
                         <span class="svg-icon svg-icon-danger mr-5">
                             <span class="svg-icon svg-icon-lg">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group-chat.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <rect x="0" y="0" width="24" height="24" />
@@ -158,7 +133,6 @@
                                         <path d="M1.98505595,18 L1.98505595,13 C1.98505595,11.8954305 2.88048645,11 3.98505595,11 L11.9850559,11 C13.0896254,11 13.9850559,11.8954305 13.9850559,13 L13.9850559,18 C13.9850559,19.1045695 13.0896254,20 11.9850559,20 L4.10078614,20 L2.85693427,21.1905292 C2.65744295,21.3814685 2.34093638,21.3745358 2.14999706,21.1750444 C2.06092565,21.0819836 2.01120804,20.958136 2.01120804,20.8293182 L2.01120804,18.32426 C1.99400175,18.2187196 1.98505595,18.1104045 1.98505595,18 Z M6.5,14 C6.22385763,14 6,14.2238576 6,14.5 C6,14.7761424 6.22385763,15 6.5,15 L11.5,15 C11.7761424,15 12,14.7761424 12,14.5 C12,14.2238576 11.7761424,14 11.5,14 L6.5,14 Z M9.5,16 C9.22385763,16 9,16.2238576 9,16.5 C9,16.7761424 9.22385763,17 9.5,17 L11.5,17 C11.7761424,17 12,16.7761424 12,16.5 C12,16.2238576 11.7761424,16 11.5,16 L9.5,16 Z" fill="#000000" opacity="0.3" />
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>
                         </span>
                         <div class="d-flex flex-column flex-grow-1 mr-2">
@@ -167,12 +141,9 @@
                         </div>
                         <span class="font-weight-bolder text-danger py-1 font-size-lg">-27%</span>
                     </div>
-                    <!--end: Item-->
-                    <!--begin: Item-->
                     <div class="d-flex align-items-center bg-light-info rounded p-5">
                         <span class="svg-icon svg-icon-info mr-5">
                             <span class="svg-icon svg-icon-lg">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/General/Attachment2.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <rect x="0" y="0" width="24" height="24" />
@@ -182,7 +153,6 @@
                                         <path d="M17.9142136,15.4497475 C18.4664983,15.4497475 18.9142136,15.8974627 18.9142136,16.4497475 L18.9142136,18.4497475 C18.9142136,19.0020322 18.4664983,19.4497475 17.9142136,19.4497475 C17.3619288,19.4497475 16.9142136,19.0020322 16.9142136,18.4497475 L16.9142136,16.4497475 C16.9142136,15.8974627 17.3619288,15.4497475 17.9142136,15.4497475 Z M23.4497475,17.1568542 C23.8402718,17.5473785 23.8402718,18.1805435 23.4497475,18.5710678 L22.0355339,19.9852814 C21.6450096,20.3758057 21.0118446,20.3758057 20.6213203,19.9852814 C20.2307961,19.5947571 20.2307961,18.9615921 20.6213203,18.5710678 L22.0355339,17.1568542 C22.4260582,16.76633 23.0592232,16.76633 23.4497475,17.1568542 Z M12.6213203,17.1568542 C13.0118446,16.76633 13.6450096,16.76633 14.0355339,17.1568542 L15.4497475,18.5710678 C15.8402718,18.9615921 15.8402718,19.5947571 15.4497475,19.9852814 C15.0592232,20.3758057 14.4260582,20.3758057 14.0355339,19.9852814 L12.6213203,18.5710678 C12.2307961,18.1805435 12.2307961,17.5473785 12.6213203,17.1568542 Z" fill="#000000" opacity="0.3" transform="translate(18.035534, 17.863961) scale(1, -1) rotate(45.000000) translate(-18.035534, -17.863961)" />
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>
                         </span>
                         <div class="d-flex flex-column flex-grow-1 mr-2">
@@ -191,16 +161,10 @@
                         </div>
                         <span class="font-weight-bolder text-info py-1 font-size-lg">+8%</span>
                     </div>
-                    <!--end: Item-->
                 </div>
-                <!--end::Section-->
             </div>
-            <!--end::Tabpane-->
-            <!--begin::Tabpane-->
             <div class="tab-pane fade pt-2 pr-5 mr-n5" id="kt_quick_panel_notifications" role="tabpanel">
-                <!--begin::Nav-->
                 <div class="navi navi-icon-circle navi-spacer-x-0">
-                    <!--begin::Item-->
                     <a href="#" class="navi-item">
                         <div class="navi-link rounded">
                             <div class="symbol symbol-50 mr-3">
@@ -214,8 +178,6 @@
                             </div>
                         </div>
                     </a>
-                    <!--end::Item-->
-                    <!--begin::Item-->
                     <a href="#" class="navi-item">
                         <div class="navi-link rounded">
                             <div class="symbol symbol-50 mr-3">
@@ -229,8 +191,6 @@
                             </div>
                         </div>
                     </a>
-                    <!--end::Item-->
-                    <!--begin::Item-->
                     <a href="#" class="navi-item">
                         <div class="navi-link rounded">
                             <div class="symbol symbol-50 mr-3">
@@ -244,8 +204,6 @@
                             </div>
                         </div>
                     </a>
-                    <!--end::Item-->
-                    <!--begin::Item-->
                     <a href="#" class="navi-item">
                         <div class="navi-link rounded">
                             <div class="symbol symbol-50 mr-3">
@@ -259,8 +217,6 @@
                             </div>
                         </div>
                     </a>
-                    <!--end::Item-->
-                    <!--begin::Item-->
                     <a href="#" class="navi-item">
                         <div class="navi-link rounded">
                             <div class="symbol symbol-50 mr-3">
@@ -274,8 +230,6 @@
                             </div>
                         </div>
                     </a>
-                    <!--end::Item-->
-                    <!--begin::Item-->
                     <a href="#" class="navi-item">
                         <div class="navi-link rounded">
                             <div class="symbol symbol-50 mr-3">
@@ -289,8 +243,6 @@
                             </div>
                         </div>
                     </a>
-                    <!--end::Item-->
-                    <!--begin::Item-->
                     <a href="#" class="navi-item">
                         <div class="navi-link rounded">
                             <div class="symbol symbol-50 mr-3">
@@ -304,8 +256,6 @@
                             </div>
                         </div>
                     </a>
-                    <!--end::Item-->
-                    <!--begin::Item-->
                     <a href="#" class="navi-item">
                         <div class="navi-link rounded">
                             <div class="symbol symbol-50 mr-3">
@@ -319,8 +269,6 @@
                             </div>
                         </div>
                     </a>
-                    <!--end::Item-->
-                    <!--begin::Item-->
                     <a href="#" class="navi-item">
                         <div class="navi-link rounded">
                             <div class="symbol symbol-50 mr-3">
@@ -334,8 +282,6 @@
                             </div>
                         </div>
                     </a>
-                    <!--end::Item-->
-                    <!--begin::Item-->
                     <a href="#" class="navi-item">
                         <div class="navi-link rounded">
                             <div class="symbol symbol-50 mr-3">
@@ -349,8 +295,6 @@
                             </div>
                         </div>
                     </a>
-                    <!--end::Item-->
-                    <!--begin::Item-->
                     <a href="#" class="navi-item">
                         <div class="navi-link rounded">
                             <div class="symbol symbol-50 mr-3">
@@ -364,8 +308,6 @@
                             </div>
                         </div>
                     </a>
-                    <!--end::Item-->
-                    <!--begin::Item-->
                     <a href="#" class="navi-item">
                         <div class="navi-link rounded">
                             <div class="symbol symbol-50 mr-3">
@@ -379,8 +321,6 @@
                             </div>
                         </div>
                     </a>
-                    <!--end::Item-->
-                    <!--begin::Item-->
                     <a href="#" class="navi-item">
                         <div class="navi-link rounded">
                             <div class="symbol symbol-50 mr-3">
@@ -394,15 +334,10 @@
                             </div>
                         </div>
                     </a>
-                    <!--end::Item-->
                 </div>
-                <!--end::Nav-->
             </div>
-            <!--end::Tabpane-->
-            <!--begin::Tabpane-->
             <div class="tab-pane fade pt-3 pr-5 mr-n5" id="kt_quick_panel_settings" role="tabpanel">
                 <form class="form">
-                    <!--begin::Section-->
                     <div>
                         <h5 class="font-weight-bold mb-3">Customer Care</h5>
                         <div class="form-group mb-0 row align-items-center">
@@ -439,9 +374,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end::Section-->
                     <div class="separator separator-dashed my-6"></div>
-                    <!--begin::Section-->
                     <div class="pt-2">
                         <h5 class="font-weight-bold mb-3">Reports</h5>
                         <div class="form-group mb-0 row align-items-center">
@@ -478,9 +411,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--end::Section-->
                     <div class="separator separator-dashed my-6"></div>
-                    <!--begin::Section-->
                     <div class="pt-2">
                         <h5 class="font-weight-bold mb-3">Memebers</h5>
                         <div class="form-group mb-0 row align-items-center">
@@ -517,11 +448,8 @@
                             </div>
                         </div>
                     </div>
-                    <!--end::Section-->
                 </form>
             </div>
-            <!--end::Tabpane-->
         </div>
     </div>
-    <!--end::Content-->
 </div>

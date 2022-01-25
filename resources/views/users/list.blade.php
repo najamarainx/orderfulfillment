@@ -61,53 +61,30 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
         $userTypes=array('team_lead','worker','screen');
     }else if($type == 'team_lead'){
         $userTypes=array('worker');
-
     }
-
     $usersTypeArray = ['assembler','packaging','installation'];
-
-
 @endphp
 @section('content')
-    <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-
-        <!--begin::Subheader-->
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Info-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Page Title-->
                     <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Users</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
                     <span class="text-muted font-weight-bold mr-4">List</span>
-                    <!--end::Actions-->
                 </div>
-                <!--end::Info-->
             </div>
         </div>
-        <!--end::Subheader-->
-        <!--begin::Entry-->
         <div class="d-flex flex-column-fluid">
-            <!--begin::Container-->
             <div class="container">
-
-
-
-                <!--begin::Advance Table Widget 2-->
                 <div class="card card-custom gutter-b">
-                    <!--begin::Header-->
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-center">
                             <span class="card-label font-weight-bolder text-dark">User List {{ isset($totalItems) && !empty($totalItems) ? '('.$totalItems.')'  :' '  }}</span>
                         </h3>
                         <div class="card-toolbar">
-
                             <a data-target="#staticBackdrop" data-toggle="modal" class="btn btn-primary font-weight-bolder" id='btn_add_new'>
                         <span class="svg-icon svg-icon-md">
-                            <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                  width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -118,15 +95,10 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                         fill="#000000" opacity="0.3" />
                                 </g>
                             </svg>
-                            <!--end::Svg Icon-->
                         </span>Add User</a>
                         </div>
                     </div>
-                    <!--end::Header-->
-                    <!--begin::Body-->
                     <div class="card-body pt-2 pb-0 mt-n3">
-
-                            <!--begin::Tap pane-->
                         <form class="kt-form kt-form--fit">
                             <div class="row">
                                     <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
@@ -156,7 +128,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                                     <option value="{{$role->id}}" >{{ucfirst($role->name)}}</option>
                                                 @endforeach
                                             </select>
-
                                         </div>
                                     </div>
                                     @if(!in_array(Auth::user()->type , $usersTypeArray))
@@ -186,12 +157,9 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                             <span>Reset</span>
                                         </span>
                                                 </button>
-
                                     </div>
                                 </div>
                         </form>
-                                <!--begin::Table-->
-
                                     <table class="table table-bordered table-checkable" id="datatableList">
                                         <thead>
                                         <tr>
@@ -205,36 +173,14 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                            <th class="cust_th_table">Action</th>
                                         </tr>
                                         </thead>
-
                                     </table>
-
-                                <!--end::Table-->
-
-
                     </div>
-                    <!--end::Body-->
                 </div>
-                <!--end::Advance Table Widget 2-->
-
-
-
-
-
-
-
-
-
             </div>
-            <!--end::Container-->
         </div>
-        <!--end::Entry-->
     </div>
-
-    <!--end::Content-->
-    <!--------modal user---------------->
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
-
             <form onsubmit="return false" id="addForm">
                 <input type="hidden" class="form-control" name="id" id="id" value="" />
             <div class="modal-content">
@@ -245,7 +191,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                     </button>
                 </div>
                 <div class="modal-body">
-
                     <div class="row">
                         <div class="col-12">
                             <input type="hidden" name="is_head" id="is_head">
@@ -296,7 +241,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         @if(Auth::user()->type == 'production_manager')
                         <div class="col-6">
@@ -330,11 +274,7 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                             </div>
                             <span class="text-danger security_code_error"></span>
                         </div>
-
-
-
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
@@ -344,8 +284,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
             </form>
         </div>
     </div>
-<!-------end user modal-------------->
-<!-------modal permission--------------->
     <div class="modal fade" id="show_permission_modal" tabindex="-1" role="dialog" aria-labelledby="show_permission_modal"
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
@@ -353,7 +291,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                 <div class="modal-header">
                     <h5 class="modal-title">
                     <span class="card-icon svg-icon svg-icon-primary svg-icon-2x">
-                        <!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo5\dist/../src/media/svg/icons\Home\Key.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                              height="24px" viewBox="0 0 24 24" version="1.1">
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -367,7 +304,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                     transform="translate(15.985281, 8.985281) rotate(-315.000000) translate(-15.985281, -8.985281) " />
                             </g>
                         </svg>
-                        <!--end::Svg Icon-->
                         Permissions
                     </span>
                     </h5>
@@ -383,7 +319,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
             </div>
         </div>
     </div>
-<!------end permission modal------------->
 @endsection
 @section('page_level_js_plugin')
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4') }}"></script>
@@ -409,15 +344,11 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                 // Pagination settings
                 dom: `<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
                 // read more: https://datatables.net/examples/basic_init/dom.html
-
                 lengthMenu: [5, 10, 25, 50],
-
                 pageLength: 10,
-
                 language: {
                     'lengthMenu': 'Display _MENU_',
                 },
-
                 searchDelay: 500,
                 processing: true,
                 serverSide: true,
@@ -466,12 +397,10 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                     [0, "desc"]
                 ]
             });
-
             var filter = function() {
                 var val = $.fn.dataTable.util.escapeRegex($(this).val());
                 table.column($(this).data('col-index')).search(val ? val : '', false, false).draw();
             };
-
             $('#kt_search').on('click', function(e) {
                 e.preventDefault();
                 var params = {};
@@ -489,19 +418,16 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                 });
                 table.table().draw();
             });
-
             $('#kt_reset').on('click', function(e) {
                 e.preventDefault();
                 $('.datatable-input').each(function() {
                     $(this).val('');
                     $('#type_search').val('').trigger('change')
                     $('#role_search').val('').trigger('change')
-
                     table.column($(this).data('col-index')).search('', false, false);
                 });
                 table.table().draw();
             });
-
             $('#kt_datepicker').datepicker({
                 todayHighlight: true,
                 format: 'yyyy-mm-dd',
@@ -510,23 +436,16 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                     rightArrow: '<i class="la la-angle-right"></i>',
                 },
             });
-
         };
-
         return {
-
             //main function to initiate the module
             init: function() {
                 initTable();
             },
-
         };
-
     }();
-
     jQuery(document).ready(function() {
         datatable.init();
-
         var validator = $("#addForm").validate({
             ignore: ":hidden:not(.selectpicker)",
             rules: {
@@ -539,7 +458,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                 phone: {
                     required: true,
                 'check_phone_no': true
-
                 },
                 user_type: {
                     required: true
@@ -547,12 +465,10 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                 user_role: {
                     required: true
                 },
-
             },
             errorPlacement: function(error, element) {
                 var elem = $(element);
                 if (elem.hasClass("user_type") || elem.hasClass("user_department")) {
-
                     error.appendTo(element.parent().after());
                     //error.insertAfter(element);
                 }
@@ -564,19 +480,16 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                 }
             }
         });
-
         $('input[type="file"]').change(function(e) {
             var fileName = e.target.files[0].name;
             $(this).next('label.file_label').html(fileName);
         });
-
         $(document).on('click', '#btn_add_new', function(){
             $('#staticBackdrop').modal({
                 backdrop: 'static',
                 keyboard: false
             }).on('hide.bs.modal', function(){
                 $("#addForm").validate().resetForm();
-
             });
             var form = $("#addForm");
             form[0].reset();
@@ -586,10 +499,7 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
             $('#user_role').val('').trigger('change');
             $('#email').val('').prop("readonly", false);
             $('#user_department').val('').trigger('change.select2')
-
         });
-
-
         $(document).on('click', '#btn_save', function(){
             @if(Auth::user()->type == 'production_manager')
             $( "#user_department" ).rules( "add", {
@@ -600,16 +510,13 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
             if(validate) {
                 var userType=$('#user_type').val();
                if(userType=='measurement' || userType=='installation'){
-
                     if($('#zip_id').val()==''){
                         $('.zip_error').html('this field is required');
                         return false;
                     }
-
                 }else{
                     $('.zip_error').html('');
                 }
-
                 var form_data = $("#addForm").serializeArray();
                 $.ajax({
                     type: "POST",
@@ -674,7 +581,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                             keyboard: false
                         }).on('hide.bs.modal', function(){
                             $("#addForm").validate().resetForm();
-
                         });
                         var rec = data.data;
                         console.log(rec);
@@ -698,12 +604,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                             var str_array = zips.split(',');
                             $("#zip_id").val(str_array).trigger("change");
                         }
-
-
-
-
-
-
                     } else {
                         Swal.fire("Sorry!", data.message, "error");
                     }
@@ -750,8 +650,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                 }
             });
         });
-
-
         var input = document.getElementById("addForm");
         input.addEventListener("keyup", function(event) {
             if (event.keyCode === 13) {
@@ -759,9 +657,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                 document.getElementById("btn_save").click();
             }
         });
-
-
-
     });
     jQuery.validator.addMethod('check_phone_no', function(phone_number, element) {
         return phone_number.length > 9 &&
@@ -769,7 +664,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
     }, 'Please enter a correct UK number.');
     function getUserType(userType){
        if(userType=='installation' || userType=='measurement'){
-
            $('#show_type').show();
        }
        else{
@@ -777,10 +671,7 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
        }
        /*if(userType=='worker')
        {$('.security_code').show();}else{ $('#security_code').val('');$('.security_code').hide();}*/
-
     }
-
-
     $(document).on('click', '#show_permission', function() {
         var role_id = $('#user_role').val();
         if (role_id != "") {
@@ -833,10 +724,5 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
             toastr.warning('Please select role first');
         }
     });
-
-
-
-
-
 </script>
 @endsection

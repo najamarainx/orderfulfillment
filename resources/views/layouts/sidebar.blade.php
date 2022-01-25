@@ -1,16 +1,10 @@
-<!--begin::Aside-->
 <div class="aside aside-left aside-fixed d-flex flex-column flex-row-auto" id="kt_aside">
-    <!--begin::Brand-->
     <div class="brand flex-column-auto" id="kt_brand">
-        <!--begin::Logo-->
         <a href="{{ route('home') }}" class="brand-logo">
             <img alt="Logo" src="{{ asset('assets/media/logos/logo-light.png') }}" />
         </a>
-        <!--end::Logo-->
-        <!--begin::Toggle-->
         <button class="brand-toggle btn btn-sm px-0" id="kt_aside_toggle">
             <span class="svg-icon svg-icon svg-icon-xl">
-                <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Angle-double-left.svg-->
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                     height="24px" viewBox="0 0 24 24" version="1.1">
                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -25,24 +19,17 @@
                             transform="translate(15.999997, 11.999999) scale(-1, 1) rotate(-270.000000) translate(-15.999997, -11.999999)" />
                     </g>
                 </svg>
-                <!--end::Svg Icon-->
             </span>
         </button>
-        <!--end::Toolbar-->
     </div>
-    <!--end::Brand-->
-    <!--begin::Aside Menu-->
     <div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
-        <!--begin::Menu Container-->
         <div id="kt_aside_menu" class="aside-menu my-4" data-menu-vertical="1" data-menu-scroll="1"
             data-menu-dropdown-timeout="500">
-            <!--begin::Menu Nav-->
             <ul class="menu-nav">
                 <li class="menu-item  {{ Route::currentRouteName() == 'home' ? 'menu-item-active' : '' }}"
                     aria-haspopup="true">
                     <a href="{{ route('home') }}" class="menu-link">
                         <span class="svg-icon menu-icon">
-                            <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Layers.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                 width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -55,7 +42,6 @@
                                         fill="#000000" opacity="0.3" />
                                 </g>
                             </svg>
-                            <!--end::Svg Icon-->
                         </span>
                         <span class="menu-text">Dashboard</span>
                     </a>
@@ -64,9 +50,7 @@
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'slotList' || Route::currentRouteName() == 'bookingList' || Route::currentRouteName() == 'confirmedList' ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <span class="svg-icon svg-icon-primary svg-icon-2x">
-                                    <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Shopping/Box2.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -79,9 +63,7 @@
                                                 fill="#000000" opacity="0.3" />
                                         </g>
                                     </svg>
-                                    <!--end::Svg Icon-->
                                 </span>
-                                <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Bookings</span>
                             <i class="menu-arrow"></i>
@@ -118,14 +100,6 @@
                                         </a>
                                     </li>
                                 @endif
-                                {{-- <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                <a href="{{route('bookingTaskList')}}" class="menu-link menu-toggle">
-                                    <i class="menu-bullet menu-bullet-line">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">Tasks List</span>
-                                </a>
-                            </li> --}}
                                 @if (hasPermission('confirmedBooking'))
 
                                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'confirmedList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
@@ -147,42 +121,17 @@
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'bookingTaskList'  ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                         <a href="{{ route('bookingTaskList') }}" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <span class="svg-icon svg-icon-primary svg-icon-2x">
-                                    <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Shopping/Box2.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                             <rect x="0" y="0" width="24" height="24"/>
                                             <path d="M15,7 L15,8 C15,8.55228475 15.4477153,9 16,9 C16.5522847,9 17,8.55228475 17,8 L17,7 L19,7 L19,10 C19,10.5522847 19.4477153,11 20,11 C20.5522847,11 21,10.5522847 21,10 L21,7 C22.1045695,7 23,7.8954305 23,9 L23,15 C23,16.1045695 22.1045695,17 21,17 L3,17 C1.8954305,17 1,16.1045695 1,15 L1,9 C1,7.8954305 1.8954305,7 3,7 L3,10 C3,10.5522847 3.44771525,11 4,11 C4.55228475,11 5,10.5522847 5,10 L5,7 L7,7 L7,8 C7,8.55228475 7.44771525,9 8,9 C8.55228475,9 9,8.55228475 9,8 L9,7 L11,7 L11,10 C11,10.5522847 11.4477153,11 12,11 C12.5522847,11 13,10.5522847 13,10 L13,7 L15,7 Z" fill="#000000" transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) "/>
                                         </g>
                                     </svg>
-                                    <!--end::Svg Icon-->
                                 </span>
-                                <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Measurement</span>
-                            {{-- <i class="menu-arrow"></i> --}}
                         </a>
-                        {{-- <div class="menu-submenu">
-                            <i class="menu-arrow"></i>
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-parent" aria-haspopup="true">
-                                    <span class="menu-link">
-                                        <span class="menu-text">Measurement</span>
-                                    </span>
-                                </li>
-
-                                <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'bookingTaskList'  ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
-                                    <a href="{{ route('bookingTaskList') }}" class="menu-link menu-toggle">
-                                        <i class="menu-bullet menu-bullet-line">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">Tasks List</span>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </div> --}}
                     </li>
 
                 @endif
@@ -192,7 +141,6 @@
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'adminOrderList'  ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                         <a href="{{ route('adminOrderList') }}" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -205,32 +153,9 @@
                                             fill="#000000" />
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Orders</span>
-                            {{-- <i class="menu-arrow"></i> --}}
                         </a>
-                        {{-- <div class="menu-submenu">
-                            <i class="menu-arrow"></i>
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-parent" aria-haspopup="true">
-                                    <span class="menu-link">
-                                        <span class="menu-text">Orders</span>
-                                    </span>
-                                </li>
-                                @if (hasPermission('adminOrderList'))
-                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'adminOrderList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
-                                        data-menu-toggle="hover">
-                                        <a href="{{ route('adminOrderList') }}" class="menu-link menu-toggle">
-                                            <i class="menu-bullet menu-bullet-line">
-                                                <span></span>
-                                            </i>
-                                            <span class="menu-text">List</span>
-                                        </a>
-                                    </li>
-                                @endif
-                            </ul>
-                        </div> --}}
                     </li>
                 @endif
                 @if (hasPermission('orderList'))
@@ -238,7 +163,6 @@
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'orderList' || Route::currentRouteName() == 'confirmedOrderList' ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <rect x="0" y="0" width="24" height="24"/>
@@ -247,7 +171,6 @@
                                         <path d="M16.267767,18.0822059 C12.2738464,17.3873004 9.26776695,14.3606699 9.26776695,10.732233 C9.26776695,7.10379618 12.2738464,4.07716572 16.267767,3.38226022 L16.267767,18.0822059 Z" fill="#000000" transform="translate(12.767767, 10.732233) rotate(-405.000000) translate(-12.767767, -10.732233) "/>
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Production Orders</span>
                             <i class="menu-arrow"></i>
@@ -290,7 +213,6 @@
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'assembledOrderList' || Route::currentRouteName() == 'assembledOrderAssigned' ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <rect x="0" y="0" width="24" height="24"/>
@@ -298,7 +220,6 @@
                                         <polygon fill="#000000" points="14.9671522 4.22441676 7.5999999 8.31727912 7.5999999 12.9056825 9.5999999 13.9056825 9.5999999 9.49408582 17.25507 5.24126912"/>
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Assembeld Order</span>
                             <i class="menu-arrow"></i>
@@ -342,7 +263,6 @@
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'packagedOrderList' || Route::currentRouteName() == 'packagedOrderAssigned' ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <rect x="0" y="0" width="24" height="24"/>
@@ -350,7 +270,6 @@
                                         <path d="M10,8 L8,8 L8,7 C8,5.34314575 9.34314575,4 11,4 L13,4 C14.6568542,4 16,5.34314575 16,7 L16,8 L14,8 L14,7 C14,6.44771525 13.5522847,6 13,6 L11,6 C10.4477153,6 10,6.44771525 10,7 L10,8 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Packaged Order</span>
                             <i class="menu-arrow"></i>
@@ -394,7 +313,6 @@
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'installationOrderList' || Route::currentRouteName() == 'installationOrderAssigned' ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <rect x="0" y="0" width="24" height="24"/>
@@ -402,7 +320,6 @@
                                         <path d="M16.6568542,5.92893219 L18.0710678,7.34314575 C18.4615921,7.73367004 18.4615921,8.36683502 18.0710678,8.75735931 L16.6913928,10.1370344 C16.3008685,10.5275587 15.6677035,10.5275587 15.2771792,10.1370344 L13.8629656,8.7228208 C13.4724413,8.33229651 13.4724413,7.69913153 13.8629656,7.30860724 L15.2426407,5.92893219 C15.633165,5.5384079 16.26633,5.5384079 16.6568542,5.92893219 Z" fill="#000000" opacity="0.3"/>
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Installation Order</span>
                             <i class="menu-arrow"></i>
@@ -449,7 +366,6 @@
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'accountantOrderList' ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                         <a href="{{ route('accountantOrderList') }}" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -462,32 +378,9 @@
                                             fill="#000000" />
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Accountant Order</span>
-                            {{-- <i class="menu-arrow"></i> --}}
                         </a>
-                        {{-- <div class="menu-submenu">
-                            <i class="menu-arrow"></i>
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-parent" aria-haspopup="true">
-                                    <span class="menu-link">
-                                        <span class="menu-text">Accountant Order</span>
-                                    </span>
-                                </li>
-                                @if (hasPermission('accountantOrderList'))
-                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'accountantOrderList'  ? 'menu-item-active' : '' }}" aria-haspopup="true"
-                                        data-menu-toggle="hover">
-                                        <a href="{{ route('accountantOrderList') }}" class="menu-link menu-toggle">
-                                            <i class="menu-bullet menu-bullet-line">
-                                                <span></span>
-                                            </i>
-                                            <span class="menu-text">Order List</span>
-                                        </a>
-                                    </li>
-                                @endif
-                            </ul>
-                        </div> --}}
                     </li>
                 @endif
                 @if (hasPermission('viewZip'))
@@ -495,37 +388,15 @@
                         aria-haspopup="true" data-menu-toggle="hover">
                         <a href="{{ route('zipList') }}" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <rect x="0" y="0" width="24" height="24"/>
                                         <path d="M9.82829464,16.6565893 C7.02541569,15.7427556 5,13.1079084 5,10 C5,6.13400675 8.13400675,3 12,3 C15.8659932,3 19,6.13400675 19,10 C19,13.1079084 16.9745843,15.7427556 14.1717054,16.6565893 L12,21 L9.82829464,16.6565893 Z M12,12 C13.1045695,12 14,11.1045695 14,10 C14,8.8954305 13.1045695,8 12,8 C10.8954305,8 10,8.8954305 10,10 C10,11.1045695 10.8954305,12 12,12 Z" fill="#000000"/>
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Post Code</span>
-                            {{-- <i class="menu-arrow"></i> --}}
                         </a>
-                        {{-- <div class="menu-submenu">
-                            <i class="menu-arrow"></i>
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-parent " aria-haspopup="true">
-                                    <span class="menu-link">
-                                        <span class="menu-text">List</span>
-                                    </span>
-                                </li>
-                                <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'zipList'  ? 'menu-item-active' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
-                                    <a href="{{ route('zipList') }}" class="menu-link menu-toggle">
-                                        <i class="menu-bullet menu-bullet-line">
-                                            <span></span>
-                                        </i>
-                                        <span class="menu-text">List</span>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </div> --}}
                     </li>
                 @endif
                 @if (hasPermission('viewUser') || hasPermission('viewCategory') || hasPermission('viewPermission') || hasPermission('viewRole'))
@@ -533,7 +404,6 @@
                         aria-haspopup="true" data-menu-toggle="hover">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -543,7 +413,6 @@
                                             fill="#000000" fill-rule="nonzero" />
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Users Role & Permission</span>
                             <i class="menu-arrow"></i>
@@ -606,9 +475,7 @@
                         aria-haspopup="true" data-menu-toggle="hover">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <span class="svg-icon svg-icon-primary svg-icon-2x">
-                                    <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Shopping/Box2.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                             <rect x="0" y="0" width="24" height="24"/>
@@ -628,9 +495,7 @@
                                             <rect fill="#000000" opacity="0.3" x="17" y="17" width="2" height="2" rx="0.5"/>
                                         </g>
                                     </svg>
-                                    <!--end::Svg Icon-->
                                 </span>
-                                <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Departments</span>
                             <i class="menu-arrow"></i>
@@ -675,7 +540,6 @@
                         aria-haspopup="true" data-menu-toggle="hover">
                         <a href="javascript:;" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -686,7 +550,6 @@
                                         <rect fill="#000000" opacity="0.3" x="2" y="3" width="20" height="4" rx="1" />
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Stock</span>
                             <i class="menu-arrow"></i>
@@ -741,9 +604,7 @@
                     <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'inventoryList'  ? 'menu-item-open' : '' }}"  aria-haspopup="true" data-menu-toggle="hover">
                         <a href="{{ route('inventoryList') }}" class="menu-link menu-toggle">
                             <span class="svg-icon menu-icon">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
                                 <span class="svg-icon svg-icon-primary svg-icon-2x">
-                                    <!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Shopping/Box2.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                             <rect x="0" y="0" width="24" height="24"/>
@@ -758,44 +619,13 @@
                                             <rect fill="#000000" x="16" y="16" width="4" height="4" rx="2"/>
                                         </g>
                                     </svg>
-                                    <!--end::Svg Icon-->
                                 </span>
-                                <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">Inventory</span>
-                            {{-- <i class="menu-arrow"></i> --}}
                         </a>
-                        {{-- <div class="menu-submenu">
-                            <i class="menu-arrow"></i>
-                            <ul class="menu-subnav">
-                                <li class="menu-item menu-item-parent" aria-haspopup="true">
-                                    <span class="menu-link">
-                                        <span class="menu-text">Inventory</span>
-                                    </span>
-                                </li>
-                                @if (hasPermission('ProductInventoryList'))
-                                    <li class="menu-item menu-item-submenu {{ Route::currentRouteName() == 'inventoryList'  ? 'menu-item-open' : '' }}" aria-haspopup="true"
-                                        data-menu-toggle="hover">
-                                        <a href="{{ route('inventoryList') }}" class="menu-link menu-toggle">
-                                            <i class="menu-bullet menu-bullet-line">
-                                                <span></span>
-                                            </i>
-                                            <span class="menu-text">Inventory List</span>
-                                        </a>
-                                    </li>
-                                @endif
-                            </ul>
-                        </div> --}}
                     </li>
                 @endif
             </ul>
-            <!--end::Menu Nav-->
         </div>
-        <!--end::Menu Container-->
     </div>
-    <!--end::Aside Menu-->
 </div>
-<!--end::Aside-->
-<!--begin::Wrapper-->
-
-<!--end::Wrapper-->

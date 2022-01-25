@@ -12,13 +12,11 @@
         <th class="text-info " style="min-width: 50px ">Payment Verify</th>
     </tr>
     </thead>
-
         <tbody>
         @php
             $i=1;
         @endphp
         @foreach($paymentLogs as $paymentLog)
-
                 <tr>
                     <td class="pl-0 ">
                        {{$i}}
@@ -38,10 +36,8 @@
                         </div>
                     </td>
                 </tr>
-
             @php $i++ @endphp
         @endforeach
         </tbody>
-
 </table>
 </form>

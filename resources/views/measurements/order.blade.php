@@ -17,7 +17,6 @@
         input[type='number'] {
     -moz-appearance:textfield;
 }
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -28,33 +27,20 @@ input::-webkit-inner-spin-button {
     <div class="d-flex flex-column-fluid">
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Info-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Page Title-->
                     <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Measurement Order</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
                     <span class="text-muted font-weight-bold mr-4">Order Create</span>
-                    <!--end::Actions-->
                 </div>
-                <!--end::Info-->
             </div>
         </div>
-        <!--begin::Container-->
         <div class="container">
-
-
-            <!--begin::Advance Table Widget 2-->
             <div class="card card-custom gutter-b">
-                <!--begin::Header-->
                 <div class="card-header border-0 py-5">
                     <h3 class="card-title align-items-center">
                         <span class="card-label font-weight-bolder text-dark">Add Order</span>
                     </h3>
                 </div>
-                <!--end::Header-->
-                <!--begin::Body-->
                 <div class="card-body pt-0 pb-3">
                     <form id="addItem">
                         <div class="row ">
@@ -80,7 +66,6 @@ input::-webkit-inner-spin-button {
                                             <select
                                                 class="form-control category_products form-control-lg kt_select2_1 w-100 "
                                                 id="category_products" data-live-search="true" name="product_id">
-
                                             </select>
                                         </div>
                                     </div>
@@ -202,25 +187,14 @@ input::-webkit-inner-spin-button {
                                                 role="tabpane3" aria-labelledby="home-tab-3">£<span
                                                     id="get_quote_price"></span></h3>
                                         </div>
-                                        {{-- <div class="tab-content mt-5 " id="myTabContent1 ">
-                                            <div class="tab-pane fade alert alert-success text-center " id="get-quotes "
-                                                role="tabpanel " aria-labelledby="get-quotes-tab-1 ">
-                                                <h3 class="font-weight-bolder d-block font-size-lg mt-3 " id="home-3 "
-                                                    role="tabpane3 " aria-labelledby="home-tab-3 ">£<span id="get_quote_price"></span></h3>
-                                            </div>
-                                        </div> --}}
                                     </div>
-
                                 </div>
                             </div>
-
                             <div class="col-lg-6 col-md-6 col-sm-12 pl-lg-6 pl-md-6">
                                 <div class="row">
-
                                     <div class="col-12">
                                         <label class="mb-0">Select Your fitting type</label>
                                         <div class="alert alert-light">
-
                                             <div class="radio-inline d-flex justify-content-between">
                                                 <label class="radio">
                                                     <input type="radio" name="fitting" class="fitting_type" value="Recess"
@@ -237,7 +211,6 @@ input::-webkit-inner-spin-button {
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-12">
                                         <div class="form-group mb-4">
                                             <label class="mb-0">Side of Controls</label>
@@ -260,7 +233,6 @@ input::-webkit-inner-spin-button {
                                     </div>
                                     <div class="col-12">
                                         <div class="fitting_option" style="display: none">
-
                                             <div class="form-group mb-4">
                                                 <label class="mb-0">Select your fitting option</label>
                                                 <select name="set_fitting" class="form-control" id="set_fitting">
@@ -271,8 +243,6 @@ input::-webkit-inner-spin-button {
                                             </div>
                                         </div>
                                     </div>
-
-
                                     <div class="col-12">
                                         <div class="form-group mb-4">
                                             <label class="mb-0">Customer Note</label>
@@ -280,11 +250,8 @@ input::-webkit-inner-spin-button {
                                                 id="customer_note"></textarea>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
-
                         </div>
                     </form>
                     <div class="text-right ">
@@ -390,7 +357,6 @@ input::-webkit-inner-spin-button {
                                                         class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 edit"
                                                         data-id="{{ $orderObj->id }}">
                                                         <span class="svg-icon svg-icon-md svg-icon-primary">
-                                                            <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
                                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                                                                 height="24px" viewBox="0 0 24 24" version="1.1">
@@ -408,7 +374,6 @@ input::-webkit-inner-spin-button {
                                                                     </path>
                                                                 </g>
                                                             </svg>
-                                                            <!--end::Svg Icon-->
                                                         </span>
                                                     </a>
                                                 </td>
@@ -416,7 +381,6 @@ input::-webkit-inner-spin-button {
                                         @endforeach
                                     @endif
                                 </tbody>
-
                             </table>
                             <p class="text-danger payment_error"></p>
                             <div class="footer_wrapper_html" style=" {{ !empty($orderDetail) }} ? 'display:block' : 'display:none'">
@@ -461,17 +425,9 @@ input::-webkit-inner-spin-button {
                             </div>
                         </form>
                     </div>
-
-                    <!--end::Table-->
                 </div>
-                <!--end::Body-->
             </div>
-            <!--end::Advance Table Widget 2-->
-
-
-
         </div>
-        <!--end::Container-->
     </div>
 @endsection
 @section('page_level_js_plugin')
@@ -500,23 +456,19 @@ input::-webkit-inner-spin-button {
                     chain_color: {
                         required: true
                     },
-
                 },
                 errorPlacement: function(error, element) {
                     var elem = $(element);
                     if (elem.hasClass("category_id") || elem.hasClass("category_products")) {
-
                         error.appendTo(element.parent().after());
                         //error.insertAfter(element);
                     } else if (elem.hasClass("length") || elem.hasClass("width")) {
                         error.appendTo(element.parent().parent().after());
-
                     } else {
                         error.insertAfter(element);
                     }
                 }
             });
-
             var input = document.getElementById("addItem");
             input.addEventListener("keyup", function(event) {
                 if (event.keyCode === 13) {
@@ -524,7 +476,6 @@ input::-webkit-inner-spin-button {
                     document.getElementById("btn_save").click();
                 }
             });
-
         })
         jQuery(document).ready(function() {
             var validator = $("#addOrderForm").validate({
@@ -532,23 +483,19 @@ input::-webkit-inner-spin-button {
                     paid_price: {
                         required: true
                     },
-
                 },
                 errorPlacement: function(error, element) {
                     var elem = $(element);
                     if (elem.hasClass("category_id") || elem.hasClass("category_products")) {
-
                         error.appendTo(element.parent().after());
                         //error.insertAfter(element);
                     } else if (elem.hasClass("length") || elem.hasClass("width")) {
                         error.appendTo(element.parent().parent().after());
-
                     } else {
                         error.insertAfter(element);
                     }
                 }
             });
-
             var input = document.getElementById("addItem");
             input.addEventListener("keyup", function(event) {
                 if (event.keyCode === 13) {
@@ -556,12 +503,9 @@ input::-webkit-inner-spin-button {
                     document.getElementById("btn_save").click();
                 }
             });
-
         })
-
         $('#save').on('click', function() {
             var validate = $('#addItem').valid();
-
             if ($('#order_price').val() == '') {
                 $('#qoute_error').text('Please get qoute first');
                 validate = false;
@@ -570,7 +514,6 @@ input::-webkit-inner-spin-button {
                 //    }
             }
             if (validate) {
-
                 var category = $('#category_id option:selected').text();
                 var category_id = $('#category_id').val();
                 var product_id = $('#category_products').val();
@@ -579,13 +522,10 @@ input::-webkit-inner-spin-button {
                 var fitting = $('input[name="fitting"]:checked').val();
                 var length = $('#length').val();
                 var width = $('#width').val();
-
                 // var fitting_type = $('#fitting_type').val();
                 var side_of_controls = $('#side_control').val();
                 price = $('#order_price').val();
-
                 var chain_color = $('#chain_color').val();
-
                 var set_fitting = $('#set_fitting').val();
                 var customer_note = $('#customer_note').val();
                 var count = $('#form_data tr').length;
@@ -618,7 +558,6 @@ input::-webkit-inner-spin-button {
                         $('#form_data tbody .child').find('.order_qty').val(total_qty);
                         $('#form_data tbody .child').find('.single_price').val(total_price);
                         $('#form_data tbody .child').find('.single_hidden_price').val(total_price);
-
                     } else {
                             row =   rowCount + 1;
                         $('#form_data tbody').append(
@@ -658,7 +597,6 @@ input::-webkit-inner-spin-button {
                             price + '"  >' +
                             '</td><td><a href="javascript:void(0);" class="remCF1"><i class="fas trash fa-trash"></i></a></td></tr>'
                         );
-
                     }
                 }
                 var paid_amount = 0;
@@ -667,7 +605,6 @@ input::-webkit-inner-spin-button {
                 });
                 $('#order_total_price').val('');
                 $('#order_total_price').val(paid_amount);
-
                 $('.footer_wrapper_html').show()
                 var form = $("#addItem");
                 form[0].reset();
@@ -688,7 +625,6 @@ input::-webkit-inner-spin-button {
             cat_id = $(this).val();
             getProductCategory(cat_id);
         });
-
         function getProductCategory(cat_id) {
             var form_data = new FormData();
             form_data.append('id', cat_id);
@@ -712,7 +648,6 @@ input::-webkit-inner-spin-button {
                                     `<option value="${item.id}">${item.name}</option>`;
                             });
                             $('#category_products').html(product_options_html);
-
                         }
                     } else {
                         Swal.fire("Sorry!", data.message, "error");
@@ -770,12 +705,10 @@ input::-webkit-inner-spin-button {
                 }
             });
         });
-
         $("input[name='parameter']").change(function() {
             var min_width = $('#length_placeholder').val();
             var min_height = $('#width_placeholder').val();
             var measure = $('input[name="parameter"]:checked').val();
-
             $('#length').val('');
             $('#width').val('');
             $('#get_quote_price').text('');
@@ -785,19 +718,15 @@ input::-webkit-inner-spin-button {
                 $("#width").attr("placeholder", " ");
                 $("#length").attr("placeholder", "min " + min_width);
                 $("#width").attr("placeholder", "min " + min_height);
-
             } else if (measure == 'cm') {
                 $("#length").attr("placeholder", " ");
                 $("#width").attr("placeholder", " ");
-
                 var cmwidth = min_width * 2.54;
                 var cmheight = min_height * 2.54;
                 cmwidth = cmwidth.toFixed(2);
                 cmheight = cmheight.toFixed(2);
                 $("#length").attr("placeholder", "min " + cmwidth);
                 $("#width").attr("placeholder", "min " + cmheight);
-
-
             } else {
                 $("#length").attr("placeholder", " ");
                 $("#width").attr("placeholder", " ");
@@ -808,14 +737,9 @@ input::-webkit-inner-spin-button {
                 mmheight = mmheight.toFixed(2);
                 $("#length").attr("placeholder", "min " + mmwidth);
                 $("#width").attr("placeholder", "min " + mmheight);
-
             }
-
         });
-
         function getPrice() {
-
-
             if ($('#width').val() == '') {
                 $('#width_measure_error').html('Please do not leave the width input field empty');
                 return false;
@@ -833,13 +757,11 @@ input::-webkit-inner-spin-button {
             min_length = $('#length_placeholder').val();
             min_width = $('#width_placeholder').val();
             measure = $('input[name="parameter"]:checked').val();
-
             form_data.append('measure', measure)
             form_data.append('length', length)
             form_data.append('width', width)
             form_data.append('min_length', min_length)
             form_data.append('min_width', min_width)
-
             $.ajax({
                 type: "POST",
                 url: surl, // your php file name
@@ -856,27 +778,17 @@ input::-webkit-inner-spin-button {
                         $('.width_measure_error').html('');
                         $('#height_measure_error').html('');
                         $('.height_measure_error').html('');
-
                         $('#get-quotes').show();
                         $('#get_quote_price').text('');
                         $('#get_quote_price').text(data.price);
                         $('#order_price').val(data.price);
-
-
-
-
-
                     } else {
-
                         $('#width_measure').val('');
                         $('#height_measure').val('');
                         $('#get-quotes').show();
                         $('#get_quote_price').text('');
                         $('#get_quote_price').text(data.message);
                         $('#order_price').val(data.price);
-
-
-
                         toastr.options = {
                             "closeButton": true,
                             "debug": false,
@@ -895,17 +807,13 @@ input::-webkit-inner-spin-button {
                             "hideMethod": "fadeOut"
                         };
                         toastr.warning(data.message);
-
                     }
                 },
                 error: function(errorString) {
                     Swal.fire("Sorry!", "Please Select Product first", "error");
                 }
             });
-
         }
-
-
         $(document).on('keyup', '.order_qty', function() {
             var qty_key = $(this).attr('data-key');
             var qty = $(this).val();
@@ -921,12 +829,10 @@ input::-webkit-inner-spin-button {
             total_paid_amount  = parseFloat(paid_amount).toFixed(2)
             $('#order_total_price').val(parseFloat(total_paid_amount).toFixed(2));
         });
-
         $(document).on('keyup', '#order_paid_price', function() {
             paid_price = $(this).val();
             //console.log(paid_price);
         });
-
         $(document).on('click', '#save_order', function() {
             var verified_id = $(this).attr('data-id');
             var totalPrice = $('#order_total_price').val();
@@ -1001,7 +907,6 @@ input::-webkit-inner-spin-button {
             });
             }
         });
-
         $(document).on('click', '.edit', function() {
             var id = $(this).data('id');
             var form_data = new FormData();

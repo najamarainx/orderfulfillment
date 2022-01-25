@@ -48,43 +48,28 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
         .error {
             color: red!important;
         }
-
         span.select2.select2-container.select2-container--default {
             width: 100% !important;
         }
     </style> @endsection @php $userTypes=array('measurement','installation','customer_support','accountant','production_manager'); @endphp @section('content')
-    <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-        <!--begin::Subheader-->
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Info-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Page Title-->
                     <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Stock</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div> <span class="text-muted font-weight-bold mr-4">Stock List</span>
-                    <!--end::Actions-->
                 </div>
-                <!--end::Info-->
             </div>
         </div>
-        <!--end::Subheader-->
-        <!--begin::Entry-->
         <div class="d-flex flex-column-fluid">
-            <!--begin::Container-->
             <div class="container">
-                <!--begin::Advance Table Widget 2-->
                 <div class="card card-custom gutter-b">
-                    <!--begin::Header-->
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-center">
                             <span class="card-label font-weight-bolder text-dark">Stock Order {{ isset($totalItems) && !empty($totalItems) ? '('.$totalItems.')'  :' '  }}</span>
                         </h3>
                         <div class="card-toolbar">
                             <a data-target="#staticBackdrop" data-toggle="modal" class="btn btn-primary font-weight-bolder" id='btn_add_new'> <span class="svg-icon svg-icon-md">
-                            <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                  width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -95,14 +80,10 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                         fill="#000000" opacity="0.3" />
                                 </g>
                             </svg>
-                                    <!--end::Svg Icon-->
                         </span>Add Stock</a>
                         </div>
                     </div>
-                    <!--end::Header-->
-                    <!--begin::Body-->
                     <div class="card-body pt-2 pb-0 mt-n3">
-                        <!--begin::Tap pane-->
                         <form class="kt-form kt-form--fit">
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -118,7 +99,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                                 <option value="{{$supplier->id}}">{{ucfirst($supplier->name)}}</option> @endforeach </select>
                                     </div>
                                 </div>
-
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                     <label>&nbsp;</label>
                                     <br>
@@ -133,7 +113,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                      </div>
                             </div>
                         </form>
-                        <!--begin::Table-->
                         <table class="table table-bordered table-checkable" id="datatableList">
                             <thead>
                             <tr>
@@ -146,18 +125,11 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                             </tr>
                             </thead>
                         </table>
-                        <!--end::Table-->
                     </div>
-                    <!--end::Body-->
                 </div>
-                <!--end::Advance Table Widget 2-->
             </div>
-            <!--end::Container-->
         </div>
-        <!--end::Entry-->
     </div>
-    <!--end::Content-->
-    <!-----start stock add---->
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
             <form onsubmit="return false" id="addForm">
@@ -200,7 +172,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                             <div class="form-group col-lg-3 col-6">
                                                 <label for="unit">Unit<span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" name="unit_stock[]" id="unit_stock_id_0_0" readonly></div>
-
                                         </div>
                                         <div class="row">
                                             <div class="col-10">
@@ -236,9 +207,7 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                         <button onclick="addcard(0)" type="button" class="btn btn-primary">+</button>
                                     </div>
                                 </div>
-
                         </div>
-
                     </div>
                     <div id="newrowcard"></div>
                 </div>
@@ -259,7 +228,7 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
             </div>
             </form>
         </div>
-        <!----end stock----------->@endsection @section('page_level_js_plugin')
+        @endsection @section('page_level_js_plugin')
             <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4') }}"></script>
             <script src="{{ asset('assets/plugins/custom/jqvalidation/jquery.validate.min.js?v=7.0.4') }}"></script> @endsection
         @section('page_level_js')
@@ -384,7 +353,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                             ['qty_stock']: {
                                 required: true
                             },
-
                         },
                         errorPlacement: function(error, element) {
                             var elem = $(element);
@@ -555,7 +523,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                         }
                     });
                 });
-
                 function getUserType(userType) {
                     if(userType == 'installation' || userType == 'measurement') {
                         $('#show_type').show();
@@ -564,12 +531,10 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                     }
                 }
                 var cardnumber = 1;
-
                 function addcard(id) {
  var card='<div class="card shadow-sm p-3 mb-5 bg-white rounded mt-5" id=card_row_'+cardnumber+'>';
      card+='<div class="card-body">';
             card+='<div class="row">';
-
                     card+=' <div class="col-lg-11 col-10">';
                             card+='<div class="row">';
                                         card+='<div class="form-group col-lg-3 col-6"><label for="department">Department:</label>';
@@ -580,7 +545,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                                                  @endforeach
                                                  card+='</select>';
                                         card+='</div>';
-
                                         card+='<div class="form-group col-lg-3 col-6"><label for="name">Item:</label>';
                                                 card+='<select class="form-control kt_select2_1" onchange="getItemUnit(this.value,'+cardnumber+',0)" id="item_stock_id_'+cardnumber+'_0"  name="item_stock['+cardnumber+']">';
                                                         card+='<option value="">Item</option>';
@@ -588,7 +552,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                         card+='</div>';
                                          card+='<div class="form-group col-lg-3 col-6">';
                                             card+='<label for="unit">Unit<span class="text-danger">*</span></label><input type="text" class="form-control" id="unit_stock_id_'+cardnumber+'_0"  name="unit_stock['+cardnumber+']"  readonly></div>';
-
                             card+='</div>';
                             card+='<div class="row">';
                                     card+='<div class="col-10">';
@@ -612,34 +575,21 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                     card+='<div class="col-2 mt-7"><button onclick="addfield('+cardnumber+',0)" class="btn btn-primary">+</button></div>';
                                     card+=' <div id="newfield_'+cardnumber+'_'+0+'" class="col-12"></div>';
                             card+='</div>';
-
                     card+='</div>';
-
                     card+='<div class="col-lg-1 col-2 mt-7"><button onclick="removeText('+cardnumber+')" class="btn btn-primary">-</button></div>';
-
-
             card+='</div>';
      card+='</div>';
  card+='</div>';
-
-
                     $('#newrowcard').append(card);
                     cardnumber++;
-
-
                 }
-
                 function removeText(id) {
                     $('#card_row_' + id).remove();
                 }
                 var numbervar = 1;
-
                 function addfield(main,id) {
-
                    var item_id=$('#item_stock_id_'+main+'_'+id).val();
-
                    if(item_id!=''){
-
                        var html='<div class=row id=row_'+numbervar+'>';
                        html+='<div class=col-10>';
                        html+='<div class="row">';
@@ -658,15 +608,10 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                        html+='</div>';
                        html+='<div id="newfield_'+main+'_'+numbervar+'" class="col-12"></div>';
                        html+='</div>';
-
                        $('#newfield_'+main+'_'+id+'').append(html);
                        clonevariant(main,id,numbervar);
-
-
                        numbervar++;
-
                    }else{
-
                            toastr.options = {
                                "closeButton": true,
                                "debug": false,
@@ -686,16 +631,11 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                            };
                            toastr.warning('please choose item first');
                    }
-
-
  }
  function removeField(id) {
     $('#row_' + id).remove();
                 }
-
  function getDeptItems(depID,number,line){
-
-
      var form_data = new FormData();
      form_data.append('depID', depID);
      $.ajax({
@@ -709,7 +649,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
          },
          success: function(datas) {
-
              $('#item_stock_id_'+number+'_'+line).empty();
              $('#item_stock_id_'+number+'_'+line).append(new Option("Select Item", "")).trigger("updated");
              $.each(datas, function (i, data) {
@@ -723,15 +662,12 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
              Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
          }
      });
-
  }
-
  function getItemUnit(itemID,number,line){
      let itemUnit = itemID;
      var myArray = itemUnit.split("~");
      var form_data = new FormData();
      form_data.append('item_id', myArray[0]);
-
      $.ajax({
          type: "POST",
          url: "{{route('getItemVariants')}}", // your php file name
@@ -743,11 +679,9 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
          },
          success: function(datas) {
-
              var myArray = itemUnit.split("~");
              $('#unit_stock_id_'+number+'_'+line).val('');
              $('#unit_stock_id_'+number+'_'+line).val(myArray[1]);
-
              $('#variant_stock_id_'+number+'_'+line).empty();
              $('#variant_stock_id_'+number+'_'+line).append(new Option("Select Variant", "")).trigger("updated");
              $.each(datas.variant_detail, function (i, data) {
@@ -756,23 +690,12 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                      text : data.name
                  })).trigger("updated");
              });
-
-
-
-
-
          },
          error: function(errorString) {
              Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
          }
      });
-
-
-
-
-
  }
-
  function  clonevariant(main,id,numbervar)
  {
      var ddl = $("#variant_stock_id_"+main+'_'+id).clone();
@@ -781,9 +704,7 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
      ddl.attr("class", "form-control kt_select2_1");
      $('#append_va_'+main+'_'+numbervar).empty();
      $("#append_va_"+main+'_'+numbervar).append(ddl);
-
  }
-
  function calculateTotalPrice(main,number){
     var unit_variant=$('#per_unit_price_'+main+'_'+number).val();
     var qty_variant=$('#qty_unit_price_'+main+'_'+number).val();
@@ -791,7 +712,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
     if(qty_variant==''){qty_variant=0;}
     var total_amount=unit_variant * qty_variant;
     $('#total_variant_price_'+main+'_'+number).val(total_amount);
-
      var totalqtyvalues = [];
      $('.total_qty').each(function(){
          totalqtyvalues.push({ name: this.name, value: this.value });
@@ -806,9 +726,6 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
          totalpricevalues += +$(this).val();
      });
      $('#overall_total_price').val(totalpricevalues);
-
-
-
  }
                 @if(Session::has('error'))
                     toastr.options =

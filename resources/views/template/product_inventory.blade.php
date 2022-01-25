@@ -9,7 +9,6 @@
             <th class="text-info">Qty</th>
             <th>Status
             </th>
-
         </tr>
         </thead>
         <tbody class="">
@@ -30,7 +29,6 @@
             <td>
                 <span class="label label-lg label-light-success label-inline">{{ucfirst($Inventory->status)}}</span>
             </td>
-
         </tr>
         @endforeach
         </tbody>
@@ -38,7 +36,6 @@
 </div>
 @endif
 <!--end::Table-->
-
 <hr>
 <form id="addForm">
     <input type="hidden" name="product_id" id="product_id" value="{{$product_id}}">
@@ -86,6 +83,5 @@
             </div>
         </div>
         <div id="newfield" class="col-12"></div>
-
     </div>
 </form>

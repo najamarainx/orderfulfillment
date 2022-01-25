@@ -29,44 +29,28 @@ i.la.la-eye {
 </style>
 @endsection
 @section('content')
-<!--begin::Content-->
 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <!--begin::Subheader-->
     <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
         <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
             <div class="d-flex align-items-center flex-wrap mr-2">
-                <!--begin::Page Title-->
                 <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Dashboard
-
                 </h5>
-                <!--end::Page Title-->
-                <!--begin::Actions-->
                 <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
                 <span class="text-muted font-weight-bold mr-4">Post Code</span>
-                <!--end::Actions-->
             </div>
-            <!--end::Info-->
         </div>
     </div>
-    <!--end::Subheader-->
-    <!--begin::Entry-->
     <div class="d-flex flex-column-fluid">
-        <!--begin::Container-->
         <div class="container">
-            <!--begin::Advance Table Widget 2-->
             <div class="card card-custom gutter-b">
-                <!--begin::Header-->
                 <div class="card-header border-0 pt-5">
                     <h3 class="card-title align-items-center">
                         <span class="card-label font-weight-bolder text-dark">Post Code List {{ isset($totalItems) && !empty($totalItems) ? '('.$totalItems.')'  :' '  }}</span>
                     </h3>
                     <div class="card-toolbar">
-
                         <a data-target="#staticBackdrop" data-toggle="modal" class="btn btn-primary font-weight-bolder"
                             id='btn_add_new'>
                             <span class="svg-icon svg-icon-md">
-                                <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -77,15 +61,10 @@ i.la.la-eye {
                                             fill="#000000" opacity="0.3" />
                                     </g>
                                 </svg>
-                                <!--end::Svg Icon-->
                             </span>Add Post Code</a>
                     </div>
                 </div>
-                <!--end::Header-->
-                <!--begin::Body-->
                 <div class="card-body pt-2 pb-0 mt-n3">
-
-                    <!--begin::Tap pane-->
                     <form class="kt-form kt-form--fit">
                         <div class="row mb-6">
                             <div class="col-lg-3 mb-lg-2 mb-2">
@@ -110,8 +89,6 @@ i.la.la-eye {
                             </div>
                         </div>
                     </form>
-                    <!--begin::Table-->
-
                     <table class="table table-bordered table-checkable" id="datatableList">
                         <thead>
                             <tr>
@@ -122,31 +99,11 @@ i.la.la-eye {
                             </tr>
                         </thead>
                     </table>
-
-                    <!--end::Table-->
-
-
                 </div>
-                <!--end::Body-->
             </div>
-            <!--end::Advance Table Widget 2-->
-
-
-
-
-
-
-
-
-
         </div>
-        <!--end::Container-->
     </div>
-    <!--end::Entry-->
 </div>
-
-<!--end::Content-->
-<!--------modal user---------------->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">
@@ -168,7 +125,6 @@ i.la.la-eye {
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light-primary font-weight-bold"
@@ -179,8 +135,6 @@ i.la.la-eye {
         </form>
     </div>
 </div>
-<!-------end user modal-------------->
-
 @endsection
 @section('page_level_js_plugin')
 <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js?v=7.0.4') }}"></script>
@@ -206,15 +160,11 @@ var datatable = function() {
             // Pagination settings
             dom: `<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
             // read more: https://datatables.net/examples/basic_init/dom.html
-
             lengthMenu: [5, 10, 25, 50],
-
             pageLength: 10,
-
             language: {
                 'lengthMenu': 'Display _MENU_',
             },
-
             searchDelay: 500,
             processing: true,
             serverSide: true,
@@ -250,12 +200,10 @@ var datatable = function() {
                 [1, "desc"]
             ]
         });
-
         var filter = function() {
             var val = $.fn.dataTable.util.escapeRegex($(this).val());
             table.column($(this).data('col-index')).search(val ? val : '', false, false).draw();
         };
-
         $('#kt_search').on('click', function(e) {
             e.preventDefault();
             var params = {};
@@ -273,7 +221,6 @@ var datatable = function() {
             });
             table.table().draw();
         });
-
         $('#kt_reset').on('click', function(e) {
             e.preventDefault();
             $('.datatable-input').each(function() {
@@ -282,7 +229,6 @@ var datatable = function() {
             });
             table.table().draw();
         });
-
         $('#kt_datepicker').datepicker({
             todayHighlight: true,
             format: 'yyyy-mm-dd',
@@ -291,23 +237,16 @@ var datatable = function() {
                 rightArrow: '<i class="la la-angle-right"></i>',
             },
         });
-
     };
-
     return {
-
         //main function to initiate the module
         init: function() {
             initTable();
         },
-
     };
-
 }();
-
 jQuery(document).ready(function() {
     datatable.init();
-
     var validator = $("#addForm").validate({
         ignore: ":hidden:not(.selectpicker)",
         rules: {
@@ -325,12 +264,10 @@ jQuery(document).ready(function() {
             }
         }
     });
-
     $('input[type="file"]').change(function(e) {
         var fileName = e.target.files[0].name;
         $(this).next('label.file_label').html(fileName);
     });
-
     $(document).on('click', '#btn_add_new', function() {
         $('#staticBackdrop').modal({
             backdrop: 'static',
@@ -341,8 +278,6 @@ jQuery(document).ready(function() {
         var form = $("#addForm");
         form[0].reset();
     });
-
-
     $(document).on('click', '#btn_save', function() {
         var validate = $("#addForm").valid();
         if (validate) {
@@ -411,7 +346,6 @@ jQuery(document).ready(function() {
                         keyboard: false
                     }).on('hide.bs.modal', function() {
                         $("#addForm").validate().resetForm();
-
                     });
                     var rec = data.data;
                     var id = rec.id;
@@ -467,8 +401,6 @@ jQuery(document).ready(function() {
             }
         });
     });
-
-
     var input = document.getElementById("addForm");
     input.addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
@@ -476,9 +408,6 @@ jQuery(document).ready(function() {
             document.getElementById("btn_save").click();
         }
     });
-
-
-
 });
 </script>
 @endsection

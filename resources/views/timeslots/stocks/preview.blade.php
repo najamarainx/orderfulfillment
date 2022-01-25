@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Order Preview')
-
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
@@ -9,19 +8,15 @@
         .error {
             color: red !important;
         }
-
     </style>
 @endsection
 @section('content')
     <div class="card card-custom">
         <div class="card-body p-0">
-            <!--begin::Invoice-->
-            <!--begin::Invoice header-->
             <div class="container">
                 <div class="card card-custom card-shadowless">
                     <div class="card-body p-0">
                         <div class="row justify-content-center py-8 px-8 py-md-27 px-md-0">
-
                             <div class="col-md-9">
                                 <div class="d-flex justify-content-between pb-5 pb-md-5 flex-column flex-md-row">
                                     <div class="form-group row">
@@ -40,7 +35,6 @@
                                         <span>Date: {{date('M d y',strtotime($orderItems->created_at))}}</span>
                                     </div>
                                 </div>
-                                <!-- <div class="border-bottom w-100 opacity-100"></div> -->
                                 <hr class="w-100">
                                 <div class="d-flex justify-content-between text-dark pt-6">
                                     <div class="d-flex flex-column flex-root">
@@ -57,30 +51,22 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
-            <!--end::Invoice header-->
-            <!--begin::Invoice Body-->
             <div class="position-relative">
-                <!--begin::Background Rows-->
                 <div class="bgi-size-cover bg-primary bgi-position-center bgi-no-repeat h-65px"></div>
                 <div class="bg-white h-65px"></div>
                 <div class="bg-light h-65px"></div>
                 <div class="bg-white h-65px"></div>
                 <div class="bg-light h-65px"></div>
-                <!--end::Background Rows-->
-                <!--begin:Table-->
                 <div class="container position-absolute top-0 left-0 right-0">
                     <div class="row justify-content-center">
                         <div class="col-md-12">
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
-
                                         <tr class="font-weight-boldest text-white h-65px">
                                             <td class="align-middle font-size-h5 pl-0 border-0">Item ID</td>
                                             <td class="align-middle font-size-h5 pl-0 border-0">Item Name</td>
@@ -115,8 +101,6 @@
                         </div>
                     </div>
                 </div>
-                <!--end:Table-->
-                <!--begin::Total-->
                 <div class="container">
                     <div class="row justify-content-center pt-25 pb-20">
                         <div class="col-md-9">
@@ -131,13 +115,7 @@
                         </div>
                     </div>
                 </div>
-                <!--end::Total-->
             </div>
-            <!--end::Invoice Body-->
-            <!--begin::Invoice Footer-->
-
-            <!--end::Invoice Footer-->
-            <!-- begin: Invoice action-->
             <div class="container">
                 <div class="row justify-content-center py-8 px-8 py-md-28 px-md-0">
                     <div class="col-md-9">
@@ -150,8 +128,6 @@
                     </div>
                 </div>
             </div>
-            <!-- end: Invoice action-->
-            <!--end::Invoice-->
         </div>
     </div>
 @endsection

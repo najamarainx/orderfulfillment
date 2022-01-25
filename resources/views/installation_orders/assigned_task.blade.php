@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Task List')
-
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
@@ -9,28 +8,20 @@
         .error {
             color: red !important;
         }
-
     </style>
 @endsection
 @section('content')
     <div class="d-flex flex-column-fluid">
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Info-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Page Title-->
                     <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Order</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
                     <span class="text-muted font-weight-bold mr-4">Task List </span>
-                    <!--end::Actions-->
                 </div>
-                <!--end::Info-->
             </div>
         </div>
         <div class="d-flex flex-column-fluid">
-            <!--begin::Container-->
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -110,15 +101,11 @@
                         // Pagination settings
                         dom: `<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
                         // read more: https://datatables.net/examples/basic_init/dom.html
-
                         lengthMenu: [5, 10, 25, 50],
-
                         pageLength: 10,
-
                         language: {
                             'lengthMenu': 'Display _MENU_',
                         },
-
                         searchDelay: 500,
                         processing: true,
                         serverSide: true,
@@ -128,7 +115,6 @@
                             data: {
                                 order_id: {{ last(request()->segments()) }},
                                 // order_id = "{{ last(request()->segments()) }}",
-
                                 // parameters for custom backend script demo
                                 columnsDef: [
                                     'id', 'name','added_by','status'
@@ -150,25 +136,21 @@
                             {
                                 data: 'status'
                             },
-
                             {
                                 data: 'action',
                                 responsivePriority: -1,
                                 bSortable: false
                             },
-
                         ],
                         order: [
                             [0, "desc"]
                         ]
                     });
-
                     var filter = function() {
                         var val = $.fn.dataTable.util.escapeRegex($(this).val());
                         bookingListTable.column($(this).data('col-index')).search(val ? val : '', false, false)
                             .draw();
                     };
-
                     $('#kt_search').on('click', function(e) {
                         e.preventDefault();
                         var params = {};
@@ -186,7 +168,6 @@
                         });
                         bookingListTable.table().draw();
                     });
-
                     $('#kt_reset').on('click', function(e) {
                         e.preventDefault();
                         $('.datatable-input').each(function() {
@@ -195,7 +176,6 @@
                         });
                         bookingListTable.table().draw();
                     });
-
                     $('#kt_datepicker').datepicker({
                         todayHighlight: true,
                         format: 'yyyy-mm-dd',
@@ -204,21 +184,14 @@
                             rightArrow: '<i class="la la-angle-right"></i>',
                         },
                     });
-
                 };
-
                 return {
-
                     //main function to initiate the module
                     init: function() {
                         initTable();
                     },
-
                 };
-
             }();
-
-
             $(document).on('click', '.save_assemled_user', function() {
                 user_id = $(this).attr('data-user-id');
                 var form = new FormData();
@@ -248,7 +221,6 @@
                             "error");
                     }
                 });
-
             });
             $(document).on('click', '.delete_assemled_user', function() {
                 id = $(this).attr('data-assmbler-id');
@@ -277,9 +249,6 @@
                             "error");
                     }
                 });
-
             });
-
-
         </script>
     @endsection

@@ -1,9 +1,7 @@
-
 <tr class="explode hide container" id="remove_append_tr_{{$product_id}}">
     <td colspan="9" style="border-left:5px solid #b10303;background: rgb(236, 236, 236);">
         <div>
             @php $usersTypeArray = ['assembler','packaging','installation']; @endphp
-
             <table class="table table-condensed table-head-custom table-vertical-center" id="exist_append_items">
                 <thead>
                 <tr class="text-left text-uppercase">
@@ -40,23 +38,16 @@
                             <span class="text-danger" id="qty_error_{{$assigned->id}}"></span>
                         </div>
                         <div class="form-group col-6 mb-0">
-
                             <input class="form-control" type="text" readonly value="{{floor($assigned->available_qty)}}">
                             <input class="form-control" type="hidden" id="available_qty_{{$assigned->id}}"  value="{{floor($assigned->available_qty)}}">
                         </div>
                         </div>
-
-
-
-
-
                     </td>
                     @if(Auth::user()->type != 'assembler')
                     <td>
                         @if($assigned->is_verified==0)
                         <button type="button" class="btn btn-icon btn-light btn-hover-primary btn-sm remove_invenoty_product" data-id="{{$assigned->product_id.'~'.$assigned->id}}">
                                                                                     <span class="svg-icon svg-icon-md svg-icon-primary">
-                                                                                        <!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
                                                                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                                                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                                                                 <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
@@ -65,12 +56,10 @@
                                                                                                 </g>
                                                                                             </g>
                                                                                         </svg>
-                                                                                        <!--end::Svg Icon-->
                                                                                     </span>
                         </button>
                         <button type="button" class="btn btn-icon btn-light btn-hover-primary btn-sm update_invenoty_product" data-id="{{$assigned->product_id.'~'.$assigned->id}}">
                                                                                     <span class="svg-icon svg-icon-md svg-icon-primary">
-                                                                                        <!--begin::Svg Icon | path:assets/media/svg/icons/General/Settings-1.svg-->
                                                                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                                                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                                                                 <polygon points="0 0 24 0 24 24 0 24"/>
@@ -78,7 +67,6 @@
                                                                                                 <rect fill="#000000" opacity="0.3" x="12" y="4" width="3" height="5" rx="0.5"/>
                                                                                             </g>
                                                                                         </svg>
-                                                                                        <!--end::Svg Icon-->
                                                                                     </span>
                         </button>
                         @endif
@@ -91,4 +79,3 @@
         </div>
     </td>
 </tr>
-

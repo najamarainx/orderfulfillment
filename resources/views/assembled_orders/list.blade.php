@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Order List')
-
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
@@ -26,27 +25,19 @@
         .error {
             color: red !important;
         }
-
     </style>
 @endsection
 @section('content')
     <div class="d-flex flex-column-fluid">
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Info-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Page Title-->
                     <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Order</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
                     <span class="text-muted font-weight-bold mr-4">Order List</span>
-                    <!--end::Actions-->
                 </div>
-                <!--end::Info-->
             </div>
         </div>
-        <!--begin::Container-->
         <div class="container">
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
@@ -54,7 +45,6 @@
                         <h3 class="card-label">Orders List {{ isset($totalAssembledOrder) && !empty($totalAssembledOrder) ? '('. $totalAssembledOrder.')' :' '  }}
                         </h3>
                     </div>
-
                 </div>
                 <div class="card-body">
                     <form class="kt-form kt-form--fit">
@@ -87,11 +77,9 @@
                                         <span>Reset</span>
                                     </span>
                                 </button>
-                                
                             </div>
                         </div>
                     </form>
-                    <!--begin: Datatable-->
                     <table class="table table-bordered table-checkable" id="departmentTableList">
                         <thead>
                             <tr>
@@ -107,13 +95,10 @@
                         <tbody>
                         </tbody>
                     </table>
-                    <!--end: Datatable-->
                 </div>
             </div>
         </div>
     </div>
-
-
     <div class="modal fade" id="addDepartmentModal" data-backdrop="static" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -165,19 +150,14 @@
                                     <div class="col-12">
                                         <div class="form-group mb-4">
                                             <label class="mb-0">Select User</label>
-
                                                 <select class="form-control form-control-lg  kt_select2_1 w-100 booking_user_id"
                                                         data-live-search="true" name="booking_user_id" id="booking_user_id">
                                                     <option value="">Select User</option>
-
                                                 </select>
-
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
-
                         </div>
                     </form>
                 </div>
@@ -194,7 +174,6 @@
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/jqvalidation/jquery.validate.min.js?v=7.0.4') }}"></script>
 @endsection
-
 @section('page_level_js')
     <script>
         jQuery(document).ready(function() {
@@ -218,15 +197,11 @@
                     // Pagination settings
                     dom: `<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
                     // read more: https://datatables.net/examples/basic_init/dom.html
-
                     lengthMenu: [5, 10, 25, 50],
-
                     pageLength: 10,
-
                     language: {
                         'lengthMenu': 'Display _MENU_',
                     },
-
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
@@ -272,12 +247,10 @@
                         [0, "desc"]
                     ]
                 });
-
                 var filter = function() {
                     var val = $.fn.dataTable.util.escapeRegex($(this).val());
                     table.column($(this).data('col-index')).search(val ? val : '', false, false).draw();
                 };
-
                 $('#kt_search').on('click', function(e) {
                     e.preventDefault();
                     var params = {};
@@ -295,7 +268,6 @@
                     });
                     table.table().draw();
                 });
-
                 $('#kt_reset').on('click', function(e) {
                     e.preventDefault();
                     $('.datatable-input').each(function() {
@@ -305,7 +277,6 @@
                     });
                     table.table().draw();
                 });
-
                 $('#kt_datepicker').datepicker({
                     todayHighlight: true,
                     format: 'yyyy-mm-dd',
@@ -314,22 +285,14 @@
                         rightArrow: '<i class="la la-angle-right"></i>',
                     },
                 });
-
             };
-
             return {
-
                 //main function to initiate the module
                 init: function() {
                     initTable();
                 },
-
             };
-
         }();
-
-
-
         $(document).on('click', '.delete', function() {
             var id = $(this).data('id');
             var form_data = new FormData();
@@ -368,6 +331,5 @@
                 }
             });
         });
-       
     </script>
 @endsection

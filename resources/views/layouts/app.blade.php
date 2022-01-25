@@ -1,36 +1,23 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <!--begin::Head-->
-
 <head>
     <base href="">
     <meta charset="utf-8" />
     <title>{{ config('app.name', 'PremiumBlindsUk') }} | @yield('title')</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-    <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
-    <!--end::Fonts-->
-    <!--begin::Page Vendors Styles(used by this page)-->
-    <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet"
-        type="text/css" />
-    <!--end::Page Vendors Styles-->
-    <!--begin::Global Theme Styles(used by all pages)-->
-    <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <!--end::Global Theme Styles-->
-    <!--begin::Layout Themes(used by all pages)-->
-    <link href="{{ asset('assets/css/themes/layout/header/base/light.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/themes/layout/header/menu/light.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/themes/layout/brand/dark.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/css/themes/layout/aside/dark.css') }}" rel="stylesheet" type="text/css" />
-    <!--end::Layout Themes-->
+    <link href="{{ asset('assets/css/themes/layout/header/base/light.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/themes/layout/header/menu/light.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/themes/layout/brand/dark.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/themes/layout/aside/dark.min.css') }}" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" href="{{ asset('assets/media/favicon/favicon.ico') }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     @yield('page_level_css')
     @yield('page_level_css_plugin')
     @php $statusArray = ['not called', 'confirmed', 'rescheduled', 'not respond', 'cancelled'];
@@ -41,31 +28,21 @@
 }
     </style>
 </head>
-
 <body id="kt_body"
     class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
     <div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
-        <!--begin::Logo-->
         <a href="index.html">
             <img alt="Logo" src="assets/media/logos/logo-light.png" />
         </a>
-        <!--end::Logo-->
-        <!--begin::Toolbar-->
         <div class="d-flex align-items-center">
-            <!--begin::Aside Mobile Toggle-->
             <button class="btn p-0 burger-icon burger-icon-left" id="kt_aside_mobile_toggle">
                 <span></span>
             </button>
-            <!--end::Aside Mobile Toggle-->
-            <!--begin::Header Menu Mobile Toggle-->
             <button class="btn p-0 burger-icon ml-4" id="kt_header_mobile_toggle">
                 <span></span>
             </button>
-            <!--end::Header Menu Mobile Toggle-->
-            <!--begin::Topbar Mobile Toggle-->
             <button class="btn btn-hover-text-primary p-0 ml-2" id="kt_header_mobile_topbar_toggle">
                 <span class="svg-icon svg-icon-xl">
-                    <!--begin::Svg Icon | path:assets/media/svg/icons/General/User.svg-->
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                         height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -78,37 +55,24 @@
                                 fill="#000000" fill-rule="nonzero" />
                         </g>
                     </svg>
-                    <!--end::Svg Icon-->
                 </span>
             </button>
-            <!--end::Topbar Mobile Toggle-->
         </div>
-        <!--end::Toolbar-->
     </div>
     @include('layouts.sidebar');
-
-    <!--begin::Page-->
     <div class="d-flex flex-row flex-column-fluid page">
         <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
             @include('layouts.header')
             <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                 <div class="d-flex flex-column-fluid">
-                    <!--begin::Container-->
                     <div class="container">
-
-                        <!--begin::Entry-->
                         @yield('content')
-                        <!--end::Entry-->
-
-
                     </div>
-                    <!--end::Container-->
                 </div>
             </div>
             @include('layouts.footer')
         </div>
     </div>
-
     @include('layouts.common.quick_panel')
     @include('layouts.common.quick_user_panel')
     <div class="modal fade show" id="statusModal" data-backdrop="static" tabindex="-1" role="dialog"
@@ -159,7 +123,6 @@
                                             @endif
                                         </div>
                                     </div>
-
                                     <div class="col-12">
                                         <div class="form-group mb-4">
                                             <label>Select Date: </label>
@@ -205,9 +168,6 @@
         </div>
     </div>
 </body>
-
-
-<!--begin::Global Config(global config for global JS scripts)-->
 <script>
     var KTAppSettings = {
         "breakpoints": {
@@ -268,23 +228,14 @@
         "font-family": "Poppins"
     };
 </script>
-<!--end::Global Config-->
-<!--begin::Global Theme Bundle(used by all pages)-->
-<script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
-<script src="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.js') }}"></script>
-<script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
-<!--end::Global Theme Bundle-->
-<!--begin::Page Scripts(used by this page)-->
-<script src="{{ asset('assets/js/pages/widgets.js') }}"></script>
+<script src="{{ asset('assets/plugins/global/plugins.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/js/scripts.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/js/pages/widgets.min.js') }}"></script>
 <script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js') }}"></script>
-<!--end::Page Scripts-->
-
 @yield('page_level_js_plugin')
-<!--end::Page Vendors-->
-<!--begin::Page Scripts(used by this page)-->
 @yield('page_level_js')
 </body>
-<!--end::Body-->
 <script>
     var today, datepicker;
     today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
@@ -302,7 +253,6 @@
         $('#booking_status').val(booking_status);
         if (booking_status == 'rescheduled') {
             // $('.resceduled_html').show();
-
             var form_data = new FormData();
             form_data.append('id', booking_id);
             form_data.append('zip_code', zip_code);
@@ -365,7 +315,6 @@
         }
         $('#statusModal').modal('show');
     });
-
     $(document).on('change', '#booking_status', function() {
         booking_status = $(this).val();
         if (booking_status == 'rescheduled') {
@@ -460,12 +409,10 @@
                 Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
             }
         });
-
     })
     $(document).on('click','.selected_date',function(){
           $('.zip_code').val('').trigger('change.select2');
           $('.selected_zip_code_time_slot_html').html('');
     });
 </script>
-
 </html>

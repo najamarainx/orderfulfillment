@@ -2,19 +2,13 @@
 @section('title', 'Home')
 @section('content')
     <div class="container">
-        <!--begin::cards-->
         <div class="">
-            <!--begin::Body-->
             <div class="pt-8 pb-0">
-
                 <div class="row">
-                    <!-- begin::Booking Card  -->
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <!--begin::Tiles Widget 12-->
                         <div class="card card-custom gutter-b shadow" style="height: 150px">
                             <div class="card-body">
                                 <span class="svg-icon svg-icon-3x svg-icon-success">
-                                    <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -27,24 +21,17 @@
                                                 fill="#000000" opacity="0.3"></path>
                                         </g>
                                     </svg>
-                                    <!--end::Svg Icon-->
                                 </span>
                                 <div class="text-dark font-weight-bolder font-size-h2 mt-3">{{isset($totalBookings) && !empty($totalBookings) && $totalBookings > 9 ? $totalBookings : '0'.$totalBookings  }}</div>
                                 <p class="text-primary font-weight-bolder font-size-lg mt-1">Total Bookings</p>
                             </div>
                         </div>
-                        <!--end::Tiles Widget 12-->
                     </div>
-                    <!-- end::Booking Card  -->
-
-                    <!-- begin::User Card  -->
                     @if(hasPermission('viewUser'))
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <!--begin::Tiles Widget 12-->
                         <div class="card card-custom gutter-b shadow" style="height: 150px">
                             <div class="card-body">
                                 <span class="svg-icon svg-icon-3x svg-icon-success">
-                                    <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
                                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -57,25 +44,18 @@
                                                 fill="#000000" fill-rule="nonzero"></path>
                                         </g>
                                     </svg>
-
-                                    <!--end::Svg Icon-->
                                 </span>
                                 <div class="text-dark font-weight-bolder font-size-h2 mt-3">{{isset($totalUsers) && !empty($totalUsers) && $totalUsers > 9 ? $totalUsers : '0'.$totalUsers  }}</div>
                                 <p class="text-primary font-weight-bolder font-size-lg mt-1">Total Users</p>
                             </div>
                         </div>
-                        <!--end::Tiles Widget 12-->
                     </div>
                     @endif
-                    <!-- end::User Card  -->
                     @if(hasPermission('orderList'))
-                    <!-- begin::Orders Card  -->
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <!--begin::Tiles Widget 12-->
                         <div class="card card-custom gutter-b shadow" style="height: 150px">
                             <div class="card-body">
                                 <span class="svg-icon svg-icon-3x svg-icon-success">
-                                    <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -88,24 +68,18 @@
                                             fill="#000000"></path>
                                     </g>
                                 </svg>
-                                    <!--end::Svg Icon-->
                                 </span>
                                 <div class="text-dark font-weight-bolder font-size-h2 mt-3">{{isset($totalOrders) && !empty($totalOrders) && $totalOrders > 9 ? $totalOrders : '0'.$totalOrders  }}</div>
                                 <p class="text-primary font-weight-bolder font-size-lg mt-1">Total Orders</p>
                             </div>
                         </div>
-                        <!--end::Tiles Widget 12-->
                     </div>
-                    <!-- end::Orders Card  -->
                     @endif
                     @if(hasPermission('viewDepartment'))
-                    <!-- begin::Departments Card  -->
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <!--begin::Tiles Widget 12-->
                         <div class="card card-custom gutter-b shadow" style="height: 150px">
                             <div class="card-body">
                                 <span class="svg-icon svg-icon-3x svg-icon-success">
-                                    <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Group.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                         width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -131,42 +105,16 @@
                                                 rx="0.5" />
                                         </g>
                                     </svg>
-                                    <!--end::Svg Icon-->
                                 </span>
                                 <div class="text-dark font-weight-bolder font-size-h2 mt-3">{{isset($totalDepartments) && !empty($totalDepartments) && $totalDepartments > 9 ? $totalDepartments : '0'.$totalDepartments  }}</div>
                                 <p class="text-primary font-weight-bolder font-size-lg mt-1">Total Departments
                                 </p>
                             </div>
                         </div>
-                        <!--end::Tiles Widget 12-->
                     </div>
-                    <!-- end::Departments Card  -->
                     @endif
-
-                </div>
-                <!--end::Body-->
-            </div>
-            <!--end::Advance Table Widget 2-->
-
-
-        </div>
-        <!--end::cards-->
-        {{-- <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
                 </div>
             </div>
         </div>
-    </div> --}}
     </div>
 @endsection

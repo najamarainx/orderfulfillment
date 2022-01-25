@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Order Detail')
-
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
@@ -10,110 +9,80 @@
         .error {
             color: red !important;
         }
-
         .float_end {
             text-align: end;
         }
-
         .font_weight {
             font-weight: 100 !important;
         }
-
         .card {
             box-shadow: -4px 0px 13px 0px rgb(156 165 204 / 52%) !important;
         }
-
         .ml {
             margin-left: 1rem;
         }
-
         .inc_dec {
             padding: 0;
         }
-
         .mt {
             margin-top: 2rem;
         }
-
         .tableFixHead {
             overflow-y: auto;
             height: 200px;
         }
-
         .tableFixHead thead th {
             position: sticky;
             top: 0;
         }
-
         .ml {
             margin-left: 5.5px;
             margin-right: 6px;
         }
-
         .w_5 {
             width: 5rem;
         }
-
         .tableFixHead {
             overflow-y: auto;
             height: 200px;
         }
-
         .tableFixHead thead th {
             position: sticky;
             top: 0;
         }
-
         .tableFixHead1 {
             overflow-y: auto;
             height: 350px;
         }
-
         .tableFixHead1 thead th {
             position: sticky;
             top: 0;
         }
-
     </style>
 @endsection
 @section('content')
-    <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-        <!--begin::Subheader-->
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Info-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Page Title-->
                     <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Order</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200">
                     </div>
                     <span class="text-muted font-weight-bold mr-4">Detail Page</span>
-                    <!--end::Actions-->
                 </div>
-                <!--end::Info-->
             </div>
         </div>
-        <!--end::Subheader-->
-        <!--begin::Entry-->
         <div class="d-flex flex-column-fluid">
-            <!--begin::Container-->
             <div class="container">
                 <div class="row">
-                    <!--begin::Advance Table Widget 3-->
                     <div class="col-lg-12">
                         <div class="card card-custom gutter-b">
-                            <!--begin::Header-->
                             <div class="card-header border-0 py-5">
                                 <h3 class="card-title align-items-center">
                                     <span class="card-label font-weight-bolder text-dark">Order
                                         (#{{ $orderItems->id }})</span>
                                     <input type="hidden" name="order_id" id="order_id" value="{{ $orderItems->id }}">
                                 </h3>
-
-
                                 @if (Auth::user()->type == 'assembler' && Auth::user()->is_head == 0)
                                     <button type="button" id="update_assemble_stauts_btn" data-status="packing"
                                         data-id="{{ $orderItems->id }}"
@@ -133,10 +102,7 @@
                                         class="btn btn-primary font-weight-bold">Proceed</button>
                                 @endif
                             </div>
-                            <!--end::Header-->
-                            <!--begin::Body-->
                             <div class="card-body pt-0 pb-3">
-                                <!--begin::Table-->
                                 <div class="table-responsive">
                                     <table class="table table-condensed table-head-custom table-vertical-center"
                                         id="kt_advance_table_widget_3_check">
@@ -211,10 +177,8 @@
                                                             class="label label-lg {{ $orderItem_status_class }} label-inline">{{ ucfirst($orderItem->status) }}</span>
                                                     </td>
                                                     <td class="text-right pr-0">
-
                                                         <a class="btn btn-icon btn-light btn-hover-primary btn-sm exploder">
                                                             <span class="svg-icon svg-icon-md svg-icon-primary">
-                                                                <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                                                                     height="24px" viewBox="0 0 24 24" version="1.1">
@@ -230,16 +194,13 @@
                                                                         </path>
                                                                     </g>
                                                                 </svg>
-                                                                <!--end::Svg Icon-->
                                                             </span>
                                                         </a>
-
                                                         @if (!in_array(Auth::user()->type, $usersTypeArray))
                                                             <a onclick="assignProductInventory({{ $orderItem->product_id }})"
                                                                 class="btn btn-icon btn-light btn-hover-primary btn-sm"
                                                                 data-toggle="modal" data-target="#staticBackdrop1">
                                                                 <span class="svg-icon svg-icon-md svg-icon-primary">
-                                                                    <!--begin::Svg Icon | path:assets/media/svg/icons/General/Trash.svg-->
                                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
                                                                         width="24px" height="24px" viewBox="0 0 24 24"
@@ -253,7 +214,6 @@
                                                                                 transform="translate(14.000087, 9.191034) rotate(-315.000000) translate(-14.000087, -9.191034) " />
                                                                         </g>
                                                                     </svg>
-                                                                    <!--end::Svg Icon-->
                                                                 </span>
                                                             </a>
                                                         @endif
@@ -263,27 +223,20 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <!--end::Table-->
                             </div>
-                            <!--end::Body-->
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <!--begin::Advance Table Widget 3-->
                     <div class="col-lg-6">
                         <div class="card card-custom gutter-b ml-auto">
-                            <!--begin::Header-->
                             <div class="card-header border-0 py-5">
                                 <h3 class="card-title align-items-center">
                                     <span class="card-label font-weight-bolder text-dark">Shipping
                                         Information</span>
                                 </h3>
                             </div>
-                            <!--end::Header-->
-                            <!--begin::Body-->
                             <div class="card-body pt-0 pb-3">
-                                <!--begin::Table-->
                                 <div class="table-responsive">
                                     <table class="table table-head-custom table-vertical-center"
                                         id="kt_advance_table_widget_3">
@@ -313,25 +266,19 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <!--end::Table-->
                             </div>
-                            <!--end::Body-->
                         </div>
                     </div>
                     @if (Auth::user()->type == 'developer' or Auth::user()->type == 'super_admin')
                         <div class="col-lg-6">
                             <div class="card card-custom gutter-b ml-auto">
-                                <!--begin::Header-->
                                 <div class="card-header border-0 py-5">
                                     <h3 class="card-title align-items-center">
                                         <span class="card-label font-weight-bolder text-dark">Price
                                             Information</span>
                                     </h3>
                                 </div>
-                                <!--end::Header-->
-                                <!--begin::Body-->
                                 <div class="card-body pt-0 pb-3">
-                                    <!--begin::Table-->
                                     <div class="table-responsive">
                                         <table class="table table-head-custom table-vertical-center"
                                             id="kt_advance_table_widget_3">
@@ -345,18 +292,12 @@
                                             </tr>
                                         </table>
                                     </div>
-                                    <!--end::Table-->
                                 </div>
-                                <!--end::Body-->
                             </div>
                         </div>
                     @endif
                 </div>
-                <!--end::Advance Table Widget 3-->
             </div>
-            <!--end::Container-->
-
-            <!--Start::View Modal-->
             <div class="modal fade" id="staticBackdrop1" data-backdrop="static" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
@@ -368,8 +309,6 @@
                             </button>
                         </div>
                         <div class="modal-body" id="append_product_inventory">
-                            <!--begin::Table-->
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light-primary font-weight-bold" onclick="resetForm()"
@@ -380,12 +319,8 @@
                     </div>
                 </div>
             </div>
-            <!--end::View Modal-->
-            <!--end::View Modal-->
         </div>
-        <!--end::Entry-->
     </div>
-    <!--end::Content-->
 @endsection
 @section('page_level_js')
     <script type="text/javascript">
@@ -409,16 +344,12 @@
                     $('.product_form').text('Order (#' + order_id + ')');
                     $('#append_product_inventory').html('');
                     $('#append_product_inventory').html(datas.inventoryassignedHtml);
-
                 },
                 error: function(errorString) {
                     Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                 }
             });
-
-
         }
-
         /*function returnProductInventory(ProductID)
         {
             var order_id=$('#order_id').val();
@@ -437,14 +368,12 @@
                 },
                 success: function(datas) {
                     $('#kt_advance_table_widget_3 tr:last').after('<tr>...</tr><tr>...</tr>');
-
                 },
                 error: function(errorString) {
                     Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                 }
             });
         }*/
-
         $(".exploder").click(function() {
             //$(this).closest("tr").next("tr").toggleClass("hide");
             if ($(this).closest("tr").next("tr").hasClass("hide")) {
@@ -470,23 +399,18 @@
                         // console.log(JSON.stringify(datas.inventoryassignedHtml));
                         //$('#kt_advance_table_widget_3_check tr:last').after(datas.inventoryassignedHtml).slideDown(350);
                         $('#' + ProductID).after(datas.inventoryassignedHtml);
-
                         //$(this).closest("tr").next("tr").children("td").slideDown(350);
                         //$(this).closest("tr").next("tr").children("td").slideDown(350);
                         //$(this).closest('tr').after(datas.inventoryassignedHtml);
                         //$(datas.inventoryassignedHtml).insertAfter($(this).closest('tr'));
-
-
                     },
                     error: function(errorString) {
                         Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                     }
                 });
             }
-
         });
         var numbervar = 1;
-
         function addfield(id) {
             numbervar = numbervar + id;
             var html = '<div class=row id=row_' + numbervar + '>';
@@ -507,14 +431,12 @@
             html +=
                 '<div class="form-group col-lg-2 col-5"><select class="form-control"  onchange="getItemVariant(this.value,' +
                 numbervar + ')"  name="item_id[]" id="item_id_' + numbervar + '">';
-
             html += '<option value="">item</option>';
             html += '</select>';
             html += '</select></div>';
             html +=
                 '<div class="form-group col-lg-2 col-5"><select class="form-control" onchange="getVariantQty(this.value,' +
                 numbervar + ')" name="variant[]" id="variant_id_' + numbervar + '">';
-
             html += '<option value="">Variant</option>';
             html += '</select>';
             html += '</select></div>';
@@ -538,11 +460,9 @@
             $('#newfield').append(html);
             numbervar++;
         }
-
         function removeField(id) {
             $('#row_' + id).remove();
         }
-
         function getDeptItems(depID, line) {
             var form_data = new FormData();
             form_data.append('depID', depID);
@@ -557,7 +477,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(datas) {
-
                     $('#item_id_' + line).empty();
                     $('#item_id_' + line).append(new Option("Select Item", "")).trigger("updated");
                     $.each(datas, function(i, data) {
@@ -571,9 +490,7 @@
                     Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                 }
             });
-
         }
-
         function getItemVariant(itemID, line) {
             var order_id = $('#order_id').val();
             var product_id = $('#product_id').val();
@@ -584,7 +501,6 @@
             form_data.append('itemID', itemID);
             form_data.append('orderID', order_id);
             form_data.append('productID', product_id);
-
             $.ajax({
                 type: "POST",
                 url: "{{ route('getItemVariant') }}", // your php file name
@@ -596,7 +512,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(datas) {
-
                     $('#variant_id_' + line).empty();
                     $('#variant_id_' + line).append(new Option("Select Variant", "")).trigger("updated");
                     $.each(datas, function(i, data) {
@@ -606,15 +521,12 @@
                             text: data.name
                         })).trigger("updated");
                     });
-
-
                 },
                 error: function(errorString) {
                     Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                 }
             });
         }
-
         function getVariantQty(variantID, line) {
             var depID = $('#department_' + line).val();
             var itemID = $('#item_id_' + line).val();
@@ -622,8 +534,6 @@
             form_data.append('depID', depID);
             form_data.append('itemID', itemID);
             form_data.append('variantID', variantID);
-
-
             $.ajax({
                 type: "POST",
                 url: "{{ route('getDeptItemsQty') }}", // your php file name
@@ -635,7 +545,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(datas) {
-
                     $('#qty_id_' + line).empty();
                     $('#qty_id_' + line).val(datas.qty);
                     // $.each(datas, function(i, data) {
@@ -650,11 +559,8 @@
                     Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                 }
             });
-
         }
-
         $(document).on('click', '#btn_assign_inventory', function() {
-
             var order_id = $('#order_id').val();
             var form_data = $("#addForm").serializeArray();
             form_data.push({
@@ -689,11 +595,9 @@
                             "hideMethod": "fadeOut"
                         };
                         toastr.success(data.message);
-
                         setTimeout(function() {
                             window.location.reload();
                         }, 5000);
-
                     } else {
                         Swal.fire("Sorry!", data.message, "error");
                     }
@@ -702,14 +606,10 @@
                     Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                 }
             });
-
         });
-
         function resetForm() {
             document.getElementById("addForm").reset();
         }
-
-
         $(document).on('click', '.qty-plus', function() {
             var id = $(this).data('id');
             var availableQty = $('#qty_id_' + id).val();
@@ -724,13 +624,10 @@
                     var total = parseInt(getval) + parseInt(1);
                     $('#check_qty_' + id).val(total);
                 }
-
             } else {
                 $('#actual_qty_' + id).text('please choose actual quantity first');
             }
-
         });
-
         $(document).on('click', '.qty-minus', function() {
             var id = $(this).data('id');
             var getval = $('#check_qty_' + id).val();
@@ -738,17 +635,11 @@
             if (total > 0 || total == 0) {
                 $('#check_qty_' + id).val(total);
             }
-
         });
-
         $(document).on('click', '#proceed_inventory', function() {
-
             var order_id = $(this).data('id');
             var form_data = new FormData();
             form_data.append('order_id', order_id);
-
-
-
             $.ajax({
                 type: "POST",
                 url: "{{ route('proceedSaleInventory') }}", // your php file name
@@ -779,30 +670,24 @@
                             "hideMethod": "fadeOut"
                         };
                         toastr.success(data.message);
-
                         setTimeout(function() {
                             window.location.reload();
                         }, 5000);
-
                     } else {
                         Swal.fire("Sorry!", data.message, "error");
                     }
-
                 },
                 error: function(errorString) {
                     Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                 }
             });
         });
-
         $(document).on('click', '.remove_invenoty_product', function() {
-
             var ids = $(this).data('id');
             var get_ids = ids.split("~");
             var form_data = new FormData();
             form_data.append('product_id', get_ids[0]);
             form_data.append('log_id', get_ids[1]);
-
             Swal.fire({
                 title: "Are you sure?",
                 text: "You wont be able to revert this!",
@@ -843,7 +728,6 @@
                                 toastr.success(data.message);
                                 $('table#exist_append_items tr#append_' + get_ids[1] + '')
                                     .remove();
-
                             } else {
                                 Swal.fire("Sorry!", data.message, "error");
                             }
@@ -855,9 +739,7 @@
                     });
                 }
             });
-
         });
-
         $(document).on('click', '.update_invenoty_product', function() {
             var ids = $(this).data('id');
             var get_ids = ids.split("~");
@@ -909,8 +791,6 @@
                                     "hideMethod": "fadeOut"
                                 };
                                 toastr.success(data.message);
-
-
                             } else {
                                 Swal.fire("Sorry!", data.message, "error");
                             }
@@ -922,11 +802,7 @@
                     });
                 }
             });
-
         });
-
-
-
         $(document).on('click', '.update_assemble_stauts_btn', function() {
             var status = $(this).attr('data-status');
             var form_data = new FormData();
@@ -956,7 +832,6 @@
                     Swal.fire("Sorry!", "Something went wrong please contact to admin", "error");
                 }
             });
-
         })
     </script>
 @endsection

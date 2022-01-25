@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Order List')
-
 @section('page_level_css_plugin')
     <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
@@ -25,36 +24,23 @@ i.la.la-eye {
 .dataTables_wrapper .dataTable td{
     color: #181C32;
 }
-/* .modal-content{
-    height: 100%;
-    margin-left: 25px;
-} */
-
 .modal-dialog {height: 100%;}
         .error {
             color: red !important;
         }
-
     </style>
 @endsection
 @section('content')
     <div class="d-flex flex-column-fluid">
         <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
             <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Info-->
                 <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Page Title-->
                     <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Order</h5>
-                    <!--end::Page Title-->
-                    <!--begin::Actions-->
                     <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
                     <span class="text-muted font-weight-bold mr-4">Order List</span>
-                    <!--end::Actions-->
                 </div>
-                <!--end::Info-->
             </div>
         </div>
-        <!--begin::Container-->
         <div class="container">
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
@@ -72,7 +58,6 @@ i.la.la-eye {
                                     <input type="text" class="form-control datatable-input" placeholder="Name" data-col-index="0">
                                 </div>
                             </div>
-
                             <div class="col-lg-6 mb-lg-6 mb-2">
                                 <label>&nbsp;</label><br /><button class="btn btn-primary btn-primary--icon" id="kt_search">
                                     <span>
@@ -86,11 +71,9 @@ i.la.la-eye {
                                         <span>Reset</span>
                                     </span>
                                 </button>
-
                             </div>
                         </div>
                     </form>
-                    <!--begin: Datatable-->
                     <table class="table table-bordered table-checkable" id="departmentTableList">
                         <thead>
                         <tr>
@@ -105,14 +88,10 @@ i.la.la-eye {
                         <tbody>
                         </tbody>
                     </table>
-                    <!--end: Datatable-->
                 </div>
             </div>
         </div>
     </div>
-
-
-
     <div class="modal fade" id="staticBackdrop1" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
             <div class="modal-content" style="height: fit-content;">
@@ -124,19 +103,14 @@ i.la.la-eye {
                     </button>
                 </div>
                 <div class="modal-body">
-
                         <div class="form-group row d-flex justify-content-center bg-primary py-3">
                             <label for="total_amount" class="mr-3 col-form-label text-white">Total Amount</label>
                             <div class="">
                                 <input type="text" class="form-control" id="total_amount_order"  readonly>
                             </div>
                         </div>
-
-                    <!--begin::Table-->
                     <div class="table-responsive append_log" >
-
                     </div>
-                    <!--end::Table-->
                 </div>
                 <div class="modal-footer ">
                     <button type="button " class="btn btn-light-primary font-weight-bold " onclick="resetForm()" data-dismiss="modal ">Close</button>
@@ -150,7 +124,6 @@ i.la.la-eye {
     <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/plugins/custom/jqvalidation/jquery.validate.min.js?v=7.0.4') }}"></script>
 @endsection
-
 @section('page_level_js')
     <script>
         jQuery(document).ready(function() {
@@ -174,15 +147,11 @@ i.la.la-eye {
                     // Pagination settings
                     dom: `<'row'<'col-sm-12'tr>> <'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
                     // read more: https://datatables.net/examples/basic_init/dom.html
-
                     lengthMenu: [5, 10, 25, 50],
-
                     pageLength: 10,
-
                     language: {
                         'lengthMenu': 'Display _MENU_',
                     },
-
                     searchDelay: 500,
                     processing: true,
                     serverSide: true,
@@ -190,7 +159,6 @@ i.la.la-eye {
                         url: "{{ route('getAccountantOrderList') }}",
                         type: 'POST',
                         data: {
-
                             // parameters for custom backend script demo
                             columnsDef: [
                                 'id', 'paid_price', 'paid_amount','paid_percentage','created_at'
@@ -225,12 +193,10 @@ i.la.la-eye {
                         [0, "desc"]
                     ]
                 });
-
                 var filter = function() {
                     var val = $.fn.dataTable.util.escapeRegex($(this).val());
                     table.column($(this).data('col-index')).search(val ? val : '', false, false).draw();
                 };
-
                 $('#kt_search').on('click', function(e) {
                     e.preventDefault();
                     var params = {};
@@ -248,7 +214,6 @@ i.la.la-eye {
                     });
                     table.table().draw();
                 });
-
                 $('#kt_reset').on('click', function(e) {
                     e.preventDefault();
                     $('.datatable-input').each(function() {
@@ -258,7 +223,6 @@ i.la.la-eye {
                     });
                     table.table().draw();
                 });
-
                 $('#kt_datepicker').datepicker({
                     todayHighlight: true,
                     format: 'yyyy-mm-dd',
@@ -267,20 +231,14 @@ i.la.la-eye {
                         rightArrow: '<i class="la la-angle-right"></i>',
                     },
                 });
-
             };
-
             return {
-
                 //main function to initiate the module
                 init: function() {
                     initTable();
                 },
-
             };
-
         }();
-
         $(document).on('click', '.preview', function() {
             var id = $(this).data('id');
             var form_data = new FormData();
@@ -307,9 +265,6 @@ i.la.la-eye {
                         "error");
                 }
             });
-
-
-
         });
         $(document).on('click', '#btn_save', function() {
             var validate = $("#addForm").valid();
@@ -378,13 +333,11 @@ i.la.la-eye {
                 });
             }
         });
-
         function resetForm() {
             var form = $("#addForm");
             form[0].reset();
             $('#staticBackdrop1').modal('hide');
             table.ajax.reload();
         }
-
     </script>
 @endsection
