@@ -99,7 +99,7 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                                 <option value="{{$supplier->id}}">{{ucfirst($supplier->name)}}</option> @endforeach </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 mb-lg-2 mb-2 d-flex justify-content-between px-2">
+                                <div class="col-lg-4 mb-lg-2 mb-2 d-flex justify-content-start px-2">
                                     <label>&nbsp;</label>
                                     <br>
                                     <button class="btn btn-primary btn-primary--icon cut_btn_filters w-100 mr-2" id="kt_search"> <span class="d-flex text-center justify-content-center">

@@ -89551,4 +89551,5 @@ th.cust_th_table {
 .cut_btn_filters {
     height: 38px;
     margin-top: 24px;
+    width: 98px !important;
 }
