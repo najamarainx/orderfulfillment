@@ -110,7 +110,7 @@
                     <div class="card-body">
                         <form class="kt-form kt-form--fit">
                             <div class="row mb-6">
-                                <div class="col-lg-3 mb-lg-2 mb-2">
+                                <div class="col-lg-4 mb-lg-2 mb-2">
                                     <label>Select Category:</label>
                                     <select class="form-control datatable-input selectpicker" data-live-search="true" data-col-index="1" id="category_search">
                                         <option value="">Select</option>
@@ -121,21 +121,21 @@
                                         @endif
                                     </select>
                                 </div>
-                                <div class="col-lg-3 mb-lg-2 mb-2">
+                                <div class="col-lg-4 mb-lg-2 mb-2">
                                     <label>Permission Name:</label>
                                     <input type="text" class="form-control datatable-input" placeholder="E.g: test"
                                         data-col-index="2" />
                                 </div>
-                                <div class="col-lg-3 mb-lg-2 mb-2">
+                                <div class="col-lg-4 mb-lg-2 mb-2 d-flex justify-content-between px-2">
                                     <label>&nbsp;</label><br />
-                                    <button class="btn btn-primary btn-primary--icon" id="kt_search">
-                                        <span>
+                                    <button class="btn btn-primary btn-primary--icon cut_btn_filters w-100 mr-2" id="kt_search">
+                                        <span class="d-flex text-center justify-content-center">
                                             <i class="la la-search"></i>
                                             <span>Search</span>
                                         </span>
                                     </button>&#160;&#160;
-                                    <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
-                                        <span>
+                                    <button class="btn btn-secondary btn-secondary--icon cut_btn_filters w-100 ml-2" id="kt_reset">
+                                        <span class="d-flex text-center justify-content-center">
                                             <i class="la la-close"></i>
                                             <span>Reset</span>
                                         </span>
