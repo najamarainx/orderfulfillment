@@ -23,6 +23,7 @@
     @php $statusArray = ['not called', 'confirmed', 'rescheduled', 'not respond', 'cancelled'];
     @endphp
     <style>
+        /* Eye Icon  */
         i.la.la-eye {
     color: #B21F24;
 }
