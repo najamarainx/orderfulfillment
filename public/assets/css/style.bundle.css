@@ -76739,7 +76739,7 @@ code {
 .svg-icon.svg-icon-success svg g [fill] {
     -webkit-transition: fill 0.3s ease;
     transition: fill 0.3s ease;
-    fill: #1BC5BD !important;
+    fill: #B21F24 !important;
 }
 
 .svg-icon.svg-icon-success svg:hover g [fill] {
@@ -89546,4 +89546,9 @@ button#kt_reset,
 
 th.cust_th_table {
     width: 200px !important;
+}
+
+.cut_btn_filters {
+    height: 38px;
+    margin-top: 24px;
 }

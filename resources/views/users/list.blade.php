@@ -101,25 +101,25 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                     <div class="card-body pt-2 pb-0 mt-n3">
                         <form class="kt-form kt-form--fit">
                             <div class="row">
-                                    <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
+                                    <div class="col-lg-2 mb-lg-2 mb-2">
                                         <div class="form-group">
                                             <label>Name:</label>
                                             <input type="text" class="form-control datatable-input" placeholder="Name" data-col-index="1">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
+                                    <div class="col-lg-2 mb-lg-2 mb-2">
                                         <div class="form-group">
                                             <label>Email:</label>
                                             <input type="email" class="form-control datatable-input" placeholder="Email" data-col-index="2">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
+                                    {{-- <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
                                         <div class="form-group">
                                             <label>Phone Number:</label>
                                             <input type="number" class="form-control datatable-input" placeholder="Phone.No" data-col-index="3">
                                         </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
+                                    </div> --}}
+                                    <div class="col-lg-2 mb-lg-2 mb-2">
                                         <div class="form-group">
                                             <label>Role:</label>
                                             <select class="form-control kt_select2_1 datatable-input " id="role_search" data-col-index="4" >
@@ -131,7 +131,7 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                         </div>
                                     </div>
                                     @if(!in_array(Auth::user()->type , $usersTypeArray))
-                                    <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
+                                    <div class="col-lg-2 mb-lg-2 mb-2">
                                         <div class="form-group">
                                             <label>User Type:</label>
                                             <select class="form-control kt_select2_1 datatable-input "id="type_search" data-col-index="5">
@@ -143,16 +143,16 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                         </div>
                                     </div>
                                     @endif
-                                    <div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
+                                    <div class="col-lg-4 mb-lg-2 mb-2 d-flex justify-content-between px-2">
                                         <label>&nbsp;</label><br />
-                                        <button class="btn btn-primary btn-primary--icon" id="kt_search">
-                                        <span>
+                                        <button class="btn btn-primary btn-primary--icon cut_btn_filters w-100 mr-2" id="kt_search">
+                                        <span class="d-flex text-center justify-content-center">
                                             <i class="la la-search"></i>
                                             <span>Search</span>
                                         </span>
                                                 </button>&#160;&#160;
-                                        <button class="btn btn-secondary btn-secondary--icon" id="kt_reset">
-                                        <span>
+                                        <button class="btn btn-secondary btn-secondary--icon cut_btn_filters w-100 ml-2" id="kt_reset">
+                                        <span class="d-flex text-center justify-content-center">
                                             <i class="la la-close"></i>
                                             <span>Reset</span>
                                         </span>
