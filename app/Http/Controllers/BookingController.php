@@ -183,6 +183,10 @@ class BookingController extends Controller
                 "action" => $action
             ];
             }
+        echo "<pre>";
+        print_r($data);
+        echo "</Pre";
+        exit();
         $records["data"] = $data;
         $records["draw"] = $draw;
         $records["recordsTotal"] = $iTotalRecords;

@@ -38,8 +38,10 @@ class MeasurementBookingController extends Controller
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
 
-        $booking = DB::table('orderfulfillment_bookings')->select('orderfulfillment_bookings.*', 'booking_assign.date as assign_date', 'booking_assign.assign_status', 'booking_assign.booking_id', 'booking_assign.id as assign_id', 'ots.booking_from_time', 'ots.booking_to_time')->whereNull('orderfulfillment_bookings.deleted_at')->leftJoin('orderfulfillment_time_slots as ots', 'orderfulfillment_bookings.time_slot_id', 'ots.id')->whereNull('ots.deleted_at');
+        $booking = DB::table('orderfulfillment_bookings')->select('orderfulfillment_bookings.*','payment_order.payment_type as paymenttype', 'orders.id as order_id', 'booking_assign.date as assign_date', 'booking_assign.assign_status', 'booking_assign.booking_id', 'booking_assign.id as assign_id', 'ots.booking_from_time', 'ots.booking_to_time')->whereNull('orderfulfillment_bookings.deleted_at')->leftJoin('orderfulfillment_time_slots as ots', 'orderfulfillment_bookings.time_slot_id', 'ots.id')->whereNull('ots.deleted_at');
         $booking->join('orderfulfillment_booking_assigns as booking_assign', 'orderfulfillment_bookings.id', 'booking_assign.booking_id')->whereNULL('booking_assign.deleted_at');
+        $booking->join('orders as orders', 'orders.booking_id', 'booking_assign.booking_id')->whereNULL('booking_assign.deleted_at');
+        $booking->join('orderfulfillment_payment_logs as payment_order', 'payment_order.order_id', 'orders.id')->whereNULL('booking_assign.deleted_at');
         $booking->whereIn('orderfulfillment_bookings.booking_status', ['confirmed', 'rescheduled']);
 
         // if ($request->status == 'confirmed') {
@@ -85,8 +87,10 @@ class MeasurementBookingController extends Controller
         $booking->skip($start);
         $booking->take($length);
         $bookingData = $booking->get();
+
         $data = [];
         foreach ($bookingData as $bookingObj) {
+
             $categoryName = "";
             if ($bookingObj->category_id != "") {
 
@@ -125,6 +129,13 @@ class MeasurementBookingController extends Controller
             if($bookingObj->assign_status == 'completed'){
                 $assign_status_class = 'label-light-success';
              }
+            if($bookingObj->paymenttype == "company_account"){
+                $payment = "Company Payment";
+            }elseif($bookingObj->paymenttype == "personal_account"){
+                $payment = "Personal Account";
+            }else{
+                $payment = $bookingObj->paymenttype;
+            }
             $data[] = [
                 "id" => $bookingObj->id,
                 "date" => Carbon::parse($bookingObj->assign_date)->format('Y-m-d'),
@@ -132,11 +143,13 @@ class MeasurementBookingController extends Controller
                 "category_id" => $categoryName,
                 "first_name" => $bookingObj->first_name . ' ' . $bookingObj->last_name,
                 "phone_number" => $bookingObj->phone_number,
+                "paymenttype" => $payment,
                 "booking_status" =>  '<span class="badge badge-success badge-pill booking_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->booking_status . '</span>',
                 "assign_status" => '<span class="label label-lg '.$assign_status_class.' label-inline booking_assign_status" style="cursor:pointer" data-id="' . $bookingObj->assign_id . '">' . $bookingObj->assign_status . '</span>',
                 "action" => $action
             ];
         }
+
         $records["data"] = $data;
         $records["draw"] = $draw;
         $records["recordsTotal"] = $iTotalRecords;

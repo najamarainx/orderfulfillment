@@ -93,10 +93,10 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                     <div class="form-group">
-                                        <label>Supplier:</label>
+                                        <label>Company Name:</label>
                                         <select class="form-control kt_select2_1 datatable-input " id="supplier_search" data-col-index="1">
                                             <option value="">Supplier</option> @foreach($suppliers as $supplier)
-                                                <option value="{{$supplier->id}}">{{ucfirst($supplier->name)}}</option> @endforeach </select>
+                                                <option value="{{$supplier->id}}">{{ucfirst($supplier->company_name)}}</option> @endforeach </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 mb-lg-2 mb-2 d-flex justify-content-start px-2">
@@ -117,7 +117,7 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                             <thead>
                             <tr>
                                 <th>Billing ID</th>
-                                <th>Name</th>
+                                <th>Company Name</th>
                                 <th>Total Price(£)</th>
                                 <th>Qty</th>
                                 <th>Created At</th>
@@ -143,10 +143,10 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                 <div class="modal-body" style="height: 300px;">
                     <div class="col-4">
                         <div class="form-group ">
-                            <label>Supplier<span class="text-danger">*</span></label>
+                            <label>Company Name<span class="text-danger">*</span></label>
                             <select class="form-control kt_select2_1" id="supplier_stock_id" name="supplier_stock_id">
                                 <option value="">Supplier</option> @foreach($suppliers as $supplier)
-                                    <option value="{{$supplier->id}}">{{ucfirst($supplier->name)}}</option> @endforeach </select>
+                                    <option value="{{$supplier->id}}">{{ucfirst($supplier->company_name)}}</option> @endforeach </select>
                         </div>
                     </div>
                     <div class="card shadow-sm p-3 mb-5 bg-white rounded">
@@ -273,7 +273,7 @@ a.btn.btn-sm.btn-clean.btn-icon.delete:hover {
                             columns: [{
                                 data: 'id'
                             }, {
-                                data: 'name'
+                                data: 'company_name'
                             },  {
                                 data: 'price'
                             }, {

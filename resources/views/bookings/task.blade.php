@@ -375,6 +375,7 @@ $statusArray = ['pending', 'in progress','completed'];
                             <th>Sr</th>
                             <th>Name</th>
                             <th>Phone No</th>
+                            <th>Payment Type</th>
                             <th>Date</th>
                             <th>Time Slot</th>
                             <th>Category</th>
@@ -509,7 +510,7 @@ var datatable = function() {
                     status: 'confirmed',
                     // parameters for custom backend script demo
                     columnsDef: [
-                        'id', 'date', 'time_slot', 'category_id', 'first_name', 'phone_number',
+                        'id', 'date', 'time_slot', 'category_id', 'first_name', 'phone_number','Payment Type',
                         'assign_status'
                     ],
                 },
@@ -525,6 +526,9 @@ var datatable = function() {
                 },
                 {
                     data: 'phone_number'
+                },
+                {
+                    data: 'paymenttype'
                 },
                 {
                     data: 'date'
