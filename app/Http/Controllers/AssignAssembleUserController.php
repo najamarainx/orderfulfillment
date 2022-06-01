@@ -79,7 +79,10 @@ class AssignAssembleUserController extends Controller
         $sql->skip($start);
         $sql->take($length);
         $orderData = $sql->get();
-
+        echo "<pre>";
+        print_r($orderData);
+        echo "</Pre";
+        exit();
         $data = [];
         foreach ($orderData as $orderObj) {
             $action = "";
