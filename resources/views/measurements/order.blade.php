@@ -385,13 +385,44 @@ input::-webkit-inner-spin-button {
                             <p class="text-danger payment_error"></p>
                             <div class="footer_wrapper_html" style=" {{ !empty($orderDetail) }} ? 'display:block' : 'display:none'">
                                 <div class="row" >
-                                    <div class="col-3"></div>
+                                    <div class="col-2 ">
+                                        <label for="">customer name</label>
+                                        <div class="form-goup text-right">
+                                            <input type="text" name="customer_name" class="form-control border"
+                                                   name="totalPrice" id="customer_name"placeholder="Customer Name"
+                                                   value="" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 ">
+                                        <label for="">customer Email</label>
+                                        <div class="form-goup text-right">
+                                            <input type="email" name="customer_email" class="form-control border"
+                                                   name="totalPrice" id="customer_email" placeholder="Customer Email"
+                                                   value="" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 ">
+                                        <label for="">customer Phone</label>
+                                        <div class="form-goup text-right">
+                                            <input type="text" name="customer_phone_number" class="form-control border"
+                                                   name="totalPrice" id="customer_phone_number" placeholder="Customer Phone#"
+                                                   value="" required>
+                                        </div>
+                                    </div>
                                     <div class="col-2 ">
                                         <label for="">Total Price</label>
                                         <div class="form-goup text-right">
                                             <input type="number" name="order_total_price" class="form-control border" readonly
                                                 name="totalPrice" id="order_total_price"
                                                 value="{{ !empty($orderDetail->total_price) ? $orderDetail->total_price : '' }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-2 ">
+                                        <label for="">Adjustment price</label>
+                                        <div class="form-goup text-right">
+                                            <input type="text" name="adjustment_price" class="form-control border"
+                                                   name="totalPrice" id="adjustment_price" placeholder="Enter Adjustment Price"
+                                                   value="" required>
                                         </div>
                                     </div>
                                     <div class="col-2">

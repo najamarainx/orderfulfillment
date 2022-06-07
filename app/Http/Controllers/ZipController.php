@@ -135,10 +135,6 @@ class ZipController extends Controller
                     $days[] = $chargesObj->sat;
                 }
                 $daysStr = implode(',',$days);
-
-                
-
-
             $data[] = [
                 "Sr" => $i,
                 "Name" => $chargesObj->name,

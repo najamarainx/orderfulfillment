@@ -432,12 +432,7 @@
                                         <input type="email" class="form-control" name="customer_email" id="customer_email" placeholder="Customer Email">
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="form-group mb-4">
-                                        <label class="mb-0">State</label>
-                                        <input type="text" class="form-control" name="state" id="state" placeholder="State">
-                                    </div>
-                                </div>
+
                                 <div class="col-12">
                                     <div class="form-group mb-4">
                                         <label class="mb-0">Country</label>
@@ -466,6 +461,12 @@
                                         <label class="mb-0">Customer postal Code</label>
                                         <input type="text" class="form-control" name="customer_post_code" id="customer_post_code" placeholder="Customer postal Code">
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-4">
+                                    <label class="mb-0">State</label>
+                                    <input type="text" class="form-control" name="state" id="state" placeholder="State">
                                 </div>
                             </div>
                             <div class="row" id="set_ctg">

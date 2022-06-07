@@ -162,19 +162,16 @@ function getZipCode($zipId = -1)
 }
 function getZipCodeByDay($zipId = -1)
 {
-    $date = "2021-02-09";
-    $newDate = date('D', strtotime($date));
-
-    echo $newDate;
-    die();
     $datetime =Carbon::now()->format('D');
     $datetime = strtolower($datetime);
+
     $query = DB::table('orderfulfillment_zip_codes')->whereNull('deleted_at')->where($datetime,$datetime);
 
     if ($zipId > 0) {
         $query->where('id', $zipId);
     }
     $result = $query->get();
+
     return $result;
 }
 function getBookingInfo($bookingID)

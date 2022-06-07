@@ -21,11 +21,9 @@ class BookingController extends Controller
     {
         $category  = getCategory('product', -1, true);
         $zipCode  = getZipCodeByDay();
-            echo "<pre>";
-            print_r($zipCode);
-            echo "</Pre";
-            exit();
+
         $statusArray = getBookingStatus();
+
         $data['totalBookings'] = OrderFulfillmentBooking::whereNull('deleted_at')->whereIn('booking_status',['not called','not respond','cancelled'])->count();
 
         $date = Carbon::now()->format('Y-m-d');
@@ -310,6 +308,7 @@ class BookingController extends Controller
         
         $userId   = OrderFulfillmentUserZipCode::where('zip_id', $request->zipCode)->whereNull('deleted_at')->pluck('user_id')->toArray();
         $timeSlotId = DB::table('orderfulfillment_user_time_slot_assigns')->whereIn('user_id', $userId)->whereNull('deleted_at')->pluck('time_slot_id')->toArray();
+
         $timeSlotDetail = OrderFulfillmentTimeSlot::whereIn('id', $timeSlotId)->get();
 
         if (!($timeSlotDetail->isEmpty())) {
