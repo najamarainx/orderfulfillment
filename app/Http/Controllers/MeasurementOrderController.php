@@ -113,7 +113,7 @@ class MeasurementOrderController extends Controller
             [booking_id] => 17
             [verified_id] => 1
           */
-        
+
         $validate = true;
         $validateInput = $request->all();
         $rules = [
@@ -152,8 +152,8 @@ class MeasurementOrderController extends Controller
                     DB::beginTransaction();
                     if (!empty($request->order_qty)) {
 
-                        $price_percentage = ($request->paid_price / $request->order_total_price) * 100;
-                        if ($request->order_total_price == $request->paid_price) {
+                        $price_percentage = ($request->paid_price / $request->adjustment_price) * 100;
+                        if ($request->adjustment_price == $request->paid_price) {
                             $payment_type = 'full';
                         } else {
                             $payment_type = 'partial';
@@ -165,7 +165,7 @@ class MeasurementOrderController extends Controller
                             'name' => $bookingData->first_name . ' ' . $bookingData->last_name,
                             'email' => $bookingData->email,
                             'phone' => $bookingData->phone_number,
-                            'total_price' => $request->order_total_price,
+                            'total_price' => $request->adjustment_price,
                             'paid_amount' => $request->paid_price,
                             'address' => $bookingData->address,
                             'zip_code' => $request->post_code,
