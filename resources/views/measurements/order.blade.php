@@ -383,8 +383,8 @@ input::-webkit-inner-spin-button {
                                 </tbody>
                             </table>
                             <p class="text-danger payment_error"></p>
-                            <div class="footer_wrapper_html" style=" {{ !empty($orderDetail) }} ? 'display:block' : 'display:none'">
-                                <div class="col-3"></div>
+                            <div class="footer_wrapper_html row" style=" {{ !empty($orderDetail) }} ? 'display:block' : 'display:none'">
+
                                {{-- <div class="row" >
                                     <div class="col-2 ">
                                         <label for="">customer name</label>
