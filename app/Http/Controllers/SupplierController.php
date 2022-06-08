@@ -98,6 +98,7 @@ class SupplierController extends Controller
                 "name" => $supplierObj->name,
                 "company_name" => $supplierObj->company_name,
                 "phone" => $supplierObj->phone,
+                "ordering_portal_url" => $supplierObj->ordering_portal_url,
                 "company_phone" => $supplierObj->company_phone,
                 "address" => $supplierObj->address,
                 "created_at" => Carbon::create($supplierObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
@@ -120,6 +121,8 @@ class SupplierController extends Controller
             'name' => 'required|max:150',
             'company_name' => 'required',
             'phone_no' => 'required',
+            'company_website' => 'required',
+            'ordering_portal_url' => 'required',
             'company_phone_no' => 'required',
             'address' => 'required',
 
@@ -145,6 +148,8 @@ class SupplierController extends Controller
             $supplier->name = $request->name;
             $supplier->company_name = $request->company_name;
             $supplier->phone = $request->phone_no;
+            $supplier->company_website = $request->company_website;
+            $supplier->ordering_portal_url = $request->ordering_portal_url;
             $supplier->company_phone = $request->company_phone_no;
             $supplier->address = $request->address;
             $supplierData  = $supplier->save();

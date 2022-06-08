@@ -78,10 +78,12 @@ class ZipController extends Controller
         $charges->skip($start);
         $charges->take($length);
         $chargesData = $charges->get();
+
         $data = [];
         $i = 1;
         foreach ($chargesData as $chargesObj) {
             $action = "";
+            $days = [];
             $action .= '<a href="' . url('user-time-slot/detail') . '/' . $chargesObj->id . '" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 preview" data-id="' . $chargesObj->id . '">
             <i class="la la-eye"></i>';
             $action .= '<a href="javascript:;" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3 edit" data-id="' . $chargesObj->id . '">
@@ -111,15 +113,38 @@ class ZipController extends Controller
                     <!--end::Svg Icon-->
                 </span>
             </a>';
-
+                if ($chargesObj->sun == 'sun'){
+                    $days[] = $chargesObj->sun;
+                }
+                if ($chargesObj->mon == 'mon'){
+                    $days[] = $chargesObj->mon;
+                }
+                if ($chargesObj->tue == 'tue'){
+                $days[] = $chargesObj->tue;
+                }
+                if ($chargesObj->wed == 'wed'){
+                $days[] = $chargesObj->wed;
+                }
+                if ($chargesObj->thu == 'thu'){
+                    $days[] = $chargesObj->thu;
+                }
+                if ($chargesObj->fri == 'fri'){
+                    $days[] = $chargesObj->fri;
+                }
+                if ($chargesObj->sat == 'sat'){
+                    $days[] = $chargesObj->sat;
+                }
+                $daysStr = implode(',',$days);
             $data[] = [
                 "Sr" => $i,
                 "Name" => $chargesObj->name,
+                "Days" => $daysStr,
                 "created_at" => Carbon::create($chargesObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
                 "action" => $action
             ];
             $i++;
         }
+
         $records["data"] = $data;
         $records["draw"] = $draw;
         $records["recordsTotal"] = $iTotalRecords;
@@ -158,6 +183,13 @@ class ZipController extends Controller
             }
 
             $zip->name = $request->name;
+            $zip->sat = $request->sat;
+            $zip->sun = $request->sun;
+            $zip->mon = $request->mon;
+            $zip->tue = $request->tue;
+            $zip->wed = $request->wed;
+            $zip->thu = $request->thu;
+            $zip->fri = $request->fri;
             $zip->created_by = Auth::user()->id;
             $query = $zip->save();
             $return = [

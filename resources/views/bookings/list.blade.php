@@ -432,12 +432,7 @@
                                         <input type="email" class="form-control" name="customer_email" id="customer_email" placeholder="Customer Email">
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="form-group mb-4">
-                                        <label class="mb-0">State</label>
-                                        <input type="text" class="form-control" name="state" id="state" placeholder="State">
-                                    </div>
-                                </div>
+
                                 <div class="col-12">
                                     <div class="form-group mb-4">
                                         <label class="mb-0">Country</label>
@@ -464,8 +459,14 @@
                                 <div class="col-12">
                                     <div class="form-group mb-4">
                                         <label class="mb-0">Customer postal Code</label>
-                                        <input type="number" class="form-control" name="customer_post_code" id="customer_post_code" placeholder="Customer postal Code">
+                                        <input type="text" class="form-control" name="customer_post_code" id="customer_post_code" placeholder="Customer postal Code">
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-4">
+                                    <label class="mb-0">State</label>
+                                    <input type="text" class="form-control" name="state" id="state" placeholder="State">
                                 </div>
                             </div>
                             <div class="row" id="set_ctg">
@@ -576,6 +577,7 @@
                         {
                             data: 'phone_number'
                         },
+
                         {
                             data: 'date'
                         },
@@ -806,7 +808,7 @@
                         var id = rec.id;
                         var first_name = rec.first_name;
                         var last_name = rec.last_name;
-                        name = first_name+' '+ (last_name ? last_name  : '');
+                        var name = first_name+' '+ (last_name ? last_name  : '');
                         var date = rec.date;
                         var category_id  = rec.category_id ;
                         var time_slot_id = rec.time_slot_id;

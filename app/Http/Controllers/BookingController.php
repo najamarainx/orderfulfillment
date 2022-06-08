@@ -20,8 +20,10 @@ class BookingController extends Controller
     public function index()
     {
         $category  = getCategory('product', -1, true);
-        $zipCode  = getZipCode();
+        $zipCode  = getZipCodeByDay();
+
         $statusArray = getBookingStatus();
+
         $data['totalBookings'] = OrderFulfillmentBooking::whereNull('deleted_at')->whereIn('booking_status',['not called','not respond','cancelled'])->count();
 
         $date = Carbon::now()->format('Y-m-d');
@@ -29,6 +31,7 @@ class BookingController extends Controller
 
         $data['categories'] = $category;
         $data['zipCode'] = $zipCode;
+
         return view('bookings.list', $data);
     }
     public function getList(Request $request)
@@ -183,6 +186,7 @@ class BookingController extends Controller
                 "action" => $action
             ];
             }
+
         $records["data"] = $data;
         $records["draw"] = $draw;
         $records["recordsTotal"] = $iTotalRecords;
@@ -301,9 +305,12 @@ class BookingController extends Controller
 
     public function getTimeSlotByZipCode(Request $request)
     {
+        
         $userId   = OrderFulfillmentUserZipCode::where('zip_id', $request->zipCode)->whereNull('deleted_at')->pluck('user_id')->toArray();
         $timeSlotId = DB::table('orderfulfillment_user_time_slot_assigns')->whereIn('user_id', $userId)->whereNull('deleted_at')->pluck('time_slot_id')->toArray();
+
         $timeSlotDetail = OrderFulfillmentTimeSlot::whereIn('id', $timeSlotId)->get();
+
         if (!($timeSlotDetail->isEmpty())) {
             $date = Carbon::now()->format('Y-m-d');
             $dt = [
@@ -318,7 +325,7 @@ class BookingController extends Controller
 
             $result = ['status' => 'success', 'timeSlotHtml' => $timeSlotHtml,'zipCode'=>$request->zipCode];
         } else {
-            $result = ['status' => 'error', 'message' => 'Something went wrong'];
+            $result = ['status' => 'error', 'message' => 'No slot available against this post code'];
         }
         return response()->json($result);
     }

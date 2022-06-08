@@ -224,7 +224,7 @@ class UserController extends Controller
                 $rules['email'] = 'required|unique:orderfulfillment_users,email';
             }
             if ($phoneNumber != $user->phone_number) {
-                $rules['phone_number'] = 'required|unique:orderfulfillment_users,phone_number';
+                $rules['phone'] = 'required|unique:orderfulfillment_users,phone_number';
             }
         } else {
 

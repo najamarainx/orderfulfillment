@@ -33,6 +33,8 @@ class SupplierStockController extends Controller
             'totalItems' => $bills->count(),
 
         ];
+
+
         return view('stocks.list', $dt);
     }
 
@@ -56,7 +58,7 @@ class SupplierStockController extends Controller
                 if ($col == 'id') {
                     $bills->where('orderfulfillment_stock_orders.' . $col, $search);
                 }
-                if ($col == 'name') {
+                if ($col == 'company_name') {
                     $colpp = 'id';
                     $bills->where('orderfulfillment_suppliers.' . $colpp, $search);
                 }
@@ -131,6 +133,7 @@ class SupplierStockController extends Controller
             ];
             $i++;
         }
+
         $records["data"] = $data;
         $records["draw"] = $draw;
         $records["recordsTotal"] = $iTotalRecords;

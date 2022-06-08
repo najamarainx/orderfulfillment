@@ -94,6 +94,7 @@ i.la.la-eye {
                             <tr>
                                 <th>Sr</th>
                                 <th>Code</th>
+                                <th>Days</th>
                                 <th>Created At</th>
                                 <th>action</th>
                             </tr>
@@ -123,6 +124,64 @@ i.la.la-eye {
                             <div class="form-group">
                                 <input type="text" name="name" id="name" class="form-control" placeholder="Post Code">
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label class="checkbox-inline">
+                                <label class="checkbox checkbox-square checkbox-danger">
+                                    <input type="checkbox" id="sat" name="sat" value="sat" ><span></span>
+                                    Saturday
+                                </label>
+                            </label>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="checkbox-inline">
+                                <label class="checkbox checkbox-square checkbox-danger">
+                                    <input type="checkbox" id="sun"  name="sun" value="sun" ><span></span>
+                                    Sunday
+                                </label>
+                            </label>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="checkbox-inline">
+                                <label class="checkbox checkbox-square checkbox-danger">
+                                    <input type="checkbox" id="mon" name="mon" value="mon" ><span></span>
+                                    Monday
+                                </label>
+                            </label>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="checkbox-inline">
+                                <label class="checkbox checkbox-square checkbox-danger">
+                                    <input type="checkbox" id="tue" name="tue" value="tue" ><span></span>
+                                    Tuesday
+                                </label>
+                            </label>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="checkbox-inline">
+                                <label class="checkbox checkbox-square checkbox-danger">
+                                    <input type="checkbox" id="wed" name="wed" value="wed" ><span></span>
+                                    Wednesday
+                                </label>
+                            </label>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="checkbox-inline">
+                                <label class="checkbox checkbox-square checkbox-danger">
+                                    <input type="checkbox" id="thu" name="thu" value="thu" ><span></span>
+                                    Thursday
+                                </label>
+                            </label>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="checkbox-inline">
+                                <label class="checkbox checkbox-square checkbox-danger">
+                                    <input type="checkbox" id="fri" name="fri" value="fri" ><span></span>
+                                    Friday
+                                </label>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -174,7 +233,7 @@ var datatable = function() {
                 data: {
                     // parameters for custom backend script demo
                     columnsDef: [
-                        'Sr', 'Name', 'created_at'
+                        'Sr', 'Name', 'Days', 'created_at'
                     ],
                 },
                 headers: {
@@ -186,6 +245,9 @@ var datatable = function() {
                 },
                 {
                     data: 'Name'
+                },
+                {
+                    data: 'Days'
                 },
                 {
                     data: 'created_at'
@@ -352,6 +414,13 @@ jQuery(document).ready(function() {
                     var name = rec.name;
                     $('#id').val(id);
                     $('#name').val(name);
+                    $("#sun").prop("checked", rec.sun);
+                    $("#mon").prop("checked", rec.mon);
+                    $("#tue").prop("checked", rec.tue);
+                    $("#wed").prop("checked", rec.wed);
+                    $("#thu").prop("checked", rec.thu);
+                    $("#fri").prop("checked", rec.fri);
+                    $("#sat").prop("checked", rec.sat);
                 } else {
                     Swal.fire("Sorry!", data.message, "error");
                 }

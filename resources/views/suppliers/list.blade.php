@@ -92,6 +92,7 @@
                                 <th>Sr</th>
                                 <th>Name</th>
                                 <th>Company Name</th>
+                                <th>Portal URL</th>
                                 <th>Phone No</th>
                                 <th>Company Phone No</th>
                                 <th>Company Address</th>
@@ -141,6 +142,21 @@
                                 <div class="form-group">
                                     <label for="phone_no">Company Phone No <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" id="company_phone_no" name="company_phone_no" placeholder="Company Phone No(UK)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <input type="hidden" name="id" id="id">
+                                    <label for="name">Company website<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="company_website" name="company_website" placeholder="Company website">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="company_name">Ordering portal URL <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="ordering_portal_url" name="ordering_portal_url" placeholder="Ordering portal URL">
                                 </div>
                             </div>
                         </div>
@@ -202,7 +218,7 @@
                         data: {
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id', 'name', 'company_name','phone','company_phone','address'
+                                'id', 'name', 'company_name','phone', 'Portal URL','company_phone','address'
                             ],
                         },
                         headers: {
@@ -217,6 +233,9 @@
                         },
                         {
                             data: 'company_name'
+                        },
+                        {
+                            data: 'ordering_portal_url'
                         },
                         {
                             data: 'phone'

@@ -101,6 +101,19 @@ class MeasurementOrderController extends Controller
 
     public function storeMeasurementOrder(Request $request)
     {
+
+        /*
+         *  [customer_name] => Khuzaima ch
+            [customer_email] => aamir@gmail.com
+            [customer_phone_number] => 03006982454
+            [order_total_price] => 30.4
+            [adjustment_price] => 34.4
+            [paid_price] => 30
+            [payment_type] => cash
+            [booking_id] => 17
+            [verified_id] => 1
+          */
+        
         $validate = true;
         $validateInput = $request->all();
         $rules = [

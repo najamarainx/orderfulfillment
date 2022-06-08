@@ -18,7 +18,7 @@
     <link href="{{asset('assets/css/themes/layout/brand/dark.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/themes/layout/aside/dark.css')}}" rel="stylesheet" type="text/css" />
 <style> .bg_1 {
-            background-image: url(assets/media/bg/bg1.jpg);
+            background-image: url('assets/media/bg/bg1.jpg');
             background-repeat: no-repeat;
             background-size: 100% 100%;
         }
@@ -37,6 +37,8 @@
         }
         .logo_max_h{
             max-height: 47px !important;
+        }img.cust_logo_login {
+            border-radius: 10px;
         }
         </style>
 </head>
@@ -49,7 +51,7 @@
                             <!--begin:Aside Content-->
                             <div class="text-dark-75">
                                 <a href="#">
-                                    <img src="assets/media/logos/loginlogo.png" class="max-height bg" alt="" />
+                                    <img src="{{asset('assets/media/logos/loginlogo.png')}}" class="max-height bg cust_logo_login" alt="" />
                                 </a>
                             </div>
                             <!--end:Aside Content-->
