@@ -80,6 +80,7 @@ i.la.la-eye {
                             <th>Order ID</th>
                             <th>Total Amount(£)</th>
                             <th>Receiving Amount(£)</th>
+                            <th>Payment Type</th>
                             <th>Percentage</th>
                             <th>Created At</th>
                             <th>Actions</th>
@@ -161,7 +162,7 @@ i.la.la-eye {
                         data: {
                             // parameters for custom backend script demo
                             columnsDef: [
-                                'id', 'paid_price', 'paid_amount','paid_percentage','created_at'
+                                'id', 'paid_price', 'paid_amount','paymenttype','paid_percentage','created_at'
                             ],
                         },
                         headers: {
@@ -176,6 +177,9 @@ i.la.la-eye {
                         },
                         {
                             data: 'paid_amount'
+                        },
+                        {
+                            data: 'paymenttype'
                         },
                         {
                             data: 'paid_percentage'

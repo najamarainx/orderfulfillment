@@ -165,6 +165,8 @@
                                         <tbody>
                                             @if(!$bookingDetail->bookingOrder->orderdetail->isEmpty())
                                             @foreach ($bookingDetail->bookingOrder->orderdetail as $orderDetailObj)
+
+
                                             <tr id="2" class="sub-container">
                                                 <td class="pl-0">
                                                     <a href="#"

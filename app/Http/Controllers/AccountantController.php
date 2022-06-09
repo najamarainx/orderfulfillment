@@ -19,6 +19,7 @@ class AccountantController extends Controller
         $sql->where('orders.paid_percentage','!=',100);
         $sql->whereNULL('orders.deleted_at');
         $totalItems = $sql->count();
+
         return view('accountant.list',compact('totalItems'));
 
     }
@@ -34,7 +35,8 @@ class AccountantController extends Controller
         $sortColumnName = $request->columns[$sortColumnIndex]['data']; // Column name
         $sortColumnSortOrder = $request->order[0]['dir']; // asc or desc
         $columns = $request->columns;
-        $sql = Order::select('orders.*')->where('orders.payment', 'verified');
+        $sql = Order::select('orders.*', 'payment_order.payment_type as paymenttype')->where('orders.payment', 'verified');
+        $sql->leftjoin('orderfulfillment_payment_logs as payment_order', 'payment_order.order_id', 'orders.id');
         $sql->where('orders.store_id',1);
         $sql->where('orders.paid_percentage','!=',100);
         $sql->whereNULL('orders.deleted_at');
@@ -85,6 +87,7 @@ class AccountantController extends Controller
                 "id" => $orderObj->id,
                 "paid_price" => !empty($orderObj->total_price) ? '£'.$orderObj->total_price : '',
                 "paid_amount" => !empty($orderObj->paid_amount) ? '£'.$orderObj->paid_amount : '',
+                "paymenttype" => !empty($orderObj->paymenttype) ? $orderObj->paymenttype : '',
                 "paid_percentage" => '<span class="label label-lg '.$orderItem_status_class.'  label-inline">'. $orderObj->paid_percentage.'</span>',
                 "created_at" => Carbon::create($orderObj->created_at)->format(config('app.date_time_format', 'M j, Y, g:i a')),
                 "action" => $action
