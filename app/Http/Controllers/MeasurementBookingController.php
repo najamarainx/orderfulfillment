@@ -225,6 +225,10 @@ class MeasurementBookingController extends Controller
             if ($bookingObj->category_id != "") {
 
                 $category = DB::table('categories')->whereNull('deleted_at')->find($bookingObj->category_id);
+                echo "<pre>";
+                print_r($category);
+                echo "</Pre";
+                exit();
                 $categoryName = $category->name;
             }
             $action = "";
