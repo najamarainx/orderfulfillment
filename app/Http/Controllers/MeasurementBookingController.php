@@ -225,11 +225,12 @@ class MeasurementBookingController extends Controller
             if ($bookingObj->category_id != "") {
 
                 $category = DB::table('categories')->whereNull('deleted_at')->find($bookingObj->category_id);
-                echo "<pre>";
-                print_r($category);
-                echo "</Pre";
-                exit();
-                $categoryName = $category->name;
+               if (!empty($category)){
+                   $categoryName = $category->name;
+               }else{
+                   $categoryName = '';
+               }
+
             }
             $action = "";
             if ($request->status == 'confirmed' && $bookingObj->assign_status !='pending') {
