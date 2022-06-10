@@ -263,7 +263,7 @@ class MeasurementBookingController extends Controller
                 "id" => $bookingObj->id,
                 "date" => Carbon::parse($bookingObj->assign_date)->format('Y-m-d'),
                 "time_slot" => Carbon::create($bookingObj->booking_from_time)->format('H:ia') . ' ' . Carbon::create($bookingObj->booking_to_time)->format('H:ia'),
-                "category_id" => $categoryName,
+                "category_id" => !empty($categoryName)? $categoryName : '',
                 "first_name" => $bookingObj->first_name . ' ' . $bookingObj->last_name,
                 "phone_number" => $bookingObj->phone_number,
                 "booking_status" =>  '<span class="badge badge-success badge-pill booking_status" style="cursor:pointer" data-id="' . $bookingObj->id . '">' . $bookingObj->booking_status . '</span>',
