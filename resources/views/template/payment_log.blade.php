@@ -8,6 +8,8 @@
         <th style="min-width: 120px ">Received By</th>
         <th class="text-info " style="min-width: 150px ">Designation
         </th>
+        <th class="text-info " style="min-width: 150px ">Payment Type
+        </th>
         <th class="text-info " style="min-width: 150px ">Amount Received(£)</th>
         <th class="text-info " style="min-width: 50px ">Payment Verify</th>
     </tr>
@@ -26,6 +28,9 @@
                     </td>
                     <td>
                         {{ucfirst($paymentLog->type)}}
+                    </td>
+                    <td class="pl-0 py-8 ">
+                        {{ucfirst($paymentLog->payment_type)}}
                     </td>
                     <td>
                         £{{$paymentLog->paid_amount}}

@@ -117,6 +117,7 @@ class AccountantController extends Controller
         $paymeentLogHtml = View::make('template.payment_log', $dt)->render();
         $data['paymeentLogHtml'] = $paymeentLogHtml;
         $data['totalAmount'] = $orderdetail[1];
+
         return response()->json($data);
 
     }
